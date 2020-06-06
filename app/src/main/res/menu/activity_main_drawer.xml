@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    tools:showIn="navigation_view">
+    <group
+        android:id="@+id/nav_group_home"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/icons8_home_128px"
+            android:iconTint="@color/colorPrimaryDark"
+            android:iconTintMode="src_in"
+            android:title="Home"
+            />
+    </group>
+    <group
+        android:id="@+id/nav_group_profile"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/icons8_male_user_240px"
+            android:title="Profile"
+            />
+    </group>
+    <group
+        android:id="@+id/nav_group_wallet"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_wallet"
+            android:icon="@drawable/icons8_coin_wallet_96px"
+
+            android:title="Wallet"
+            />
+    </group>
+    <group
+
+        android:id="@+id/nav_group_mpin"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_mpin"
+            android:icon="@drawable/icons8_good_pincode_240px"
+
+            android:title="Generate MPIN" />
+    </group>
+    <group
+        android:id="@+id/nav_group_history"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/icons8_order_history_100px"
+
+
+            android:title="History" />
+    </group>
+
+    <group
+        android:id="@+id/nav_group_rates"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_gameRates"
+            android:icon="@drawable/icons8_coins_100px"
+
+            android:title="Game Rates" />
+    </group>
+    <group
+        android:id="@+id/nav_group_play"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_how_toPlay"
+            android:icon="@drawable/icons8_play_128px"
+
+            android:title="How To Play"
+            />
+    </group>
+    <group
+        android:id="@+id/nav_group_notice"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_noticeBoard"
+            android:icon="@drawable/icons8_bulleted_list_128px"
+
+            android:title="Notice Board/Rules" />
+    </group>
+    <group
+        android:id="@+id/nav_group_logout"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/icons8_logout_rounded_up_128px"
+
+            android:title="Logout" />
+    </group>
+
+
+
+</menu>

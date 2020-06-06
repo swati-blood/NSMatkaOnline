@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:id="@+id/main_layout"
+
+    tools:context=".Activity.LoginActivity">
+
+
+
+
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:src="@drawable/logo"
+
+        android:padding="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+
+        />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-30dp"
+        android:layout_below="@id/appLogo"
+
+
+      >
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+
+
+            android:padding="0dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+
+
+            >
+
+
+            <EditText
+                android:id="@+id/etUser"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+
+                android:padding="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="-2dp"
+
+                android:background="@drawable/gradient_button"
+                android:backgroundTint="@color/white"
+                android:drawableLeft="@drawable/icons8_touchscreen_24px"
+                android:drawableTint="@color/colorAccent"
+                android:drawablePadding="10dp"
+                android:hint="Phone number"
+                android:textSize="16dp"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textColor="@color/iconColor"
+                android:textColorHint="@color/textColor"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+
+            android:padding="0dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_below="@id/relativeLayout2"
+
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+               android:id="@+id/etPass"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="-2dp"
+                android:background="@drawable/gradient_button"
+                android:backgroundTint="@color/white"
+                android:drawableLeft="@drawable/icons8_key_2_24px"
+                android:drawableTint="@color/colorAccent"
+                android:drawablePadding="10dp"
+                android:hint="Password"
+                android:textSize="16dp"
+                android:textColor="@color/textColor"
+                android:textColorHint="@color/textColor"
+                android:inputType="textPassword"/>
+        </RelativeLayout>
+
+
+
+
+        <Button
+            android:id="@+id/login_login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:background="@drawable/gradient_button"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:layout_below="@id/relativeLayout3"/>
+
+        <Button
+            android:id="@+id/login_mpilogin_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login With MPIN"
+            android:textAllCaps="false"
+            android:background="@drawable/gradient_button"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/login_login_btn"/>
+
+        <Button
+            android:id="@+id/login_register_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Register Now"
+            android:background="@drawable/gradient_button"
+            android:textAllCaps="false"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/login_mpilogin_btn"/>
+
+
+        <RelativeLayout
+            android:layout_below="@id/login_register_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp">
+            <Button
+                android:id="@+id/btnForgetPass"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:text="Forget Password?"
+                android:background="@android:color/transparent"
+                android:textSize="12dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:paddingLeft="5dp"
+                android:paddingRight="3dp"/>
+            <Button
+                android:id="@+id/btnForgetUserId"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:text="Forget User Name?"
+                android:background="@android:color/transparent"
+                android:textSize="12dp"
+                android:textColor="@color/colorPrimaryDark"
+
+                android:layout_marginRight="30dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="3dp"
+
+                />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

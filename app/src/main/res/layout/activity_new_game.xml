@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".Activity.NewGameActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimaryDark">
+            <TextView
+                android:id="@+id/txtBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_keyboard_backspace_black_24dp"/>
+
+            <TextView
+                android:id="@+id/board"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Dhani Night -Single Digits Board"
+                android:layout_toRightOf="@id/txtBack"
+                android:layout_marginLeft="20dp"
+                android:ellipsize="marquee"
+                android:fadingEdge="horizontal"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textSize="17dp"
+                android:textColor="@color/textColor"/>
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:paddingTop="5dp"
+                android:orientation="vertical"
+              >
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:background="@android:color/transparent">
+
+                    <TextView
+                        android:id="@+id/opensingle"
+                        android:layout_margin="5dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:text="Open \nSingle"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textSize="16dp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:background="@drawable/circle"
+                        />
+
+                    <TextView
+                        android:id="@+id/closesingle"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:text="Close \n Single"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textSize="16dp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:background="@drawable/circle"
+                       android:layout_toRightOf="@+id/opensingle"
+                        android:layout_margin="@dimen/_5sdp"
+                        />
+                    <TextView
+                        android:id="@+id/jodi"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:text="Jodi"
+                        android:layout_margin="5dp"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textSize="16dp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:background="@drawable/circle"
+                       android:layout_toRightOf="@+id/closesingle"
+
+                        android:visibility="visible"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:background="@android:color/transparent">
+
+                    <TextView
+                        android:id="@+id/opensinglepatti"
+android:layout_margin="5dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:text="Open Single\n Patti"
+                        android:textAlignment="center"
+                        android:gravity="center"
+
+                        android:textSize="16dp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:background="@drawable/circle"
+                        />
+
+                    <TextView
+                        android:id="@+id/opendoublepatti"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_margin="5dp"
+                        android:text="Open Double \n Patti"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textSize="16dp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:background="@drawable/circle"
+                        android:layout_toRightOf="@id/opensinglepatti"
+                        />
+                    <TextView
+                        android:id="@+id/opentriplepatti"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:text="Open Tripple\n Patti"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textSize="16dp"
+                        android:layout_margin="5dp"
+                        android:layout_toRightOf="@id/opendoublepatti"
+                        android:fontFamily="serif"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:background="@drawable/circle"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/relativeLayout8"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="20dp">
+
+
+
+                    <TextView
+                        android:id="@+id/opencyclepatti"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:text="Open Cycle\n Patti"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textSize="16dp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold"
+                        android:layout_margin="5dp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/circle"
+
+                        />
+                    <TextView
+                        android:id="@+id/closesinglepatti"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_margin="5dp"
+                        android:layout_toRightOf="@id/opencyclepatti"
+                        android:text="Close Single \n Patti"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textSize="16dp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:background="@drawable/circle"
+                        />
+                    <TextView
+                        android:id="@+id/closedoublepatti"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:text="Close Double\n Patti"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textSize="16dp"
+                        android:layout_margin="5dp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:background="@drawable/circle"
+                    android:layout_toRightOf="@id/closesinglepatti"
+                        />
+                </RelativeLayout>
+
+
+
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/relativeLayout9">
+
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_marginTop="20dp"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/closetriplepatti"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_margin="5dp"
+                        android:text="Close Tripple \n Patti"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textSize="16dp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:background="@drawable/circle"
+                        />
+
+                    <TextView
+                        android:id="@+id/closecyclepatti"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_margin="5dp"
+                        android:text="Close Cycle \n Patti"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textSize="16dp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:background="@drawable/circle"
+                        android:layout_toRightOf="@id/closetriplepatti"
+                        />
+                    <TextView
+                        android:id="@+id/halfsangm"
+
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:text="Half \n Sangam"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textSize="16dp"
+                         android:layout_margin="5dp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_toRightOf="@id/closecyclepatti"
+                        android:background="@drawable/circle"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:background="@android:color/transparent">
+
+
+
+                    <TextView
+                        android:id="@+id/fullsangm"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:text="Full \n Sangam"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textSize="16dp"
+                        android:layout_margin="5dp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:background="@drawable/circle"
+
+                        />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</RelativeLayout>

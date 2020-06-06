@@ -1,0 +1,129 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="in.games.nidhimatka.Fragments.HowToPLayFragment">
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.cardview.widget.CardView
+
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            android:layout_margin="10dp"
+
+            android:layout_marginTop="10dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+                <TextView
+                    android:id="@+id/w1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="How to play"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="italic|bold"/>
+                <View
+                    android:id="@+id/lw1"
+                    android:layout_below="@id/w1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="2dp"/>
+                <TextView
+                    android:id="@+id/w2"
+                    android:layout_below="@id/lw1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textSize="18dp"
+                    android:textAlignment="center"
+                    android:text="Withdraw will be accepted from 10:00am till 3:00pm and amount will be credited within 24hrs. Withdrawal is not available on Sunday and on Bank Holidays.\n For Funds Withdrawal Query Contact"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="italic"/>
+
+
+                <TextView
+                    android:id="@+id/w3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/w2"
+                    android:textSize="18dp"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="Youtube Link"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="italic|bold"/>
+
+                <View
+                    android:id="@+id/lw2"
+                    android:layout_below="@id/w3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="2dp"/>
+
+                <RelativeLayout
+                    android:id="@+id/rel_click"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/w3"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+
+                        android:id="@+id/img"
+
+                        android:layout_width="110dp"
+                        android:layout_height="100dp"
+
+
+                        />
+                    <TextView
+                        android:id="@+id/link"
+
+                        android:layout_toRightOf="@id/img"
+                        android:textSize="20dp"
+
+                        android:layout_width="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="italic"
+                        android:paddingLeft="10dp"
+
+                        android:text="http://"/>
+
+                </RelativeLayout>
+
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</ScrollView>
+
+</FrameLayout>

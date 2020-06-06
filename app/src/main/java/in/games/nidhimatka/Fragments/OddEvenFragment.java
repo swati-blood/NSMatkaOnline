@@ -1,0 +1,207 @@
+package in.games.nidhimatka.Fragments;
+
+import android.app.Dialog;
+import android.os.Bundle;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.rey.material.widget.CheckBox;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import in.games.nidhimatka.Adapter.TableAdaper;
+import in.games.nidhimatka.Common.Common;
+import in.games.nidhimatka.Model.TableModel;
+import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.LoadingBar;
+
+public class OddEvenFragment extends Fragment implements View.OnClickListener {
+    Common common;
+    ListView listView;
+    List<TableModel> list;
+    TableAdaper tableAdaper;
+    RadioGroup rd_group;
+    public static Button btnAdd,btnSave,btnType,btnGameType;
+    private EditText etDgt,etPnt;
+    String matName="";
+    private EditText etPoints;
+    LoadingBar progressDialog;
+    TextView btnDelete;
+    CheckBox chkOdd,chkEven;
+    private int stat=0;
+    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "close";
+    private TextView txt_date,txt_type;
+    String bet_date="";
+    private String bet_status="";
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+       View view = inflater.inflate(R.layout.fragment_odd_even, container, false);
+       return view;
+    }
+    void intiView(View v)
+    {
+        txt_date = v.findViewById(R.id.tv_date);
+        txt_type = v.findViewById(R.id.tv_type);
+
+        btnAdd=(Button)v.findViewById(R.id.digit_add);
+        btnSave=(Button)v.findViewById(R.id.digit_save);
+        chkOdd=v.findViewById(R.id.oddDigits);
+        chkEven=v.findViewById(R.id.evenDigits);
+        etDgt=(AutoCompleteTextView)v.findViewById(R.id.etSingleDigit);
+        etPoints=(EditText)v.findViewById(R.id.etPoints);
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        TextView txtWalet=  toolbar.findViewById(R.id.txtWallet);
+        etPoints=(EditText)v.findViewById(R.id.etPoints);
+        common = new Common(getActivity());
+        progressDialog = new LoadingBar(getActivity());
+        matka_name = getArguments().getString("matka_name");
+        game_name = getArguments().getString("game_name");
+        matka_id = getArguments().getString("m_id");
+        game_id = getArguments().getString("game_id");
+        s_time = getArguments().getString("start_time");
+        e_time = getArguments().getString("end_time");
+        w_amount = txtWalet.getText().toString();
+        list=new ArrayList<>();
+        btnAdd.setOnClickListener(this);
+        btnSave.setOnClickListener(this);
+        chkEven.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(list.size()>0)
+                {
+                    list.clear();
+
+                }
+                if(chkOdd.isChecked())
+                {
+                    chkOdd.setChecked(false);
+                    chkEven.setChecked(true);
+                }
+                else
+                {
+                    chkEven.setChecked(true);
+                }
+
+            }
+        });
+
+        common.currentDateDay(btnGameType);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+    if (v.getId()==R.id.digit_add)
+    {
+
+        String bet=type;
+
+      if(TextUtils.isEmpty(etPoints.getText().toString()))
+        {
+            etPoints.setError("Please enter some point");
+            etPoints.requestFocus();
+            return;
+
+        }
+
+
+
+        else
+        {
+            int pints=Integer.parseInt(etPoints.getText().toString().trim());
+            if(pints<10)
+            {
+                //  Toast.makeText(OddEvenActivity.this,"",Toast.LENGTH_LONG).show();
+
+                etPoints.setError("Minimum Biding amount is 10");
+                etPoints.requestFocus();
+                return;
+
+
+            }
+            else
+            {
+                String th=null;
+                if(stat==1)
+                {
+                    th="open";
+                }
+                else if(stat==2)
+                {
+                    if(bet.equals("open"))
+                    {
+                        th="open";
+                    }
+                    else  if(bet.equals("close"))
+                    {
+                        th="close";
+                    }
+
+                }
+
+
+                String p=etPoints.getText().toString().trim();
+                if(chkOdd.isChecked())
+                {
+
+                    String[] odd={"1","3","5","7","9"};
+
+                    for(int i=0; i<=odd.length-1; i++)
+                    {
+
+                        common.addData(odd[i],p,th,list,tableAdaper,listView,btnSave);
+                        //      setBidsDialog(OddEvenActivity.this,,list);
+                        //setOddData(odd[i],p,th);
+                    }
+                }
+                else if(chkEven.isChecked())
+                {
+
+                    String[] even={"0","2","4","6","8"};
+
+
+                    for(int i=0; i<=even.length-1; i++)
+                    {
+                        //addData(even[i],p,th);
+                        common.addData(even[i],p,th,list,tableAdaper,listView,btnSave);
+                        // setOddData(even[i],p,th);
+                        // arrayList.add(new SingleDigitObjects(even[i],p,th));
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getActivity(),"Please select any digit type",Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+
+        }
+
+    }
+    else if (v.getId()== R.id.digit_save)
+    {
+        common.setBidsDialog(Integer.parseInt(w_amount),list,matka_id,type,game_id,w_amount,matka_name,progressDialog,btnSave,s_time,e_time);
+    }
+    }
+}

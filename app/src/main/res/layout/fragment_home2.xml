@@ -1,0 +1,140 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="in.games.nidhimatka.Fragments.HomeFragment">
+
+    <ScrollView
+        android:layout_below="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appbar"
+            android:orientation="vertical"
+
+
+            >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+
+                android:background="@color/homebg"
+                android:elevation="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textAlignment="center"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="10dp"
+                        android:visibility="gone"
+                        android:text="Welcome to : KING STARLINE"
+                        android:textSize="18dp"
+
+                        android:textStyle="italic|bold"/>
+                    <TextView
+                        android:id="@+id/game_name"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textAlignment="center"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="10dp"
+                        android:text="Welcome to : KING STARLINE"
+                        android:textSize="16dp"
+
+                        android:textStyle="italic|bold"/>
+                    <com.daimajia.slider.library.SliderLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/home_slider"/>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="@dimen/_20sdp"
+                android:visibility="gone"
+                android:background="@color/homebg"
+                android:elevation="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/tagline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_centerInParent="true"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="10dp"
+                        android:text=""
+                        android:textSize="18dp"
+                        android:layout_centerVertical="true"
+                        android:textStyle="italic|bold"/>
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+
+            <RelativeLayout
+
+                android:id="@+id/swipe_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:smoothScrollbar="true"
+                    android:nestedScrollingEnabled="false"
+                    android:splitMotionEvents="true"/>
+            </RelativeLayout>
+
+            <!--        </RelativeLayout>-->
+        </LinearLayout>
+
+    </ScrollView>
+</FrameLayout>
