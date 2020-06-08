@@ -1621,11 +1621,11 @@ public class Common {
                     {
 
                         //updateWalletAmount(id,amt,context);
-                        Intent intent=new Intent(context, NewGameActivity.class);
-                        intent.putExtra("matkaName",matka_name);
-                        intent.putExtra("m_id",m_id);
-                        intent.putExtra("end_time",end_time);
-                        intent.putExtra("start_time",start_time);
+                        Intent intent=new Intent(context, MainActivity.class);
+//                        intent.putExtra("matkaName",matka_name);
+//                        intent.putExtra("m_id",m_id);
+//                        intent.putExtra("end_time",end_time);
+//                        intent.putExtra("start_time",start_time);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                         context.startActivity(intent);
