@@ -274,16 +274,7 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     >
-                    <Button
-                        android:id="@+id/digit_add"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:backgroundTint="@color/white"
-                        android:background="@drawable/gradient_button"
-                        android:textAllCaps="false"
-                        android:text="Add"
-                        android:textSize="16dp"
-                        android:textColor="@color/colorPrimaryDark"/>
+                <include layout="@layout/add_button"/>
 
                 </RelativeLayout>
 

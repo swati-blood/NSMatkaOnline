@@ -28,23 +28,23 @@
                      android:layout_height="wrap_content"
                      android:text=" Select Date"
                      android:gravity="center"
-                     android:background="@drawable/outline"
-                     android:backgroundTint="@color/black"
+                     android:background="@drawable/shape2"
+
                      android:layout_weight="1"
                      android:padding="5dp"
                      android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
                      android:layout_margin="5dp"/>
                  <TextView
-                     android:id="@+id/tv_type"
+                     android:id="@+id/btnChange"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:text=" Game Type"
+                     android:text="Change"
                      android:gravity="center"
-                     android:background="@drawable/outline"
-                     android:backgroundTint="@color/black"
+                     android:background="@drawable/shape2"
+
                      android:layout_weight="1"
                      android:padding="5dp"
-                     android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+
                      android:layout_margin="5dp"/>
 
 
@@ -72,7 +72,7 @@
                      android:textSize="9dp"
                      android:textColor="@color/white"/>
                  <Button
-                     android:id="@+id/btnChange"
+
                      android:layout_width="130dp"
                      android:layout_height="30dp"
                      android:background="@drawable/shape2"
@@ -301,22 +301,13 @@
                      android:layout_height="wrap_content"
                      android:id="@+id/relativeLayout6"
                      android:layout_below="@id/relativeLayout5"
-                     android:paddingLeft="20dp"
-                     android:paddingRight="20dp"
+                     android:paddingLeft="15dp"
+                     android:paddingRight="15dp"
                      android:paddingTop="10dp"
                      android:paddingBottom="10dp"
                      >
 
-                     <Button
-                         android:id="@+id/digit_add"
-                         android:layout_width="match_parent"
-                         android:layout_height="35dp"
-                         android:backgroundTint="@color/white"
-                         android:background="@drawable/gradient_button"
-                         android:textAllCaps="false"
-                         android:text="Add"
-                         android:textSize="16dp"
-                         android:textColor="@color/colorPrimaryDark"/>
+                     <include layout="@layout/add_button"/>
 
 
                  </RelativeLayout>

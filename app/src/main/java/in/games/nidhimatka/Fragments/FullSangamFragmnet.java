@@ -40,7 +40,7 @@ import in.games.nidhimatka.Util.LoadingBar;
 public class FullSangamFragmnet extends Fragment implements View.OnClickListener {
     Common common;
     private int stat=0;
-    private TextView txtDigit,txtPoint,txtType,btnDelete;
+    private TextView txtType,btnDelete;
     private int val_p=0;
     private TextView txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id;
     private Dialog dialog;
@@ -75,7 +75,7 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
     List<TableModel> list;
     AutoCompleteTextView etOpenPana,etClosePana;
     TextView txt_date ,txt_type ;
-    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "close";
+    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "open";
     public FullSangamFragmnet() {
         // Required empty public constructor
     }
@@ -86,6 +86,7 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View view = inflater.inflate(R.layout.fragment_full_sangam_fragmnet, container, false);
+       intiView(view);
        return view;
     }
     void intiView(View v)
@@ -122,12 +123,12 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         if (v.getId() == R.id.digit_add) {
 
+//
+//            String date_b = btnGameType.getText().toString().trim();
+//            String b[] = date_b.split(" ");
+//            String vt = b[3];
 
-            String date_b = btnGameType.getText().toString().trim();
-            String b[] = date_b.split(" ");
-            String vt = b[3];
-
-            if (vt.equals("Open")) {
+            if (type.equalsIgnoreCase("Open")) {
                 String open_pana = etOpenPana.getText().toString().trim();
                 String close_pana = etClosePana.getText().toString().trim();
                 String points = etPoints.getText().toString().trim();
@@ -176,7 +177,7 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
                     }
                 }
 
-            } else if (vt.equals("Close")) {
+            } else if (type.equalsIgnoreCase("Close")) {
                 String message = "Biding closed for this date";
                 common.errorMessageDialog(message);
                 return;
@@ -231,10 +232,10 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
                 String id = Prevalent.currentOnlineuser.getId().toString().trim();
 
                 String date = "15/02/2020";
-                String dt = btnGameType.getText().toString().trim();
-                String d[] = dt.split(" ");
-
-                String c = d[0].toString();
+//                String dt = btnGameType.getText().toString().trim();
+//                String d[] = dt.split(" ");
+//
+//                String c = d[0].toString();
 
                 JSONObject jsonObject = new JSONObject();
                 try {
@@ -244,7 +245,7 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
                     jsonObject.put("bettype", list_type);
                     jsonObject.put("user_id", id);
                     jsonObject.put("matka_id", matka_id);
-                    jsonObject.put("date", c);
+                    jsonObject.put("date", date);
                     jsonObject.put("game_id", game_id);
 
                     JSONArray jsonArray = new JSONArray();

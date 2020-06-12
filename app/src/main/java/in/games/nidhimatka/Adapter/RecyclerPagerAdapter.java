@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,11 +21,13 @@ public class RecyclerPagerAdapter extends RecyclerView.Adapter<RecyclerPagerAdap
     Activity activity;
     List<String> list ;
   String type ;
+  TextView tv_total ;
 
-    public RecyclerPagerAdapter(List<String> digit_list, Activity activity, String type) {
+    public RecyclerPagerAdapter(List<String> digit_list, Activity activity, String type ,TextView tv_total) {
         this.digit_list = digit_list;
         this.activity = activity;
         this.type = type;
+        this.tv_total = tv_total;
     }
 
     @NonNull
@@ -54,7 +57,7 @@ public class RecyclerPagerAdapter extends RecyclerView.Adapter<RecyclerPagerAdap
         {
             list=digit_list.subList(30,40);
         }
-    PointsAdapter pointsAdapter = new PointsAdapter(list,activity,type);
+    PointsAdapter pointsAdapter = new PointsAdapter(list,activity,type,tv_total);
     holder.rv_digits.setLayoutManager(new GridLayoutManager(activity,2));
     holder.rv_digits.setAdapter(pointsAdapter);
     pointsAdapter.notifyDataSetChanged();

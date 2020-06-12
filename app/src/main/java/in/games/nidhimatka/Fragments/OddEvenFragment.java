@@ -23,7 +23,9 @@ import android.widget.Toast;
 
 import com.rey.material.widget.CheckBox;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import in.games.nidhimatka.Adapter.TableAdaper;
@@ -46,8 +48,9 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
     TextView btnDelete;
     CheckBox chkOdd,chkEven;
     private int stat=0;
-    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "close";
-    private TextView txt_date,txt_type;
+    Dialog dialog;
+    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "",game_date="";
+    private TextView txt_date,txt_type ,txtOpen,txtClose,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id;
     String bet_date="";
     private String bet_status="";
 
@@ -56,13 +59,14 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View view = inflater.inflate(R.layout.fragment_odd_even, container, false);
+       intiView(view);
        return view;
     }
     void intiView(View v)
     {
         txt_date = v.findViewById(R.id.tv_date);
         txt_type = v.findViewById(R.id.tv_type);
-
+        listView=(ListView)v.findViewById(R.id.list_table);
         btnAdd=(Button)v.findViewById(R.id.digit_add);
         btnSave=(Button)v.findViewById(R.id.digit_save);
         chkOdd=v.findViewById(R.id.oddDigits);
@@ -84,6 +88,8 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
         list=new ArrayList<>();
         btnAdd.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+       txt_date.setOnClickListener(this);
+        txt_type.setOnClickListener(this);
         chkEven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +112,31 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        common.currentDateDay(btnGameType);
+        chkOdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(list.size()>0)
+                {
+                    list.clear();
+
+                }
+                if(chkEven.isChecked())
+                {
+                    chkOdd.setChecked(true);
+                    chkEven.setChecked(false);
+                }
+                else
+                {
+                    chkOdd.setChecked(true);
+                }
+
+            }
+        });
+
+        type = txt_type.getText().toString();
+        game_date = txt_date.getText().toString();
+
 
     }
 
@@ -116,8 +146,16 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
     {
 
         String bet=type;
+        if (game_date.equals("Select Date"))
+        {
+            Toast.makeText(getActivity(),"Select game date",Toast.LENGTH_LONG).show();
+        }
+       else if (type.equals("Game Type"))
+        {
+            Toast.makeText(getActivity(),"Select game type",Toast.LENGTH_LONG).show();
+        }
 
-      if(TextUtils.isEmpty(etPoints.getText().toString()))
+     else if(TextUtils.isEmpty(etPoints.getText().toString()))
         {
             etPoints.setError("Please enter some point");
             etPoints.requestFocus();
@@ -170,7 +208,7 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
                     for(int i=0; i<=odd.length-1; i++)
                     {
 
-                        common.addData(odd[i],p,th,list,tableAdaper,listView,btnSave);
+                        common.addData(odd[i],p,bet,list,tableAdaper,listView,btnSave);
                         //      setBidsDialog(OddEvenActivity.this,,list);
                         //setOddData(odd[i],p,th);
                     }
@@ -183,10 +221,10 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
 
                     for(int i=0; i<=even.length-1; i++)
                     {
-                        //addData(even[i],p,th);
-                        common.addData(even[i],p,th,list,tableAdaper,listView,btnSave);
-                        // setOddData(even[i],p,th);
-                        // arrayList.add(new SingleDigitObjects(even[i],p,th));
+
+                        common.addData(even[i],p,bet,list,tableAdaper,listView,btnSave);
+
+
                     }
                 }
                 else
@@ -203,5 +241,18 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
     {
         common.setBidsDialog(Integer.parseInt(w_amount),list,matka_id,type,game_id,w_amount,matka_name,progressDialog,btnSave,s_time,e_time);
     }
+    else if (v.getId()==R.id.tv_type)
+    {
+        Date date=new Date();
+        SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
+        String ctt=dateFormat.format(date);
+        common.setBetTypeDialog(dialog,txtOpen,txtClose,matka_id,txt_type,progressDialog,ctt);
+    }
+    else if (v.getId()==R.id.tv_date)
+    {
+
+        common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date);
+    }
+
     }
 }

@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/cardView3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -18,10 +18,11 @@
         android:backgroundTint="@color/transparent"
         >
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:id="@+id/relativeLayout7"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:id="@+id/relHead"
@@ -77,33 +78,28 @@
                     android:layout_marginLeft="40dp"
                     android:textColor="@color/black"/>
             </RelativeLayout>
-            <RelativeLayout
-                android:id="@+id/relTable"
-                android:layout_below="@+id/relHead"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="55dp"
-                android:background="@android:color/transparent">
+
                 <ListView
                     android:layout_marginTop="5dp"
                     android:id="@+id/list_table"
+                    android:nestedScrollingEnabled="true"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </RelativeLayout>
+                    android:layout_height="300dp"/>
+
 
             <Button
                 android:id="@+id/digit_save"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/gradient_button"
-                android:backgroundTint="@color/white"
+                android:background="@drawable/shape2"
+                android:backgroundTint="@color/colorPrimaryDark"
                 android:textAllCaps="false"
                 android:text="Save"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold|italic"/>
-        </RelativeLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 

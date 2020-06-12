@@ -1,5 +1,6 @@
 package in.games.nidhimatka.Fragments;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -50,7 +51,8 @@ import static in.games.nidhimatka.Objects.sp_input_data.triplePanna;
  * A simple {@link Fragment} subclass.
  */
 public class PanaFragment extends Fragment implements View.OnClickListener {
-    TextView txt_date, txt_type;
+    TextView txt_date, txt_type ,total ,txtOpen,txtClose,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id;
+    Dialog dialog ;
     RecyclerView rv_points;
     TabLayout tabLayout;
     String game_name, matka_name, matka_id ,game_id ,w_amount ,s_time ,e_time ;
@@ -66,7 +68,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
     LoadingBar loadingBar;
     ViewPager viewPager ;
     int selected_pos =0;
-  String bet_type ="open";
+  String bet_type ="",bet_date="";
 
 
     public PanaFragment() {
@@ -88,6 +90,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         txt_type = v.findViewById(R.id.tv_type);
         btn_submit = v.findViewById(R.id.btn_sbmit);
         rv_points = v.findViewById(R.id.rv_digits);
+      total = v.findViewById(R.id.bet_total);
         tabLayout = v.findViewById(R.id.tablayout);
         viewPager = v.findViewById(R.id.viewpager);
        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
@@ -110,6 +113,8 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         txt_type.setOnClickListener(this);
 
        setLayout(game_name);
+       bet_type = txt_type.getText().toString();
+       bet_date = txt_date.getText().toString();
        Log.e("gme",game_name + game_id +matka_name+matka_id);
 
 
@@ -176,12 +181,21 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_sbmit) {
-            if (is_empty) {
+            if (bet_type.equals("Game Type"))
+            {
+                Toast.makeText(getActivity(), "Select game type", Toast.LENGTH_LONG).show();
+            }
+            else if (bet_date.equals("Select Date"))
+            {
+                Toast.makeText(getActivity(), "Please Date", Toast.LENGTH_LONG).show();
+            }
+           else if (is_empty) {
                 Toast.makeText(getActivity(), "Please enter some points", Toast.LENGTH_LONG).show();
             } else {
                 if (is_error) {
                     Toast.makeText(getActivity(), "Minimum bid amount is 10", Toast.LENGTH_LONG).show();
-                } else {
+                }
+                else {
 //                    String dt = btnGameType.getText().toString().trim();
 //                    String d[] = dt.split(" ");
 
@@ -221,18 +235,31 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
 //                    catch (ParseException e) {
 //                        e.printStackTrace();
 //                    }
+
+
+                    }
+
+
+
                     common.setBidsDialog(Integer.parseInt(w_amount), bet_list, matka_id, bet_type, game_id, w_amount, matka_name, loadingBar, btn_submit, s_time, e_time);
 
 //                    list.clear();
                 }
             }
+
+        else if (v.getId()==R.id.tv_type)
+        {
+            Date date=new Date();
+            SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
+            String ctt=dateFormat.format(date);
+            common.setBetTypeDialog(dialog,txtOpen,txtClose,matka_id,txt_type,loadingBar,ctt);
         }
-        else if (v.getId() == R.id.tv_date)
-        {}
-        else if (v.getId() ==R.id.tv_type)
+        else if (v.getId()==R.id.tv_date)
         {
 
+            common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date);
         }
+
     }
 
 
@@ -249,11 +276,16 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
 
             case  "Single Pana" :
                 setTabLayout();
-                addRecyclerAdapter(rv_points,recyclerPagerAdapter,Arrays.asList(single_digit));
+//                addRecyclerAdapter(rv_points,recyclerPagerAdapter,Arrays.asList(single_digit));
+//                recyclerPagerAdapter = new RecyclerPagerAdapter(Arrays.asList(single_digit),getActivity(),bet_type);
+//                final LinearLayoutManager linearLayoutManager =new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false);
+//                rv_points.setLayoutManager(linearLayoutManager);
+//                rv_points.setAdapter(recyclerPagerAdapter);
+//                recyclerPagerAdapter.notifyDataSetChanged();
                 break;
             case  "Double Pana" :
                 setTabLayout();
-               addRecyclerAdapter(rv_points,recyclerPagerAdapter,Arrays.asList(doublePanna));
+//               addRecyclerAdapter(rv_points,recyclerPagerAdapter,Arrays.asList(doublePanna));
                 break;
             case  "Triple Pana" :
                 addAdapter(rv_points,pointsAdapter,Arrays.asList(triplePanna));
@@ -265,14 +297,14 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
 
     public void addAdapter(RecyclerView rv_points ,PointsAdapter pAdapter, List<String> list)
     {
-        pAdapter = new PointsAdapter(list, getActivity(),bet_type);
+        pAdapter = new PointsAdapter(list, getActivity(),bet_type,total);
         rv_points.setAdapter(pAdapter);
         rv_points.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         Log.e("list", String.valueOf(list.size()));
     }
   public void addRecyclerAdapter(RecyclerView rv_points ,RecyclerPagerAdapter recyclerPagerAdapter, List<String> list)
     {
-        recyclerPagerAdapter = new RecyclerPagerAdapter(list,getActivity(),bet_type);
+        recyclerPagerAdapter = new RecyclerPagerAdapter(list,getActivity(),bet_type,total);
         final LinearLayoutManager linearLayoutManager =new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false);
         rv_points.setLayoutManager(linearLayoutManager);
         rv_points.setAdapter(recyclerPagerAdapter);

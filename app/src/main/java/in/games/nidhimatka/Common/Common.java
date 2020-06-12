@@ -309,6 +309,44 @@ public class Common {
             }
         });
     }
+    public void setBetTypeDialog(Dialog dialog, TextView txtOpen, TextView txtClose, String m_id, final TextView btnType, LoadingBar progressDialog, final String c_date)
+    {
+        dialog=new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_bettype);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
+        txtOpen=dialog.findViewById(R.id.rd_open);
+        txtClose=dialog.findViewById(R.id.rd_close);
+
+//        setDataTo(txtOpen,txtClose,m_id,progressDialog,c_date);
+
+        final Dialog finalDialog = dialog;
+        final TextView finalTxtOpen = txtOpen;
+        final  boolean is_open =true;
+        final  boolean is_close =true;
+//      true  txtOpen.setOnCheckedChangeListener();
+        txtOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnType.setText(finalTxtOpen.getText().toString());
+                  finalDialog.dismiss();
+
+            }
+        });
+
+        final TextView finalTxtClose = txtClose;
+        final Dialog finalDialog1 = dialog;
+        txtClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnType.setText(finalTxtClose.getText().toString());
+
+                finalDialog1.dismiss();
+            }
+        });
+    }
 
     private void setDataTo(final TextView txtOpen, final TextView txtClose, final String m_id, final LoadingBar progressDialog, final String date_cuurent) {
         progressDialog.show();
@@ -468,6 +506,7 @@ public class Common {
 
     }
     public void addData(String digit, String point, String type, List<TableModel> list, TableAdaper tableAdaper, ListView list_table, Button btnSave) {
+
         list.add(new TableModel(digit, point, type));
         tableAdaper = new TableAdaper(list, context, btnSave);
         list_table.setAdapter(tableAdaper);
@@ -622,7 +661,7 @@ public class Common {
 
     }
 
-    public void setDateAndBetTpe(Dialog dialog, final String m_id, TextView txtCurrentDate, TextView txtNextDate, TextView txtAfterNextDate, TextView txtDate_id, final Button btnGameType, LoadingBar progressDialog)
+    public void setDateDialog(Dialog dialog, final String m_id, TextView txtCurrentDate, TextView txtNextDate, TextView txtAfterNextDate, TextView txtDate_id, final TextView btnGameType)
     {
         dialog=new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -638,7 +677,7 @@ public class Common {
         //setData(txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,m_id,progressDialog,OddEvenActivity.this);
         dialog.show();
         //getMatkaDateData(context,m_id,txtCurrentDate,txtNextDate,txtAfterNextDate,progressDialog);
-        getDateData(m_id,txtCurrentDate,txtNextDate,txtAfterNextDate,progressDialog);
+        getDateData(m_id,txtCurrentDate,txtNextDate,txtAfterNextDate);
 
 
         final Dialog finalDialog = dialog;
@@ -688,9 +727,9 @@ public class Common {
 
     // Function for Get Game Date and Day
 
-    public void getDateData(final String m_id, final TextView txtCurrentDate, final TextView txtNextDate, final TextView txtAfterNextDate, final LoadingBar progressDialog)
+    public void getDateData(final String m_id, final TextView txtCurrentDate, final TextView txtNextDate, final TextView txtAfterNextDate)
     {
-        progressDialog.show();
+
         String json_tag="json_matka_id";
         HashMap<String, String> params=new HashMap<String, String>();
         params.put("id",m_id);
@@ -819,18 +858,18 @@ public class Common {
                             String n_dt = getNextDate(s_dt);
                             String a_dt = getNextDate(n_dt);
                             if (as < 0) {
-                                progressDialog.dismiss();
+//                                progressDialog.dismiss();
                                 //btn.setText(s_dt+" Bet Open");
                                 txtCurrentDate.setText(s_dt + " Bet Open");
 
                                 //Toast.makeText(OddEvenActivity.this,""+s_dt+"  Open",Toast.LENGTH_LONG).show();
                             } else if (c > 0) {
-                                progressDialog.dismiss();
+//                                progressDialog.dismiss();
                                 txtCurrentDate.setText(s_dt + " Bet Close");
 
                                 // Toast.makeText(OddEvenActivity.this,""+s_dt+"  Close",Toast.LENGTH_LONG).show();
                             } else {
-                                progressDialog.dismiss();
+//                                progressDialog.dismiss();
                                 //btn.setText(s_dt+" Bet Open");
                                 txtCurrentDate.setText(s_dt + " Bet Open");
 
@@ -865,8 +904,8 @@ public class Common {
 
                     }
                 } catch(Exception ex){
-                    progressDialog.dismiss();
-                    Toast.makeText(context, "Something erong" + ex.getMessage(), Toast.LENGTH_LONG).show();
+//                    progressDialog.dismiss();
+                    Toast.makeText(context, "Something wrong" + ex.getMessage(), Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -874,7 +913,7 @@ public class Common {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
                 String msg=VolleyErrorMessage(error);
                 errorMessageDialog(msg);
             }
@@ -931,15 +970,15 @@ public class Common {
         return nextDate.toString();
     }
 
-    public void currentDateDay(Button btn)
-    {
-        String date=new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
-        Date date1=new Date();
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("EEEE");
-        String day =simpleDateFormat.format(date1);
-        btn.setText(date+" "+day);
-
-    }
+//    public void currentDateDay(Button btn)
+//    {
+//        String date=new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+//        Date date1=new Date();
+//        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("EEEE");
+//        String day =simpleDateFormat.format(date1);
+//        btn.setText(date+" "+day);
+//
+//    }
 
     public void  setCounterTimer(long diff,final TextView txt_timer)
     {

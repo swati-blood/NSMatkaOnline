@@ -27,14 +27,16 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder
  List<String> digit_list ;
     Activity activity;
     String type ;
-
+    TextView tv_total;
+    int tot = 0;
 
 public static Boolean is_empty = true , is_error = false;
 
-    public PointsAdapter(List<String> digit_list, Activity activity, String type) {
+    public PointsAdapter(List<String> digit_list, Activity activity, String type ,TextView tv_total) {
         this.digit_list = digit_list;
         this.activity = activity;
         this.type = type;
+        this.tv_total = tv_total;
     }
 
     @NonNull
@@ -79,7 +81,22 @@ public static Boolean is_empty = true , is_error = false;
                     } else {
                         is_empty = false;
                         is_error = false;
+                        if (s.toString().length()!=0)
+                        {
                         bet_list.add(new TableModel( digit_list.get(i),points, type));
+                            int ps =Integer.parseInt(bet_list.get(i).getPoints());
+                            tot = tot+ps;
+                            tv_total.setText(String.valueOf(tot));
+                        }
+                        else
+                        {
+
+
+                        }
+
+
+
+
                     }
                 }
             }

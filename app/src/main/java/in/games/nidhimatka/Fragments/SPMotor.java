@@ -1,11 +1,13 @@
 package in.games.nidhimatka.Fragments;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +28,9 @@ import com.android.volley.VolleyError;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,13 +55,14 @@ public class SPMotor extends Fragment implements View.OnClickListener {
     ListView list_table;
     TableAdaper tableAdaper;
     List<TableModel> list;
-    TextView txt_date,txt_type;
+    TextView txt_date,txt_type ,txtOpen,txtClose,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id;
     private EditText etDigits;
     private EditText etDgt,etPnt;
     String matName="";
+    Dialog dialog ;
     private EditText etPoints;
     LoadingBar progressDialog;
-    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "close";
+    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "",game_date="";
     public SPMotor() {
         // Required empty public constructor
     }
@@ -82,6 +87,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         TextView txtWalet=  toolbar.findViewById(R.id.txtWallet);
         etPoints=(EditText)v.findViewById(R.id.etPoints);
+        etDigits=(EditText)v.findViewById(R.id.etSingleDigit);
         common = new Common(getActivity());
         progressDialog = new LoadingBar(getActivity());
         matka_name = getArguments().getString("matka_name");
@@ -104,8 +110,15 @@ public class SPMotor extends Fragment implements View.OnClickListener {
         {
 
             String bet = type;
-
-                if (TextUtils.isEmpty(etDigits.getText().toString())) {
+            if (type.equals("Game Type"))
+            {
+                Toast.makeText(getActivity(), "Select game type", Toast.LENGTH_LONG).show();
+            }
+            else if (game_date.equals("Select Date"))
+            {
+                Toast.makeText(getActivity(), "Please Date", Toast.LENGTH_LONG).show();
+            }
+            else if (TextUtils.isEmpty(etDigits.getText().toString())) {
                     etDigits.setError("Please enter any digit");
                     etDigits.requestFocus();
                     return;
@@ -116,10 +129,10 @@ public class SPMotor extends Fragment implements View.OnClickListener {
 
                 }  else {
                     int pints = Integer.parseInt(etPoints.getText().toString().trim());
-                    if (pints < 1) {
+                    if (pints < 10) {
                         //  Toast.makeText(OddEvenActivity.this,"",Toast.LENGTH_LONG).show();
 
-                        etPoints.setError("Minimum Biding amount is 1");
+                        etPoints.setError("Minimum Biding amount is 10");
                         etPoints.requestFocus();
                         return;
 
@@ -147,28 +160,18 @@ public class SPMotor extends Fragment implements View.OnClickListener {
                         }
 
 
-
-                        //Toast.makeText(SpMotorActivity.this,"DDat"+d[0],Toast.LENGTH_LONG).show();
-
-                        //String asd=spInput(d);
-
-
-                        //  String inputData = String.valueOf(assd);
                         String inputData =etDigits.getText().toString().trim();
                         if (inputData.equals("false")) {
                             Toast.makeText(getActivity(), "Wrong input", Toast.LENGTH_LONG).show();
                         } else {
                             if (game_name.equalsIgnoreCase("sp motor")) {
-                                getDataSet(inputData, p, th,URLs.URL_SpMotor);
+                                getDataSet(inputData, p, bet,URLs.URL_SpMotor);
                             }
                             else
                             {
-                                getDataSet(inputData, p, th,URLs.URL_DpMotor);
+                                getDataSet(inputData, p, bet,URLs.URL_DpMotor);
                             }
                         }
-
-//                    Toast.makeText(SpMotorActivity.this,"DDat"+asd,Toast.LENGTH_LONG).show();
-
 
                         etPoints.setText("");
                         etDigits.setText("");
@@ -183,26 +186,31 @@ public class SPMotor extends Fragment implements View.OnClickListener {
 
             common.setBidsDialog(Integer.parseInt(w_amount),list,matka_id,type,game_id,w_amount,matka_name,progressDialog,btnSave,s_time,e_time);
         }
+        else if (v.getId()==R.id.tv_type)
+        {
+            Date date=new Date();
+            SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
+            String ctt=dateFormat.format(date);
+            common.setBetTypeDialog(dialog,txtOpen,txtClose,matka_id,txt_type,progressDialog,ctt);
+        }
+        else if (v.getId()==R.id.tv_date)
+        {
+
+            common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date);
+        }
 
     }
-    private void getDataSet(final String inputData, final String d, final String th ,String url) {
+    private void getDataSet(final String inputData, final String d, final String th , final String url) {
         //  Toast.makeText(SpMotorActivity.this,"at"+inputData,Toast.LENGTH_LONG).show();
         progressDialog.show();
-//        String url = "";
-//        if (game_name.equalsIgnoreCase("SP Motor"))
-//        {
-//            url =URLs.URL_SpMotor;
-//        }
-//        else if (game_name.equalsIgnoreCase("DP Motor"))
-//        {
-//            url =URLs.URL_DpMotor;
-//        }
+
         String json_tag="json_sp_motor";
         Map<String, String> params = new HashMap<>();
         params.put("arr", inputData);
         CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST,url, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Log.e("motor",url+response.toString());
                 try {
                     //    Toast.makeText(SpMotorActivity.this, "Data" + response, Toast.LENGTH_LONG).show();
                     JSONObject jsonObject = response;

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -20,10 +21,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rey.material.widget.CheckBox;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import in.games.nidhimatka.Adapter.TableAdaper;
@@ -47,14 +49,15 @@ public class RedBracketFragment extends Fragment implements View.OnClickListener
     List<TableModel> list;
     TextView txt_date,txt_type;
     private Button btnAdd,btnSave,btnType,btnGameType;
-    private TextView txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id;
+    private TextView txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id ,txtOpen,txtClose;
 CheckBox chkBox ;
+Dialog dialog ;
     AutoCompleteTextView etDgt;
     private EditText etPnt;
     RelativeLayout relativeLayout ;
     private EditText etPoints;
     LoadingBar progressDialog;
-    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "close";
+    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "",game_date ="";
 
     public RedBracketFragment() {
         // Required empty public constructor
@@ -95,6 +98,10 @@ CheckBox chkBox ;
         list=new ArrayList<>();
         btnAdd.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+        txt_date.setOnClickListener(this);
+        txt_type.setOnClickListener(this);
+        type = txt_type.getText().toString();
+        game_date = txt_date.getText().toString();
 
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,red_bracket);
         etDgt.setAdapter(adapter);
@@ -130,7 +137,16 @@ CheckBox chkBox ;
 //            String b[]=date_b.split(" ");
 //            String vt=b[3];
             String vt = type;
-            if(vt.equals("Open")) {
+            if (type.equals("Game Type"))
+            {
+                Toast.makeText(getActivity(), "Select game type", Toast.LENGTH_LONG).show();
+            }
+            else if (game_date.equals("Select Date"))
+            {
+                Toast.makeText(getActivity(), "Please Date", Toast.LENGTH_LONG).show();
+            }
+
+         else if(vt.equalsIgnoreCase("Open")) {
 
 
                 if(chkBox.isChecked()==true)
@@ -223,6 +239,18 @@ CheckBox chkBox ;
             common.setBidsDialog(Integer.parseInt(w_amount),list,matka_id,type,game_id,w_amount,matka_name,progressDialog,btnSave,s_time,e_time);
         }
 
+        else if (v.getId()==R.id.tv_type)
+        {
+            Date date=new Date();
+            SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
+            String ctt=dateFormat.format(date);
+            common.setBetTypeDialog(dialog,txtOpen,txtClose,matka_id,txt_type,progressDialog,ctt);
+        }
+        else if (v.getId()==R.id.tv_date)
+        {
+
+            common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date);
+        }
 
     }
 }

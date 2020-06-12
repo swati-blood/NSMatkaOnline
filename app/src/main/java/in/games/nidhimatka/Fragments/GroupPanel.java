@@ -1,5 +1,6 @@
 package in.games.nidhimatka.Fragments;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
@@ -17,7 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import in.games.nidhimatka.Adapter.TableAdaper;
@@ -76,10 +79,11 @@ public class GroupPanel extends Fragment implements View.OnClickListener {
     private Button btnAdd,btnSave,btnGameType;
     private EditText etPoints;
     LoadingBar progressDialog;
-    TextView txt_date ,txt_type;
+    TextView txt_date ,txt_type ,txtClose,txtOpen;
     AutoCompleteTextView editText;
-
-    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "close";
+    private TextView txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id ,txt_timer,tv_timer ;
+    Dialog dialog ;
+    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "";
     public GroupPanel() {
     }
 
@@ -115,6 +119,8 @@ public class GroupPanel extends Fragment implements View.OnClickListener {
         list=new ArrayList<>();
         btnAdd.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+        txt_type.setOnClickListener(this);
+        txt_date.setOnClickListener(this);
 
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1, sp_input_data.group_jodi_array);
         editText.setAdapter(adapter);
@@ -129,7 +135,7 @@ public class GroupPanel extends Fragment implements View.OnClickListener {
 //            String b[]=date_b.split(" ");
 //            String vt=b[3];
                 String vt = type;
-            if(vt.equals("Open")) {
+            if(vt.equalsIgnoreCase("Open")) {
 
                 String dData = editText.getText().toString().trim();
                 if (TextUtils.isEmpty(editText.getText().toString())) {
@@ -183,7 +189,7 @@ public class GroupPanel extends Fragment implements View.OnClickListener {
                                     // progressDialog.show();
                                     //list.add(main[key][k].toString());
                                     //        setTableData(main[key][k], p, th);
-                                    common.addData(main[key][k], p, th,list,tableAdaper,list_table,btnSave);
+                                    common.addData(main[key][k], p, vt,list,tableAdaper,list_table,btnSave);
 
 
                                     //arrayList.clear();
@@ -222,6 +228,19 @@ public class GroupPanel extends Fragment implements View.OnClickListener {
         {
 
             common.setBidsDialog(Integer.parseInt(w_amount),list,matka_id,type,game_id,w_amount,matka_name,progressDialog,btnSave,s_time,e_time);
+        }
+
+        else if (v.getId()==R.id.tv_type)
+        {
+            Date date=new Date();
+            SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
+            String ctt=dateFormat.format(date);
+            common.setBetTypeDialog(dialog,txtOpen,txtClose,matka_id,txt_type,progressDialog,ctt);
+        }
+        else if (v.getId()==R.id.tv_date)
+        {
+
+            common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date);
         }
 
     }

@@ -26,6 +26,8 @@ import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.RecyclerTouchListener;
 
+import static in.games.nidhimatka.Fragments.MainFragment.tv_game;
+
 public class SelectGameFragment extends Fragment {
     RecyclerView rv_games;
     SelectGameAdapter selectGameAdapter ;
@@ -68,6 +70,7 @@ public class SelectGameFragment extends Fragment {
            public void onItemClick(View view, int position) {
 
                GameModel model = game_list.get(position);
+               tv_game.setText(model.getName());
                Fragment fm = null ;
                final Bundle arg = new Bundle();
                arg.putString("game_id",model.getId());

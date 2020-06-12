@@ -168,7 +168,7 @@
                            android:id="@+id/txtSingleDigit"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
-                           android:text="@string/sp_motor"
+                           android:text="Motor"
                            android:textColor="@color/textColor"
                            android:layout_centerVertical="true"
                            android:paddingLeft="10dp"
@@ -185,7 +185,7 @@
                            android:textColorHint="@color/textColor"
                            android:maxLength="10"
                            android:textSize="14dp"
-                           android:hint="@string/sp_motor"
+                           android:hint="Motor"
                            android:textColor="@color/textColor"
                            android:background="@drawable/shape2"/>
 
@@ -234,22 +234,12 @@
                        android:layout_height="wrap_content"
                        android:id="@+id/relativeLayout6"
                        android:layout_below="@id/relativeLayout5"
-                       android:paddingLeft="20dp"
-                       android:paddingRight="20dp"
+                       android:paddingLeft="15dp"
+                       android:paddingRight="15dp"
                        android:paddingTop="10dp"
                        android:paddingBottom="10dp"
                        >
-                       <Button
-                           android:id="@+id/digit_add"
-                           android:layout_width="match_parent"
-                           android:layout_height="35dp"
-                           android:backgroundTint="@color/white"
-                           android:background="@drawable/gradient_button"
-                           android:textAllCaps="false"
-                           android:text="Add"
-                           android:textSize="16dp"
-                           android:textColor="@color/colorPrimaryDark"/>
-
+                       <include layout="@layout/add_button"/>
 
                    </RelativeLayout>
                </RelativeLayout>
