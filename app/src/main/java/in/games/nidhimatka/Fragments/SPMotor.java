@@ -108,16 +108,19 @@ public class SPMotor extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId()== R.id.digit_add)
         {
-
+            type = txt_type.getText().toString();
+            game_date =txt_date.getText().toString();
             String bet = type;
-            if (type.equals("Game Type"))
+            if (game_date.equals("Select Date"))
             {
-                Toast.makeText(getActivity(), "Select game type", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Select Date",Toast.LENGTH_LONG).show();
             }
-            else if (game_date.equals("Select Date"))
+            else if (type.equals("Select Type"))
             {
-                Toast.makeText(getActivity(), "Please Date", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Select game type",Toast.LENGTH_LONG).show();
+
             }
+
             else if (TextUtils.isEmpty(etDigits.getText().toString())) {
                     etDigits.setError("Please enter any digit");
                     etDigits.requestFocus();
@@ -184,7 +187,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
         else if (v.getId() == R.id.digit_save)
         {
 
-            common.setBidsDialog(Integer.parseInt(w_amount),list,matka_id,type,game_id,w_amount,matka_name,progressDialog,btnSave,s_time,e_time);
+            common.setBidsDialog(Integer.parseInt(w_amount),list,matka_id,txt_type.getText().toString(),game_id,w_amount,matka_name,progressDialog,btnSave,s_time,e_time);
         }
         else if (v.getId()==R.id.tv_type)
         {

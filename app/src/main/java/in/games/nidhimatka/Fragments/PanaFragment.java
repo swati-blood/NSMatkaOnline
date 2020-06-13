@@ -113,8 +113,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         txt_type.setOnClickListener(this);
 
        setLayout(game_name);
-       bet_type = txt_type.getText().toString();
-       bet_date = txt_date.getText().toString();
+
        Log.e("gme",game_name + game_id +matka_name+matka_id);
 
 
@@ -181,15 +180,20 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_sbmit) {
-            if (bet_type.equals("Game Type"))
+            bet_type = txt_type.getText().toString();
+            bet_date =txt_date.getText().toString();
+
+            if (bet_date.equals("Select Date"))
             {
-                Toast.makeText(getActivity(), "Select game type", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Select Date",Toast.LENGTH_LONG).show();
             }
-            else if (bet_date.equals("Select Date"))
+            else if (bet_type.equals("Select Type"))
             {
-                Toast.makeText(getActivity(), "Please Date", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Select game type",Toast.LENGTH_LONG).show();
+
             }
-           else if (is_empty) {
+
+            else if (is_empty) {
                 Toast.makeText(getActivity(), "Please enter some points", Toast.LENGTH_LONG).show();
             } else {
                 if (is_error) {
@@ -241,7 +245,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
 
 
 
-                    common.setBidsDialog(Integer.parseInt(w_amount), bet_list, matka_id, bet_type, game_id, w_amount, matka_name, loadingBar, btn_submit, s_time, e_time);
+                    common.setBidsDialog(Integer.parseInt(w_amount), bet_list, matka_id, txt_type.getText().toString(), game_id, w_amount, matka_name, loadingBar, btn_submit, s_time, e_time);
 
 //                    list.clear();
                 }

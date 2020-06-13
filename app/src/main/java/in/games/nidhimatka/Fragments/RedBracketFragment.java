@@ -100,8 +100,7 @@ Dialog dialog ;
         btnSave.setOnClickListener(this);
         txt_date.setOnClickListener(this);
         txt_type.setOnClickListener(this);
-        type = txt_type.getText().toString();
-        game_date = txt_date.getText().toString();
+
 
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,red_bracket);
         etDgt.setAdapter(adapter);
@@ -136,17 +135,21 @@ Dialog dialog ;
 //            String date_b=btnGameType.getText().toString().trim();
 //            String b[]=date_b.split(" ");
 //            String vt=b[3];
+            type = txt_type.getText().toString();
+            game_date =txt_date.getText().toString();
             String vt = type;
-            if (type.equals("Game Type"))
+            if (game_date.equals("Select Date"))
             {
-                Toast.makeText(getActivity(), "Select game type", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Select Date",Toast.LENGTH_LONG).show();
             }
-            else if (game_date.equals("Select Date"))
+            else if (type.equals("Select Type"))
             {
-                Toast.makeText(getActivity(), "Please Date", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Select game type",Toast.LENGTH_LONG).show();
+
             }
 
-         else if(vt.equalsIgnoreCase("Open")) {
+
+            else if(vt.equalsIgnoreCase("Open")) {
 
 
                 if(chkBox.isChecked()==true)
@@ -236,7 +239,7 @@ Dialog dialog ;
         else if (v.getId() == R.id.digit_save)
         {
 
-            common.setBidsDialog(Integer.parseInt(w_amount),list,matka_id,type,game_id,w_amount,matka_name,progressDialog,btnSave,s_time,e_time);
+            common.setBidsDialog(Integer.parseInt(w_amount),list,matka_id,txt_type.getText().toString(),game_id,w_amount,matka_name,progressDialog,btnSave,s_time,e_time);
         }
 
         else if (v.getId()==R.id.tv_type)

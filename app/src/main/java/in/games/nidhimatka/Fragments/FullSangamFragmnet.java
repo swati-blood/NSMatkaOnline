@@ -75,7 +75,7 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
     List<TableModel> list;
     AutoCompleteTextView etOpenPana,etClosePana;
     TextView txt_date ,txt_type ;
-    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "open";
+    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "open",game_date="";
     public FullSangamFragmnet() {
         // Required empty public constructor
     }
@@ -127,7 +127,8 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
 //            String date_b = btnGameType.getText().toString().trim();
 //            String b[] = date_b.split(" ");
 //            String vt = b[3];
-
+            type = txt_type.getText().toString();
+            game_date = txt_date.getText().toString();
             if (type.equalsIgnoreCase("Open")) {
                 String open_pana = etOpenPana.getText().toString().trim();
                 String close_pana = etClosePana.getText().toString().trim();

@@ -157,8 +157,7 @@ public class CyclePana extends Fragment implements View.OnClickListener {
         btnSave.setOnClickListener(this);
        txt_type.setOnClickListener(this);
        txt_date.setOnClickListener(this);
-       type = txt_type.getText().toString();
-       game_date = txt_date.getText().toString();
+
 
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line, sp_input_data.cycle_pana_array);
         editText.setAdapter(adapter);
@@ -167,6 +166,8 @@ public class CyclePana extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.digit_add) {
+            type = txt_type.getText().toString();
+            game_date = txt_date.getText().toString();
             list.clear();
             String bet = type ;
             if (game_date.equals("Select Date"))
@@ -465,7 +466,7 @@ public class CyclePana extends Fragment implements View.OnClickListener {
         }
         else if (v.getId()== R.id.digit_save)
         {
-            common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, type, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
+            common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, txt_type.getText().toString(), game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
         }
 
         else if (v.getId()==R.id.tv_type)

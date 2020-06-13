@@ -44,7 +44,7 @@ public class GroupJodi extends Fragment implements View.OnClickListener {
     AutoCompleteTextView editText;
     private TextView txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id ,txt_timer,tv_timer ;
 
-    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "";
+    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "",game_date="";
     private final String[] d1={"123","178","137","678","236","367","128","268"};
     private final String[] d2={"240","245","790","470","290","579","259","457"};
     private final String[] d3={"100","150","600","556","155","560"};
@@ -135,8 +135,19 @@ public class GroupJodi extends Fragment implements View.OnClickListener {
 //            String date_b=btnGameType.getText().toString().trim();
 //            String b[]=date_b.split(" ");
 //            String vt=b[3];
+            type = txt_type.getText().toString();
+            game_date = txt_date.getText().toString();
             String vt = type;
-            if(vt.equalsIgnoreCase("Open")) {
+            if (game_date.equals("Select Date"))
+            {
+                Toast.makeText(getActivity(),"Select Date",Toast.LENGTH_LONG).show();
+            }
+            else if (type.equals("Select Type"))
+            {
+                Toast.makeText(getActivity(),"Select game type",Toast.LENGTH_LONG).show();
+
+            }
+            else if(vt.equalsIgnoreCase("Open")) {
 
                 String dData = editText.getText().toString().trim();
                 if (TextUtils.isEmpty(editText.getText().toString())) {
@@ -227,7 +238,7 @@ public class GroupJodi extends Fragment implements View.OnClickListener {
         }
         else if (v.getId() == R.id.digit_save)
         {
-                 common.setBidsDialog(Integer.parseInt(w_amount),list,matka_id,type,game_id,w_amount,matka_name,progressDialog,btnSave,s_time,e_time);
+                 common.setBidsDialog(Integer.parseInt(w_amount),list,matka_id,txt_type.getText().toString(),game_id,w_amount,matka_name,progressDialog,btnSave,s_time,e_time);
         }
 
         else if (v.getId()==R.id.tv_type)

@@ -83,7 +83,7 @@ public class GroupPanel extends Fragment implements View.OnClickListener {
     AutoCompleteTextView editText;
     private TextView txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id ,txt_timer,tv_timer ;
     Dialog dialog ;
-    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "";
+    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "" ,game_date="";
     public GroupPanel() {
     }
 
@@ -134,8 +134,20 @@ public class GroupPanel extends Fragment implements View.OnClickListener {
 //            String date_b=btnGameType.getText().toString().trim();
 //            String b[]=date_b.split(" ");
 //            String vt=b[3];
-                String vt = type;
-            if(vt.equalsIgnoreCase("Open")) {
+            type = txt_type.getText().toString();
+            game_date =txt_date.getText().toString();
+            String vt = type;
+            if (game_date.equals("Select Date"))
+            {
+                Toast.makeText(getActivity(),"Select Date",Toast.LENGTH_LONG).show();
+            }
+            else if (type.equals("Select Type"))
+            {
+                Toast.makeText(getActivity(),"Select game type",Toast.LENGTH_LONG).show();
+
+            }
+
+           else if(vt.equalsIgnoreCase("Open")) {
 
                 String dData = editText.getText().toString().trim();
                 if (TextUtils.isEmpty(editText.getText().toString())) {
@@ -227,7 +239,7 @@ public class GroupPanel extends Fragment implements View.OnClickListener {
         else if (v.getId() == R.id.digit_save)
         {
 
-            common.setBidsDialog(Integer.parseInt(w_amount),list,matka_id,type,game_id,w_amount,matka_name,progressDialog,btnSave,s_time,e_time);
+            common.setBidsDialog(Integer.parseInt(w_amount),list,matka_id,txt_type.getText().toString(),game_id,w_amount,matka_name,progressDialog,btnSave,s_time,e_time);
         }
 
         else if (v.getId()==R.id.tv_type)

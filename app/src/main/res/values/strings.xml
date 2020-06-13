@@ -35,6 +35,8 @@
     <string name="tab_digit">Digit</string>
     <string name="tab_pana">Pana</string>
     <string name="tab_jodi">Jodi</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_type">Select Type</string>
 
 
     <string name="txt_qr_code" translatable="false">QR Code</string>
