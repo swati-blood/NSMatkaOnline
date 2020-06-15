@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -169,10 +171,13 @@ public class GroupJodi extends Fragment implements View.OnClickListener {
                         return;
 
 
-                    } else {
-                        String th = null;
+                    }
+                    else if (pints > Integer.parseInt(w_amount)) {
+                        common.errorMessageDialog("Insufficient Amount");
+                    }else {
+                        String th = "close";
 
-                        th = "close";
+//                        th = "close";
                         int key = -1;
                         boolean st = false;
                         String d = editText.getText().toString();
@@ -201,7 +206,7 @@ public class GroupJodi extends Fragment implements View.OnClickListener {
                                     // progressDialog.show();
                                     //list.add(main[key][k].toString());
                                     //        setTableData(main[key][k], p, th);
-                                    common.addData(main[key][k], p, vt,list,tableAdaper,list_table,btnSave);
+                                    common.addData(main[key][k], p, th,list,tableAdaper,list_table,btnSave);
 
 
                                     //arrayList.clear();
@@ -238,7 +243,58 @@ public class GroupJodi extends Fragment implements View.OnClickListener {
         }
         else if (v.getId() == R.id.digit_save)
         {
-                 common.setBidsDialog(Integer.parseInt(w_amount),list,matka_id,txt_type.getText().toString(),game_id,w_amount,matka_name,progressDialog,btnSave,s_time,e_time);
+            int amt=0;
+            for(int j=0;j<list.size();j++)
+            {
+                amt=amt+Integer.parseInt(list.get(j).getPoints());
+            }
+            if (amt>Integer.parseInt(w_amount))
+            {
+                common.errorMessageDialog("Insufficient Amount");
+                clrControls();
+            }
+            else {
+                try {
+                    Date date = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+                    String cur_time = format.format(date);
+                    String cur_date = sdf.format(date);
+                    String g_d = game_date.substring(0, 10);
+//                Toast.makeText(getActivity(),""+g_d,Toast.LENGTH_LONG).show();
+                    Log.e("date ", String.valueOf(g_d) + "\n" + String.valueOf(cur_date));
+
+                    if (cur_date.equals(g_d)) {
+                        Log.e("true", "today");
+                        Date s_date = format.parse(s_time);
+                        Date e_date = format.parse(e_time);
+                        Date c_date = format.parse(cur_time);
+                        long difference = c_date.getTime() - s_date.getTime();
+                        long as = (difference / 1000) / 60;
+
+                        long diff_close = c_date.getTime() - e_date.getTime();
+                        long curr = (diff_close / 1000) / 60;
+                        long current_time = c_date.getTime();
+
+                        if (as < 0) {
+
+                            common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
+                        } else if (curr < 0) {
+                            common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
+                        } else {
+                            clrControls();
+                            common.errorMessageDialog("Betting is Closed Now");
+
+                        }
+                    } else {
+
+                        common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date.substring(0, 10), game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
 
         else if (v.getId()==R.id.tv_type)
@@ -251,9 +307,23 @@ public class GroupJodi extends Fragment implements View.OnClickListener {
         else if (v.getId()==R.id.tv_date)
         {
 
-            common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date);
+            common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date,progressDialog);
         }
 
+    }
+    public void clrControls()
+    {
+
+        etPoints.setText("");
+        editText.setText("");
+
+        list.clear();
+
+        txt_type.setTextColor(getActivity().getResources().getColor(R.color.grey));
+        txt_date.setTextColor(getActivity().getResources().getColor(R.color.grey));
+        txt_type.setText(getActivity().getResources().getString(R.string.select_type));
+        txt_date.setText(getActivity().getResources().getString(R.string.select_date));
+        btnSave.setText("Save");
     }
     }
 

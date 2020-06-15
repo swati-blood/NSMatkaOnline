@@ -78,7 +78,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
     private ListView lstView;
      private Dialog dialog;
     TextView txt_date ,btnChange ;
-    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "open";
+    private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "open" ,game_date="";
     private static int flag=0;
 
     public HalfSangamFragment() {
@@ -130,6 +130,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
         btnAdd.setOnClickListener(this);
         btnSave.setOnClickListener(this);
         btnChange.setOnClickListener(this);
+        txt_date.setOnClickListener(this);
 
 
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,singlePaana);
@@ -191,7 +192,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
 
                     String id = Prevalent.currentOnlineuser.getId().toString().trim();
 
-                    String date = "15/02/2020";
+                    String date = game_date.substring(0,10);
 //                    String dt=btnGameType.getText().toString().trim();
 //                    String d[]=dt.split(" ");
 //
@@ -229,11 +230,21 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
 //            String date_b = btnGameType.getText().toString().trim();
 //            String b[] = date_b.split(" ");
 //            String vt = b[3];
-            String vt = type;
+            String vt = "Half Sangam";
 
-            if (vt.equalsIgnoreCase("Open")) {
+            game_date = txt_date.getText().toString();
+            if (game_date.equals("Select Date"))
+            {
+                Toast.makeText(getActivity(),"Select Date",Toast.LENGTH_LONG).show();
+            }
+//            else if (type.equals("Select Type"))
+//            {
+//                Toast.makeText(getActivity(),"Select game type",Toast.LENGTH_LONG).show();
+//
+//            }
 
-                if (rlLayout_open_digit.getVisibility() == View.VISIBLE) {
+
+              else if (rlLayout_open_digit.getVisibility() == View.VISIBLE) {
                     String open_digit = etOpenDigit.getText().toString().trim();
                     String close_panna = etClosePanna.getText().toString().trim();
                     String points = etPoints.getText().toString().trim();
@@ -268,7 +279,11 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
                             return;
 
 
-                        } else {
+                        }
+                        else if (pints > Integer.parseInt(w_amount)) {
+                            common.errorMessageDialog("Insufficient Amount");
+                        }
+                        else {
                             //setTableRowforOPenDigit(open_digit, close_panna, points);
                             common.addData(open_digit+"-"+close_panna,points,vt,list,tableAdaper,list_table,btnSave);
 
@@ -312,7 +327,10 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
                             return;
 
 
-                        } else {
+                        }
+                        else if (pints > Integer.parseInt(w_amount)) {
+                            common.errorMessageDialog("Insufficient Amount");
+                        }else {
                             //   setTableRowforCloseDigit(close_digit, open_panna, points);
 //                                module.addData(HalfSangamActivity.this,close_digit+"-"+open_panna,points,"Half Sangam",list,tableAdaper,list_table,btnSave);
                             common.addData(open_panna+"-"+close_digit,points,vt,list,tableAdaper,list_table,btnSave);
@@ -327,12 +345,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
                 }
 
                 //   Toast.makeText(HalfSangamActivity.this,""+status,Toast.LENGTH_LONG).show();
-            }
-            else if (vt.equalsIgnoreCase("Close")) {
-                String message = "Biding closed for this date";
-                common.errorMessageDialog(message);
-                return;
-            }
+
         }
 
 
@@ -366,7 +379,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
         else if (v.getId()==R.id.tv_date)
         {
 
-            common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date);
+            common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date,progressDialog);
         }
 
     }

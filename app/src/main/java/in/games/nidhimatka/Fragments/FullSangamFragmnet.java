@@ -113,6 +113,8 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
         list=new ArrayList<>();
         btnAdd.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+        txt_date.setOnClickListener(this);
+        txt_type.setOnClickListener(this);
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,singlePaana);
         etOpenPana.setAdapter(adapter);
         etClosePana.setAdapter(adapter);
@@ -123,13 +125,21 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         if (v.getId() == R.id.digit_add) {
 
-//
-//            String date_b = btnGameType.getText().toString().trim();
-//            String b[] = date_b.split(" ");
-//            String vt = b[3];
             type = txt_type.getText().toString();
             game_date = txt_date.getText().toString();
-            if (type.equalsIgnoreCase("Open")) {
+            String vt = type;
+
+            if (game_date.equals("Select Date"))
+            {
+                Toast.makeText(getActivity(),"Select Date",Toast.LENGTH_LONG).show();
+            }
+//            else if (type.equals("Select Type"))
+//            {
+//                Toast.makeText(getActivity(),"Select game type",Toast.LENGTH_LONG).show();
+//
+//            }
+
+//            if (vt.equalsIgnoreCase("Open")) {
                 String open_pana = etOpenPana.getText().toString().trim();
                 String close_pana = etClosePana.getText().toString().trim();
                 String points = etPoints.getText().toString().trim();
@@ -160,17 +170,21 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
 
                 } else {
                     int pints = Integer.parseInt(etPoints.getText().toString().trim());
-                    if (pints < 1) {
+                    if (pints < 10) {
                         //  Toast.makeText(OddEvenActivity.this,"",Toast.LENGTH_LONG).show();
 
-                        etPoints.setError("Minimum Biding amount is 1");
+                        etPoints.setError("Minimum Biding amount is 10");
                         etPoints.requestFocus();
                         return;
 
 
-                    } else {
+                    }
+                    else if (pints > Integer.parseInt(w_amount)) {
+                        common.errorMessageDialog("Insufficient Amount");
+                    }
+                    else {
                         //  setTableRowData(open_pana, close_pana, points);
-                        common.addData(open_pana + "-" + close_pana, points, "Full Sangam", list, tableAdaper, list_table, btnSave);
+                        common.addData(open_pana + "-" + close_pana, points, type, list, tableAdaper, list_table, btnSave);
                         etOpenPana.setText("");
                         etClosePana.setText("");
                         etPoints.setText("");
@@ -178,11 +192,12 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
                     }
                 }
 
-            } else if (type.equalsIgnoreCase("Close")) {
-                String message = "Biding closed for this date";
-                common.errorMessageDialog(message);
-                return;
-            }
+//            }
+//        else if (vt.equalsIgnoreCase("Close")) {
+//                String message = "Biding closed for this date";
+//                common.errorMessageDialog(message);
+//                return;
+//            }
 
         } else if (v.getId() == R.id.digit_save) {
             int er = list.size();
@@ -232,7 +247,7 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
 
                 String id = Prevalent.currentOnlineuser.getId().toString().trim();
 
-                String date = "15/02/2020";
+                String date = game_date.substring(0,10);
 //                String dt = btnGameType.getText().toString().trim();
 //                String d[] = dt.split(" ");
 //
@@ -278,6 +293,10 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
                 }
 
             }
+        }
+        else if (v.getId()== R.id.tv_date)
+        {
+            common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date,progressDialog);
         }
     }
 }

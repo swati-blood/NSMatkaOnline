@@ -15,7 +15,7 @@
             android:textSize="12dp"
             android:textAlignment="center"
             android:padding="5dp"
-            android:textColor="@color/textColor"/>
+            android:textColor="@color/white"/>
         <TextView
             android:id="@+id/tv_timer"
             android:layout_alignParentEnd="true"
@@ -27,6 +27,6 @@
             android:textSize="12dp"
             android:textAlignment="center"
             android:padding="5dp"
-            android:textColor="@color/textColor"/>
+            android:textColor="@color/white"/>
 
 </RelativeLayout>

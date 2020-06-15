@@ -24,22 +24,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/relHead"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:paddingLeft="2dp"
+                android:weightSum="3"
                 android:gravity="center_horizontal"
                 android:background="@drawable/shape2">
 
                 <TextView
                     android:id="@+id/txtdgt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight=".8"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="0dp"
-                    android:paddingRight="5dp"
+
                     android:text="@string/pana"
                     android:textColor="@color/black"
                     android:textSize="15dp" />
@@ -57,27 +58,28 @@
 
                 <TextView
                     android:id="@+id/txtpnt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="Points"
                     android:textSize="15dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:layout_toRightOf="@+id/txtdgt"
-                    android:layout_marginLeft="40dp"
+
                     android:textColor="@color/black"/>
                 <TextView
                     android:id="@+id/txttype"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="Game Type"
                     android:textSize="15dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:layout_toRightOf="@id/txtpnt"
-                    android:layout_marginLeft="40dp"
+
                     android:textColor="@color/black"/>
-            </RelativeLayout>
+            </LinearLayout>
 
                 <ListView
                     android:layout_marginTop="5dp"

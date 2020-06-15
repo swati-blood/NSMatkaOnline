@@ -331,6 +331,7 @@ public class Common {
             @Override
             public void onClick(View v) {
                 btnType.setText(finalTxtOpen.getText().toString());
+                btnType.setTextColor(context.getResources().getColor(R.color.black));
                   finalDialog.dismiss();
 
             }
@@ -342,7 +343,7 @@ public class Common {
             @Override
             public void onClick(View v) {
                 btnType.setText(finalTxtClose.getText().toString());
-
+                btnType.setTextColor(context.getResources().getColor(R.color.black));
                 finalDialog1.dismiss();
             }
         });
@@ -506,7 +507,7 @@ public class Common {
 
     }
     public void addData(String digit, String point, String type, List<TableModel> list, TableAdaper tableAdaper, ListView list_table, Button btnSave) {
-
+        list.clear();
         list.add(new TableModel(digit, point, type));
         tableAdaper = new TableAdaper(list, context, btnSave);
         list_table.setAdapter(tableAdaper);
@@ -609,9 +610,9 @@ public class Common {
                     String asd2 = tableModel.getType().toString();
                     int b = 9;
 
-                    if (asd2.equals("close")) {
+                    if (asd2.equalsIgnoreCase("Close")) {
                         b = 1;
-                    } else if (asd2.equals("open")) {
+                    } else if (asd2.equalsIgnoreCase("Open")) {
                         b = 0;
                     }
 
@@ -634,7 +635,7 @@ public class Common {
                 jsonObject.put("bettype", list_type);
                 jsonObject.put("user_id", id);
                 jsonObject.put("matka_id", matka_id);
-                jsonObject.put("date", c);
+                jsonObject.put("game_date", c);
                 jsonObject.put("game_id", game_id);
 
                 JSONArray jsonArray = new JSONArray();
@@ -661,7 +662,7 @@ public class Common {
 
     }
 
-    public void setDateDialog(Dialog dialog, final String m_id, TextView txtCurrentDate, TextView txtNextDate, TextView txtAfterNextDate, TextView txtDate_id, final TextView btnGameType)
+    public void setDateDialog(Dialog dialog, final String m_id, TextView txtCurrentDate, TextView txtNextDate, TextView txtAfterNextDate, TextView txtDate_id, final TextView btnGameType ,LoadingBar loadingBar)
     {
         dialog=new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -677,7 +678,7 @@ public class Common {
         //setData(txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,m_id,progressDialog,OddEvenActivity.this);
         dialog.show();
         //getMatkaDateData(context,m_id,txtCurrentDate,txtNextDate,txtAfterNextDate,progressDialog);
-        getDateData(m_id,txtCurrentDate,txtNextDate,txtAfterNextDate);
+        getDateData(m_id,txtCurrentDate,txtNextDate,txtAfterNextDate,loadingBar);
 
 
         final Dialog finalDialog = dialog;
@@ -690,6 +691,7 @@ public class Common {
 
                 ///   String as=getDataString(c);
                 btnGameType.setText(c.toString());
+                btnGameType.setTextColor(context.getResources().getColor(R.color.black));
                 finalDialog.dismiss();
             }
         });
@@ -705,6 +707,7 @@ public class Common {
 
                 // String as=getDataString(c);
                 btnGameType.setText(c.toString());
+                btnGameType.setTextColor(context.getResources().getColor(R.color.black));
                 finalDialog1.dismiss();
             }
         });
@@ -720,6 +723,7 @@ public class Common {
 
                 // String as=getDataString(c);
                 btnGameType.setText(c.toString());
+                btnGameType.setTextColor(context.getResources().getColor(R.color.black));
                 finalDialog2.dismiss();
             }
         });
@@ -727,9 +731,9 @@ public class Common {
 
     // Function for Get Game Date and Day
 
-    public void getDateData(final String m_id, final TextView txtCurrentDate, final TextView txtNextDate, final TextView txtAfterNextDate)
+    public void getDateData(final String m_id, final TextView txtCurrentDate, final TextView txtNextDate, final TextView txtAfterNextDate , final LoadingBar loadingBar)
     {
-
+loadingBar.show();
         String json_tag="json_matka_id";
         HashMap<String, String> params=new HashMap<String, String>();
         params.put("id",m_id);
@@ -739,6 +743,10 @@ public class Common {
             public void onResponse(JSONObject response) {
 
                 try {
+                    if (loadingBar.isShowing())
+                    {
+                        loadingBar.dismiss();
+                    }
                     JSONObject jsonObject = response;
                     String status = jsonObject.getString("status");
                     if (status.equals("success")) {
@@ -801,21 +809,26 @@ public class Common {
 
                         if (st_time.equals("") && st_time.equals("null")) {
 
-                            txtCurrentDate.setText(dt + " Bet Close");
+//                            txtCurrentDate.setText(dt + " Bet Close");
+                            txtCurrentDate.setText("\n"+dt );
                             cd="c";
 
                             if (st_time1.equals("") && st_time1.equals("null")) {
-                                txtNextDate.setText(dt1 + " Bet Close");
+//                                txtNextDate.setText(dt1 + " Bet Close");
+                                txtNextDate.setText("\n"+dt1);
                                 nd="c";
                             } else {
-                                txtNextDate.setText(dt1 + " Bet Open");
+//                                txtNextDate.setText(dt1 + " Bet Open");
+                                txtNextDate.setText("\n"+dt1);
                                 nd="o";
                             }
                             if (st_time2.equals("") && st_time2.equals("null")) {
-                                txtAfterNextDate.setText(dt2 + " Bet Close");
+//                                txtAfterNextDate.setText(dt2 + " Bet Close");
+                                txtAfterNextDate.setText("\n"+dt2);
                                 and="c";
                             } else {
-                                txtAfterNextDate.setText(dt2 + " Bet Open");
+//                                txtAfterNextDate.setText(dt2 + " Bet Open");
+                                txtAfterNextDate.setText("\n"+dt2);
                                 and="o";
                             }
 
@@ -860,41 +873,48 @@ public class Common {
                             if (as < 0) {
 //                                progressDialog.dismiss();
                                 //btn.setText(s_dt+" Bet Open");
-                                txtCurrentDate.setText(s_dt + " Bet Open");
+//                                txtCurrentDate.setText(s_dt + " Bet Open");
+                                txtCurrentDate.setText(s_dt);
 
                                 //Toast.makeText(OddEvenActivity.this,""+s_dt+"  Open",Toast.LENGTH_LONG).show();
                             } else if (c > 0) {
 //                                progressDialog.dismiss();
-                                txtCurrentDate.setText(s_dt + " Bet Close");
+//                                txtCurrentDate.setText(s_dt + " Bet Close");
+                                txtCurrentDate.setText(s_dt );
 
                                 // Toast.makeText(OddEvenActivity.this,""+s_dt+"  Close",Toast.LENGTH_LONG).show();
                             } else {
 //                                progressDialog.dismiss();
                                 //btn.setText(s_dt+" Bet Open");
-                                txtCurrentDate.setText(s_dt + " Bet Open");
+//                                txtCurrentDate.setText(s_dt + " Bet Open");
+                                txtCurrentDate.setText(s_dt );
 
 
                             }
 
                             if(nd.equals("c"))
                             {
-                                txtNextDate.setText(n_dt + " Bet Close");
+//                                txtNextDate.setText(n_dt + " Bet Close");
+                                txtNextDate.setText(n_dt );
 
                             }
                             else
                             {
-                                txtNextDate.setText(n_dt + " Bet Open");
+//                                txtNextDate.setText(n_dt + " Bet Open");
+                                txtNextDate.setText(n_dt);
 
                             }
 
                             if(and.equals("c"))
                             {
-                                txtAfterNextDate.setText(a_dt + " Bet Close");
+                                txtAfterNextDate.setText(a_dt);
+//                                txtAfterNextDate.setText(a_dt + " Bet Close");
 
                             }
                             else
                             {
-                                txtAfterNextDate.setText(a_dt + " Bet Open");
+                                txtAfterNextDate.setText(a_dt);
+//                                txtAfterNextDate.setText(a_dt + " Bet Open");
 
                             }
 
@@ -904,8 +924,12 @@ public class Common {
 
                     }
                 } catch(Exception ex){
+                    if (loadingBar.isShowing())
+                    {
+                        loadingBar.dismiss();
+                    }
 //                    progressDialog.dismiss();
-                    Toast.makeText(context, "Something wrong" + ex.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Something went wrong" + ex.getMessage(), Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -1466,11 +1490,11 @@ public class Common {
 
                     } else {
                         progressDialog.dismiss();
-                        Toast.makeText(context,"Something erong", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,"Something wrong", Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {
                     progressDialog.dismiss();
-                    Toast.makeText(context,"Something erong"+ex.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Something wrong"+ex.getMessage(), Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -1636,6 +1660,8 @@ public class Common {
         String json_request_tag="json_insert_request";
         HashMap<String, String> params=new HashMap<String, String>();
         params.put("data",data);
+        Log.e("json_arr",data);
+
 
      //  Toast.makeText(context,""+data,Toast.LENGTH_LONG).show();
         if(progressDialog.isShowing())

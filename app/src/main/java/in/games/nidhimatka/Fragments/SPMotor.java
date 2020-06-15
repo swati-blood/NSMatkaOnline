@@ -28,6 +28,7 @@ import com.android.volley.VolleyError;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -97,9 +98,12 @@ public class SPMotor extends Fragment implements View.OnClickListener {
         s_time = getArguments().getString("start_time");
         e_time = getArguments().getString("end_time");
         w_amount = txtWalet.getText().toString();
+//        w_amount = "12";
         list=new ArrayList<>();
         btnAdd.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+        txt_date.setOnClickListener(this);
+        txt_type.setOnClickListener(this);
 
 
     }
@@ -140,11 +144,16 @@ public class SPMotor extends Fragment implements View.OnClickListener {
                         return;
 
 
-                    } else {
+                    }
+                    else if (pints>Integer.parseInt(w_amount))
+                    {
+                        common.errorMessageDialog("Insufficient Amount");
+                    }
+                    else {
                         list.clear();
                         String d = etDigits.getText().toString();
                         String p = etPoints.getText().toString();
-                        String th = null;
+                        String th = type;
                         if(stat==1)
                         {
                             th="open";
@@ -166,7 +175,9 @@ public class SPMotor extends Fragment implements View.OnClickListener {
                         String inputData =etDigits.getText().toString().trim();
                         if (inputData.equals("false")) {
                             Toast.makeText(getActivity(), "Wrong input", Toast.LENGTH_LONG).show();
-                        } else {
+                        }
+
+                            else {
                             if (game_name.equalsIgnoreCase("sp motor")) {
                                 getDataSet(inputData, p, bet,URLs.URL_SpMotor);
                             }
@@ -175,10 +186,10 @@ public class SPMotor extends Fragment implements View.OnClickListener {
                                 getDataSet(inputData, p, bet,URLs.URL_DpMotor);
                             }
                         }
-
-                        etPoints.setText("");
-                        etDigits.setText("");
-                        etDigits.requestFocus();
+//
+//                        etPoints.setText("");
+//                        etDigits.setText("");
+//                        etDigits.requestFocus();
                         //  btnType.setText("Select Type");
                     }
                 }
@@ -186,8 +197,57 @@ public class SPMotor extends Fragment implements View.OnClickListener {
         }
         else if (v.getId() == R.id.digit_save)
         {
+            int amt=0;
+            for(int j=0;j<list.size();j++)
+            {
+                amt=amt+Integer.parseInt(list.get(j).getPoints());
+            }
+            if (amt>Integer.parseInt(w_amount))
+            {
+                common.errorMessageDialog("Insufficient Amount");
+                clrControls();
+            }
+            else {
+                try {
+                    Date date = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+                    String cur_time = format.format(date);
+                    String cur_date = sdf.format(date);
+                    String g_d = game_date.substring(0, 10);
+//                Toast.makeText(getActivity(),""+g_d,Toast.LENGTH_LONG).show();
+                    Log.e("date ", String.valueOf(g_d) + "\n" + String.valueOf(cur_date));
 
-            common.setBidsDialog(Integer.parseInt(w_amount),list,matka_id,txt_type.getText().toString(),game_id,w_amount,matka_name,progressDialog,btnSave,s_time,e_time);
+               if (cur_date.equals(g_d)) {
+                        Log.e("true", "today");
+                        Date s_date = format.parse(s_time);
+                        Date e_date = format.parse(e_time);
+                        Date c_date = format.parse(cur_time);
+                        long difference = c_date.getTime() - s_date.getTime();
+                        long as = (difference / 1000) / 60;
+
+                        long diff_close = c_date.getTime() - e_date.getTime();
+                        long curr = (diff_close / 1000) / 60;
+                        long current_time = c_date.getTime();
+
+                        if (as < 0) {
+
+                            common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
+                        } else if (curr < 0) {
+                            common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
+                        } else {
+                            clrControls();
+                            common.errorMessageDialog("Betting is Closed Now");
+
+                        }
+                    } else {
+
+                        common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date.substring(0, 10), game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         else if (v.getId()==R.id.tv_type)
         {
@@ -199,7 +259,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
         else if (v.getId()==R.id.tv_date)
         {
 
-            common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date);
+            common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date,progressDialog);
         }
 
     }
@@ -265,4 +325,17 @@ public class SPMotor extends Fragment implements View.OnClickListener {
 
     }
 
+    public void clrControls()
+    {
+
+        etPoints.setText("");
+        etDigits.setText("");
+        list.clear();
+
+        txt_type.setTextColor(getActivity().getResources().getColor(R.color.grey));
+        txt_date.setTextColor(getActivity().getResources().getColor(R.color.grey));
+        txt_type.setText(getActivity().getResources().getString(R.string.select_type));
+        txt_date.setText(getActivity().getResources().getString(R.string.select_date));
+        btnSave.setText("Save");
+    }
 }

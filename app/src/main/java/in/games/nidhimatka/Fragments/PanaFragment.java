@@ -261,7 +261,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         else if (v.getId()==R.id.tv_date)
         {
 
-            common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date);
+            common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date,loadingBar);
         }
 
     }

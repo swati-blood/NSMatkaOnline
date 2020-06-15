@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:text="Matka Name"
         android:background="@color/colorPrimary"
-        android:textColor="@color/textColor"
+        android:textColor="@color/white"
         android:layout_gravity="center_vertical"
         android:padding="5dp"
        android:textAlignment="gravity"
@@ -191,7 +191,7 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textColor="@color/textColor"
+                android:textColor="@color/white"
                 android:text="Total Bids "/>
             <TextView
                 android:id="@+id/txtCountBids"
@@ -199,7 +199,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textColor="@color/textColor"
+                android:textColor="@color/white"
 
                 android:text="Total "/>
             <TextView
@@ -208,7 +208,7 @@
                 android:layout_toRightOf="@id/txtCountBids"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:textColor="@color/textColor"
+                android:textColor="@color/white"
                 android:text="Total Bids Amount"/>
             <TextView
                 android:id="@+id/txtAmount"
@@ -218,7 +218,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="8dp"
                 android:paddingTop="10dp"
-                android:textColor="@color/textColor"
+                android:textColor="@color/white"
                 android:text="Total "/>
         </RelativeLayout>
         <RelativeLayout
@@ -236,7 +236,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:textSize="12dp"
-                android:textColor="@color/textColor"
+                android:textColor="@color/white"
                 android:text="Wallet Before Deduction "/>
             <TextView
                 android:id="@+id/txtBeforeAmount"
@@ -244,7 +244,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textColor="@color/textColor"
+                android:textColor="@color/white"
 
                 android:text="Total "/>
             <TextView
@@ -253,7 +253,7 @@
                 android:layout_toRightOf="@id/txtBeforeAmount"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:textColor="@color/textColor"
+                android:textColor="@color/white"
                 android:text="Wallet After Deduction"/>
             <TextView
                 android:id="@+id/txtAfterAmount"
@@ -264,7 +264,7 @@
                 android:paddingRight="8dp"
                 android:paddingTop="10dp"
 
-                android:textColor="@color/textColor"
+                android:textColor="@color/white"
 
                 android:text="Total "/>
 
@@ -291,7 +291,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="5"
                 android:layout_height="wrap_content"
-                android:textColor="@color/textColor"
+                android:textColor="@color/white"
                 android:background="#005308"
                 android:text="Ok"/>
 
@@ -300,7 +300,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="5"
                 android:layout_height="wrap_content"
-                android:textColor="@color/textColor"
+                android:textColor="@color/white"
                 android:background="@color/colorPrimaryDark"
                 android:layout_marginLeft="2dp"
                 android:text="Cancel"/>

@@ -23,7 +23,9 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:orientation="horizontal"
-                 android:weightSum="2">
+                 android:weightSum="2"
+                 android:layout_marginLeft="@dimen/_10sdp"
+                 android:layout_marginRight="@dimen/_10sdp">
                  <TextView
                      android:id="@+id/tv_date"
                      android:layout_width="wrap_content"
@@ -116,7 +118,7 @@
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          android:text="@string/open_pana"
-                         android:textColor="@color/textColor"
+                         android:textColor="@color/colorAccent"
                          android:layout_centerVertical="true"
                          android:paddingLeft="10dp"
                          android:textSize="14dp"/>
@@ -129,10 +131,10 @@
                          android:layout_centerVertical="true"
                          android:textAlignment="center"
                          android:inputType="number"
-                         android:textColor="@color/textColor"
+                         android:textColor="@color/colorAccent"
                          android:maxLength="3"
                          android:hint="@string/open_pana"
-                         android:textColorHint="@color/textColor"
+
                          android:textSize="14dp"
                          android:completionThreshold="1"
                          android:background="@drawable/shape2"/>
@@ -155,7 +157,7 @@
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          android:text="@string/close_pana"
-                         android:textColor="@color/textColor"
+                         android:textColor="@color/colorAccent"
                          android:layout_centerVertical="true"
                          android:paddingLeft="10dp"
 
@@ -171,10 +173,10 @@
                          android:inputType="number"
                          android:maxLength="3"
                          android:hint="@string/close_pana"
-                         android:textColorHint="@color/textColor"
+
                          android:textSize="14dp"
                          android:completionThreshold="1"
-                         android:textColor="@color/textColor"
+                         android:textColor="@color/colorAccent"
                          android:background="@drawable/shape2"/>
 
 
@@ -193,7 +195,7 @@
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          android:text="POINTS    "
-                         android:textColor="@color/textColor"
+                         android:textColor="@color/colorAccent"
                          android:layout_centerVertical="true"
                          android:paddingLeft="10dp"
                          android:textSize="14dp"/>
@@ -209,8 +211,8 @@
                          android:maxLength="5"
                          android:textSize="14dp"
                          android:hint="Points"
-                         android:textColorHint="@color/textColor"
-                         android:textColor="@color/textColor"
+
+                         android:textColor="@color/colorAccent"
                          android:background="@drawable/shape2"/>
 
 

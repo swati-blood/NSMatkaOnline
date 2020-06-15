@@ -22,6 +22,8 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:orientation="horizontal"
+                  android:layout_marginLeft="@dimen/_10sdp"
+                  android:layout_marginRight="@dimen/_10sdp"
                   android:weightSum="2">
                   <TextView
                       android:id="@+id/tv_date"
@@ -118,7 +120,7 @@
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:text="@string/group_panel"
-                          android:textColor="@color/textColor"
+                          android:textColor="@color/colorAccent"
                           android:layout_centerVertical="true"
                           android:paddingLeft="10dp"
                           android:textSize="14dp"/>
@@ -133,11 +135,11 @@
                           android:textAlignment="center"
                           android:inputType="number"
                           android:hint="@string/group_panel"
-                          android:textColorHint="@color/textColor"
+
                           android:maxLength="3"
                           android:textSize="14dp"
                           android:dropDownHeight="300dp"
-                          android:textColor="@color/textColor"
+                          android:textColor="@color/colorAccent"
                           android:completionThreshold="1"
                           android:background="@drawable/shape2"/>
                   </RelativeLayout>
@@ -157,7 +159,7 @@
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:text="POINTS    "
-                          android:textColor="@color/textColor"
+                          android:textColor="@color/colorAccent"
                           android:layout_centerVertical="true"
                           android:paddingLeft="10dp"
                           android:textSize="14dp"/>
@@ -170,11 +172,11 @@
                           android:layout_centerVertical="true"
                           android:textAlignment="center"
                           android:inputType="number"
-                          android:textColorHint="@color/textColor"
+
                           android:maxLength="5"
                           android:textSize="14dp"
                           android:hint="Points"
-                          android:textColor="@color/textColor"
+                          android:textColor="@color/colorAccent"
                           android:background="@drawable/shape2"/>
 
                   </RelativeLayout>

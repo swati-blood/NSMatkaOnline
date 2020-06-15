@@ -12,6 +12,10 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import in.games.nidhimatka.R;
 
 /**
@@ -45,11 +49,27 @@ TextView tv_m_name ,tv_s_time ,tv_end_time,tv_num;
      tv_game = view.findViewById(R.id.gamename);
      tv_num = view.findViewById(R.id.matkanumber);
 
+        SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
+
+        try {
+            Date _24Hourst = _24HourSDF.parse(start_time);
+            Date _24Houret = _24HourSDF.parse(end_time);
+           String s_date = _12HourSDF.format(_24Hourst);
+           String e_date = _12HourSDF.format(_24Houret);
+
+            tv_s_time.setText(s_date);
+            tv_end_time.setText(e_date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
      tv_game.setText("");
      tv_m_name.setText(matka_name);
-     tv_s_time.setText(start_time);
-     tv_end_time.setText(end_time);
+
      tv_num.setText(start_num+" - "+num+" - "+end_num);
+
+
 
         Bundle bundle = new Bundle();
         bundle.putString("matka_name",getArguments().getString("matka_name"));

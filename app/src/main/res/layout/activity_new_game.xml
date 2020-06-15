@@ -35,7 +35,7 @@
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:textSize="17dp"
-                android:textColor="@color/textColor"/>
+                android:textColor="@color/white"/>
         </androidx.appcompat.widget.Toolbar>
 
 

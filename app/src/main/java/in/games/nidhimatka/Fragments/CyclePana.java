@@ -1,12 +1,14 @@
 package in.games.nidhimatka.Fragments;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -152,6 +155,7 @@ public class CyclePana extends Fragment implements View.OnClickListener {
         s_time = getArguments().getString("start_time");
         e_time = getArguments().getString("end_time");
         w_amount = txtWalet.getText().toString();
+
         list=new ArrayList<>();
         btnAdd.setOnClickListener(this);
         btnSave.setOnClickListener(this);
@@ -168,6 +172,7 @@ public class CyclePana extends Fragment implements View.OnClickListener {
         if (v.getId() == R.id.digit_add) {
             type = txt_type.getText().toString();
             game_date = txt_date.getText().toString();
+
             list.clear();
             String bet = type ;
             if (game_date.equals("Select Date"))
@@ -188,6 +193,7 @@ public class CyclePana extends Fragment implements View.OnClickListener {
                 return;
 
             }
+
             else {
                 int pints = Integer.parseInt(etPoints.getText().toString().trim());
                 if (pints < 10) {
@@ -464,9 +470,59 @@ public class CyclePana extends Fragment implements View.OnClickListener {
 
             }
         }
-        else if (v.getId()== R.id.digit_save)
-        {
-            common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, txt_type.getText().toString(), game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
+        else if (v.getId()== R.id.digit_save) {
+            int amt=0;
+            for(int j=0;j<list.size();j++)
+            {
+                amt=amt+Integer.parseInt(list.get(j).getPoints());
+            }
+
+            if (amt>Integer.parseInt(w_amount))
+            {
+                common.errorMessageDialog("Insufficient Amount");
+                clrControls();
+            }
+            else {
+                try {
+                    Date date = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+                    String cur_time = format.format(date);
+                    String cur_date = sdf.format(date);
+                    String g_d = game_date.substring(0, 10);
+//                Toast.makeText(getActivity(),""+g_d,Toast.LENGTH_LONG).show();
+                    Log.e("date ", String.valueOf(g_d) + "\n" + String.valueOf(cur_date));
+
+                    if (cur_date.equals(g_d)) {
+                        Log.e("true", "today");
+                        Date s_date = format.parse(s_time);
+                        Date e_date = format.parse(e_time);
+                        Date c_date = format.parse(cur_time);
+                        long difference = c_date.getTime() - s_date.getTime();
+                        long as = (difference / 1000) / 60;
+
+                        long diff_close = c_date.getTime() - e_date.getTime();
+                        long curr = (diff_close / 1000) / 60;
+                        long current_time = c_date.getTime();
+
+                        if (as < 0) {
+
+                            common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
+                        } else if (curr < 0) {
+                            common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
+                        } else {
+                            clrControls();
+                            common.errorMessageDialog("Betting is Closed Now");
+
+                        }
+                    } else {
+
+                        common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date.substring(0, 10), game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         else if (v.getId()==R.id.tv_type)
@@ -478,17 +534,36 @@ public class CyclePana extends Fragment implements View.OnClickListener {
         }
         else if (v.getId()==R.id.tv_date)
         {
-            common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date);
+            common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date,progressDialog);
         }
     }
     public void setArray(String[] array ,String p, String th) {
-        for (int i = 0; i < array.length; i++) {
-            common.addData(array[i], p, th, list, tableAdaper, list_table, btnSave);
-            editText.setText("");
-            etPoints.setText("");
+       if (Integer.parseInt(p)>Integer.parseInt(w_amount))
+        {
+//         Toast.makeText(getActivity(),"Insufficient Amount",Toast.LENGTH_LONG).show();
+         common.errorMessageDialog("Insufficient Amount");
+         clrControls();
+        }
+        else {
+            for (int i = 0; i < array.length; i++) {
+                common.addData(array[i], p, th, list, tableAdaper, list_table, btnSave);
+                editText.setText("");
+                etPoints.setText("");
 
-            editText.requestFocus();
+                editText.requestFocus();
+            }
         }
 
+    }
+    public void clrControls()
+    {
+        etDgt.setText("");
+        etPoints.setText("");
+        list.clear();
+        txt_type.setText(getActivity().getResources().getString(R.string.select_type));
+        txt_type.setTextColor(getActivity().getResources().getColor(R.color.grey));
+        txt_date.setTextColor(getActivity().getResources().getColor(R.color.grey));
+        txt_date.setText(getActivity().getResources().getString(R.string.select_date));
+       btnSave.setText("Save");
     }
     }
