@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.Adapter.TableAdaper;
 import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Model.TableModel;
@@ -125,7 +126,7 @@ public class GroupJodi extends Fragment implements View.OnClickListener {
         btnSave.setOnClickListener(this);
         txt_type.setOnClickListener(this);
         txt_date.setOnClickListener(this);
-
+        ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,sp_input_data.panel_group_array);
         editText.setAdapter(adapter);
     }

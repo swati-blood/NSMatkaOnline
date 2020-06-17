@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.Adapter.GameRateAdapter;
 import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Config.URLs;
@@ -62,7 +64,7 @@ public class GameRatesFragment extends Fragment {
       //    progressDialog.setTitle("Please wait");
       jannat_recycler=v.findViewById(R.id.jannat_recycler);
       starline_recycler=v.findViewById(R.id.starline_recycler);
-
+      ((MainActivity) getActivity()).setTitle("Game Rates");
       getNotice();
   }
     private void getNotice() {
@@ -108,7 +110,7 @@ public class GameRatesFragment extends Fragment {
                         }
                         gameRateAdapter=new GameRateAdapter(list,getActivity());
                         jannat_recycler.setAdapter(gameRateAdapter);
-                        jannat_recycler.setLayoutManager(new GridLayoutManager(getActivity(),2));
+                        jannat_recycler.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
                         gameRateAdapter.notifyDataSetChanged();
 
                     }

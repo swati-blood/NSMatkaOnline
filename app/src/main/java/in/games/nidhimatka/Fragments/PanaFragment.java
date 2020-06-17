@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.Adapter.PointsAdapter;
 import in.games.nidhimatka.Adapter.RecyclerPagerAdapter;
 import in.games.nidhimatka.Common.Common;
@@ -51,7 +52,8 @@ import static in.games.nidhimatka.Objects.sp_input_data.triplePanna;
  * A simple {@link Fragment} subclass.
  */
 public class PanaFragment extends Fragment implements View.OnClickListener {
-    TextView txt_date, txt_type ,total ,txtOpen,txtClose,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id;
+    TextView txt_date,txtOpen,txtClose,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id;
+   public static TextView txt_type,total  ;
     Dialog dialog ;
     RecyclerView rv_points;
     TabLayout tabLayout;
@@ -68,7 +70,8 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
     LoadingBar loadingBar;
     ViewPager viewPager ;
     int selected_pos =0;
-  String bet_type ="",bet_date="";
+ public static String bet_type ="";
+          String bet_date="";
 
 
     public PanaFragment() {
@@ -107,11 +110,11 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
       s_time = getArguments().getString("start_time");
         e_time = getArguments().getString("end_time");
         w_amount = txtWalet.getText().toString();
-
+        bet_type = txt_type.getText().toString();
         btn_submit.setOnClickListener(this);
         txt_date.setOnClickListener(this);
         txt_type.setOnClickListener(this);
-
+        ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
        setLayout(game_name);
 
        Log.e("gme",game_name + game_id +matka_name+matka_id);
@@ -181,82 +184,79 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.btn_sbmit) {
             bet_type = txt_type.getText().toString();
-            bet_date =txt_date.getText().toString();
+            bet_date = txt_date.getText().toString();
 
-            if (bet_date.equals("Select Date"))
-            {
-                Toast.makeText(getActivity(),"Select Date",Toast.LENGTH_LONG).show();
-            }
-            else if (bet_type.equals("Select Type"))
-            {
-                Toast.makeText(getActivity(),"Select game type",Toast.LENGTH_LONG).show();
+            if (bet_date.equals("Select Date")) {
+                Toast.makeText(getActivity(), "Select Date", Toast.LENGTH_LONG).show();
+            } else if (bet_type.equals("Select Type")) {
+                Toast.makeText(getActivity(), "Select game type", Toast.LENGTH_LONG).show();
 
-            }
-
-            else if (is_empty) {
+            } else if (is_empty) {
                 Toast.makeText(getActivity(), "Please enter some points", Toast.LENGTH_LONG).show();
             } else {
                 if (is_error) {
                     Toast.makeText(getActivity(), "Minimum bid amount is 10", Toast.LENGTH_LONG).show();
-                }
-                else {
-//                    String dt = btnGameType.getText().toString().trim();
-//                    String d[] = dt.split(" ");
-
-//                    String c = d[0].toString();
-//                    String w = txtWallet_amount.getText().toString().trim();
-                    Date date = new Date();
-                    SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-
-                    String cur_time = format.format(date);
-
-//                    try {
-//                        Date s_date = format.parse(start_time);
-//                        Date e_date = format.parse(end_time);
-//                        Date c_date = format.parse(cur_time);
-//                        long difference = c_date.getTime() - s_date.getTime();
-//                        long as = (difference / 1000) / 60;
-//
-//                        long diff_close = c_date.getTime() - e_date.getTime();
-//                        long curr = (diff_close / 1000) / 60;
-//                        long current_time = c_date.getTime();
-
-//                            if (as < 0) {
-//
-//                                common.setBidsDialog(Integer.parseInt(w), list, m_id, c, game_id, w, dashName, progressDialog, btnSubmit, start_time, end_time);
-////                                clearCntrls();
-//                            }
-//
-//                          else  if (curr < 0) {
-//                                common.setBidsDialog(Integer.parseInt(w), list, m_id, c, game_id, w, dashName, progressDialog, btnSubmit, start_time, end_time);
-////                                clearCntrls();
-//                            } else {
-//                                common.errorMessageDialog("Betting is Closed Now");
-//                            }
-
-//
-//                    }
-//                    catch (ParseException e) {
-//                        e.printStackTrace();
-//                    }
-
-
+                } else {
+                    int amt = 0;
+                    for (int j = 0; j < list.size(); j++) {
+                        amt = amt + Integer.parseInt(bet_list.get(j).getPoints());
                     }
 
+                    if (amt > Integer.parseInt(w_amount)) {
+                        common.errorMessageDialog("Insufficient Amount");
 
+                    } else {
+                        try {
+                            Date date = new Date();
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+                            String cur_time = format.format(date);
+                            String cur_date = sdf.format(date);
+                            String g_d = bet_date.substring(0, 10);
+//                Toast.makeText(getActivity(),""+g_d,Toast.LENGTH_LONG).show();
+                            Log.e("date ", String.valueOf(g_d) + "\n" + String.valueOf(cur_date));
 
-                    common.setBidsDialog(Integer.parseInt(w_amount), bet_list, matka_id, txt_type.getText().toString(), game_id, w_amount, matka_name, loadingBar, btn_submit, s_time, e_time);
+                            if (cur_date.equals(g_d)) {
+                                Log.e("true", "today");
+                                Date s_date = format.parse(s_time);
+                                Date e_date = format.parse(e_time);
+                                Date c_date = format.parse(cur_time);
+                                long difference = c_date.getTime() - s_date.getTime();
+                                long as = (difference / 1000) / 60;
 
-//                    list.clear();
+                                long diff_close = c_date.getTime() - e_date.getTime();
+                                long curr = (diff_close / 1000) / 60;
+                                long current_time = c_date.getTime();
+
+                                if (as < 0) {
+
+                                    common.setBidsDialog(Integer.parseInt(w_amount), bet_list, matka_id, g_d, game_id, w_amount, matka_name, loadingBar, btn_submit, s_time, e_time);
+                                } else if (curr < 0) {
+                                    common.setBidsDialog(Integer.parseInt(w_amount), bet_list, matka_id, g_d, game_id, w_amount, matka_name, loadingBar, btn_submit, s_time, e_time);
+                                } else {
+
+                                    common.errorMessageDialog("Betting is Closed Now");
+
+                                }
+                            } else {
+
+                                common.setBidsDialog(Integer.parseInt(w_amount), bet_list, matka_id, bet_date.substring(0, 10), game_id, w_amount, matka_name, loadingBar, btn_submit, s_time, e_time);
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
-
+        }
         else if (v.getId()==R.id.tv_type)
         {
             Date date=new Date();
             SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
             String ctt=dateFormat.format(date);
             common.setBetTypeDialog(dialog,txtOpen,txtClose,matka_id,txt_type,loadingBar,ctt);
+            setLayout(game_name);
+
         }
         else if (v.getId()==R.id.tv_date)
         {
@@ -280,16 +280,12 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
 
             case  "Single Pana" :
                 setTabLayout();
-//                addRecyclerAdapter(rv_points,recyclerPagerAdapter,Arrays.asList(single_digit));
-//                recyclerPagerAdapter = new RecyclerPagerAdapter(Arrays.asList(single_digit),getActivity(),bet_type);
-//                final LinearLayoutManager linearLayoutManager =new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false);
-//                rv_points.setLayoutManager(linearLayoutManager);
-//                rv_points.setAdapter(recyclerPagerAdapter);
-//                recyclerPagerAdapter.notifyDataSetChanged();
+                addRecyclerAdapter(rv_points,recyclerPagerAdapter,Arrays.asList(singlePaana));
+//
                 break;
             case  "Double Pana" :
                 setTabLayout();
-//               addRecyclerAdapter(rv_points,recyclerPagerAdapter,Arrays.asList(doublePanna));
+               addRecyclerAdapter(rv_points,recyclerPagerAdapter,Arrays.asList(doublePanna));
                 break;
             case  "Triple Pana" :
                 addAdapter(rv_points,pointsAdapter,Arrays.asList(triplePanna));
@@ -301,7 +297,8 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
 
     public void addAdapter(RecyclerView rv_points ,PointsAdapter pAdapter, List<String> list)
     {
-        pAdapter = new PointsAdapter(list, getActivity(),bet_type,total);
+
+        pAdapter = new PointsAdapter(list, getActivity(),total);
         rv_points.setAdapter(pAdapter);
         rv_points.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         Log.e("list", String.valueOf(list.size()));

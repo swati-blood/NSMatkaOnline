@@ -20,6 +20,7 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
+import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.Adapter.SelectGameAdapter;
 import in.games.nidhimatka.Model.GameModel;
 import in.games.nidhimatka.R;
@@ -45,6 +46,7 @@ public class SelectGameFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View view =inflater.inflate(R.layout.fragment_select_game, container, false);
+        ((MainActivity) getActivity()).setTitle("Select Game");
        rv_games =  view.findViewById(R.id.recycler_games);
        rv_games.setLayoutManager(new GridLayoutManager(getActivity(),3));
        game_list = new ArrayList<>();

@@ -57,7 +57,7 @@
                    android:paddingLeft="10dp"
                    android:paddingRight="10dp"
                    android:text="Bid History"
-                   android:textSize="25dp"
+                   android:textSize="23dp"
                    android:textStyle="bold|italic"
                    android:textColor="@color/colorPrimary"/>
 
@@ -107,7 +107,7 @@
                    android:paddingLeft="10dp"
                    android:paddingRight="10dp"
                    android:text="Fund Request History"
-                   android:textSize="25dp"
+                   android:textSize="23dp"
                    android:textStyle="bold|italic"
                    android:textColor="@color/colorPrimary"/>
 

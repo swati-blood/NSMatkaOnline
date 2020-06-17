@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.Adapter.TableAdaper;
 import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Config.URLs;
@@ -115,6 +116,7 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
         btnSave.setOnClickListener(this);
         txt_date.setOnClickListener(this);
         txt_type.setOnClickListener(this);
+        ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,singlePaana);
         etOpenPana.setAdapter(adapter);
         etClosePana.setAdapter(adapter);

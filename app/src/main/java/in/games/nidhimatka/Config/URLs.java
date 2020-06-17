@@ -23,6 +23,7 @@ public class URLs {
     public static final String URL_GENERATE_OTP=BASE_URL+"generate_otp";
     public static final String URL_VERIFICATION=BASE_URL+"mobile_verification";
     public static final String URL_UPDATE_PASS=BASE_URL+"forgot_password";
+    public static final String URL_SLIDERS=BASE_URL+"get_sliders";
 
    public static final String URL_Login = "https://nidhionlinematka.in/restApi/users/usersdata.php";
    public static final String URL_Forgot_Password = "https://nidhionlinematka.in/restApi/forgotpassword.php";
@@ -52,7 +53,5 @@ public class URLs {
     public static final String URL_MPIN = "";
 
 
-
-
-
+    public static final String IMG_SLIDER_URL = "http://nidhionlinematka.in/assets/images/sliders/";
 }

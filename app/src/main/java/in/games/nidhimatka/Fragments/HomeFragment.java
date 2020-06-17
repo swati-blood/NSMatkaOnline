@@ -20,24 +20,33 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.Adapter.MatakListViewAdapter;
 import in.games.nidhimatka.Adapter.MatkaAdapter;
+import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Config.URLs;
+import in.games.nidhimatka.CustomSlider;
 import in.games.nidhimatka.Model.MatkaObject;
 import in.games.nidhimatka.Model.MatkasObjects;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Module;
 import in.games.nidhimatka.Util.RecyclerTouchListener;
@@ -52,7 +61,7 @@ MatkaAdapter matkaAdapter ;
     Module module;
     public static String mainName="";
     int flag =0 ;
-
+    SliderLayout home_slider ;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -97,11 +106,13 @@ MatkaAdapter matkaAdapter ;
    private void initViews(View v)
    {
     matkaList = new ArrayList<>();
-
+       ((MainActivity) getActivity()).setTitle(getActivity().getResources().getString(R.string.app_name));
     rv_matka= v.findViewById(R.id.listView);
+    home_slider= v.findViewById(R.id.home_slider);
     progressDialog = new LoadingBar(getActivity());
     common = new Common(getActivity());
     module = new Module();
+    makeSliderRequest();
     getMatkaData();
     rv_matka.setLayoutManager(new LinearLayoutManager(getActivity()));
        matkaAdapter = new MatkaAdapter(getActivity(),matkaList);
@@ -179,6 +190,64 @@ MatkaAdapter matkaAdapter ;
         requestQueue.add(jsonArrayRequest);
 
 
+
+    }
+
+    private void makeSliderRequest() {
+    HashMap<String,String> params = new HashMap<>();
+      CustomJsonRequest req = new CustomJsonRequest(Request.Method.POST, URLs.URL_SLIDERS,params,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e("slider", response.toString());
+                        try {
+                            String status = response.getString("status");
+                            if (status.equals("success"))
+                            {
+                                JSONObject object =response.getJSONObject("data");
+                                ArrayList<HashMap<String, String>> listarray = new ArrayList<>();
+
+                                    HashMap<String, String> url_maps = new HashMap<String, String>();
+                                    url_maps.put("id", object.getString("id"));
+                                    url_maps.put("title", object.getString("title"));
+                                    url_maps.put("image", URLs.IMG_SLIDER_URL + object.getString("image"));
+                                    url_maps.put("description",object.getString("description"));
+
+
+                                    //   Toast.makeText(context,""+modelList.get(position).getProduct_image(),Toast.LENGTH_LONG).show();
+
+                                    listarray.add(url_maps);
+
+                                for (final HashMap<String, String> name : listarray) {
+                                    CustomSlider textSliderView = new CustomSlider(getActivity());
+                                    textSliderView.description(name.get("")).image(name.get("image")).setScaleType( BaseSliderView.ScaleType.Fit);
+                                    textSliderView.bundle(new Bundle());
+                                    textSliderView.getBundle().putString("extra", name.get("title"));
+                                    textSliderView.getBundle().putString("extra", name.get("sub_cat"));
+                                    home_slider.addSlider(textSliderView);
+
+
+
+                                }
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getActivity(),
+                                    "Error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                    Toast.makeText(getActivity(),""+error.getMessage(),Toast.LENGTH_LONG).show();
+
+            }
+        });
+        AppController.getInstance().addToRequestQueue(req);
 
     }
 

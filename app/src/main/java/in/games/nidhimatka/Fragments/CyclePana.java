@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.Adapter.TableAdaper;
 import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Model.TableModel;
@@ -155,7 +156,7 @@ public class CyclePana extends Fragment implements View.OnClickListener {
         s_time = getArguments().getString("start_time");
         e_time = getArguments().getString("end_time");
         w_amount = txtWalet.getText().toString();
-
+        ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
         list=new ArrayList<>();
         btnAdd.setOnClickListener(this);
         btnSave.setOnClickListener(this);

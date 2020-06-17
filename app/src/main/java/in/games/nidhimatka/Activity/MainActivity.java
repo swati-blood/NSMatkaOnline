@@ -47,7 +47,8 @@ import in.games.nidhimatka.Util.LoadingBar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 Activity activity = MainActivity.this;
-TextView txt_wallet ;
+TextView txt_wallet,txtUserName ;
+    DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +57,7 @@ TextView txt_wallet ;
         txt_wallet = findViewById(R.id.txtWallet);
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+      drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -65,6 +66,20 @@ TextView txt_wallet ;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(activity.getResources().getColorStateList(R.color.colorPrimaryDark));
+        txtUserName=(TextView)navigationView.getHeaderView(0).findViewById(R.id.user_mobile);
+        if(Prevalent.currentOnlineuser.getName().isEmpty() || Prevalent.currentOnlineuser.getName().equals(""))
+        {
+
+        }
+        else {
+            txtUserName.setText(Prevalent.currentOnlineuser.getName());
+        }
+
+//        toolbar.setPadding(0, toolbar.getPaddingTop(),0, toolbar.getPaddingBottom());
+//
+//
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
         Fragment fm = new HomeFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
@@ -180,9 +195,12 @@ TextView txt_wallet ;
             alertDialog.show();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
 
     }
+//    public void setTitle(String title) {
+//        getSupportActionBar().setTitle(title);
+//    }
 }

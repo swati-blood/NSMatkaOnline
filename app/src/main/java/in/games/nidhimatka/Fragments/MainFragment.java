@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.R;
 
 /**
@@ -48,7 +49,7 @@ TextView tv_m_name ,tv_s_time ,tv_end_time,tv_num;
      tv_m_name = view.findViewById(R.id.matkaname);
      tv_game = view.findViewById(R.id.gamename);
      tv_num = view.findViewById(R.id.matkanumber);
-
+        ((MainActivity) getActivity()).setTitle(matka_name);
         SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm:ss");
         SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
 

@@ -32,7 +32,7 @@ import in.games.nidhimatka.R;
 
 public class RegisterActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
-
+    String mobile = "";
     private Button btnRegister;
     TextView txt_back ;
     private EditText txtName,txtMobile,txtPass,txtConPass,txtUserName;
@@ -60,6 +60,9 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         });
+        mobile = getIntent().getStringExtra("mobile");
+        txtMobile.setText(mobile);
+        txtMobile.setEnabled(false);
 
       btnRegister.setOnClickListener(new View.OnClickListener() {
           @Override

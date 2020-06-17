@@ -49,15 +49,39 @@ public class RecyclerPagerAdapter extends RecyclerView.Adapter<RecyclerPagerAdap
         {
             list= digit_list.subList(10,20);
         }
-        if (position==2)
+       else if (position==2)
         {
             list=digit_list.subList(20,30);
         }
-        if (position==3)
+      else  if (position==3)
         {
             list=digit_list.subList(30,40);
         }
-    PointsAdapter pointsAdapter = new PointsAdapter(list,activity,type,tv_total);
+       else if (position==4)
+        {
+            list=digit_list.subList(40,50);
+        }
+       else if (position==5)
+        {
+            list=digit_list.subList(50,60);
+        }
+       else if (position==6)
+        {
+            list=digit_list.subList(60,70);
+        }
+       else  if (position==7)
+        {
+            list=digit_list.subList(70,80);
+        }
+       else  if (position==8)
+        {
+            list=digit_list.subList(80,90);
+        }
+       else  if (position==9)
+        {
+            list=digit_list.subList(90,digit_list.size()-1);
+        }
+    PointsAdapter pointsAdapter = new PointsAdapter(list,activity,tv_total);
     holder.rv_digits.setLayoutManager(new GridLayoutManager(activity,2));
     holder.rv_digits.setAdapter(pointsAdapter);
     pointsAdapter.notifyDataSetChanged();

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.R;
 
 /**
@@ -24,6 +25,7 @@ public class NoticeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        ((MainActivity) getActivity()).setTitle("Game Instructions");
         return inflater.inflate(R.layout.fragment_notice, container, false);
     }
 }

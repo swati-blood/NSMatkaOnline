@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,22 +21,25 @@ import in.games.nidhimatka.Model.TableModel;
 import in.games.nidhimatka.R;
 
 import static in.games.nidhimatka.Fragments.PanaFragment.bet_list;
+import static in.games.nidhimatka.Fragments.PanaFragment.total;
+import static in.games.nidhimatka.Fragments.PanaFragment.txt_type;
 
 public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder> {
 
   public static  ArrayList<TableModel> b_list ;
  List<String> digit_list ;
     Activity activity;
-    String type ;
+
     TextView tv_total;
     int tot = 0;
+    int index =0 ;
 
-public static Boolean is_empty = true , is_error = false;
+public static Boolean is_empty = true , is_error = false ;
 
-    public PointsAdapter(List<String> digit_list, Activity activity, String type ,TextView tv_total) {
+    public PointsAdapter(List<String> digit_list, Activity activity ,TextView tv_total) {
         this.digit_list = digit_list;
         this.activity = activity;
-        this.type = type;
+
         this.tv_total = tv_total;
     }
 
@@ -65,41 +69,55 @@ public static Boolean is_empty = true , is_error = false;
 
             @Override
             public void afterTextChanged(Editable s) {
-                String points =s.toString();
-                if (points.isEmpty())
-                {
-                    is_empty =true;
-                }
-                else {
-                    is_empty = false;
-                    int p = Integer.parseInt(points);
-                    if (p < 10) {
-//                        viewHolder.et_points.setError("Minimum bid points is 10");
-//                        viewHolder.et_points.requestFocus();
-                        is_error = true;
+                String points = s.toString();
+               int p = Integer.parseInt(points);
 
+                if (s.length() != 0) {
+
+                    if (points.isEmpty()) {
+                        is_empty = true;
                     } else {
                         is_empty = false;
-                        is_error = false;
-                        if (s.toString().length()!=0)
-                        {
-                        bet_list.add(new TableModel( digit_list.get(i),points, type));
-                            int ps =Integer.parseInt(bet_list.get(i).getPoints());
-                            tot = tot+ps;
-                            tv_total.setText(String.valueOf(tot));
-                        }
-                        else
-                        {
-
+                        int pints = Integer.parseInt(points);
+                        if (pints < 10) {
+//                        viewHolder.et_points.setError("Minimum bid points is 10");
+//                        viewHolder.et_points.requestFocus();
+                            is_error = true;
 
                         }
 
+                        else {
+                            is_empty = false;
+                            is_error = false;
+                            int ps = Integer.parseInt(points);
+                            tot = tot + ps;
+                            total.setText(String.valueOf(tot));
+                                if (txt_type.getText().toString().equals(activity.getResources().getString(R.string.select_type)))
+                                {
+//                                    Toast.makeText(activity, "Select game type", Toast.LENGTH_LONG).show();
+                                }
+                                else {
+                                    bet_list.add(new TableModel(digit_list.get(i), points, txt_type.getText().toString()));
 
 
 
+                                }
+                        }
                     }
                 }
+//                else if (s.length()==0)
+//                {
+//                  String d =  digit_list.get(i);
+//                    Toast.makeText(activity, "digit"+d, Toast.LENGTH_LONG).show();
+//
+//                    if (tot>0) {
+//                        tot = tot - p;
+//                        tv_total.setText(String.valueOf(tot));
+//                    }
+//
+//                }
             }
+
         });
 //
 

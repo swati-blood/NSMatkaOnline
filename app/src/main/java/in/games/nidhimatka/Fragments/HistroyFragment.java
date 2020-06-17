@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.R;
 
 public class HistroyFragment extends Fragment implements View.OnClickListener {
@@ -32,6 +33,7 @@ public class HistroyFragment extends Fragment implements View.OnClickListener {
     }
     public void initViews(View v)
     {
+        ((MainActivity) getActivity()).setTitle("History");
         cvBid_history=v.findViewById(R.id.cvBidHistory);
         cv_Fund_req_history=v.findViewById(R.id.cvFund_req_history);
         cv_Trans_hitory=v.findViewById(R.id.cvTrans_history);
@@ -41,6 +43,7 @@ public class HistroyFragment extends Fragment implements View.OnClickListener {
         cvBid_history.setOnClickListener(this);
         cv_Trans_hitory.setOnClickListener(this);
         cv_Withdraw_req.setOnClickListener(this);
+
     }
 
     @Override

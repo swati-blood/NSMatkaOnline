@@ -1,8 +1,10 @@
 package in.games.nidhimatka.Activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 
@@ -14,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -24,12 +28,18 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.SmsReceiver;
 import in.games.nidhimatka.Util.CustomJsonRequest;
+import in.games.nidhimatka.Util.SmsListener;
+
+import static in.games.nidhimatka.Activity.splash_activity.msg_status;
 
 
 public class VerificationActivity extends AppCompatActivity implements View.OnClickListener {
@@ -39,17 +49,19 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
     Button btn_send,btn_verify,btn_resend;
     TextView tv_timer;
     String type="";
-    String otp="",mobile="";
+    String otp="",mobile="" ;
     Common common;
     ProgressDialog loadingBar;
     String str="";
-
+    public static final String OTP_REGEX = "[0-9]{3,6}";
+    CountDownTimer countDownTimer ;
+    private final int REQUEST_ID_MULTIPLE_PERMISSIONS=1;
    Activity ctx=VerificationActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_demo);
+        setContentView(R.layout.activity_verification);
         initViews();
     }
 
@@ -71,6 +83,7 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
         btn_send.setOnClickListener(this);
         btn_verify.setOnClickListener(this);
         btn_resend.setOnClickListener(this);
+        checkAndRequestPermissions();
     }
 
     @Override
@@ -185,7 +198,7 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private void sendOtpforPass(final String mobile, String otp, String url) {
+    private void sendOtpforPass(final String mobile, final String otp, String url) {
         loadingBar.show();
         HashMap<String, String> params=new HashMap<>();
         params.put("mobile",mobile);
@@ -204,6 +217,25 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
                         if(rel_verify.getVisibility() == View.GONE)
                         {
                             rel_verify.setVisibility(View.VISIBLE);
+                            if(msg_status.equals("0"))
+                            {
+                                countDownTimer=new CountDownTimer(5000,1000) {
+                                    @Override
+                                    public void onTick(long l) {
+
+                                    }
+
+                                    @Override
+                                    public void onFinish() {
+                                        et_otp.setText(otp);
+                                    }
+                                };
+                                countDownTimer.start();
+                            }
+                            else
+                            {
+                                getSmsOtp();
+                            }
 
                         }
                         rel_gen.setVisibility(View.GONE);
@@ -264,5 +296,57 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
         }.start();
 
     }
+    private boolean checkAndRequestPermissions()
+    {
+        int sms = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS);
 
+        if (sms != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS}, REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
+    public void getSmsOtp()
+    {
+        try
+        {
+
+
+            SmsReceiver.bindListener(new SmsListener() {
+                @Override
+                public void messageReceived(String messageText) {
+
+                    //From the received text string you may do string operations to get the required OTP
+                    //It depends on your SMS format
+                    Log.e("Message",messageText);
+                    // Toast.makeText(SmsVerificationActivity.this,"Message: "+messageText,Toast.LENGTH_LONG).show();
+
+                    // If your OTP is six digits number, you may use the below code
+
+                    Pattern pattern = Pattern.compile(OTP_REGEX);
+                    Matcher matcher = pattern.matcher(messageText);
+                    String otp="";
+                    while (matcher.find())
+                    {
+                        otp = matcher.group();
+                    }
+
+                    if(!(otp.isEmpty() || otp.equals("")))
+                    {
+                        et_otp.setText(otp);
+
+
+                    }
+
+                    //           Toast.makeText(SmsVerificationActivity.this,"OTP: "+ otp ,Toast.LENGTH_LONG).show();
+
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            // Toast.makeText(SmsVerificationActivity.this,""+ex.getMessage(),Toast.LENGTH_LONG).show();
+        }
+    }
 }

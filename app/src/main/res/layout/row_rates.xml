@@ -7,43 +7,68 @@
     app:cardCornerRadius="5dp"
     android:layout_margin="2dp"
     app:cardElevation="5dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="5dp"
-        android:layout_gravity="center_horizontal">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
+        android:padding="10dp"
+        android:layout_margin="2dp"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
+        android:weightSum="2"
         >
+
         <TextView
             android:id="@+id/gamename"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-
+            android:layout_weight="1"
             android:text="game name"
-            android:layout_margin="2dp"
-            android:textColor="@color/iconColor"/>
+            android:background="@drawable/shape2"
 
-    </LinearLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-        android:layout_gravity="center_horizontal">
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingStart="@dimen/_25sdp"
+            android:textSize="15sp"
+
+            android:textColor="@color/colorPrimary"/>
+
+
         <TextView
             android:id="@+id/gamerate"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+
+            android:background="@drawable/shape2"
             android:layout_centerHorizontal="true"
             android:text="game rate"
-            android:layout_margin="2dp"
-            android:textColor="@color/colorPrimaryDark"/>
-    </RelativeLayout>
+           android:padding="15dp"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"/>
+
 
     </LinearLayout>
+        <RelativeLayout
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/circle"
+            android:backgroundTint="@color/white">
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/stop"
+            android:tint="@color/colorPrimary"
+            />
+        </RelativeLayout>
+    </RelativeLayout>
+
 </androidx.cardview.widget.CardView>

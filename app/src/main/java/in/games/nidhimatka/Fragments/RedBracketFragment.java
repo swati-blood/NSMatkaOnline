@@ -30,6 +30,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.Adapter.TableAdaper;
 import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Model.TableModel;
@@ -76,6 +77,7 @@ Dialog dialog ;
     }
     void intiView(View v)
     {
+
         txt_date = v.findViewById(R.id.tv_date);
         txt_type = v.findViewById(R.id.tv_type);
         list_table=v.findViewById(R.id.list_table);
@@ -103,7 +105,7 @@ Dialog dialog ;
         txt_date.setOnClickListener(this);
         txt_type.setOnClickListener(this);
 
-
+        ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,red_bracket);
         etDgt.setAdapter(adapter);
         chkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

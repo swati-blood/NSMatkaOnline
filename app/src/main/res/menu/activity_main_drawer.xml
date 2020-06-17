@@ -25,17 +25,19 @@
     </group>
     <group
         android:id="@+id/nav_group_wallet"
+
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_wallet"
             android:icon="@drawable/icons8_coin_wallet_96px"
 
-            android:title="Wallet"
+            android:title="Funds"
             />
     </group>
     <group
 
         android:id="@+id/nav_group_mpin"
+        android:visible="false"
         android:checkableBehavior="single">
 
         <item

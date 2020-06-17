@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.Adapter.BidHistoryAdapter;
 import in.games.nidhimatka.Adapter.Request_HistoryAdapter;
 import in.games.nidhimatka.Adapter.TransactionHistoryAdapter;
@@ -76,6 +77,7 @@ public class AllHistryListFragment extends Fragment {
     }
     public void initViews(View v)
     {
+        ((MainActivity) getActivity()).setTitle("Select Game");
         rv_histry = v.findViewById(R.id.recyclerView);
         rv_histry.setLayoutManager(new LinearLayoutManager(getActivity()));
         type = getArguments().getString("type");
@@ -99,7 +101,7 @@ public class AllHistryListFragment extends Fragment {
         {
             getWithdrawData(user_id);
         }
-        else if (type.equalsIgnoreCase("fund"))
+        else if (type.equalsIgnoreCase("funds"))
         {
             getRequestData(user_id);
         }

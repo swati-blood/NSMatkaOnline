@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.Adapter.TableAdaper;
 import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
@@ -105,7 +106,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
         txt_date.setOnClickListener(this);
         txt_type.setOnClickListener(this);
 
-
+        ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
     }
 
     @Override
