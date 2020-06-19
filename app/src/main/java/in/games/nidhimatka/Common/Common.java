@@ -507,7 +507,7 @@ public class Common {
 
     }
     public void addData(String digit, String point, String type, List<TableModel> list, TableAdaper tableAdaper, ListView list_table, Button btnSave) {
-        list.clear();
+
         list.add(new TableModel(digit, point, type));
         tableAdaper = new TableAdaper(list, context, btnSave);
         list_table.setAdapter(tableAdaper);
