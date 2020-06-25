@@ -1,6 +1,7 @@
 package in.games.nidhimatka.Fragments;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
@@ -21,6 +22,7 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 import in.games.nidhimatka.Activity.MainActivity;
+import in.games.nidhimatka.Activity.PanaActivity;
 import in.games.nidhimatka.Adapter.SelectGameAdapter;
 import in.games.nidhimatka.Model.GameModel;
 import in.games.nidhimatka.R;
@@ -73,24 +75,24 @@ public class SelectGameFragment extends Fragment {
 
                GameModel model = game_list.get(position);
                tv_game.setText(model.getName());
-               Fragment fm = null ;
-               final Bundle arg = new Bundle();
-               arg.putString("game_id",model.getId());
-               arg.putString("game_name",model.getName());
-               arg.putString("m_id",getArguments().getString("m_id"));
-               arg.putString("matka_name",getArguments().getString("matka_name"));
-               arg.putString("start_time",getArguments().getString("start_time"));
-               arg.putString("end_time",getArguments().getString("end_time"));
                if( model.getType().equals("0"))
                {
 
 
-                  fm = new PanaFragment();
-
-
+//                  fm = new PanaFragment();
+                   Intent intent=new Intent(getActivity(), PanaActivity.class);
+                   startActivity(intent);
                }
                else
                {
+                   Fragment fm = null ;
+                   final Bundle arg = new Bundle();
+                   arg.putString("game_id",model.getId());
+                   arg.putString("game_name",model.getName());
+                   arg.putString("m_id",getArguments().getString("m_id"));
+                   arg.putString("matka_name",getArguments().getString("matka_name"));
+                   arg.putString("start_time",getArguments().getString("start_time"));
+                   arg.putString("end_time",getArguments().getString("end_time"));
 
 
                    switch (model.getName())
@@ -123,11 +125,12 @@ public class SelectGameFragment extends Fragment {
 
 
                     }
+                   fm.setArguments(arg);
+                   FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                   fragmentManager.beginTransaction().replace(R.id.container_frame, fm)
+                           .addToBackStack(null).commit();
                }
-               fm.setArguments(arg);
-               FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-               fragmentManager.beginTransaction().replace(R.id.container_frame, fm)
-                       .addToBackStack(null).commit();
+
 
            }
 

@@ -82,7 +82,8 @@ public class AllHistryListFragment extends Fragment {
         rv_histry.setLayoutManager(new LinearLayoutManager(getActivity()));
         type = getArguments().getString("type");
         progressDialog = new LoadingBar(getActivity());
-        user_id = Prevalent.currentOnlineuser.getId();
+        common = new Common(getActivity());
+        user_id = common.getUserId();
         bid_list = new ArrayList<>();
         trans_list = new ArrayList<>();
         fund_list = new ArrayList<>();

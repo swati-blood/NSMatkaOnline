@@ -86,7 +86,7 @@ public class GenerateMpinFragment extends Fragment implements View.OnClickListen
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                            String email = Prevalent.currentOnlineuser.getEmail().toString().trim();
+                            String email = "";
                             getMPINNumber(email);
 
                         }

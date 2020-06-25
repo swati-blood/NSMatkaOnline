@@ -50,7 +50,9 @@ import in.games.nidhimatka.Activity.NewGameActivity;
 import in.games.nidhimatka.Adapter.ListItemAdapter;
 import in.games.nidhimatka.Adapter.TableAdaper;
 import in.games.nidhimatka.AppController;
+import in.games.nidhimatka.Config.Constants;
 import in.games.nidhimatka.Config.URLs;
+import in.games.nidhimatka.Intefaces.GetRemainWallet;
 import in.games.nidhimatka.Intefaces.VolleyCallBack;
 import in.games.nidhimatka.Model.MatkasObjects;
 import in.games.nidhimatka.Model.Starline_Objects;
@@ -61,12 +63,20 @@ import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Module;
+import in.games.nidhimatka.Util.Session_management;
+
+import static in.games.nidhimatka.Config.Constants.KEY_ID;
+import static in.games.nidhimatka.Config.Constants.KEY_WALLET;
 
 public class Common {
     Context context;
+  Session_management session_management;
+  LoadingBar loadingBar;
 
     public Common(Context context) {
         this.context = context;
+        session_management=new Session_management(context);
+        loadingBar=new LoadingBar(context);
     }
 
     public void showToast(String s)
@@ -87,7 +97,7 @@ public class Common {
                     String mobile=object.getString("mobile");
                     int m_cnt= Integer.parseInt(object.getString("count"));
                     txt.setText(mobile);
-                    Prevalent.Matka_count=m_cnt;
+                    Constants.Matka_count=m_cnt;
                 }
                 catch (Exception ex)
                 {
@@ -130,6 +140,14 @@ public class Common {
         }
 
         return str_error;
+    }
+    public void showVolleyError(VolleyError error)
+    {
+        String msg=VolleyErrorMessage(error);
+        if(!msg.isEmpty())
+        {
+            showToast(""+msg);
+        }
     }
 
     public void errorMessageDialog(String message)
@@ -309,44 +327,146 @@ public class Common {
             }
         });
     }
-    public void setBetTypeDialog(Dialog dialog, TextView txtOpen, TextView txtClose, String m_id, final TextView btnType, LoadingBar progressDialog, final String c_date)
+//    public void setBetTypeDialog(Dialog dialog, TextView txtOpen, TextView txtClose, String m_id, final TextView btnType, LoadingBar progressDialog, final String c_date)
+//    {
+//        dialog=new Dialog(context);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setContentView(R.layout.layout_bettype);
+//        dialog.setCanceledOnTouchOutside(false);
+//        dialog.show();
+//        txtOpen=dialog.findViewById(R.id.rd_open);
+//        txtClose=dialog.findViewById(R.id.rd_close);
+//        final Dialog finalDialog = dialog;
+//        final TextView finalTxtOpen = txtOpen;
+//        final  boolean is_open =true;
+//        final  boolean is_close =true;
+//        txtOpen.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                btnType.setText(finalTxtOpen.getText().toString());
+//                btnType.setTextColor(context.getResources().getColor(R.color.black));
+//                  finalDialog.dismiss();
+//
+//            }
+//        });
+//
+//        final TextView finalTxtClose = txtClose;
+//        final Dialog finalDialog1 = dialog;
+//        txtClose.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                btnType.setText(finalTxtClose.getText().toString());
+//                btnType.setTextColor(context.getResources().getColor(R.color.black));
+//                finalDialog1.dismiss();
+//            }
+//        });
+//    }
+
+    public String getBetType(String gdate,String strt_time,String end_time)
     {
-        dialog=new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.layout_bettype);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
-
-        txtOpen=dialog.findViewById(R.id.rd_open);
-        txtClose=dialog.findViewById(R.id.rd_close);
-
-//        setDataTo(txtOpen,txtClose,m_id,progressDialog,c_date);
-
-        final Dialog finalDialog = dialog;
-        final TextView finalTxtOpen = txtOpen;
-        final  boolean is_open =true;
-        final  boolean is_close =true;
-//      true  txtOpen.setOnCheckedChangeListener();
-        txtOpen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnType.setText(finalTxtOpen.getText().toString());
-                btnType.setTextColor(context.getResources().getColor(R.color.black));
-                  finalDialog.dismiss();
+        String bet="";
+        Date date=new Date();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy");
+        String cDate=simpleDateFormat.format(date);
+        String g_d = gdate.substring(0, 10);
+        if(cDate.equals(g_d))
+        {
+            long sDiff=getTimeDifference(strt_time);
+            long eDiff=getTimeDifference(end_time);
+            if(sDiff>=0 && eDiff>=0)
+            {
+                bet="both open";
+            }
+            else if(sDiff<0 && eDiff<0)
+            {
+                bet="both close";
+            }
+            else
+            {
+                if(sDiff>=0)
+                {
+                    bet="open";
+                }
+                else if(eDiff>=0)
+                {
+                    bet="close";
+                }
+                else
+                {
+                    bet="both close";
+                }
 
             }
-        });
 
-        final TextView finalTxtClose = txtClose;
-        final Dialog finalDialog1 = dialog;
-        txtClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnType.setText(finalTxtClose.getText().toString());
-                btnType.setTextColor(context.getResources().getColor(R.color.black));
-                finalDialog1.dismiss();
+        }
+        else
+        {
+            bet="both open";
+        }
+        Log.e("asdsadasd",""+bet);
+        return bet;
+    }
+    public void setBetTypeDialog(Dialog dialog, TextView txtOpen, TextView txtClose, final TextView btnType,String gameDate,String stime,String eTime)
+    {
+        if(gameDate.equalsIgnoreCase("Select Date"))
+        {
+          showToast("Select Date");
+        }
+        else {
+            String betType = getBetType(gameDate, stime, eTime);
+            if (betType.equalsIgnoreCase("both close")) {
+                errorMessageDialog("BID IS CLOSED FOR TODAY");
+            } else {
+                dialog = new Dialog(context);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.layout_bettype);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
+                txtOpen = dialog.findViewById(R.id.rd_open);
+                txtClose = dialog.findViewById(R.id.rd_close);
+                final Dialog finalDialog = dialog;
+                final TextView finalTxtOpen = txtOpen;
+                if (betType.equalsIgnoreCase("open") || betType.equalsIgnoreCase("both open")) {
+                    if (txtOpen.getVisibility() == View.GONE) {
+                        txtOpen.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    if (txtOpen.getVisibility() == View.VISIBLE) {
+                        txtOpen.setVisibility(View.GONE);
+                    }
+                }
+
+                if (betType.equalsIgnoreCase("close") || betType.equalsIgnoreCase("both open")) {
+                    if (txtClose.getVisibility() == View.GONE) {
+                        txtClose.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    if (txtClose.getVisibility() == View.VISIBLE) {
+                        txtClose.setVisibility(View.GONE);
+                    }
+                }
+                txtOpen.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        btnType.setText(finalTxtOpen.getText().toString());
+                        btnType.setTextColor(context.getResources().getColor(R.color.black));
+                        finalDialog.dismiss();
+
+                    }
+                });
+
+                final TextView finalTxtClose = txtClose;
+                final Dialog finalDialog1 = dialog;
+                txtClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        btnType.setText(finalTxtClose.getText().toString());
+                        btnType.setTextColor(context.getResources().getColor(R.color.black));
+                        finalDialog1.dismiss();
+                    }
+                });
             }
-        });
+        }
     }
 
     private void setDataTo(final TextView txtOpen, final TextView txtClose, final String m_id, final LoadingBar progressDialog, final String date_cuurent) {
@@ -581,10 +701,11 @@ public class Common {
             public void onClick(View v) {
 
                 dialog.dismiss();
-                list.clear();
+//                list.clear();
             }
         });
     }
+
 
     public void insertData(List<TableModel> list, String m_id, String c, String game_id, String w, String dashName, LoadingBar progressDialog, Button btnSave, final String start_time, final String end_time) {
         int er = list.size();
@@ -627,7 +748,7 @@ public class Common {
           }
 
 
-                String id = Prevalent.currentOnlineuser.getId().toString().trim();
+                String id = session_management.getUserDetails().get(KEY_ID).toString().trim();
                 String matka_id = m_id.toString().trim();
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("points", list_points);
@@ -643,14 +764,16 @@ public class Common {
 
                 int wallet_amount = Integer.parseInt(w);
                 if (wallet_amount < amt) {
-
                     String message = "Insufficient Amount";
                     errorMessageDialog(message);
                     return;
 
                 } else {
                     btnSave.setEnabled(false);
-
+                    int sWallet=Integer.parseInt(session_management.getUserDetails().get(KEY_WALLET));
+                    int rem=sWallet-amt;
+                    session_management.updateWallet(String.valueOf(rem));
+                    ((MainActivity)context).setWalletCounter(String.valueOf(rem));
                     updateWalletAmount(jsonArray, progressDialog, dashName, m_id,start_time,end_time);
 
                 }
@@ -993,16 +1116,6 @@ loadingBar.show();
 
         return nextDate.toString();
     }
-
-//    public void currentDateDay(Button btn)
-//    {
-//        String date=new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
-//        Date date1=new Date();
-//        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("EEEE");
-//        String day =simpleDateFormat.format(date1);
-//        btn.setText(date+" "+day);
-//
-//    }
 
     public void  setCounterTimer(long diff,final TextView txt_timer)
     {
@@ -1781,6 +1894,35 @@ loadingBar.show();
         return stringBuilder.toString();
     }
 
+    public String checkNull(String s)
+    {
+        String str="";
+        if(s==null)
+        {
+            str="";
+        }
+        else
+        {
+            str=s;
+        }
+        return str;
+    }
+
+    public String getUserId()
+    {
+        return session_management.getUserDetails().get(KEY_ID).toString();
+    }
+    public String getUserWallet()
+    {
+        return session_management.getUserDetails().get(KEY_WALLET).toString();
+    }
+
+    public void updatePoints(ArrayList<TableModel> list,int pos,String points,String betType)
+    {
+        TableModel tableModel=list.get(pos);
+        tableModel.setPoints(points);
+        tableModel.setType(betType);
+    }
 
 }
 

@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context="Activity.RegisterActivity"
    >
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,14 +41,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
+            <in.games.nidhimatka.Fonts.LatoBLack
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Registration "
                 android:textSize="20dp"
                 android:textColor="@color/white"
-                android:textStyle="italic"
+                android:textStyle="bold"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp" />
 
@@ -52,14 +56,14 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-     <TextView
+        <in.games.nidhimatka.Fonts.LatoBLack
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_centerHorizontal="true"
          android:text="*Note: All Fields Are Mandatory*"
          android:layout_below="@+id/toolbar"
          android:textColor="@color/colorPrimary"
-         android:textStyle="italic"
+         android:textStyle="bold"
          android:layout_marginTop="15dp"
          android:textSize="18dp"
          android:fontFamily="sans-serif-black"/>
@@ -90,13 +94,9 @@
                 <EditText
                     android:id="@+id/etUserName"
                     android:layout_width="match_parent"
-                    android:textStyle="italic"
                     android:layout_height="40dp"
-
                     android:paddingLeft="10dp"
                     android:layout_marginTop="0dp"
-
-
                     android:background="@drawable/gradient_button"
                     android:backgroundTint="@color/white"
                     android:drawableLeft="@drawable/ic_account_circle_black_24dp"
@@ -104,6 +104,7 @@
                     android:drawablePadding="10dp"
                     android:hint="User Name"
                     android:textSize="17dp"
+                    android:fontFamily="@font/lato"
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textColorHint="@android:color/darker_gray"
@@ -136,12 +137,10 @@
                 <EditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
-
                     android:layout_height="40dp"
                     android:layout_alignBottom="@id/imageViewUserIcon"
                     android:paddingLeft="10dp"
                     android:layout_marginTop="0dp"
-
                     android:layout_toRightOf="@id/imageViewUserIcon"
                     android:background="@drawable/gradient_button"
                     android:backgroundTint="@color/white"
@@ -149,9 +148,9 @@
                     android:drawableTint="@color/colorAccent"
                     android:drawablePadding="10dp"
                     android:hint="Name"
-                    android:textStyle="italic"
                     android:textSize="17dp"
                     android:singleLine="true"
+                    android:fontFamily="@font/lato"
                     android:textColor="@color/black"
                     android:textColorHint="@android:color/darker_gray"/>
             </RelativeLayout>
@@ -193,10 +192,8 @@
                     android:paddingLeft="10dp"
                     android:layout_marginTop="0dp"
                     android:textSize="16dp"
-                    android:textStyle="italic"
-
                     android:layout_toRightOf="@id/imageViewUserIcon2"
-
+                       android:fontFamily="@font/lato"
                     android:hint="Email Address"
                     android:textColor="@color/black"
                     android:inputType="textEmailAddress"
@@ -251,11 +248,9 @@
                         android:layout_width="match_parent"
 
                         android:layout_height="40dp"
-
+                        android:fontFamily="@font/lato"
                         android:paddingLeft="10dp"
                         android:layout_marginTop="0dp"
-
-                        android:textStyle="italic"
                         android:background="@drawable/gradient_button"
                         android:backgroundTint="@color/white"
                         android:drawableLeft="@drawable/ic_call_black_24dp"
@@ -297,25 +292,24 @@
                 <EditText
                     android:id="@+id/etPass"
                     android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_toRightOf="@id/imageViewUserIcon4"
                     android:background="@drawable/gradient_button"
                     android:backgroundTint="@color/white"
                     android:drawableLeft="@drawable/ic_lock_black_24dp"
-                    android:drawableTint="@color/colorAccent"
                     android:drawablePadding="10dp"
-                    android:layout_height="40dp"
-                    android:layout_alignBottom="@id/imageViewUserIcon4"
-                    android:paddingLeft="10dp"
-                    android:layout_marginTop="0dp"
+                    android:drawableTint="@color/colorAccent"
 
-                    android:layout_toRightOf="@id/imageViewUserIcon4"
+                    android:fontFamily="@font/lato"
 
                     android:hint="Password"
-                    android:textSize="17dp"
-                    android:textStyle="italic"
-                    android:singleLine="true"
                     android:inputType="textPassword"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textColorHint="@android:color/darker_gray"/>
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="17dp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -345,7 +339,7 @@ android:visibility="gone"
                     android:layout_width="match_parent"
                     android:singleLine="true"
                     android:textSize="17dp"
-                    android:textStyle="italic"
+                    android:fontFamily="@font/lato"
                     android:inputType="textPassword"
                     android:layout_height="40dp"
                     android:layout_alignBottom="@id/imageViewUserIcon5"
@@ -374,12 +368,13 @@ android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/checkbox"
-                    android:textStyle="italic"
+                    android:fontFamily="@font/lato"
                     android:textSize="16dp"
+                    android:textStyle="bold"
                     android:text="Accept Terms And Contidions"
                     android:buttonTint="@color/colorAccent"
                     android:layout_marginTop="20dp" />
-                <TextView
+                <in.games.nidhimatka.Fonts.LatoBLack
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/t1"
@@ -387,8 +382,6 @@ android:visibility="gone"
                     android:layout_marginTop="21dp"
                     android:textSize="18dp"
                     android:visibility="gone"
-                    android:textStyle="italic"
-                    android:fontFamily="sans-serif-black"
                     android:textColor="@color/iconColor"
                     android:text="I Accept"/>
 
@@ -419,11 +412,13 @@ android:visibility="gone"
                 android:layout_marginTop="30dp"
                 android:textSize="20dp"
                 android:elevation="5dp"
-                android:textStyle="italic"
+                android:fontFamily="@font/lato"
+                android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:background="@drawable/gradient_button"
                />
 
         </RelativeLayout>
     </RelativeLayout>
+</ScrollView>
 </RelativeLayout>

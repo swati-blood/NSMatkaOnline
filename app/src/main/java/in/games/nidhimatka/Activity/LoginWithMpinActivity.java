@@ -294,7 +294,7 @@ public class LoginWithMpinActivity extends AppCompatActivity {
                                 users.setPaytm_no(jsonObject.getString("paytm_no"));
                                 users.setTez_no(jsonObject.getString("tez_no"));
                                 users.setPhonepay_no(jsonObject.getString("phonepay_no"));
-                                Prevalent.currentOnlineuser=users;
+//                                Prevalent.currentOnlineuser=users;
 
                                  progressDialog.dismiss();
 

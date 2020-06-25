@@ -27,14 +27,19 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.games.nidhimatka.AppController;
+import in.games.nidhimatka.Common.Common;
+import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.CustomJsonRequest;
 
 public class RegisterActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     String mobile = "";
     private Button btnRegister;
     TextView txt_back ;
+    Common common;
     private EditText txtName,txtMobile,txtPass,txtConPass,txtUserName;
 //    static String URL_REGIST="http://anshuwap.com/AddaApp/register.php";
 
@@ -45,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         txt_back = findViewById(R.id.txt_back);
         txtName=(EditText)findViewById(R.id.etName);
-//        txtEmail=(EditText)findViewById(R.id.etEmail);
+       common=new Common(RegisterActivity.this);
         txtMobile=(EditText)findViewById(R.id.etMobile);
         txtPass=(EditText)findViewById(R.id.etPass);
         txtConPass=(EditText)findViewById(R.id.etConPass);
@@ -80,19 +85,6 @@ public class RegisterActivity extends AppCompatActivity {
                   txtName.requestFocus();
                   return;
               }
-//              else  if(TextUtils.isEmpty(txtEmail.getText().toString()))
-//              {
-//                  txtEmail.setError("Please Enter Email address");
-//                  txtEmail.requestFocus();
-//                  return;
-//              }
-
-//              else  if(!em.contains("@"))
-//              {
-//                  txtEmail.setError("Please Enter valid Email address");
-//                  txtEmail.requestFocus();
-//                  return;
-//              }
               else  if(TextUtils.isEmpty(txtMobile.getText().toString()))
               {
                   txtMobile.setError("Please enter mobile number");
@@ -116,8 +108,6 @@ public class RegisterActivity extends AppCompatActivity {
                   int sf= Integer.parseInt(phone_value.substring(0,1));
                   int len=phone_value.length();
 
-//                  Toast.makeText(RegisterActivity.this,"we"+sf,Toast.LENGTH_LONG).show();
-
                   if(sf<6 || len<10)
                   {
                       Toast.makeText(RegisterActivity.this,"Invalid Mobile number \n" +
@@ -138,12 +128,6 @@ public class RegisterActivity extends AppCompatActivity {
                       }
 
                   }
-
-
-
-
-
-
               }
 
 
@@ -185,94 +169,47 @@ public class RegisterActivity extends AppCompatActivity {
         final String uname=txtUserName.getText().toString().trim();
         final String fname=txtName.getText().toString().trim();
         final String fmobile=phone_value;
-//        final String femail=txtEmail.getText().toString().trim();
         final String fpass=txtPass.getText().toString().trim();
         final String fconpass=txtConPass.getText().toString().trim();
 
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URLs.URL_REGIST,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        try
-                        {
-                            JSONObject jsonObject=new JSONObject(response);
-                            String success=jsonObject.getString("status");
-                            if(success.equals("success"))
-                            {
-                                progressDialog.dismiss();
-                                Toast.makeText(RegisterActivity.this, "Register successfull!!!", Toast.LENGTH_SHORT).show();
-                                Intent intent=new Intent(RegisterActivity.this,MainActivity.class);
-                                startActivity(intent);
-                                finish();
-
-                            }
-                            else if(success.equals("unsuccessful"))
-                            {
-                                progressDialog.dismiss();
-                                String msg=jsonObject.getString("message");
-                                if(msg.equals("Mobile number already exists"))
-                                {
-                                    txtMobile.setText("");
-                                    txtMobile.setError("Enter valid number");
-                                    txtMobile.requestFocus();
-                                }
-                                else if(msg.equals("Email already exists"))
-                            {
-//                                txtEmail.setText("");
-//                                txtEmail.setError("Enter valid email");
-//                                txtEmail.requestFocus();
-                            }
-                                Toast.makeText(RegisterActivity.this, ""+msg, Toast.LENGTH_SHORT).show();
-
-
-                            }
-
-
-
-                        }
-                        catch (Exception e)
-                        {
-                            e.printStackTrace();
-                            progressDialog.dismiss();
-                            Toast.makeText(RegisterActivity.this, "Registration failed"+e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                          //  btnReg.setVisibility(View.VISIBLE);
-
-
-                        }
-
-                    }
-                },
-
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                        progressDialog.dismiss();
-                        Toast.makeText(RegisterActivity.this, "Registration failed"+error.getMessage(), Toast.LENGTH_SHORT).show();
-                       // pb.setVisibility(View.GONE);
-
-                    }
-                }
-        )
-        {
-
+        HashMap<String,String> params=new HashMap<>();
+        params.put("key","1");
+        params.put("username",uname);
+        params.put("name",fname);
+        params.put("mobile",fmobile);
+        params.put("password",fpass);
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_REGISTER, params, new Response.Listener<JSONObject>() {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params=new HashMap<>();
-                params.put("key","1");
-                params.put("username",uname);
-                params.put("name",fname);
-                params.put("mobile",fmobile);
-//                params.put("email","");
-                params.put("password",fpass);
+            public void onResponse(JSONObject response) {
+                progressDialog.dismiss();
+               try {
+                  boolean resp=response.getBoolean("responce");
+                  if(resp)
+                  {
+                      common.showToast(""+response.getString("message").toString());
+                      Intent intent=new Intent(RegisterActivity.this,MainActivity.class);
+                      startActivity(intent);
+                      finish();
 
-                return params;
+                  }
+                  else
+                  {
+                      common.showToast(response.getString("error").toString());
+                  }
+               }
+               catch (Exception ex)
+               {
+                   ex.printStackTrace();
+               }
             }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                common.showVolleyError(error);
+            }
+        });
+        AppController.getInstance().addToRequestQueue(customJsonRequest);
 
-        };
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
+        }
 }

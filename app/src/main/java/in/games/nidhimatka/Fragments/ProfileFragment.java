@@ -32,7 +32,9 @@ import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.Util.Session_management;
 
+import static in.games.nidhimatka.Config.Constants.*;
 import static in.games.nidhimatka.Config.URLs.URL_REGIST;
 
 /**
@@ -41,6 +43,7 @@ import static in.games.nidhimatka.Config.URLs.URL_REGIST;
 public class ProfileFragment extends Fragment implements View.OnClickListener {
     private EditText etPAddress,etPCity,etPPinCode,etAccNo,etBankName,etIfscCode,etAccHolderName,etPaytm,etTez,etPhonePay ,et_dob ,et_email,et_mobile;
     Common common;
+    Session_management session_management;
     LoadingBar progressDialog;
     String wrong="Something Went Wrong";
     private TextView btn_back;
@@ -67,6 +70,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     {
         ((MainActivity) getActivity()).setTitle("My Profile");
         common=new Common(getActivity());
+        session_management=new Session_management(getActivity());
 
         progressDialog=new LoadingBar(getActivity());
         common.setSessionTimeOut(getActivity());
@@ -94,19 +98,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btnDBank.setOnClickListener(this);
         btnDAddress.setOnClickListener(this);
         btnUpdatePass.setOnClickListener(this);
-        String ad= Prevalent.currentOnlineuser.getAddress();
-        String ct=Prevalent.currentOnlineuser.getCity();
-        String pn=Prevalent.currentOnlineuser.getPincode();
-        String ac=Prevalent.currentOnlineuser.getAccountno().toString();
-        String bn=Prevalent.currentOnlineuser.getBank_name().toString();
-        String ic=Prevalent.currentOnlineuser.getIfsc_code().toString();
-        String ah=Prevalent.currentOnlineuser.getAccount_holder_name().toString();
-        String x=Prevalent.currentOnlineuser.getPhonepay_no().toString();
-        String tz=Prevalent.currentOnlineuser.getTez_no().toString();
-        String p=Prevalent.currentOnlineuser.getPaytm_no().toString();
-        String mobile = Prevalent.currentOnlineuser.getMobileno();
-        String email = Prevalent.currentOnlineuser.getEmail();
-        String dob = Prevalent.currentOnlineuser.getDob();
+        String ad= session_management.getUserDetails().get(KEY_ADDRESS);
+        String ct=session_management.getUserDetails().get(KEY_CITY);
+        String pn=session_management.getUserDetails().get(KEY_PINCODE);
+        String ac=session_management.getUserDetails().get(KEY_ACCOUNNO).toString();
+        String bn=session_management.getUserDetails().get(KEY_BANK_NAME).toString();
+        String ic=session_management.getUserDetails().get(KEY_IFSC).toString();
+        String ah=session_management.getUserDetails().get(KEY_HOLDER).toString();
+        String x=session_management.getUserDetails().get(KEY_PHONEPAY).toString();
+        String tz=session_management.getUserDetails().get(KEY_TEZ).toString();
+        String p=session_management.getUserDetails().get(KEY_PAYTM).toString();
+        String mobile = session_management.getUserDetails().get(KEY_MOBILE);
+        String email = session_management.getUserDetails().get(KEY_EMAIL);
+        String dob = session_management.getUserDetails().get(KEY_DOB);
         et_email.setText(email);
         et_dob.setText(dob);
         et_mobile.setText(mobile);
@@ -162,8 +166,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             }
             else
             {
-                String mailid= Prevalent.currentOnlineuser.getMobileno().toString();
-                //                       Toast.makeText(DrawerProfileActivity.this,"Email :"+mailid,Toast.LENGTH_LONG).show();
                 storeProfileData(dob ,mobile,email);
             }
 
@@ -197,7 +199,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 //            }
             else
             {
-                String mailid= Prevalent.currentOnlineuser.getMobileno().toString();
+                String mailid= session_management.getUserDetails().get(KEY_MOBILE).toString();
                 //                       Toast.makeText(DrawerProfileActivity.this,"Email :"+mailid,Toast.LENGTH_LONG).show();
                 storeAccDetails(teznumber,paytmNumber,phonepaynumber,mailid);
             }
@@ -238,7 +240,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             }
             else
             {
-                String mailid= Prevalent.currentOnlineuser.getMobileno().toString();
+                String mailid= session_management.getUserDetails().get(KEY_MOBILE).toString();
                 //                       Toast.makeText(DrawerProfileActivity.this,"Email :"+mailid,Toast.LENGTH_LONG).show();
                 storeBankDetails(accno,bankname,ifsc,hod_name,mailid);
             }
@@ -273,7 +275,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             }
             else
             {
-                String mailid= Prevalent.currentOnlineuser.getMobileno().toString();
+                String mailid= session_management.getUserDetails().get(KEY_MOBILE).toString();
                 //                       Toast.makeText(DrawerProfileActivity.this,"Email :"+mailid,Toast.LENGTH_LONG).show();
                 storeAddressData(a,c,p,mailid);
             }
@@ -304,10 +306,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     if(success.equals("success"))
                     {
                         progressDialog.dismiss();
-                        Prevalent.currentOnlineuser.setAccountno(accno);
-                        Prevalent.currentOnlineuser.setBank_name(bankname);
-                        Prevalent.currentOnlineuser.setIfsc_code(ifsc);
-                        Prevalent.currentOnlineuser.setAccount_holder_name(hod_name);
+                        session_management.updateAccSection(accno,bankname,ifsc,hod_name);
+
                         Toast.makeText(getActivity(), "Bank Details Updated!!!", Toast.LENGTH_SHORT).show();
 
                     }
@@ -363,9 +363,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     if(success.equals("success"))
                     {
                         progressDialog.dismiss();
-                        Prevalent.currentOnlineuser.setTez_no(teznumber);
-                        Prevalent.currentOnlineuser.setPaytm_no(paytmno);
-                        Prevalent.currentOnlineuser.setPhonepay_no(phonepay);
+                        session_management.updatePaymentSection(teznumber,paytmno,phonepay);
                         Toast.makeText(getActivity(), "Mobile Numbers Updated!!!", Toast.LENGTH_SHORT).show();
 
                     }
@@ -418,8 +416,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     if(success.equals("success"))
                     {
                         progressDialog.dismiss();
-                        Prevalent.currentOnlineuser.setEmail(email);
-                        Prevalent.currentOnlineuser.setDob(dob);
+                        session_management.updateEmailSection(email,dob);
+
 
                         Toast.makeText(getActivity(), "Profile Updated!!!", Toast.LENGTH_SHORT).show();
 
@@ -475,9 +473,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     if(success.equals("success"))
                     {
                         progressDialog.dismiss();
-                        Prevalent.currentOnlineuser.setAddress(a);
-                        Prevalent.currentOnlineuser.setCity(c);
-                        Prevalent.currentOnlineuser.setPincode(p);
+                        session_management.updateAddressSection(a,c,p);
+
                         Toast.makeText(getActivity(), "Address Updated!!!", Toast.LENGTH_SHORT).show();
 
                     }

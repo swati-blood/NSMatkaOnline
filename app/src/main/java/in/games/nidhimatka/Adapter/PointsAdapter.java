@@ -4,6 +4,9 @@ import android.app.Activity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.style.IconMarginSpan;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.games.nidhimatka.Common.Common;
+import in.games.nidhimatka.Model.PointsModel;
 import in.games.nidhimatka.Model.TableModel;
 import in.games.nidhimatka.R;
 
@@ -29,10 +34,13 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder
   public static  ArrayList<TableModel> b_list ;
  List<String> digit_list ;
     Activity activity;
-
+public static ArrayList<String> ponitsList;
+Common common;
     TextView tv_total;
     int tot = 0;
     int index =0 ;
+    String beforeTextChangeValue="";
+
 
 public static Boolean is_empty = true , is_error = false ;
 
@@ -54,12 +62,17 @@ public static Boolean is_empty = true , is_error = false ;
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
         viewHolder.txt_digits.setText(digit_list.get(i));
-
+        bet_list.clear();
+        for(int j=0; j<digit_list.size();j++)
+        {
+            ponitsList.add("0");
+            bet_list.add(new TableModel(digit_list.get(j).toString(),"0",txt_type.getText().toString()));
+        }
 
         viewHolder.et_points.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+               beforeTextChangeValue=s.toString();
             }
 
             @Override
@@ -69,58 +82,150 @@ public static Boolean is_empty = true , is_error = false ;
 
             @Override
             public void afterTextChanged(Editable s) {
-                String points = s.toString();
-               int p = Integer.parseInt(points);
-
-                if (s.length() != 0) {
-
-                    if (points.isEmpty()) {
-                        is_empty = true;
-                    } else {
-                        is_empty = false;
-                        int pints = Integer.parseInt(points);
-                        if (pints < 10) {
-//                        viewHolder.et_points.setError("Minimum bid points is 10");
-//                        viewHolder.et_points.requestFocus();
-                            is_error = true;
-
-                        }
-
-                        else {
-                            is_empty = false;
-                            is_error = false;
-                            int ps = Integer.parseInt(points);
-                            tot = tot + ps;
-                            total.setText(String.valueOf(tot));
-                                if (txt_type.getText().toString().equals(activity.getResources().getString(R.string.select_type)))
-                                {
-//                                    Toast.makeText(activity, "Select game type", Toast.LENGTH_LONG).show();
-                                }
-                                else {
-                                    bet_list.add(new TableModel(digit_list.get(i), points, txt_type.getText().toString()));
-
-
-
-                                }
-                        }
+                if (txt_type.getText().toString().equalsIgnoreCase(activity.getResources().getString(R.string.select_type))) {
+                       common.showToast("Select Bet Type");
+                } else {
+                    boolean backSpace = false;
+                    if (beforeTextChangeValue.length() > s.toString().length()) {
+                        backSpace = true;
                     }
+
+                    if (backSpace) {
+                        String pnts = s.toString();
+                        deleteFromList(pnts, i, beforeTextChangeValue);
+                    } else {
+                        String points = s.toString();
+                        addToBetList(points, i);
+                    }
+
+
                 }
-//                else if (s.length()==0)
-//                {
-//                  String d =  digit_list.get(i);
-//                    Toast.makeText(activity, "digit"+d, Toast.LENGTH_LONG).show();
-//
-//                    if (tot>0) {
-//                        tot = tot - p;
-//                        tv_total.setText(String.valueOf(tot));
-//                    }
-//
-//                }
             }
 
         });
 //
 
+    }
+
+    private void deleteFromList(String pnts,int pos,String beforeTextChangeValue) {
+        if(!pnts.isEmpty())
+        {
+            if(tot!=0)
+            {
+                int tx= Integer.parseInt(pnts);
+                int beforeValue=Integer.parseInt(beforeTextChangeValue);
+                Log.e("beforeValue",""+beforeTextChangeValue+" - Next Value - " + tx);
+                Log.e("leeeeeee",""+pnts.length());
+
+                if(pnts.length()==1)
+                {
+                    tot = (tot)-beforeValue;
+                }
+                else if(pnts.length()==2)
+                {
+                    tot = (tot+tx)-beforeValue;
+                }
+                else if(pnts.length() == 3)
+                {
+                    tot = (tot+tx)-beforeValue;
+                }
+                else if(pnts.length()==4)
+                {
+
+                    tot = (tot+tx)-beforeValue;
+                }
+                else if(pnts.length()==5)
+                {
+
+                    tot = (tot+tx)-beforeValue;
+                }
+
+                total.setText(String.valueOf(tot));
+                ponitsList.set(pos,"0");
+                if (txt_type.getText().toString().equals(activity.getResources().getString(R.string.select_type)))
+                {
+//                                    Toast.makeText(activity, "Select game type", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    if(pnts.length()>1)
+                    {
+                        common.updatePoints(bet_list,pos,pnts,txt_type.getText().toString());
+                    }else
+                    {
+                        common.updatePoints(bet_list,pos,"0",txt_type.getText().toString());
+                    }
+
+//
+                }
+
+
+            }
+        }
+
+    }
+
+    private void addToBetList(String points,int pos) {
+        int p =0;
+        if(!points.isEmpty())
+        {
+            p = Integer.parseInt(points);
+
+        }
+
+        if (points.length() != 0) {
+
+            if (points.isEmpty()) {
+                is_empty = true;
+            } else {
+                is_empty = false;
+                int pints = Integer.parseInt(points);
+                if ( pints < 10) {
+                    if(tot==0)
+                    {
+                        is_error = true;
+                    }
+
+                }
+                else {
+                    int ps = Integer.parseInt(points);
+                    if(points.length()==2)
+                    {
+                        Log.e("digits2",""+points);
+                        tot = tot + ps;
+                    }
+                    else if(points.length() == 3)
+                    {
+                        tot = (tot + ps)-Integer.parseInt(bet_list.get(pos).getPoints());
+                        Log.e("digits3",""+points);
+                    }
+                    else if(points.length()==4)
+                    {
+                        tot = (tot + ps)-Integer.parseInt(bet_list.get(pos).getPoints());
+
+                        Log.e("digits4",""+points);
+                    }
+                    else if(points.length()==5)
+                    {
+                        tot = (tot + ps)-Integer.parseInt(bet_list.get(pos).getPoints());
+
+                        Log.e("digits4",""+points);
+                    }
+
+                    is_empty = false;
+                    is_error = false;
+                    ponitsList.set(pos,String.valueOf(ps));
+                    total.setText(String.valueOf(tot));
+                    if (txt_type.getText().toString().equals(activity.getResources().getString(R.string.select_type)))
+                    {
+//                                    Toast.makeText(activity, "Select game type", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        common.updatePoints(bet_list,pos,points,txt_type.getText().toString());
+//                                    bet_list.add(new TableModel(digit_list.get(i), points, txt_type.getText().toString()));
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -135,16 +240,18 @@ public static Boolean is_empty = true , is_error = false ;
         EditText et_points;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            ponitsList=new ArrayList<>();
             txt_digits = itemView.findViewById(R.id.txt_digit);
             et_points = itemView.findViewById(R.id.et_points);
+            b_list = new ArrayList<>();
+            common=new Common(activity);
 
-         b_list = new ArrayList<>();
         }
     }
 
-    public static void resetControls()
+    public static ArrayList<String> getPonitsList()
     {
-
+        return ponitsList;
     }
     public static ArrayList<TableModel> getBetlist()
     {

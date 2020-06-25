@@ -255,7 +255,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
             Date date=new Date();
             SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
             String ctt=dateFormat.format(date);
-            common.setBetTypeDialog(dialog,txtOpen,txtClose,matka_id,txt_type,progressDialog,ctt);
+            common.setBetTypeDialog(dialog,txtOpen,txtClose,txt_type,txt_date.getText().toString(),s_time,e_time);
         }
         else if (v.getId()==R.id.tv_date)
         {

@@ -100,7 +100,7 @@ public class AddFunds extends Fragment implements View.OnClickListener {
 //                        intent.putExtra("points",String.valueOf(points));
 //                        intent.putExtra("status","pending");
 //                        startActivity(intent);
-                    String user_id= Prevalent.currentOnlineuser.getId();
+                    String user_id= common.getUserId();
                     String p=String.valueOf(points);
                     String st="pending";
                     saveInfoIntoDatabase(user_id,p,st);

@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,21 +26,25 @@ import java.util.HashMap;
 
 import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
+import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.CustomJsonRequest;
+import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
+import in.games.nidhimatka.Util.Session_management;
 
 public class splash_activity extends AppCompatActivity {
 
+    Session_management session_management;
    float version_code;
    Common common;
    public static String home_text ="", withdrw_text="",tagline= "" ,min_add_amount="",link = "" ,app_link="",share_link="",msg_status="",withdrw_no="";
-   // ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_activity);
    common=new Common(splash_activity.this);
+   session_management=new Session_management(splash_activity.this);
         try {
             PackageInfo pInfo = getApplicationContext().getPackageManager().getPackageInfo(getPackageName(), 0);
              version_code = pInfo.versionCode;
@@ -56,18 +61,14 @@ public class splash_activity extends AppCompatActivity {
 
         String json_tag="json_splash_request";
         HashMap<String,String> params=new HashMap<String, String>();
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.GET, URLs.URL_INDEX, params, new Response.Listener<JSONObject>() {
+        CustomVolleyJsonArrayRequest customVolleyJsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.GET, BaseUrls.URL_INDEX, params, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(final JSONObject response) {
-                Log.e("splashdata",""+response.toString());
-                try
+            public void onResponse(JSONArray response) {
+               try
                 {
-                    boolean resp=response.getBoolean("responce");
                     float ver_code=0;
                     String msg="";
-                    if(resp)
-                    {
-                        JSONObject dataObj=response.getJSONObject("data");
+                        JSONObject dataObj=response.getJSONObject(0);
                         tagline = dataObj.getString("tag_line");
                         withdrw_text = dataObj.getString("withdraw_text").toLowerCase();
                         withdrw_no = dataObj.getString("withdraw_no");
@@ -79,17 +80,23 @@ public class splash_activity extends AppCompatActivity {
                         ver_code=Float.parseFloat(dataObj.getString("version"));
                         msg=dataObj.getString("message");
 
-                    }
-                    else
-                    {
-                        common.showToast(response.getString("message"));
-                    }
 
                     if(version_code==ver_code)
                     {
-                        Intent intent = new Intent(splash_activity.this,LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+                        if(session_management.isLoggedIn())
+                        {
+                            Intent intent = new Intent(splash_activity.this,MainActivity.class);
+                            startActivity(intent);
+                            finish();
+
+                        }
+                        else
+                        {
+                            Intent intent = new Intent(splash_activity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+
+                        }
 
                     }
                     else
@@ -145,7 +152,7 @@ public class splash_activity extends AppCompatActivity {
             }
         });
 
-        AppController.getInstance().addToRequestQueue(customJsonRequest,json_tag);
+        AppController.getInstance().addToRequestQueue(customVolleyJsonArrayRequest,json_tag);
 
 
     }

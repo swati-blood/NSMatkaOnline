@@ -37,8 +37,10 @@ import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.LoadingBar;
 
+import static in.games.nidhimatka.Adapter.PointsAdapter.getPonitsList;
 import static in.games.nidhimatka.Adapter.PointsAdapter.is_empty;
 import static in.games.nidhimatka.Adapter.PointsAdapter.is_error;
+import static in.games.nidhimatka.Adapter.PointsAdapter.ponitsList;
 import static in.games.nidhimatka.Objects.sp_input_data.doublePanna;
 import static in.games.nidhimatka.Objects.sp_input_data.group_jodi_array;
 import static in.games.nidhimatka.Objects.sp_input_data.group_jodi_digits;
@@ -64,7 +66,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
     List<String> sp_list;
     List<String> dp_list;
     List<String> single_pana_list;
-   public static ArrayList<TableModel> bet_list;
+   public static ArrayList<TableModel> bet_list,tempList;
     Button btn_submit;
     Common common;
     LoadingBar loadingBar;
@@ -100,6 +102,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         TextView txtWalet=  toolbar.findViewById(R.id.txtWallet);
         list = new ArrayList<>();
         bet_list = new ArrayList<>();
+        tempList = new ArrayList<>();
         single_pana_list = new ArrayList<>();
         common = new Common(getActivity());
         loadingBar = new LoadingBar(getActivity());
@@ -114,6 +117,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         btn_submit.setOnClickListener(this);
         txt_date.setOnClickListener(this);
         txt_type.setOnClickListener(this);
+        total.setOnClickListener(this);
         ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
        setLayout(game_name);
 
@@ -125,18 +129,8 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
     void setTabLayout() {
         tabLayout.setVisibility(View.VISIBLE);
         int len = singlePaana.length;
-        int r = len % 10;
-        int n = 0;
-        if (r <= 0) {
-            n = len / 10;
-        } else if (r > 0) {
-            n = (len / 10) + 1;
-        }
-
-
-        for (int i = 0; i < 10; i++) {
+         for (int i = 0; i < 10; i++) {
             int ind = i + 1;
-
             tabLayout.addTab(tabLayout.newTab().setText(String.valueOf(ind)), i);
 
         }
@@ -177,12 +171,29 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
             });
         }
 
-
-
-
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btn_sbmit) {
+
+        if(v.getId() == R.id.bet_total)
+        {
+            for(int i=0; i<getPonitsList().size();i++)
+            {
+                Log.e("temp_list_data",""+getPonitsList().get(i).toString());
+            }
+        }
+        else if (v.getId() == R.id.btn_sbmit) {
+            tempList.clear();
+            for(int k=0; k<bet_list.size();k++)
+            {
+                if(bet_list.get(k).getPoints().toString().equals("0") || bet_list.get(k).getPoints().toString().equals(""))
+                { }
+                else
+                {
+
+                  tempList.add(bet_list.get(k));
+                }
+            }
+
             bet_type = txt_type.getText().toString();
             bet_date = txt_date.getText().toString();
 
@@ -213,9 +224,6 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
                             String cur_time = format.format(date);
                             String cur_date = sdf.format(date);
                             String g_d = bet_date.substring(0, 10);
-//                Toast.makeText(getActivity(),""+g_d,Toast.LENGTH_LONG).show();
-                            Log.e("date ", String.valueOf(g_d) + "\n" + String.valueOf(cur_date));
-
                             if (cur_date.equals(g_d)) {
                                 Log.e("true", "today");
                                 Date s_date = format.parse(s_time);
@@ -230,9 +238,9 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
 
                                 if (as < 0) {
 
-                                    common.setBidsDialog(Integer.parseInt(w_amount), bet_list, matka_id, g_d, game_id, w_amount, matka_name, loadingBar, btn_submit, s_time, e_time);
+                                    common.setBidsDialog(Integer.parseInt(w_amount), tempList, matka_id, g_d, game_id, w_amount, matka_name, loadingBar, btn_submit, s_time, e_time);
                                 } else if (curr < 0) {
-                                    common.setBidsDialog(Integer.parseInt(w_amount), bet_list, matka_id, g_d, game_id, w_amount, matka_name, loadingBar, btn_submit, s_time, e_time);
+                                    common.setBidsDialog(Integer.parseInt(w_amount), tempList, matka_id, g_d, game_id, w_amount, matka_name, loadingBar, btn_submit, s_time, e_time);
                                 } else {
 
                                     common.errorMessageDialog("Betting is Closed Now");
@@ -240,7 +248,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
                                 }
                             } else {
 
-                                common.setBidsDialog(Integer.parseInt(w_amount), bet_list, matka_id, bet_date.substring(0, 10), game_id, w_amount, matka_name, loadingBar, btn_submit, s_time, e_time);
+                                common.setBidsDialog(Integer.parseInt(w_amount), tempList, matka_id, bet_date.substring(0, 10), game_id, w_amount, matka_name, loadingBar, btn_submit, s_time, e_time);
                             }
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -251,11 +259,9 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         }
         else if (v.getId()==R.id.tv_type)
         {
-            Date date=new Date();
-            SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
-            String ctt=dateFormat.format(date);
-            common.setBetTypeDialog(dialog,txtOpen,txtClose,matka_id,txt_type,loadingBar,ctt);
+            common.setBetTypeDialog(dialog,txtOpen,txtClose,txt_type,txt_date.getText().toString(),s_time,e_time);
             setLayout(game_name);
+
 
         }
         else if (v.getId()==R.id.tv_date)
@@ -281,7 +287,6 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
             case  "Single Pana" :
                 setTabLayout();
                 addRecyclerAdapter(rv_points,recyclerPagerAdapter,Arrays.asList(singlePaana));
-//
                 break;
             case  "Double Pana" :
                 setTabLayout();
@@ -297,11 +302,10 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
 
     public void addAdapter(RecyclerView rv_points ,PointsAdapter pAdapter, List<String> list)
     {
-
         pAdapter = new PointsAdapter(list, getActivity(),total);
         rv_points.setAdapter(pAdapter);
         rv_points.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        Log.e("list", String.valueOf(list.size()));
+       // Log.e("list", String.valueOf(list.size()));
     }
   public void addRecyclerAdapter(RecyclerView rv_points ,RecyclerPagerAdapter recyclerPagerAdapter, List<String> list)
     {

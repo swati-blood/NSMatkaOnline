@@ -37,7 +37,7 @@
 
                 android:weightSum="10"
                 >
-                <TextView
+                <in.games.nidhimatka.Fonts.LatoBLack
                     android:id="@+id/matkaBettingStatus"
                     android:layout_width="0dp"
                     android:layout_weight="2"
@@ -73,7 +73,7 @@
 
 
 
-                        <TextView
+                        <in.games.nidhimatka.Fonts.LatoBLack
                             android:id="@+id/matkaName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
                             android:layout_below="@id/matkaName"
                             android:layout_centerHorizontal="true">
 
-                            <TextView
+                            <in.games.nidhimatka.Fonts.LatoBLack
                                 android:id="@+id/matka_starting_Number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                                 android:textSize="16dp"
                                 android:textStyle="bold" />
 
-                            <TextView
+                            <in.games.nidhimatka.Fonts.LatoBLack
                                 android:id="@+id/matka_dess1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
                                 android:textSize="16dp"
                                 android:textStyle="bold" />
 
-                            <TextView
+                            <in.games.nidhimatka.Fonts.LatoBLack
                                 android:id="@+id/matka_res_Number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
                                 android:textSize="16dp"
                                 android:textStyle="bold" />
 
-                            <TextView
+                            <in.games.nidhimatka.Fonts.LatoBLack
                                 android:id="@+id/matka_dess2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -140,7 +140,7 @@
                                 android:textSize="16dp"
                                 android:textStyle="bold" />
 
-                            <TextView
+                            <in.games.nidhimatka.Fonts.LatoBLack
                                 android:id="@+id/matka_end_Number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -151,7 +151,7 @@
                                 android:textSize="16dp"
                                 android:textStyle="bold" />
 
-                            <TextView
+                            <in.games.nidhimatka.Fonts.LatoBLack
                                 android:id="@+id/matka_id"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -174,7 +174,7 @@
                             android:gravity="bottom"
                             android:layout_height="wrap_content">
 
-                            <TextView
+                            <in.games.nidhimatka.Fonts.LatoBLack
                                 android:id="@+id/matka_txt_open_bid_Time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -183,7 +183,7 @@
                                 android:textColor="@color/btnColor"
                                 android:textSize="10dp" />
 
-                            <TextView
+                            <in.games.nidhimatka.Fonts.LatoBLack
                                 android:id="@+id/matka_open_bid_Time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
                                 android:background="@android:color/darker_gray"
                                 android:textColor="@color/btnColor"
                               />
-                            <TextView
+                            <in.games.nidhimatka.Fonts.LatoBLack
                                 android:id="@+id/matka_txt_close_bid_Time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -212,7 +212,7 @@
                                 android:textColor="@color/btnColor"
                                 android:textSize="10dp" />
 
-                            <TextView
+                            <in.games.nidhimatka.Fonts.LatoBLack
                                 android:id="@+id/matka_close_bid_Time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

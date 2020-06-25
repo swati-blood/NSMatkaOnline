@@ -3,7 +3,7 @@ package in.games.nidhimatka.Config;
 public class URLs {
 
     public static final String BASE_URL="https://nidhionlinematka.in/restApi/api.php?api=";
-//    public static final String BASE_URL="https://nidhionlinematka.in/restApi/";
+    public static final String BASE_URL1="https://nidhionlinematka.in/api/login";
 //    public static final String BASE_URL="https://malamaal.anshuwap.com/restApi/api.php?api=";
     public static final String URL_CHECK1=BASE_URL+"getMatkas";
     public static final String URL_CHECK2=BASE_URL+"getStarline";

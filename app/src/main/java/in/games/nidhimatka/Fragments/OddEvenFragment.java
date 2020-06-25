@@ -101,6 +101,9 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
                 if(list.size()>0)
                 {
                     list.clear();
+                    tableAdaper = new TableAdaper(list, getActivity(), btnSave);
+                    listView.setAdapter(tableAdaper);
+                    tableAdaper.notifyDataSetChanged();
 
                 }
                 if(chkOdd.isChecked())
@@ -123,6 +126,9 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
                 if(list.size()>0)
                 {
                     list.clear();
+                    tableAdaper = new TableAdaper(list, getActivity(), btnSave);
+                    listView.setAdapter(tableAdaper);
+                    tableAdaper.notifyDataSetChanged();
 
                 }
                 if(chkEven.isChecked())
@@ -268,9 +274,6 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
                 String cur_time = format.format(date);
                 String cur_date = sdf.format(date);
                 String g_d = game_date.substring(0, 10);
-//                Toast.makeText(getActivity(),""+g_d,Toast.LENGTH_LONG).show();
-                Log.e("date ", String.valueOf(g_d) + "\n" + String.valueOf(cur_date));
-
                 if (cur_date.equals(g_d)) {
                     Log.e("true", "today");
                     Date s_date = format.parse(s_time);
@@ -284,7 +287,6 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
                     long current_time = c_date.getTime();
 
                     if (as < 0) {
-
                         common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
                     } else if (curr < 0) {
                         common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
@@ -304,10 +306,7 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
     }
     else if (v.getId()==R.id.tv_type)
     {
-        Date date=new Date();
-        SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
-        String ctt=dateFormat.format(date);
-        common.setBetTypeDialog(dialog,txtOpen,txtClose,matka_id,txt_type,progressDialog,ctt);
+        common.setBetTypeDialog(dialog,txtOpen,txtClose,txt_type,txt_date.getText().toString(),s_time,e_time);
     }
     else if (v.getId()==R.id.tv_date)
     {
@@ -329,4 +328,6 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
         txt_date.setText(getActivity().getResources().getString(R.string.select_date));
         btnSave.setText("Save");
     }
+
+
 }

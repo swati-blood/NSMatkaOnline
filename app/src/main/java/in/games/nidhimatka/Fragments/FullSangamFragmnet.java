@@ -247,7 +247,7 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
                 }
 
 
-                String id = Prevalent.currentOnlineuser.getId().toString().trim();
+                String id = common.getUserId().trim();
 
                 String date = game_date.substring(0,10);
 //                String dt = btnGameType.getText().toString().trim();
@@ -268,13 +268,6 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
 
                     JSONArray jsonArray = new JSONArray();
                     jsonArray.put(jsonObject);
-
-
-                    // Toast.makeText(FullSangamActivity.this,"data"+jsonArray,Toast.LENGTH_LONG).show();
-
-                    //      Object o1=jsonArray_digits;
-
-
                     int wallet_amount = Integer.parseInt(w_amount);
                     if (wallet_amount < amt) {
 
@@ -285,9 +278,8 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
                     } else {
                         int up_amt = wallet_amount - amt;
                         String asd = String.valueOf(up_amt);
-                        String userid = Prevalent.currentOnlineuser.getId();
+                        String userid = common.getUserId();
                         btnSave.setEnabled(false);
-
                         common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, type, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
                     }
                 } catch (JSONException e) {

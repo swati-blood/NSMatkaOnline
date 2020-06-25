@@ -127,9 +127,6 @@ MatkaAdapter matkaAdapter ;
                 Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        //   matkaAdapter.notifyDataSetChanged();
-
-                        Log.d("matka",String.valueOf(response));
 
                         matkaList.clear();
 
@@ -212,8 +209,6 @@ MatkaAdapter matkaAdapter ;
                                     url_maps.put("title", object.getString("title"));
                                     url_maps.put("image", URLs.IMG_SLIDER_URL + object.getString("image"));
                                     url_maps.put("description",object.getString("description"));
-
-
                                     //   Toast.makeText(context,""+modelList.get(position).getProduct_image(),Toast.LENGTH_LONG).show();
 
                                     listarray.add(url_maps);

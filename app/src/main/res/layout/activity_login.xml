@@ -53,13 +53,11 @@
             <EditText
                 android:id="@+id/etUser"
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
-
                 android:padding="10dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginLeft="-2dp"
-
+                android:fontFamily="@font/lato"
                 android:background="@drawable/gradient_button"
                 android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/icons8_touchscreen_24px"
@@ -95,6 +93,7 @@
                 android:layout_marginLeft="-2dp"
                 android:background="@drawable/gradient_button"
                 android:backgroundTint="@color/white"
+                android:fontFamily="@font/lato"
                 android:drawableLeft="@drawable/icons8_key_2_24px"
                 android:drawableTint="@color/colorAccent"
                 android:drawablePadding="10dp"
@@ -114,12 +113,14 @@
             android:layout_height="wrap_content"
             android:text="Login"
             android:textAllCaps="false"
+            android:fontFamily="@font/lato"
             android:background="@drawable/gradient_button"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:textColor="@android:color/white"
             android:layout_marginTop="10dp"
             android:textSize="16dp"
+            android:textStyle="bold"
             android:layout_below="@id/relativeLayout3"/>
 
         <Button
@@ -148,6 +149,8 @@
             android:layout_marginRight="30dp"
             android:textColor="@android:color/white"
             android:layout_marginTop="5dp"
+            android:fontFamily="@font/lato"
+            android:textStyle="bold"
             android:textSize="16dp"
             android:layout_below="@id/login_mpilogin_btn"/>
 
@@ -165,6 +168,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:text="Forget Password?"
+                android:fontFamily="@font/lato"
                 android:background="@android:color/transparent"
                 android:textSize="12dp"
                 android:textColor="@color/colorPrimaryDark"

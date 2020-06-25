@@ -57,20 +57,23 @@ import java.util.Map;
 
 import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
+import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.Model.UsersObjects;
 import in.games.nidhimatka.NetworkStateChangeReciever;
 import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.CustomJsonRequest;
+import in.games.nidhimatka.Util.Session_management;
 
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static String TAG = MainActivity.class.getSimpleName();
+    private static String TAG = LoginActivity.class.getSimpleName();
     boolean doubleBackToExitPressedOnce=false;
-   EditText etName,etPassword;
-   Common common;
+    Session_management session_management;
+    EditText etName,etPassword;
+    Common common;
     Button btn_login,btn_loginWithMPin;
     ProgressDialog progressDialog;
     private Dialog dialog;
@@ -95,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister=(Button)findViewById(R.id.login_register_btn);
         btnForPassword=(Button)findViewById(R.id.btnForgetPass);
         btnForUserID=(Button)findViewById(R.id.btnForgetUserId);
-
+           session_management=new Session_management(LoginActivity.this);
         boolean sdfff=isConnected(LoginActivity.this);
         if(sdfff==true)
         {
@@ -209,8 +212,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                   etName.setText("8178624292");
-//                   etPassword.setText("123456");
+
                     String mName=etName.getText().toString().trim();
                     String mPass=etPassword.getText().toString().trim();
 //                    String mName="anasmansoori734@gmail.com";
@@ -259,104 +261,64 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void getUserLoginRequest(final String mName, final String mPass) {
-
-
         progressDialog.show();
         final String tag_json_obj = "json_login_req";
         Map<String, String> params = new HashMap<String, String>();
         params.put("mobileno",mName);
         params.put("password",mPass);
 
-        final CustomJsonRequest loginRequest=new CustomJsonRequest(Request.Method.POST, URLs.URL_USER_LOGIN, params, new Response.Listener<JSONObject>() {
+        final CustomJsonRequest loginRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_LOGIN, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 progressDialog.dismiss();
                 Log.e("login",response.toString());
 
-                if (response.equals(null)) {
-                    Toast.makeText(ctx, "User does not exist ", Toast.LENGTH_LONG).show();
-                } else {
                     try {
-
-
-                        JSONObject object = response;
-                        String status = object.getString("status");
-                        if (status.equals("success")) {
-                            JSONObject jsonObject = object.getJSONObject("data");
-                            UsersObjects users = new UsersObjects();
-                            users.setId(jsonObject.getString("id"));
-                            users.setName(jsonObject.getString("name"));
-                            users.setUsername(jsonObject.getString("username"));
-                            users.setMobileno(jsonObject.getString("mobileno"));
-//                            users.setEmail(jsonObject.getString("email"));
-                            users.setAddress(jsonObject.getString("address"));
-                            users.setCity(jsonObject.getString("city"));
-                            users.setPincode(jsonObject.getString("pincode"));
-                            users.setPassword(jsonObject.getString("password"));
-                            users.setAccountno(jsonObject.getString("accountno"));
-                            users.setBank_name(jsonObject.getString("bank_name"));
-                            users.setIfsc_code(jsonObject.getString("ifsc_code"));
-                            users.setAccount_holder_name(jsonObject.getString("account_holder_name"));
-                            users.setPaytm_no(jsonObject.getString("paytm_no"));
-                            users.setTez_no(jsonObject.getString("tez_no"));
-                            users.setPhonepay_no(jsonObject.getString("phonepay_no"));
-                            Prevalent.currentOnlineuser = users;
-//                            0String success=jsonObject.getString("success");
-//                            JSONArray jsonArray=jsonObject.getJSONArray("login");
-//                            if(success.equals("1"))
-//                            {
+                        boolean resp=response.getBoolean("responce");
+                        if (resp) {
+                            JSONObject jsonObject = response.getJSONObject("data");
+                            String id=common.checkNull(jsonObject.getString("id").toString());
+                            String name=common.checkNull(jsonObject.getString("name").toString());
+                            String username=common.checkNull(jsonObject.getString("username").toString());
+                            String mobile=common.checkNull(jsonObject.getString("mobileno").toString());
+                            String email=common.checkNull(jsonObject.getString("email").toString());
+                            String address=common.checkNull(jsonObject.getString("address").toString());
+                            String city=common.checkNull(jsonObject.getString("city").toString());
+                            String pincode=common.checkNull(jsonObject.getString("pincode").toString());
+                            String accno=common.checkNull(jsonObject.getString("accountno").toString());
+                            String bank=common.checkNull(jsonObject.getString("bank_name").toString());
+                            String ifsc=common.checkNull(jsonObject.getString("ifsc_code").toString());
+                            String holder=common.checkNull(jsonObject.getString("account_holder_name").toString());
+                            String paytm=common.checkNull(jsonObject.getString("paytm_no").toString());
+                            String tez=common.checkNull(jsonObject.getString("tez_no").toString());
+                            String phonepay=common.checkNull(jsonObject.getString("phonepay_no").toString());
+                            String wallet=common.checkNull(jsonObject.getString("wallet").toString());
+                            String dob=common.checkNull(jsonObject.getString("dob").toString());
                             String p = jsonObject.getString("password");
                             if (mPass.equals(p)) {
+                                session_management.createLoginSession(id,name,username,mobile,email,address
+                                ,city,pincode,accno,bank,ifsc,holder,paytm,tez,phonepay,dob,wallet);
                                 Intent intent = new Intent(ctx, MainActivity.class);
                                 intent.putExtra("username", jsonObject.getString("username").toString());
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
-
-                                progressDialog.dismiss();
                                 finish();
                             } else {
-                                progressDialog.dismiss();
                                 Toast.makeText(ctx, "Password is not correct ", Toast.LENGTH_LONG).show();
                             }
-//                                for(int i=0;i<jsonArray.length();i++)
-//                                {
-//                                    JSONObject object=jsonArray.getJSONObject(i);
-//                                    String name=object.getString("email").trim();
-//
-//
-//                                    Intent intent=new Intent(MainActivity.this,HomeActivity.class);
-//                                    intent.putExtra("username",name);
-//                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                    startActivity(intent);
-//                                    progressDialog.dismiss();
-//                                    finish();
-//                                    //  loading.setVisibility(View.GONE);
-//                                    //    btn_reg.setVisibility(View.VISIBLE);
-//
-//                                }
-//
 
-
-                        } else if (status.equals("unsuccessfull")) {
-                            progressDialog.dismiss();
-                            String message = object.getString("data");
-                            Toast.makeText(ctx, "" + message, Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(ctx, "Something Went wrong", Toast.LENGTH_LONG).show();
                         }
-                        //Toast.makeText(MainActivity.this,"User "+jsonObject.getString("name").toString(),Toast.LENGTH_LONG).show();
-                        //progressDialog.dismiss();
-                        //Log.d("a",response);
+                         else {
+                            Toast.makeText(ctx, ""+response.getString("error").toString(), Toast.LENGTH_LONG).show();
+                        }
 
                     } catch (Exception ex) {
                         ex.printStackTrace();
-                        //   loading.setVisibility(View.GONE);
-                        // btn_reg.setVisibility(View.VISIBLE);
                         progressDialog.dismiss();
                       }
 
                 }
-            }
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {

@@ -44,18 +44,23 @@ import in.games.nidhimatka.Model.MatkasObjects;
 import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.Util.Session_management;
+
+import static in.games.nidhimatka.Config.Constants.KEY_NAME;
+import static in.games.nidhimatka.Config.Constants.KEY_WALLET;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 Activity activity = MainActivity.this;
 TextView txt_wallet,txtUserName ;
     DrawerLayout drawer;
+    Session_management session_management;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         txt_wallet = findViewById(R.id.txtWallet);
-
+      session_management=new Session_management(activity);
 
       drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -67,12 +72,12 @@ TextView txt_wallet,txtUserName ;
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(activity.getResources().getColorStateList(R.color.colorPrimaryDark));
         txtUserName=(TextView)navigationView.getHeaderView(0).findViewById(R.id.user_mobile);
-        if(Prevalent.currentOnlineuser.getName().isEmpty() || Prevalent.currentOnlineuser.getName().equals(""))
+        if(session_management.getUserDetails().get(KEY_NAME).toString().isEmpty() || session_management.getUserDetails().get(KEY_NAME).toString().equals(""))
         {
 
         }
         else {
-            txtUserName.setText(Prevalent.currentOnlineuser.getName());
+            txtUserName.setText(session_management.getUserDetails().get(KEY_NAME).toString());
         }
 
 //        toolbar.setPadding(0, toolbar.getPaddingTop(),0, toolbar.getPaddingBottom());
@@ -90,7 +95,12 @@ TextView txt_wallet,txtUserName ;
     @Override
     protected void onStart() {
         super.onStart();
-        new Common(activity).setWallet_Amount(txt_wallet,new LoadingBar(activity), Prevalent.currentOnlineuser.getId());
+        txt_wallet.setText(session_management.getUserDetails().get(KEY_WALLET).toString());
+//        new Common(activity).setWallet_Amount(txt_wallet,new LoadingBar(activity), Prevalent.currentOnlineuser.getId());
+    }
+    public void setWalletCounter(String walletAmount)
+    {
+        txt_wallet.setText(walletAmount);
     }
 
     @Override
@@ -200,7 +210,7 @@ TextView txt_wallet,txtUserName ;
         return true;
 
     }
-//    public void setTitle(String title) {
+    public void setTitle(String title) {
 //        getSupportActionBar().setTitle(title);
-//    }
+    }
 }

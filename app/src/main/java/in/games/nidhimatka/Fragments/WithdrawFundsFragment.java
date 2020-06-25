@@ -121,7 +121,7 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
                 if((hours>=10&&hours<17)&&(day>1 && day<7)) {
 
 
-                    String user_id = Prevalent.currentOnlineuser.getId();
+                    String user_id = common.getUserId();
                     String pnts = String.valueOf(points);
                     String st = "pending";
 

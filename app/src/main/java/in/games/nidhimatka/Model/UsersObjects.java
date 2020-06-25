@@ -2,7 +2,7 @@ package in.games.nidhimatka.Model;
 
 public class UsersObjects {
 
-    String id,name,username,mobileno,email,address,city,pincode,password,accountno,bank_name,ifsc_code,account_holder_name,paytm_no,tez_no,phonepay_no ,dob;
+    String id,name,username,mobileno,email,address,city,pincode,password,accountno,bank_name,ifsc_code,account_holder_name,paytm_no,tez_no,phonepay_no,dob;
 
     public UsersObjects() {
     }

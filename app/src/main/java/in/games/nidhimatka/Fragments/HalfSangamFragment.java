@@ -191,7 +191,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
                     }
 
 
-                    String id = Prevalent.currentOnlineuser.getId().toString().trim();
+                    String id = common.getUserId().toString().trim();
 
                     String date = game_date.substring(0,10);
 //                    String dt=btnGameType.getText().toString().trim();
