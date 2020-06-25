@@ -5,10 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.pana.FragmentThree">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:nestedScrollingEnabled="false"
+                android:id="@+id/rv_digits"
+                />
+        </RelativeLayout>
+    </ScrollView>
 
 </FrameLayout>

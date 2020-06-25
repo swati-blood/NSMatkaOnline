@@ -19,7 +19,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_5sdp"
                 android:nestedScrollingEnabled="false"
-                android:id="@+id/rv_one"
+                android:id="@+id/rv_digits"
                 />
         </RelativeLayout>
     </ScrollView>

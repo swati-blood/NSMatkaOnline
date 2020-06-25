@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.pana.FragmentTwo">
+    tools:context=".Fragments.pana.FragmentNine">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -21,6 +22,5 @@
                 />
         </RelativeLayout>
     </ScrollView>
-
 
 </FrameLayout>

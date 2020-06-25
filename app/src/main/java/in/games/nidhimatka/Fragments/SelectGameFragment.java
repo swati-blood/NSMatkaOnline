@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -58,8 +59,8 @@ public class SelectGameFragment extends Fragment {
        game_list.add(new GameModel("4","Red Bracket","","1"));
        game_list.add(new GameModel("5","Panel Group","","1"));
        game_list.add(new GameModel("6","Group Jodi","","1"));
-       game_list.add(new GameModel("7","Single Pana","","0"));
-       game_list.add(new GameModel("8","Double Pana","","0"));
+       game_list.add(new GameModel("7","Single Pana","","1"));
+       game_list.add(new GameModel("8","Double Pana","","1"));
        game_list.add(new GameModel("9","Triple Pana","","0"));
        game_list.add(new GameModel("10","SP Motor","","1"));
        game_list.add(new GameModel("11","DP Motor","","1"));
@@ -110,16 +111,21 @@ public class SelectGameFragment extends Fragment {
                         case "Full Sangam" :
                             fm = new FullSangamFragmnet();
                             break;
-                            case "Panel Group" :
+                        case "Panel Group" :
                             fm = new GroupPanel();
                             break;
-                            case "Group Jodi" :
+                        case "Group Jodi" :
                             fm = new GroupJodi();
                             break;
                         case "Red Bracket": fm = new RedBracketFragment();
                             break;
                         case "Odd Even" : fm = new OddEvenFragment();
                             break;
+                        case "Single Pana" :
+                         case "Double Pana":
+                            fm = new FragmentDigits();
+                            break;
+
                         default:  fm = new SelectGameFragment();
                         break;
 

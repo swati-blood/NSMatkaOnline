@@ -81,7 +81,7 @@ public class RecyclerPagerAdapter extends RecyclerView.Adapter<RecyclerPagerAdap
         {
             list=digit_list.subList(90,digit_list.size()-1);
         }
-    PointsAdapter pointsAdapter = new PointsAdapter(list,activity,tv_total);
+    PointsAdapter pointsAdapter = new PointsAdapter(list,activity);
     holder.rv_digits.setLayoutManager(new GridLayoutManager(activity,2));
     holder.rv_digits.setAdapter(pointsAdapter);
     pointsAdapter.notifyDataSetChanged();

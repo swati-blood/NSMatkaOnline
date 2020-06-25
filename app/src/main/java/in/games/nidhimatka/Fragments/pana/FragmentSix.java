@@ -14,10 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import in.games.nidhimatka.Adapter.PointsAdapter;
 import in.games.nidhimatka.Adapter.SigleDoublePanaAdapter;
 import in.games.nidhimatka.Common.Common;
-import in.games.nidhimatka.Model.TableModel;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.LoadingBar;
 
@@ -28,15 +26,13 @@ import static in.games.nidhimatka.Objects.sp_input_data.singlePaana;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentOne extends Fragment {
+public class FragmentSix extends Fragment {
     RecyclerView rv_digits;
-  SigleDoublePanaAdapter sigleDoublePanaAdapter;
+    SigleDoublePanaAdapter sigleDoublePanaAdapter;
     LoadingBar loadingBar ;
     Common common;
-  List<String> single_list;
-
-
-    public FragmentOne() {
+    List<String> single_list;
+    public FragmentSix() {
         // Required empty public constructor
     }
 
@@ -45,11 +41,10 @@ public class FragmentOne extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View view = inflater.inflate(R.layout.fragment_one, container, false);
-       initViews(view);
-       return view ;
+        View view = inflater.inflate(R.layout.fragment_six, container, false);
+        initViews(view);
+        return view ;
     }
-
     void initViews(View v)
     {
         rv_digits = v.findViewById(R.id.rv_digits);
@@ -65,7 +60,7 @@ public class FragmentOne extends Fragment {
         {
             single_list = Arrays.asList(doublePanna);
         }
-      sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(0,10),getActivity());
+        sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(50,60),getActivity());
         rv_digits.setLayoutManager(new GridLayoutManager(getActivity(),2));
         rv_digits.setAdapter(sigleDoublePanaAdapter);
         sigleDoublePanaAdapter.notifyDataSetChanged();

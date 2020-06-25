@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="Fragments.PanaFragment">
+    tools:context=".Fragments.FragmentDigits">
     <ScrollView
         android:layout_above="@+id/rel_total"
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                         android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
                         android:layout_margin="5dp"/>
                     <TextView
-                      android:id="@+id/tv_type"
+                        android:id="@+id/tv_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/select_type"
@@ -54,40 +54,24 @@
 
 
                 </LinearLayout>
-               <com.google.android.material.tabs.TabLayout
-                   android:id="@+id/tablayout"
-                   android:layout_width="match_parent"
-                   android:layout_height="@dimen/_40sdp"
-                   android:layout_margin="@dimen/_5sdp"
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tablayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_margin="@dimen/_5sdp"
                     app:tabTextColor="@android:color/darker_gray"
-                   app:tabIndicatorHeight="@dimen/_40sdp"
-                   app:tabSelectedTextColor="@color/white"
-                   android:visibility="gone"
-                   app:tabMode="scrollable"
-                   app:tabIndicatorColor="@color/colorPrimary"/>
+                    app:tabIndicatorHeight="@dimen/_40sdp"
+                    app:tabSelectedTextColor="@color/white"
+
+                    app:tabMode="scrollable"
+                    app:tabIndicatorColor="@color/colorPrimary"/>
                 <androidx.viewpager.widget.ViewPager
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_300sdp"
                     android:id="@+id/viewpager"
-                    android:visibility="gone"/>
+                  />
 
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:nestedScrollingEnabled="false"
-                    android:id="@+id/rv_digits"
-                 />
-                </RelativeLayout>
-                </ScrollView>
 
 
 
@@ -99,7 +83,7 @@
     <RelativeLayout
         android:id="@+id/rel_total"
         android:layout_width="match_parent"
-       android:layout_alignParentBottom="true"
+        android:layout_alignParentBottom="true"
         android:layout_height="wrap_content">
 
 

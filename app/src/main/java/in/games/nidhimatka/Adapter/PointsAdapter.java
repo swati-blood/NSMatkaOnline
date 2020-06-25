@@ -36,7 +36,7 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder
     Activity activity;
 public static ArrayList<String> ponitsList;
 Common common;
-    TextView tv_total;
+
     int tot = 0;
     int index =0 ;
     String beforeTextChangeValue="";
@@ -44,11 +44,10 @@ Common common;
 
 public static Boolean is_empty = true , is_error = false ;
 
-    public PointsAdapter(List<String> digit_list, Activity activity ,TextView tv_total) {
+    public PointsAdapter(List<String> digit_list, Activity activity) {
         this.digit_list = digit_list;
         this.activity = activity;
 
-        this.tv_total = tv_total;
     }
 
     @NonNull

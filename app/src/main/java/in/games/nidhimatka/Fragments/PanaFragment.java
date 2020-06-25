@@ -302,7 +302,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
 
     public void addAdapter(RecyclerView rv_points ,PointsAdapter pAdapter, List<String> list)
     {
-        pAdapter = new PointsAdapter(list, getActivity(),total);
+        pAdapter = new PointsAdapter(list, getActivity());
         rv_points.setAdapter(pAdapter);
         rv_points.setLayoutManager(new GridLayoutManager(getActivity(), 2));
        // Log.e("list", String.valueOf(list.size()));

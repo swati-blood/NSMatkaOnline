@@ -71,7 +71,7 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         tablayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        pagerAdapter=new PagerAdapter(getSupportFragmentManager(),3);
+        pagerAdapter=new PagerAdapter(getSupportFragmentManager(),10);
         viewpager.setAdapter(pagerAdapter);
 
     }
@@ -81,5 +81,6 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         {
             finish();
         }
+
     }
 }
