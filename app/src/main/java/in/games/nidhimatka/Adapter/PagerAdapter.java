@@ -14,6 +14,7 @@ import in.games.nidhimatka.Fragments.pana.FragmentOne;
 import in.games.nidhimatka.Fragments.pana.FragmentSix;
 import in.games.nidhimatka.Fragments.pana.FragmentThree;
 import in.games.nidhimatka.Fragments.pana.FragmentTwo;
+import in.games.nidhimatka.Fragments.pana.Fragmenteleven;
 import in.games.nidhimatka.Fragments.pana.Fragmentfour;
 
 /**
@@ -61,6 +62,9 @@ public class PagerAdapter extends FragmentPagerAdapter {
             case 9 :
                 FragemntTen fm10= new FragemntTen();
                 return  fm10;
+            case 10 :
+                Fragmenteleven fm11= new Fragmenteleven();
+                return  fm11;
             default:
                 return null;
 

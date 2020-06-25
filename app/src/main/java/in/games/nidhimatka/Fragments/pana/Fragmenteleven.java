@@ -24,16 +24,14 @@ import static in.games.nidhimatka.Fragments.FragmentDigits.game_names;
 import static in.games.nidhimatka.Objects.sp_input_data.doublePanna;
 import static in.games.nidhimatka.Objects.sp_input_data.singlePaana;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class FragemntTen extends Fragment {
+
+public class Fragmenteleven extends Fragment {
     RecyclerView rv_digits;
     SigleDoublePanaAdapter sigleDoublePanaAdapter;
     LoadingBar loadingBar ;
     Common common;
     List<String> single_list;
-    public FragemntTen() {
+    public Fragmenteleven() {
         // Required empty public constructor
     }
 
@@ -42,10 +40,9 @@ public class FragemntTen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-     View v = inflater.inflate(R.layout.fragment_fragemnt_ten, container, false);
-     initViews(v);
-     return v ;
-
+       View view= inflater.inflate(R.layout.fragment_eleven, container, false);
+       initViews(view);
+       return view ;
     }
     void initViews(View v)
     {
@@ -58,15 +55,12 @@ public class FragemntTen extends Fragment {
         {
             single_list = Arrays.asList(singlePaana);
             Log.d("single", String.valueOf(single_list.size()));
-            sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(90,100),getActivity());
         }
         else if (game_names.equals("Double Pana"))
         {
             single_list = Arrays.asList(doublePanna);
-            Log.d("double", String.valueOf(single_list.size()));
-            sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(90,single_list.size()),getActivity());
         }
-
+        sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(90,100),getActivity());
         rv_digits.setLayoutManager(new GridLayoutManager(getActivity(),2));
         rv_digits.setAdapter(sigleDoublePanaAdapter);
         sigleDoublePanaAdapter.notifyDataSetChanged();

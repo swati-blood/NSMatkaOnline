@@ -44,7 +44,7 @@ public class FragmentDigits extends Fragment implements View.OnClickListener {
     Common common;
     LoadingBar loadingBar;
     ViewPager viewpager ;
-    int selected_pos =0;
+    int selected_pos =0 ,no_of_tabs=0;
     public static String bet_type ="";
     String bet_date="";
     PagerAdapter pagerAdapter;
@@ -96,6 +96,14 @@ public class FragmentDigits extends Fragment implements View.OnClickListener {
         ((MainActivity) getActivity()).setTitle(matka_names+"-"+game_names);
         setTabLayout();
 
+        if (game_names.equals("Single Pana"))
+        {
+            no_of_tabs=12;
+        }
+        else
+        {
+            no_of_tabs = 9;
+        }
         viewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tablayout));
         tablayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -114,6 +122,9 @@ public class FragmentDigits extends Fragment implements View.OnClickListener {
             }
         });
 
+        tablayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        pagerAdapter=new PagerAdapter(getActivity().getSupportFragmentManager(),no_of_tabs);
+        viewpager.setAdapter(pagerAdapter);
 
         Log.e("gme",game_names + game_ids +matka_names+matka_ids);
 
@@ -132,9 +143,6 @@ public class FragmentDigits extends Fragment implements View.OnClickListener {
             tablayout.addTab(tablayout.newTab().setText(String.valueOf(ind)), i);
 
         }
-        tablayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        pagerAdapter=new PagerAdapter(getActivity().getSupportFragmentManager(),10);
-        viewpager.setAdapter(pagerAdapter);
 
     }
 }
