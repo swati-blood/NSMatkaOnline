@@ -60,9 +60,9 @@ public class Fragmenteleven extends Fragment {
         {
             single_list = Arrays.asList(doublePanna);
         }
-        sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(90,100),getActivity());
-        rv_digits.setLayoutManager(new GridLayoutManager(getActivity(),2));
-        rv_digits.setAdapter(sigleDoublePanaAdapter);
-        sigleDoublePanaAdapter.notifyDataSetChanged();
+//        sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(90,100),getActivity());
+//        rv_digits.setLayoutManager(new GridLayoutManager(getActivity(),2));
+//        rv_digits.setAdapter(sigleDoublePanaAdapter);
+//        sigleDoublePanaAdapter.notifyDataSetChanged();
     }
 }
