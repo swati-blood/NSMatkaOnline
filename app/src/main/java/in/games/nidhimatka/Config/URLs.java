@@ -13,7 +13,7 @@ public class URLs {
     public static final String URL_NOTICE=BASE_URL+"getNotice";
     public static final String URL_INDEX=BASE_URL+"getIndex";
     public static final String URL_PLAY=BASE_URL+"how_to_play";
-    public static final String URL_WALLET=BASE_URL+"getWalletAmount";
+//    public static final String URL_WALLET=BASE_URL+"getWalletAmount";
     public static final String URL_INSERT_DATA=BASE_URL+"insert_data";
     public static final String URL_MOBILE=BASE_URL+"getMobile";
     public static final String URL_INSERT_SANGAM=BASE_URL+"insert_sangam_data";

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TableLayout;
@@ -47,12 +48,16 @@ import java.util.concurrent.TimeUnit;
 import in.games.nidhimatka.Activity.LoginActivity;
 import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.Activity.NewGameActivity;
+import in.games.nidhimatka.Activity.PanaActivity;
 import in.games.nidhimatka.Adapter.ListItemAdapter;
 import in.games.nidhimatka.Adapter.TableAdaper;
 import in.games.nidhimatka.AppController;
+import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Config.Constants;
 import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.Intefaces.GetRemainWallet;
+import in.games.nidhimatka.Intefaces.UpdateBidAmount;
+import in.games.nidhimatka.Intefaces.UpdateTotalBidAmount;
 import in.games.nidhimatka.Intefaces.VolleyCallBack;
 import in.games.nidhimatka.Model.MatkasObjects;
 import in.games.nidhimatka.Model.Starline_Objects;
@@ -61,12 +66,21 @@ import in.games.nidhimatka.Model.WalletObjects;
 import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.CustomJsonRequest;
+import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Module;
 import in.games.nidhimatka.Util.Session_management;
 
+import static in.games.nidhimatka.Activity.PanaActivity.total;
 import static in.games.nidhimatka.Config.Constants.KEY_ID;
+import static in.games.nidhimatka.Config.Constants.KEY_NAME;
 import static in.games.nidhimatka.Config.Constants.KEY_WALLET;
+import static in.games.nidhimatka.Config.Constants.REV_BEFORE_VALUE;
+import static in.games.nidhimatka.Config.Constants.REV_BET_TYPE;
+import static in.games.nidhimatka.Config.Constants.REV_FRAG_POSITION;
+import static in.games.nidhimatka.Config.Constants.REV_POINTS;
+import static in.games.nidhimatka.Config.Constants.REV_POSITION;
+import static in.games.nidhimatka.Config.Constants.REV_TYPE;
 
 public class Common {
     Context context;
@@ -178,72 +192,6 @@ public class Common {
     }
 
 
-    public void setWallet_Amount(final TextView txt, final LoadingBar progressDialog, final String mid) {
-        progressDialog.show();
-
-        String json_tag_request = "json_wallet_tag";
-        HashMap<String, String> params = new HashMap<String, String>();
-        params.put("user_id", mid);
-
-        CustomJsonRequest customJsonRequest = new CustomJsonRequest(Request.Method.POST, URLs.URL_WALLET, params, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                if (response.equals(null)) {
-                    progressDialog.dismiss();
-                    Toast.makeText(context, "You have no money in wallet", Toast.LENGTH_LONG).show();
-                    return;
-                } else {
-                    try {
-
-                        JSONObject jsonObject = response;
-
-                        String status = jsonObject.getString("status");
-
-                        if (status.equals("success")) {
-                            JSONObject object = jsonObject.getJSONObject("message");
-                            WalletObjects walletObjects = new WalletObjects();
-                            walletObjects.setUser_id(object.getString("user_id"));
-                            walletObjects.setWallet_points(object.getString("wallet_points"));
-                            walletObjects.setWallet_id(object.getString("wallet_id"));
-                            progressDialog.dismiss();
-                            txt.setText(walletObjects.getWallet_points());
-                        } else if (status.equals("failed")) {
-                            progressDialog.dismiss();
-                            txt.setText("0");
-                            Toast.makeText(context, "You have no points", Toast.LENGTH_LONG).show();
-                            return;
-                        } else {
-                            progressDialog.dismiss();
-                            txt.setText("0");
-                            Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
-                            return;
-                        }
-
-
-                    } catch (Exception ex) {
-                        progressDialog.dismiss();
-                        Toast.makeText(context, "Error :" + ex.getMessage(), Toast.LENGTH_LONG).show();
-                        return;
-
-                    }
-
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                String msg=VolleyErrorMessage(error);
-                errorMessageDialog(msg);
-
-                // Toast.makeText(context, "Error :" + error.getMessage(), Toast.LENGTH_LONG).show();
-                return;
-            }
-        });
-
-        AppController.getInstance().addToRequestQueue(customJsonRequest, json_tag_request);
-    }
     //Function for net Connectivity.......
 
     public boolean isConnected()
@@ -773,7 +721,15 @@ public class Common {
                     int sWallet=Integer.parseInt(session_management.getUserDetails().get(KEY_WALLET));
                     int rem=sWallet-amt;
                     session_management.updateWallet(String.valueOf(rem));
-                    ((MainActivity)context).setWalletCounter(String.valueOf(rem));
+                    if(context.toString().contains("MainActivity"))
+                    {
+                        ((MainActivity)context).setWalletCounter(String.valueOf(rem));
+
+                    }
+                    else
+                    {
+                        ((PanaActivity)context).setWalletCounter(String.valueOf(rem));
+                    }
                     updateWalletAmount(jsonArray, progressDialog, dashName, m_id,start_time,end_time);
 
                 }
@@ -1908,6 +1864,18 @@ loadingBar.show();
         return str;
     }
 
+    public void setDataEditText(EditText edt, String data)
+    {
+        String s=data.toString();
+        if(data.equalsIgnoreCase("null"))
+        {
+
+        }
+        else
+        {
+            edt.setText(data.toString());
+        }
+    }
     public String getUserId()
     {
         return session_management.getUserDetails().get(KEY_ID).toString();
@@ -1924,6 +1892,333 @@ loadingBar.show();
         tableModel.setType(betType);
     }
 
+    public String get24To12Format(String timestr)
+    {
+        String tm="";
+        SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
+
+        try {
+            Date _24Hourst = _24HourSDF.parse(timestr);
+            tm = _12HourSDF.format(_24Hourst);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return tm;
+    }
+    public void printBidList(ArrayList<TableModel> list)
+    {
+        for(int i=0; i<list.size();i++)
+        {
+            Log.e("bet_list_data",""+list.get(i).getDigits()+" - "+list.get(i).getPoints()+" - "+list.get(i).getType());
+        }
+    }
+
+    public void setPanaPoints(HashMap<String,String> map, int totAmt, ArrayList<TableModel> list,String game_name, final UpdateTotalBidAmount updateTotalBidAmount)
+    {
+
+         int pos = 0;
+         if(game_name.equalsIgnoreCase("Single Pana"))
+         {
+             switch (map.get(REV_FRAG_POSITION).toString())
+             {
+                 case "1":
+                     pos =Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "2":
+                     pos =12+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "3":
+                     pos =24+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "4":
+                     pos =36+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "5":
+                     pos =48+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "6":
+                     pos =60+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "7":
+                     pos =72+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "8":
+                     pos =84+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "9":
+                     pos =96+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "10":
+                     pos =108+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+             }
+
+         }
+         else
+         {
+             switch (map.get(REV_FRAG_POSITION).toString())
+             {
+                 case "1":
+                     pos =Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "2":
+                     pos =10+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "3":
+                     pos =20+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "4":
+                     pos =30+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "5":
+                     pos =40+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "6":
+                     pos =50+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "7":
+                     pos =60+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "8":
+                     pos =70+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "9":
+                     pos =80+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+                 case "10":
+                     pos =90+Integer.parseInt(map.get(REV_POSITION).toString());
+                     break;
+             }
+
+         }
+
+            if(map.get(REV_TYPE).toString().equalsIgnoreCase("add"))
+            {
+                addBidToList(map.get(REV_POINTS).toString(), map.get(REV_BET_TYPE).toString(), pos, map.get(REV_BEFORE_VALUE).toString(), totAmt, list, new UpdateBidAmount() {
+                    @Override
+                    public void updateBidAmount(int amt) {
+
+                        updateTotalBidAmount.updateTotalBidAmount(amt);
+                    }
+                });
+            }
+            else if(map.get(REV_TYPE).toString().equalsIgnoreCase("sub"))
+            {
+                removeBidToList(map.get(REV_POINTS).toString(), map.get(REV_BET_TYPE).toString(), pos, map.get(REV_BEFORE_VALUE).toString(), totAmt, list, new UpdateBidAmount() {
+                    @Override
+                    public void updateBidAmount(int amt) {
+                        updateTotalBidAmount.updateTotalBidAmount(amt);
+                    }
+                });
+            }
+
+    }
+
+    private void removeBidToList(String pnts, String bet_type, int pos, String beforevalue, int tot, ArrayList<TableModel> bet_list, UpdateBidAmount updateBidAmount) {
+        if(!pnts.isEmpty())
+        {
+            if(tot!=0)
+            {
+                int tx= Integer.parseInt(pnts);
+                int beforeValue=Integer.parseInt(beforevalue);
+
+                if(pnts.length()==1)
+                {
+                    tot = (tot)-beforeValue;
+                }
+                else if(pnts.length()==2)
+                {
+                    tot = (tot+tx)-beforeValue;
+                }
+                else if(pnts.length() == 3)
+                {
+                    tot = (tot+tx)-beforeValue;
+                }
+                else if(pnts.length()==4)
+                {
+
+                    tot = (tot+tx)-beforeValue;
+                }
+                else if(pnts.length()==5)
+                {
+
+                    tot = (tot+tx)-beforeValue;
+                }
+                updateBidAmount.updateBidAmount(tot);
+                if (bet_type.toString().equals(context.getResources().getString(R.string.select_type)))
+                {
+                }
+                else {
+                    if(pnts.length()>1)
+                    {
+                        updatePoints(bet_list,pos,pnts,bet_type.toString());
+                    }else
+                    {
+                        updatePoints(bet_list,pos,"0",bet_type.toString());
+                    }
+                }
+            }
+        }
+
+    }
+
+    private void addBidToList(String points, String bet_type, int position, String beforevalue,int tot,ArrayList<TableModel> bet_list,UpdateBidAmount updateBidAmount) {
+        if (points.length() != 0) {
+
+            if (points.isEmpty()) {
+
+            }
+            else {
+                int ps = Integer.parseInt(points);
+                if(points.length()==2)
+                {
+                    tot = tot + ps;
+                }
+                else if(points.length() == 3)
+                {
+                    tot = (tot + ps)-Integer.parseInt(beforevalue);
+                }
+                else if(points.length()==4)
+                {
+                    tot = (tot + ps)-Integer.parseInt(beforevalue);
+  }
+                else if(points.length()==5)
+                {
+                    tot = (tot + ps)-Integer.parseInt(beforevalue);
+                }
+                updateBidAmount.updateBidAmount(tot);
+                if (bet_type.toString().equals(context.getResources().getString(R.string.select_type)))
+                {
+                }
+                else {
+                    updatePoints(bet_list,position,points,bet_type.toString());
+                }
+            }
+        }
+    }
+
+    public int getIndexFromFragmentPosition(int fragPos,String game_name)
+    {
+        int pos=0;
+        if(game_name.equalsIgnoreCase("Single Pana"))
+        {
+            switch (fragPos)
+            {
+                case 1:
+                    pos=0;
+                    break;
+                case 2:
+                    pos=12;
+                    break;
+                case 3:
+                    pos=24;
+                    break;
+                case 4:
+                    pos=36;
+                    break;
+                case 5:
+                    pos=48;
+                    break;
+                case 6:
+                    pos=60;
+                    break;
+                case 7:
+                    pos=72;
+                    break;
+                case 8:
+                    pos=84;
+                    break;
+                case 9:
+                    pos=96;
+                    break;
+                case 10:
+                    pos=108;
+                    break;
+            }
+
+        }
+        else if(game_name.equalsIgnoreCase("Double Pana"))
+        {
+            switch (fragPos)
+            {
+                case 1:
+                    pos=0;
+                    break;
+                case 2:
+                    pos=10;
+                    break;
+                case 3:
+                    pos=20;
+                    break;
+                case 4:
+                    pos=30;
+                    break;
+                case 5:
+                    pos=40;
+                    break;
+                case 6:
+                    pos=50;
+                    break;
+                case 7:
+                    pos=60;
+                    break;
+                case 8:
+                    pos=70;
+                    break;
+                case 9:
+                    pos=80;
+                    break;
+
+            }
+
+        }
+        return pos;
+    }
+   public String getPointsOnIndex(ArrayList<TableModel> list,int pox)
+   {
+       String str="";
+       if(!(list.size()<=0)) {
+           String pnt = list.get(pox).getPoints().toString();
+           if (!pnt.equals("0")) {
+               str = pnt;
+           }
+       }
+       return str;
+   }
+
+   public void getWalletAmount()
+   {
+       loadingBar.show();
+       HashMap<String,String> params=new HashMap<>();
+       params.put("user_id",session_management.getUserDetails().get(KEY_ID).toString());
+       CustomVolleyJsonArrayRequest jsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.POST, BaseUrls.URL_GET_WALLET_AMOUNT, params, new Response.Listener<JSONArray>() {
+           @Override
+           public void onResponse(JSONArray response) {
+               loadingBar.dismiss();
+               try {
+                   JSONObject object=response.getJSONObject(0);
+                   String wamt=object.getString("wallet_points");
+                   session_management.updateWallet(wamt);
+               }
+               catch (Exception ex)
+               {
+                   ex.printStackTrace();
+               }
+
+           }
+       }, new Response.ErrorListener() {
+           @Override
+           public void onErrorResponse(VolleyError error) {
+               loadingBar.dismiss();
+               showVolleyError(error);
+           }
+       });
+       AppController.getInstance().addToRequestQueue(jsonArrayRequest);
+
+   }
 }
 
 

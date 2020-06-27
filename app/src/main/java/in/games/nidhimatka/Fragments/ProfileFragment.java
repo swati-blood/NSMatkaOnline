@@ -28,6 +28,7 @@ import java.util.Map;
 import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
+import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.CustomJsonRequest;
@@ -98,34 +99,34 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btnDBank.setOnClickListener(this);
         btnDAddress.setOnClickListener(this);
         btnUpdatePass.setOnClickListener(this);
-        String ad= session_management.getUserDetails().get(KEY_ADDRESS);
-        String ct=session_management.getUserDetails().get(KEY_CITY);
-        String pn=session_management.getUserDetails().get(KEY_PINCODE);
-        String ac=session_management.getUserDetails().get(KEY_ACCOUNNO).toString();
-        String bn=session_management.getUserDetails().get(KEY_BANK_NAME).toString();
-        String ic=session_management.getUserDetails().get(KEY_IFSC).toString();
-        String ah=session_management.getUserDetails().get(KEY_HOLDER).toString();
-        String x=session_management.getUserDetails().get(KEY_PHONEPAY).toString();
-        String tz=session_management.getUserDetails().get(KEY_TEZ).toString();
-        String p=session_management.getUserDetails().get(KEY_PAYTM).toString();
-        String mobile = session_management.getUserDetails().get(KEY_MOBILE);
-        String email = session_management.getUserDetails().get(KEY_EMAIL);
-        String dob = session_management.getUserDetails().get(KEY_DOB);
-        et_email.setText(email);
-        et_dob.setText(dob);
+        String ad= common.checkNull(session_management.getUserDetails().get(KEY_ADDRESS));
+        String ct=common.checkNull(session_management.getUserDetails().get(KEY_CITY));
+        String pn=common.checkNull(session_management.getUserDetails().get(KEY_PINCODE));
+        String ac=common.checkNull(session_management.getUserDetails().get(KEY_ACCOUNNO).toString());
+        String bn=common.checkNull(session_management.getUserDetails().get(KEY_BANK_NAME).toString());
+        String ic=common.checkNull(session_management.getUserDetails().get(KEY_IFSC).toString());
+        String ah=common.checkNull(session_management.getUserDetails().get(KEY_HOLDER).toString());
+        String x=common.checkNull(session_management.getUserDetails().get(KEY_PHONEPAY).toString());
+        String tz=common.checkNull(session_management.getUserDetails().get(KEY_TEZ).toString());
+        String p=common.checkNull(session_management.getUserDetails().get(KEY_PAYTM).toString());
+        String mobile = common.checkNull(session_management.getUserDetails().get(KEY_MOBILE));
+        String email = common.checkNull(session_management.getUserDetails().get(KEY_EMAIL));
+        String dob = common.checkNull(session_management.getUserDetails().get(KEY_DOB));
+
         et_mobile.setText(mobile);
         et_mobile.setEnabled(false);
-
-        setDataEditText(etPhonePay,x);
-        setDataEditText(etPaytm,p);
-        setDataEditText(etTez,tz);
-        setDataEditText(etPAddress,ad);
-        setDataEditText(etPCity,ct);
-        setDataEditText(etPPinCode,pn);
-        setDataEditText(etAccNo,ac);
-        setDataEditText(etBankName,bn);
-        setDataEditText(etIfscCode,ic);
-        setDataEditText(etAccHolderName,ah);
+        common.setDataEditText(et_email,email);
+        common.setDataEditText(et_dob,dob);
+        common.setDataEditText(etPhonePay,x);
+        common.setDataEditText(etPaytm,p);
+        common.setDataEditText(etTez,tz);
+        common.setDataEditText(etPAddress,ad);
+        common.setDataEditText(etPCity,ct);
+        common.setDataEditText(etPPinCode,pn);
+        common.setDataEditText(etAccNo,ac);
+        common.setDataEditText(etBankName,bn);
+        common.setDataEditText(etIfscCode,ic);
+        common.setDataEditText(etAccHolderName,ah);
     }
 
     @Override
@@ -179,24 +180,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             {
                 Toast.makeText(getActivity(), "Enter at least one detail", Toast.LENGTH_SHORT).show();
             }
-//            if(TextUtils.isEmpty(paytmNumber))
-//            {
-//                etPaytm.setError("Enter Paytm Number");
-//                etPaytm.requestFocus();
-//                return;
-//            }
-//            else if(TextUtils.isEmpty(teznumber))
-//            {
-//                etTez.setError("Enter GooglePay Number");
-//                etTez.requestFocus();
-//                return;
-//            }
-//            else if(TextUtils.isEmpty(phonepaynumber))
-//            {
-//                etPhonePay.setError("Enter Phone Pay Number");
-//                etPhonePay.requestFocus();
-//                return;
-//            }
             else
             {
                 String mailid= session_management.getUserDetails().get(KEY_MOBILE).toString();
@@ -297,35 +280,29 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         params.put("ifsc",ifsc);
         params.put("accountholder",hod_name);
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URL_REGIST, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_REGISTER, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                try
-                {
-                    String success=response.getString("status");
-                    if(success.equals("success"))
+
+                progressDialog.dismiss();
+                try {
+                    boolean resp=response.getBoolean("responce");
+                    if(resp)
                     {
-                        progressDialog.dismiss();
                         session_management.updateAccSection(accno,bankname,ifsc,hod_name);
-
-                        Toast.makeText(getActivity(), "Bank Details Updated!!!", Toast.LENGTH_SHORT).show();
+                        common.showToast(""+response.getString("message"));
 
                     }
-                    else if(success.equals("unsuccessful"))
+                    else
                     {
-                        progressDialog.dismiss();
-                        String msg=response.getString("message");
-                        Toast.makeText(getActivity(), ""+msg, Toast.LENGTH_SHORT).show();
-
-                        return;
+                        common.showToast(""+response.getString("error"));
                     }
-
 
                 }
                 catch (Exception ex)
                 {
                     ex.printStackTrace();
-                    common.showToast("Something Went Wrong");
+                    common.showToast(wrong);
                 }
             }
         }, new Response.ErrorListener() {
@@ -355,34 +332,31 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         params.put("paytm",paytmno);
         params.put("phonepay",phonepay);
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URL_REGIST, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_REGISTER, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                progressDialog.dismiss();
                 try {
-                    String success=response.getString("status");
-                    if(success.equals("success"))
+                    boolean resp=response.getBoolean("responce");
+                    if(resp)
                     {
-                        progressDialog.dismiss();
                         session_management.updatePaymentSection(teznumber,paytmno,phonepay);
-                        Toast.makeText(getActivity(), "Mobile Numbers Updated!!!", Toast.LENGTH_SHORT).show();
+                        common.showToast(""+response.getString("message"));
 
                     }
-                    else if(success.equals("unsuccessful"))
+                    else
                     {
-                        progressDialog.dismiss();
-                        String msg=response.getString("message");
-                        Toast.makeText(getActivity(), ""+msg, Toast.LENGTH_SHORT).show();
-
-                        return;
+                        common.showToast(""+response.getString("error"));
                     }
 
                 }
                 catch (Exception ex)
                 {
                     ex.printStackTrace();
-                    progressDialog.dismiss();
                     common.showToast(wrong);
                 }
+
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -408,34 +382,27 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         params.put("dob",dob);
 
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URL_REGIST, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_REGISTER, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                progressDialog.dismiss();
                 try {
-                    String success=response.getString("status");
-                    if(success.equals("success"))
+                    boolean resp=response.getBoolean("responce");
+                    if(resp)
                     {
-                        progressDialog.dismiss();
                         session_management.updateEmailSection(email,dob);
-
-
-                        Toast.makeText(getActivity(), "Profile Updated!!!", Toast.LENGTH_SHORT).show();
+                        common.showToast(""+response.getString("message"));
 
                     }
-                    else if(success.equals("unsuccessful"))
+                   else
                     {
-                        progressDialog.dismiss();
-                        String msg=response.getString("message");
-                        Toast.makeText(getActivity(), ""+msg, Toast.LENGTH_SHORT).show();
-
-                        return;
+                        common.showToast(""+response.getString("error"));
                     }
 
                 }
                 catch (Exception ex)
                 {
                     ex.printStackTrace();
-                    progressDialog.dismiss();
                     common.showToast(wrong);
                 }
             }
@@ -463,36 +430,30 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         params.put("city",c);
         params.put("pin",p);
         params.put("mobile",mob);
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URL_REGIST, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_REGISTER, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 progressDialog.dismiss();
-                try
-                {
-                    String success=response.getString("status");
-                    if(success.equals("success"))
+                try {
+                    boolean resp=response.getBoolean("responce");
+                    if(resp)
                     {
-                        progressDialog.dismiss();
                         session_management.updateAddressSection(a,c,p);
-
-                        Toast.makeText(getActivity(), "Address Updated!!!", Toast.LENGTH_SHORT).show();
+                        common.showToast(""+response.getString("message"));
 
                     }
-                    else if(success.equals("unsuccessful"))
+                    else
                     {
-                        progressDialog.dismiss();
-                        String msg=response.getString("message");
-                        Toast.makeText(getActivity(), ""+msg, Toast.LENGTH_SHORT).show();
-
-                        return;
+                        common.showToast(""+response.getString("error"));
                     }
-
 
                 }
                 catch (Exception ex)
                 {
                     ex.printStackTrace();
+                    common.showToast(wrong);
                 }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -533,17 +494,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         datePickerDialog.show();
 
     }
-    public void setDataEditText(EditText edt,String data)
-    {
-        String s=data.toString();
-        if(data.equalsIgnoreCase("null"))
-        {
 
-        }
-        else
-        {
-            edt.setText(data.toString());
-        }
-    }
 
 }

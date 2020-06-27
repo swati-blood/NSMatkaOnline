@@ -59,8 +59,8 @@ public class SelectGameFragment extends Fragment {
        game_list.add(new GameModel("4","Red Bracket","","1"));
        game_list.add(new GameModel("5","Panel Group","","1"));
        game_list.add(new GameModel("6","Group Jodi","","1"));
-       game_list.add(new GameModel("7","Single Pana","","1"));
-       game_list.add(new GameModel("8","Double Pana","","1"));
+       game_list.add(new GameModel("7","Single Pana","","2"));
+       game_list.add(new GameModel("8","Double Pana","","2"));
        game_list.add(new GameModel("9","Triple Pana","","0"));
        game_list.add(new GameModel("10","SP Motor","","1"));
        game_list.add(new GameModel("11","DP Motor","","1"));
@@ -74,17 +74,26 @@ public class SelectGameFragment extends Fragment {
            @Override
            public void onItemClick(View view, int position) {
 
+
                GameModel model = game_list.get(position);
                tv_game.setText(model.getName());
                if( model.getType().equals("0"))
                {
 
 
-//                  fm = new PanaFragment();
-                   Intent intent=new Intent(getActivity(), PanaActivity.class);
-                   startActivity(intent);
+                   Fragment fm = null ;
+                                     fm = new PanaFragment();
+
+                   final Bundle arg = new Bundle();
+                   arg.putString("game_id",model.getId());
+                   arg.putString("game_name",model.getName());
+                   arg.putString("m_id",getArguments().getString("m_id"));
+                   arg.putString("matka_name",getArguments().getString("matka_name"));
+                   arg.putString("start_time",getArguments().getString("start_time"));
+                   arg.putString("end_time",getArguments().getString("end_time"));
+
                }
-               else
+               else if( model.getType().equals("1"))
                {
                    Fragment fm = null ;
                    final Bundle arg = new Bundle();
@@ -121,10 +130,10 @@ public class SelectGameFragment extends Fragment {
                             break;
                         case "Odd Even" : fm = new OddEvenFragment();
                             break;
-                        case "Single Pana" :
-                         case "Double Pana":
-                            fm = new FragmentDigits();
-                            break;
+//                        case "Single Pana" :
+//                         case "Double Pana":
+//                            fm = new FragmentDigits();
+//                            break;
 
                         default:  fm = new SelectGameFragment();
                         break;
@@ -135,6 +144,20 @@ public class SelectGameFragment extends Fragment {
                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                    fragmentManager.beginTransaction().replace(R.id.container_frame, fm)
                            .addToBackStack(null).commit();
+               }
+               else
+               {
+                   Intent intent=new Intent(getActivity(),PanaActivity.class);
+                   intent.putExtra("game_id",model.getId());
+                   intent.putExtra("game_name",model.getName());
+                   intent.putExtra("m_id",getArguments().getString("m_id"));
+                   intent.putExtra("matka_name",getArguments().getString("matka_name"));
+                   intent.putExtra("start_time",getArguments().getString("start_time"));
+                   intent.putExtra("end_time",getArguments().getString("end_time"));
+                   intent.putExtra("start_num",getArguments().getString("start_num"));
+                   intent.putExtra("num",getArguments().getString("num"));
+                   intent.putExtra("end_num",getArguments().getString("end_num"));
+                   startActivity(intent);
                }
 
 

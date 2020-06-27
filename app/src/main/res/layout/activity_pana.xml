@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".Activity.PanaActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="50dp"
@@ -51,6 +54,166 @@
             android:background="@drawable/ic_notifications_active_black_24dp"
             />
     </RelativeLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+
+        android:layout_margin="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+            <in.games.nidhimatka.Fonts.LatoBLack
+                android:id="@+id/matkaname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:fontFamily="@font/lato"
+                android:text="@string/jodi_digit"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <in.games.nidhimatka.Fonts.LatoBLack
+                android:id="@+id/matkanumber"
+                android:layout_width="wrap_content"
+                android:layout_height="29dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:text="@string/jodi_digit"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+
+                android:textStyle="bold" />
+            <in.games.nidhimatka.Fonts.LatoBLack
+                android:id="@+id/gamename"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/jodi_digit"
+
+                android:textColor="@color/play3"
+                android:layout_centerVertical="true"
+
+                android:textSize="14dp"/>
+
+            <Button
+                android:id="@+id/btnBetStatus"
+                android:layout_width="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_height="30dp"
+                android:background="@drawable/shape2"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:text="26/06/2019 - FRIDAY - BET OPEN"
+                android:textSize="9dp"
+                android:visibility="gone"
+                android:textColor="@color/white"/>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_weight="4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <in.games.nidhimatka.Fonts.LatoBLack
+
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Open Bid :"
+
+                    android:textColor="@color/green"
+                    android:layout_centerVertical="true"
+
+                    android:textSize="12dp"/>
+                <in.games.nidhimatka.Fonts.LatoBLack
+                    android:id="@+id/bid_open"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="center"
+                    android:layout_weight=".5"
+                    android:textColor="@color/black"
+                    android:layout_centerVertical="true"
+
+                    android:textSize="12dp"/>
+
+                <in.games.nidhimatka.Fonts.LatoBLack
+
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Close Bid :"
+                    android:gravity="end"
+                    android:textColor="@color/play1"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="2"
+                    android:textSize="12dp"/>
+
+                <in.games.nidhimatka.Fonts.LatoBLack
+                    android:id="@+id/bid_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+
+                    android:layout_gravity="center"
+                    android:layout_weight=".5"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingRight="@dimen/_10sdp"
+        android:weightSum="2">
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_date"
+            android:gravity="center"
+            android:background="@drawable/shape2"
+
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+            android:layout_margin="5dp"/>
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_type"
+            android:gravity="center"
+            android:background="@drawable/shape2"
+
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+            android:layout_margin="5dp"/>
+
+
+    </LinearLayout>
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
@@ -66,6 +229,55 @@
         android:id="@+id/viewpager"
         />
 
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rel_total"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content">
 
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:textSize="16dp"/>
+            <TextView
+                android:id="@+id/bet_total"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:textSize="16dp"/>
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_sbmit"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="40dp"
+            android:text="Submit"
+            android:gravity="center"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/_5sdp"
+            android:background="@drawable/gradient_button"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+</RelativeLayout>

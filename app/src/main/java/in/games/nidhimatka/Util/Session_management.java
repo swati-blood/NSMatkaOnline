@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 
 import java.util.HashMap;
 
+import in.games.nidhimatka.Activity.LoginActivity;
+
 import static in.games.nidhimatka.Config.Constants.*;
 
 public class Session_management {
@@ -60,23 +62,23 @@ public class Session_management {
     public HashMap<String, String> getUserDetails() {
         HashMap<String, String> user = new HashMap<String, String>();
 
-        user.put(KEY_ID, prefs.getString(KEY_ID, null));
-        user.put(KEY_NAME, prefs.getString(KEY_NAME, null));
-        user.put(KEY_USER_NAME, prefs.getString(KEY_USER_NAME, null));
-        user.put(KEY_MOBILE, prefs.getString(KEY_MOBILE, null));
-        user.put(KEY_EMAIL, prefs.getString(KEY_EMAIL, null));
-        user.put(KEY_ADDRESS, prefs.getString(KEY_ADDRESS, null));
-        user.put(KEY_CITY, prefs.getString(KEY_CITY, null));
-        user.put(KEY_PINCODE, prefs.getString(KEY_PINCODE, null));
+        user.put(KEY_ID, prefs.getString(KEY_ID, ""));
+        user.put(KEY_NAME, prefs.getString(KEY_NAME, ""));
+        user.put(KEY_USER_NAME, prefs.getString(KEY_USER_NAME, ""));
+        user.put(KEY_MOBILE, prefs.getString(KEY_MOBILE, ""));
+        user.put(KEY_EMAIL, prefs.getString(KEY_EMAIL, ""));
+        user.put(KEY_ADDRESS, prefs.getString(KEY_ADDRESS, ""));
+        user.put(KEY_CITY, prefs.getString(KEY_CITY, ""));
+        user.put(KEY_PINCODE, prefs.getString(KEY_PINCODE, ""));
         user.put(KEY_ACCOUNNO, prefs.getString(KEY_ACCOUNNO, ""));
-        user.put(KEY_BANK_NAME, prefs.getString(KEY_BANK_NAME, null));
-        user.put(KEY_IFSC, prefs.getString(KEY_IFSC, null));
-        user.put(KEY_HOLDER, prefs.getString(KEY_HOLDER, null));
-        user.put(KEY_PAYTM, prefs.getString(KEY_PAYTM, null));
-        user.put(KEY_TEZ, prefs.getString(KEY_TEZ, null));
-        user.put(KEY_PHONEPAY, prefs.getString(KEY_PHONEPAY, null));
-        user.put(KEY_WALLET, prefs.getString(KEY_WALLET, null));
-        user.put(KEY_DOB, prefs.getString(KEY_DOB, null));
+        user.put(KEY_BANK_NAME, prefs.getString(KEY_BANK_NAME, ""));
+        user.put(KEY_IFSC, prefs.getString(KEY_IFSC, ""));
+        user.put(KEY_HOLDER, prefs.getString(KEY_HOLDER, ""));
+        user.put(KEY_PAYTM, prefs.getString(KEY_PAYTM, ""));
+        user.put(KEY_TEZ, prefs.getString(KEY_TEZ, ""));
+        user.put(KEY_PHONEPAY, prefs.getString(KEY_PHONEPAY, ""));
+        user.put(KEY_WALLET, prefs.getString(KEY_WALLET, ""));
+        user.put(KEY_DOB, prefs.getString(KEY_DOB, ""));
         return user;
     }
 
@@ -114,21 +116,14 @@ public class Session_management {
         editor.apply();
     }
 
-//    public void logoutSession() {
-//        editor.clear();
-//        editor.commit();
-//
-//        cleardatetime();
-//
-//        Intent logout = new Intent(context, MainActivity.class);
-//        // Closing all the Activities
-//        logout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//
-//        // Add new Flag to start new Activity
-//        logout.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//        context.startActivity(logout);
-//    }
+    public void logoutSession() {
+        editor.clear();
+        editor.commit();
+        Intent logout = new Intent(context, LoginActivity.class);
+        logout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        logout.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(logout);
+    }
 //
 //    public void logoutSessionwithchangepassword() {
 //        editor.clear();

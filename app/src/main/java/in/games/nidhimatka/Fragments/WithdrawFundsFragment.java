@@ -36,13 +36,17 @@ import java.util.Map;
 import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
+import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.Util.Session_management;
 
+import static in.games.nidhimatka.Activity.splash_activity.min_add_amount;
 import static in.games.nidhimatka.Activity.splash_activity.withdrw_text;
+import static in.games.nidhimatka.Config.Constants.KEY_WALLET;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,6 +59,7 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
     private Button btnSave;
     String saveCurrentDate,saveCurrentTime;
     int day,hours;
+    Session_management session_management;
     int w_amt ;
     public WithdrawFundsFragment() {
         // Required empty public constructor
@@ -74,6 +79,7 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
     {
         ((MainActivity) getActivity()).setTitle("Withdraw Funds");
         common=new Common(getActivity());
+        session_management=new Session_management(getActivity());
         txtback=(TextView)v.findViewById(R.id.txtBack);
         txtWalletAmount=(TextView)v.findViewById(R.id.wallet_amount);
         txtWalletAmount.setVisibility(View.GONE);
@@ -128,9 +134,9 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
                     int t_amt = Integer.parseInt(pnts);
                     if (w_amt > 0) {
 
-                        if(t_amt<1000)
+                        if(t_amt<Integer.parseInt(min_add_amount))
                         {
-                            common.errorMessageDialog("Minimum Withdraw amount 1000.");
+                            common.errorMessageDialog("Minimum Withdraw amount "+min_add_amount);
                         }
                         else
                         {
@@ -139,7 +145,7 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
                                 return;
                             } else {
                                 // saveInfoIntoDatabase(user_id, String.valueOf(t_amt), st);
-                                saveInfoWithDate(user_id,String.valueOf(t_amt),st);
+                                saveInfoIntoDatabase(user_id,String.valueOf(t_amt),st,"Withdrawal");
                             }
 //
                         }
@@ -161,67 +167,58 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    private void saveInfoWithDate(final String user_id, final String points, final String st)
-    {
+    private void saveInfoIntoDatabase(final String user_id, final String points, final String st,String type) {
         progressDialog.show();
-        Date date=new Date();
-        SimpleDateFormat dateFormat=new SimpleDateFormat("dd-MM-yyyy");
-        String dt=dateFormat.format(date);
-
-        String json_request_tag="json_withdraw_request";
-        HashMap<String,String> params=new HashMap<String, String>();
+        int wl=Integer.parseInt(session_management.getUserDetails().get(KEY_WALLET));
+        final String rem=String.valueOf(wl-Integer.parseInt(points));
+        HashMap<String,String> params=new HashMap<>();
         params.put("user_id",user_id);
         params.put("points",points);
         params.put("request_status",st);
-        params.put("date",dt);
+        params.put("type",type);
+        params.put("wallet",rem);
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URLs.URL_WITHDRAW_REQUEST, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_REQUEST, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
-                Log.d("withdrw_req",response.toString());
-                try
-                {
-                    JSONObject jsonObject=response;
-                    String status=jsonObject.getString("status");
-                    if(status.equals("success"))
+                progressDialog.dismiss();
+                try {
+                    boolean resp=response.getBoolean("responce");
+                    if(resp)
                     {
+                        session_management.updateWallet(rem);
+                        common.showToast(""+response.getString("message"));
 
-                        String msg=jsonObject.getString("message");
-                        progressDialog.dismiss();
-//                        common.errorMessageDialog(msg);
-                        Toast.makeText(getActivity(),""+msg,Toast.LENGTH_LONG).show();
-                        Fragment fm  = new HomeFragment();
-
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                                .addToBackStack(null).commit();
-
-
+                        loadFragment();
                     }
                     else
                     {
-                        progressDialog.dismiss();
-                        common.errorMessageDialog(""+jsonObject.getString("message").toString());
-                        //Toast.makeText(WithdrawalActivity.this,""+,Toast.LENGTH_LONG).show();
+                        common.showToast(""+response.getString("error"));
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    progressDialog.dismiss();
-                    Toast.makeText(getActivity(),""+ex.getMessage(),Toast.LENGTH_LONG).show();
+                    ex.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
-
-                common.errorMessageDialog(""+error.getMessage());
+                common.showVolleyError(error);
 
             }
         });
-        AppController.getInstance().addToRequestQueue(customJsonRequest,json_request_tag);
+        AppController.getInstance().addToRequestQueue(customJsonRequest);
     }
 
+    public void loadFragment()
+    {
+        Fragment fm  = new HomeFragment();
+
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+                .addToBackStack(null).commit();
+
+    }
 }

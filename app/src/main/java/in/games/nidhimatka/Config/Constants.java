@@ -27,4 +27,11 @@ public class Constants {
     public static final String KEY_PHONEPAY="phonepay_no";
     public static final String KEY_DOB="dob";
     public static final String KEY_WALLET="wallet";
+
+    public static final String REV_FRAG_POSITION="fragment_position";
+    public static final String REV_TYPE="type";
+    public static final String REV_POINTS="point";
+    public static final String REV_BEFORE_VALUE="baforevalue";
+    public static final String REV_BET_TYPE="bet_type";
+    public static final String REV_POSITION="position";
 }

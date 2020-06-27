@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import in.games.nidhimatka.Activity.MainActivity;
+import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.R;
 
 /**
@@ -27,6 +28,7 @@ public class MainFragment extends Fragment {
 String matka_name ,matka_id,start_time ,end_time ,start_num,num , end_num ;
 TextView tv_m_name ,tv_s_time ,tv_end_time,tv_num;
  public static TextView tv_game;
+ Common common;
     public MainFragment() {
         // Required empty public constructor
     }
@@ -44,26 +46,17 @@ TextView tv_m_name ,tv_s_time ,tv_end_time,tv_num;
      start_num=getArguments().getString("start_number");
      end_num=getArguments().getString("end_number");
      num=getArguments().getString("number");
+     common=new Common(getActivity());
      tv_end_time= view.findViewById(R.id.bid_close);
      tv_s_time = view.findViewById(R.id.bid_open);
      tv_m_name = view.findViewById(R.id.matkaname);
      tv_game = view.findViewById(R.id.gamename);
      tv_num = view.findViewById(R.id.matkanumber);
         ((MainActivity) getActivity()).setTitle(matka_name);
-        SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm:ss");
-        SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
 
-        try {
-            Date _24Hourst = _24HourSDF.parse(start_time);
-            Date _24Houret = _24HourSDF.parse(end_time);
-           String s_date = _12HourSDF.format(_24Hourst);
-           String e_date = _12HourSDF.format(_24Houret);
 
-            tv_s_time.setText(s_date);
-            tv_end_time.setText(e_date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+            tv_s_time.setText(common.get24To12Format(start_time));
+            tv_end_time.setText(common.get24To12Format(end_time));
 
      tv_game.setText("");
      tv_m_name.setText(matka_name);
@@ -77,6 +70,9 @@ TextView tv_m_name ,tv_s_time ,tv_end_time,tv_num;
         bundle.putString("m_id",getArguments().getString("m_id"));
         bundle.putString("end_time",getArguments().getString("end_time"));
         bundle.putString("start_time",getArguments().getString("start_time"));
+        bundle.putString("start_num",start_num.toString());
+        bundle.putString("num",num.toString());
+        bundle.putString("end_num",end_num.toString());
         Fragment fm  = new SelectGameFragment();
         fm.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

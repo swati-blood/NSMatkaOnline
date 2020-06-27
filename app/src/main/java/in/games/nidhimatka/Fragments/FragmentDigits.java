@@ -37,7 +37,8 @@ public class FragmentDigits extends Fragment implements View.OnClickListener {
     Dialog dialog ;
     RecyclerView rv_points;
     TabLayout tablayout;
-   public static String game_names, matka_names, matka_ids ,game_ids ,w_amounts ,s_times ,e_times ;
+    public static ArrayList<String> panaPointsList;
+   public static String game_names, matka_names, matka_id ,game_ids ,w_amounts ,s_time ,e_time;
     List<String> list;
     public static ArrayList<TableModel> singlepana_list, doublepana_list,tempList_single,tempList_double;
     Button btn_submit;
@@ -74,6 +75,7 @@ public class FragmentDigits extends Fragment implements View.OnClickListener {
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         TextView txtWalet=  toolbar.findViewById(R.id.txtWallet);
         list = new ArrayList<>();
+        panaPointsList=new ArrayList<>();
       tempList_double = new ArrayList<>();
        tempList_single= new ArrayList<>();
        singlepana_list = new ArrayList<>();
@@ -83,18 +85,23 @@ public class FragmentDigits extends Fragment implements View.OnClickListener {
         loadingBar = new LoadingBar(getActivity());
         matka_names = getArguments().getString("matka_name");
         game_names = getArguments().getString("game_name");
-        matka_ids = getArguments().getString("m_id");
+        matka_id = getArguments().getString("m_id");
         game_ids = getArguments().getString("game_id");
-        s_times = getArguments().getString("start_time");
-        e_times = getArguments().getString("end_time");
+        s_time = getArguments().getString("start_time");
+        e_time = getArguments().getString("end_time");
         w_amounts = txtWalet.getText().toString();
         bet_type = txt_type.getText().toString();
         btn_submit.setOnClickListener(this);
         txt_date.setOnClickListener(this);
         txt_type.setOnClickListener(this);
         total.setOnClickListener(this);
+        for(int i=0; i<singlePaana.length;i++)
+        {
+            panaPointsList.add("0");
+        }
         ((MainActivity) getActivity()).setTitle(matka_names+"-"+game_names);
         setTabLayout();
+
 
         viewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tablayout));
         tablayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -114,19 +121,23 @@ public class FragmentDigits extends Fragment implements View.OnClickListener {
             }
         });
 
-
-        Log.e("gme",game_names + game_ids +matka_names+matka_ids);
-
-
     }
 
     @Override
     public void onClick(View v) {
 
+        if (v.getId()==R.id.tv_type)
+        {
+            common.setBetTypeDialog(dialog,txtOpen,txtClose,txt_type,txt_date.getText().toString(),s_time,e_time);
+        }
+        else if (v.getId()==R.id.tv_date)
+        {
+
+            common.setDateDialog(dialog,matka_id,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_date,loadingBar);
+        }
     }
     void setTabLayout() {
         tablayout.setVisibility(View.VISIBLE);
-        int len = singlePaana.length;
         for (int i = 0; i < 10; i++) {
             int ind = i + 1;
             tablayout.addTab(tablayout.newTab().setText(String.valueOf(ind)), i);
@@ -136,5 +147,15 @@ public class FragmentDigits extends Fragment implements View.OnClickListener {
         pagerAdapter=new PagerAdapter(getActivity().getSupportFragmentManager(),10);
         viewpager.setAdapter(pagerAdapter);
 
+    }
+
+    public ArrayList<String> getPanaPointsList()
+    {
+        return panaPointsList;
+    }
+
+    public void updatePanaPointList(String pnts,int pos)
+    {
+        panaPointsList.set(pos,pnts);
     }
 }

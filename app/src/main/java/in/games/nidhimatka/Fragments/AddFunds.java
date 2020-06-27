@@ -29,10 +29,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.games.nidhimatka.Activity.MainActivity;
+import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
+import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 
 /**
@@ -96,98 +99,61 @@ public class AddFunds extends Fragment implements View.OnClickListener {
                 }
                 else
                 {
-//                        Intent intent = new Intent(RequestActivity.this,UploadScreenshotActivity.class);
-//                        intent.putExtra("points",String.valueOf(points));
-//                        intent.putExtra("status","pending");
-//                        startActivity(intent);
                     String user_id= common.getUserId();
                     String p=String.valueOf(points);
                     String st="pending";
-                    saveInfoIntoDatabase(user_id,p,st);
+                    saveInfoIntoDatabase(user_id,p,st,"Add");
                 }
             }
-
-
         }
     }
-    private void saveInfoIntoDatabase(final String user_id, final String points, final String st) {
+    private void saveInfoIntoDatabase(final String user_id, final String points, final String st,String type) {
+       progressDialog.show();
+       HashMap<String,String> params=new HashMap<>();
+       params.put("user_id",user_id);
+       params.put("points",points);
+       params.put("request_status",st);
+       params.put("type",type);
 
-        progressDialog.show();
-
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URLs.Url_data_insert_req, new Response.Listener<String>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_REQUEST, params, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(JSONObject response) {
+                progressDialog.dismiss();
                 try {
-
-                    JSONObject jsonObject=new JSONObject(response);
-                    String status=jsonObject.getString("status");
-                    if(status.equals("success"))
-                    {
-                        progressDialog.dismiss();
-                        Toast.makeText(getActivity(),"successfull",Toast.LENGTH_LONG).show();
-//                        Intent intent=new Intent(RequestActivity.this,HomeActivity.class);
-//                        startActivity(intent);
-//                        finish();
-                        Fragment fm  = new HomeFragment();
-
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                                .addToBackStack(null).commit();
-
-                        return;
-                    }
-                    else
-                    {
-                        progressDialog.dismiss();
-
-                        Toast.makeText(getActivity(),"Something Wrong",Toast.LENGTH_LONG).show();
-                        return;
-                    }
-
-
+                     boolean resp=response.getBoolean("responce");
+                     if(resp)
+                     {
+                         common.showToast(""+response.getString("message"));
+                         loadFragment();
+                     }
+                     else
+                     {
+                         common.showToast(""+response.getString("error"));
+                     }
                 }
                 catch (Exception ex)
                 {
-                    progressDialog.dismiss();
-
-                    Toast.makeText(getActivity(),"Error :"+ex.getMessage(),Toast.LENGTH_LONG).show();
-                    return;
+                    ex.printStackTrace();
                 }
-
             }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                        progressDialog.dismiss();
-
-                        Toast.makeText(getActivity(),"Error :"+error.getMessage(),Toast.LENGTH_LONG).show();
-                        return;
-
-                    }
-                }
-        )
-        {
-
+        }, new Response.ErrorListener() {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<>();
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                common.showVolleyError(error);
 
-                params.put("user_id",user_id);
-                params.put("points",points);
-                params.put("request_status",st);
-                params.put("type","Add");
-
-                // params.put("phonepay",phonepaynumber);
-
-
-                return params;
             }
+        });
+        AppController.getInstance().addToRequestQueue(customJsonRequest);
+    }
 
-        };
+    public void loadFragment()
+    {
+        Fragment fm  = new HomeFragment();
 
-        RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
-        requestQueue.add(stringRequest);
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+                .addToBackStack(null).commit();
+
     }
 }

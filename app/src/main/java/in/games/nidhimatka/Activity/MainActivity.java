@@ -189,9 +189,7 @@ TextView txt_wallet,txtUserName ;
                     .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent=new Intent(activity, LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
+                            session_management.logoutSession();
 
                         }
                     })

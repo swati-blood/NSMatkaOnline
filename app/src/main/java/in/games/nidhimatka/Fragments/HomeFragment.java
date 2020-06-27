@@ -41,6 +41,7 @@ import in.games.nidhimatka.Adapter.MatakListViewAdapter;
 import in.games.nidhimatka.Adapter.MatkaAdapter;
 import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
+import in.games.nidhimatka.Config.Constants;
 import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.CustomSlider;
 import in.games.nidhimatka.Model.MatkaObject;
@@ -50,6 +51,7 @@ import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Module;
 import in.games.nidhimatka.Util.RecyclerTouchListener;
+import in.games.nidhimatka.Util.Session_management;
 
 public class HomeFragment extends Fragment {
 
@@ -58,6 +60,7 @@ MatkaAdapter matkaAdapter ;
     private RecyclerView rv_matka;
     LoadingBar progressDialog;
     Common common;
+    Session_management session_management;
     Module module;
     public static String mainName="";
     int flag =0 ;
@@ -106,6 +109,7 @@ MatkaAdapter matkaAdapter ;
    private void initViews(View v)
    {
     matkaList = new ArrayList<>();
+    session_management=new Session_management(getActivity());
        ((MainActivity) getActivity()).setTitle(getActivity().getResources().getString(R.string.app_name));
     rv_matka= v.findViewById(R.id.listView);
     home_slider= v.findViewById(R.id.home_slider);
@@ -246,4 +250,10 @@ MatkaAdapter matkaAdapter ;
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        common.getWalletAmount();
+        ((MainActivity)getActivity()).setWalletCounter(session_management.getUserDetails().get(Constants.KEY_WALLET));
+    }
 }
