@@ -124,7 +124,7 @@ public class AllHistryListFragment extends Fragment {
         CustomVolleyJsonArrayRequest customVolleyJsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.POST, URLs.URL_BID_HISTORY, params, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-
+                Log.e("histort_bid",response.toString());
                 try
                 {
                     JSONArray jsonArray=response;
@@ -140,7 +140,6 @@ public class AllHistryListFragment extends Fragment {
                         for(int i=0; i<=jsonArray.length()-1;i++) {
 
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
-
                             BidHistoryObjects matkasObjects = new BidHistoryObjects();
                             matkasObjects.setId(jsonObject.getString("id"));
                             matkasObjects.setUser_id(jsonObject.getString("user_id"));
@@ -178,11 +177,9 @@ public class AllHistryListFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                common.errorMessageDialog("Something Went Wrong");
-
-                //  Toast.makeText(BidActivity.this,"Error"+error.toString(),Toast.LENGTH_LONG).show();
-//                        Log.e("Volley",error.toString());
                 progressDialog.dismiss();
+                common.showVolleyError(error);
+
             }
         });
 
