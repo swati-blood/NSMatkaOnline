@@ -62,8 +62,8 @@
        android:textAllCaps="false"
        android:padding="5dp"
        android:textSize="13dp"
-       android:background="@drawable/shape2"
-       android:backgroundTint="@color/green"
+       android:background="@drawable/gradient_button"
+
        android:layout_height="match_parent"/>
     </LinearLayout>
         <View

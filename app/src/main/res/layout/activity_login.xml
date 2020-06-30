@@ -153,7 +153,22 @@
             android:textStyle="bold"
             android:textSize="16dp"
             android:layout_below="@id/login_mpilogin_btn"/>
-
+        <Button
+            android:id="@+id/btnForgetPass"
+            android:layout_below="@+id/login_register_btn"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:text="Forget Password?"
+            android:fontFamily="@font/lato"
+            android:background="@drawable/gradient_button"
+            android:textSize="16dp"
+            android:textColor="@color/white"
+            />
 
         <RelativeLayout
             android:layout_below="@id/login_register_btn"
@@ -161,19 +176,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="30dp">
-            <Button
-                android:id="@+id/btnForgetPass"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:text="Forget Password?"
-                android:fontFamily="@font/lato"
-                android:background="@android:color/transparent"
-                android:textSize="12dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:paddingLeft="5dp"
-                android:paddingRight="3dp"/>
+
             <Button
                 android:id="@+id/btnForgetUserId"
                 android:layout_width="wrap_content"

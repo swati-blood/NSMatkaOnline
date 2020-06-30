@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.MyProfileFragment">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/lin_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/edittextcorner"
+            android:backgroundTint="@color/white"
+            android:elevation="@dimen/_5sdp"
+            android:layout_margin="@dimen/_5sdp">
+            <ImageView
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/edituser"
+                android:padding="8dp"
+               />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User Profile"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:padding="@dimen/_5sdp"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lin_bank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/edittextcorner"
+            android:backgroundTint="@color/white"
+            android:elevation="@dimen/_5sdp"
+            android:layout_margin="@dimen/_5sdp">
+            <ImageView
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/bank"
+                android:padding="8dp"
+           />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bank Details"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:padding="@dimen/_5sdp"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lin_gpay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/edittextcorner"
+        android:backgroundTint="@color/white"
+        android:elevation="@dimen/_5sdp"
+        android:layout_margin="@dimen/_5sdp">
+        <ImageView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/gpay"
+            android:padding="7dp"/>
+        <EditText
+            android:id="@+id/et_gpay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Google Pay Number"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:padding="@dimen/_5sdp"
+            android:inputType="number"
+            android:singleLine="true"
+            android:textColor="@color/grey"
+
+            android:background="@color/white"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lin_paytm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/edittextcorner"
+            android:backgroundTint="@color/white"
+            android:elevation="@dimen/_5sdp"
+            android:layout_margin="@dimen/_5sdp">
+            <ImageView
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/icons8_paytm_96px"
+                android:padding="7dp"/>
+            <EditText
+                android:id="@+id/et_paytm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Paytm Number"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:padding="@dimen/_5sdp"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColor="@color/grey"
+
+                android:background="@color/white"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lin_phonepe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/edittextcorner"
+            android:backgroundTint="@color/white"
+            android:elevation="@dimen/_5sdp"
+            android:layout_margin="@dimen/_5sdp">
+            <ImageView
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/phonepe"
+                android:padding="7dp"/>
+            <EditText
+                android:id="@+id/et_phonepay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone Pay Number"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:padding="@dimen/_5sdp"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColor="@color/grey"
+
+                android:background="@color/white"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/gradient_button"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:text="Submit"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+
+
+            />
+
+
+    </LinearLayout>
+</ScrollView>
+
+</FrameLayout>

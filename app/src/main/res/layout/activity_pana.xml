@@ -5,6 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.PanaActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,6 +31,7 @@
             android:layout_centerVertical="true"
             android:text="@string/app_name"
             android:textColor="@color/white"
+            android:fontFamily="monospace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
@@ -217,67 +223,70 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
+        android:layout_height="50dp"
         app:tabTextColor="@android:color/darker_gray"
-        app:tabIndicatorHeight="@dimen/_40sdp"
+        app:tabIndicatorHeight="50dp"
         app:tabSelectedTextColor="@color/white"
         app:tabMode="scrollable"
+        android:layout_margin="10dp"
         app:tabIndicatorColor="@color/colorPrimary"/>
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_300sdp"
+        android:layout_height="350dp"
         android:id="@+id/viewpager"
         />
 
+        <RelativeLayout
+            android:id="@+id/rel_total"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:id="@+id/bet_total"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:textSize="16dp"/>
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/btn_sbmit"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_height="40dp"
+                android:text="Submit"
+                android:gravity="center"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@drawable/gradient_button"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+
     </LinearLayout>
-    <RelativeLayout
-        android:id="@+id/rel_total"
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content">
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal"
-            >
-
-            <TextView
-
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:layout_centerVertical="true"
-                android:padding="10dp"
-                android:textSize="16dp"/>
-            <TextView
-                android:id="@+id/bet_total"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:layout_centerVertical="true"
-                android:padding="10dp"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <Button
-            android:id="@+id/btn_sbmit"
-            android:layout_width="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_height="40dp"
-            android:text="Submit"
-            android:gravity="center"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="@dimen/_5sdp"
-            android:background="@drawable/gradient_button"
-            android:textColor="@color/white"/>
-    </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

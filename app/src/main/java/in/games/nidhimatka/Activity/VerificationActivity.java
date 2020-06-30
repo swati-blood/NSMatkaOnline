@@ -36,8 +36,10 @@ import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.SmsReceiver;
+import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.SmsListener;
+import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 import static in.games.nidhimatka.Activity.splash_activity.msg_status;
 
@@ -105,14 +107,23 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
            }
            else
            {
-               if(type.equalsIgnoreCase("f"))
-               {
-                   sendOtpforPass(mobile,otp, URLs.URL_GENERATE_OTP);
+               if (ConnectivityReceiver.isConnected()) {
+
+                   if(type.equalsIgnoreCase("f"))
+                   {
+                       sendOtpforPass(mobile,otp, URLs.URL_GENERATE_OTP);
+                   }
+                   else
+                   {
+                       sendOtpforPass(mobile,otp,URLs.URL_VERIFICATION);
+                   }
                }
                else
                {
-                   sendOtpforPass(mobile,otp,URLs.URL_VERIFICATION);
+                   Intent intent = new Intent(VerificationActivity.this, NoInternetConnection.class);
+                   startActivity(intent);
                }
+
            }
         }
         else if(view.getId() == R.id.btn_verify)

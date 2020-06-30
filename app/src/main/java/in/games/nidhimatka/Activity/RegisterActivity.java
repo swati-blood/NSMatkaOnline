@@ -32,7 +32,9 @@ import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomJsonRequest;
+import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 public class RegisterActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
@@ -119,7 +121,16 @@ public class RegisterActivity extends AppCompatActivity {
                       String conpass=txtConPass.getText().toString().trim();
                       if(pass.equals(conpass))
                       {
-                          register(phone_value);
+                          if (ConnectivityReceiver.isConnected()) {
+
+                              register(phone_value);
+                          }
+                          else
+                          {
+                              Intent intent = new Intent(RegisterActivity.this, NoInternetConnection.class);
+                              startActivity(intent);
+                          }
+
                       }
                       else
                       {

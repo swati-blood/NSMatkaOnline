@@ -28,10 +28,14 @@ import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Config.URLs;
+import in.games.nidhimatka.NetworkStateChangeReciever;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
 import in.games.nidhimatka.Util.Session_management;
+import in.games.nidhimatka.networkconnectivity.NetworkConnection;
+import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 public class splash_activity extends AppCompatActivity {
 
@@ -52,8 +56,17 @@ public class splash_activity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+        if (ConnectivityReceiver.isConnected()) {
 
-        getApiData();
+            getApiData();
+        }
+        else
+        {
+            Intent intent = new Intent(this, NoInternetConnection.class);
+          startActivity(intent);
+        }
+
+
 
     }
 

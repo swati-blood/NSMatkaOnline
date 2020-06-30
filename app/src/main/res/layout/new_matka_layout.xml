@@ -37,29 +37,10 @@
 
                 android:weightSum="10"
                 >
-                <in.games.nidhimatka.Fonts.LatoBLack
-                    android:id="@+id/matkaBettingStatus"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rLayoutNumbers"
-                    android:layout_centerHorizontal="true"
-                    android:text="Betting is Running For Today"
-                    android:textColor="@color/btnColor"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="12dp" />
-                <ImageView
-                    android:id="@+id/matka_image"
-                    android:layout_width="70dp"
-                    android:layout_weight=".3"
-                    android:layout_gravity="center_vertical"
-                    android:layout_height="70dp"
-                    android:src="@drawable/pll2"
 
-                 />
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_weight="7"
+                    android:layout_weight="9"
                     android:layout_height="match_parent"
 
                     android:orientation="vertical"
@@ -170,7 +151,7 @@
                         <LinearLayout
                             android:id="@+id/rLayoutBidsTime"
                             android:layout_width="match_parent"
-                            android:layout_marginTop="20dp"
+
                             android:gravity="bottom"
                             android:layout_height="wrap_content">
 
@@ -181,7 +162,7 @@
 
                                 android:text="OPEN-BIDS-"
                                 android:textColor="@color/btnColor"
-                                android:textSize="10dp" />
+                                android:textSize="12dp" />
 
                             <in.games.nidhimatka.Fonts.LatoBLack
                                 android:id="@+id/matka_open_bid_Time"
@@ -192,7 +173,7 @@
                                 android:paddingLeft="2dp"
                                 android:text="12:28 am"
                                 android:textColor="@color/btnColor"
-                                android:textSize="10dp" />
+                                android:textSize="12dp" />
                             <View
 
                                 android:layout_width="2dp"
@@ -210,7 +191,7 @@
                                 android:layout_toLeftOf="@id/matka_close_bid_Time"
                                 android:text="  Close-BIDS-"
                                 android:textColor="@color/btnColor"
-                                android:textSize="10dp" />
+                                android:textSize="12dp" />
 
                             <in.games.nidhimatka.Fonts.LatoBLack
                                 android:id="@+id/matka_close_bid_Time"
@@ -221,14 +202,34 @@
                                 android:paddingLeft="2dp"
                                 android:text="12:28 am"
                                 android:textColor="@color/btnColor"
-                                android:textSize="10dp" />
+                                android:textSize="12dp" />
                         </LinearLayout>
 
                     </LinearLayout>
 
+                    <in.games.nidhimatka.Fonts.LatoBLack
+                        android:id="@+id/matkaBettingStatus"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/rLayoutNumbers"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:text="Betting is Running For Today"
+                        android:textColor="@color/btnColor"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="14dp" />
 
                 </LinearLayout>
+                <ImageView
+                    android:id="@+id/matka_image"
+                    android:layout_width="70dp"
+                    android:layout_weight=".3"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="70dp"
+                    android:src="@drawable/pl2"
 
+                    />
             </LinearLayout>
 
 </RelativeLayout>

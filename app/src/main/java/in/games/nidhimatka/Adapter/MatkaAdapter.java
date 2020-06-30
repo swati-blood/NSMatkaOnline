@@ -3,16 +3,24 @@ package in.games.nidhimatka.Adapter;
 import android.app.Dialog;
 import android.content.Context;
 
+import android.content.Intent;
 import android.graphics.Color;
 
+import android.os.Bundle;
+import android.os.Vibrator;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.ParseException;
@@ -20,6 +28,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import in.games.nidhimatka.Common.Common;
+import in.games.nidhimatka.Fragments.MainFragment;
 import in.games.nidhimatka.Model.MatkasObjects;
 import in.games.nidhimatka.R;
 
@@ -27,10 +37,11 @@ public class MatkaAdapter extends RecyclerView.Adapter<MatkaAdapter.ViewHolder> 
 
     private Context context;
     private Dialog dialog;
+    Common common ;
     private ArrayList<MatkasObjects> list;
     private String m_id;
     private int flag=0;
-
+    Vibrator vibe;
     public MatkaAdapter(Context context, ArrayList<MatkasObjects> list) {
         this.context = context;
         this.list = list;
@@ -88,7 +99,7 @@ public class MatkaAdapter extends RecyclerView.Adapter<MatkaAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
 
         MatkasObjects postion=list.get(i);
 
@@ -193,7 +204,76 @@ public class MatkaAdapter extends RecyclerView.Adapter<MatkaAdapter.ViewHolder> 
             viewHolder.txtStatus.setVisibility(View.INVISIBLE);
         }
 //
-        viewHolder.imageGame.setImageResource(R.drawable.pll2);
+        viewHolder.imageGame.setImageResource(R.drawable.pl2);
+
+      viewHolder.rel_matka.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vibe.vibrate(100);
+                String dy=new SimpleDateFormat("EEEE").format(new Date());
+                Log.e("asda",""+dy);
+                MatkasObjects objects=list.get(i);
+                String stime ="";
+                String etime ="";
+                if(dy.equalsIgnoreCase("Sunday"))
+                {
+                    stime=objects.getStart_time().toString();
+                    etime=objects.getEnd_time().toString();
+                }
+                else if(dy.equalsIgnoreCase("Saturday"))
+                {
+                    stime=objects.getSat_start_time().toString();
+                    etime=objects.getSat_end_time().toString();
+                }
+                else
+                {
+                    stime=objects.getBid_start_time().toString();
+                    etime=objects.getBid_end_time().toString();
+                }
+
+                long endDiff=common.getTimeDifference(etime);
+                Log.e("time_differrrr"," - e : "+common.getTimeDifference(etime)+" - "+objects.getName()+" -- "+etime.toString());
+                Date date = new Date();
+                SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+
+                String cur_time = format.format(date);
+
+                String m_id=objects.getId().toString().trim();
+                String matka_name=objects.getName().toString().trim();
+
+//
+//                else
+//                {
+                    if(endDiff<0)
+                    {
+//                 common.errorMessageDialog("BID IS CLOSED");
+                        common.showToast("Bid is Closed for today");
+                    }
+
+               Bundle bundle = new Bundle();
+
+               bundle.putString("matka_name",objects.getName());
+               bundle.putString("m_id",objects.getId());
+               bundle.putString("start_number",objects.getStarting_num());
+               bundle.putString("number",objects.getNumber());
+               bundle.putString("end_number",objects.getEnd_num());
+               bundle.putString("end_time",objects.getBid_end_time());
+               bundle.putString("start_time",objects.getBid_start_time());
+               Fragment fm  = new MainFragment();
+               fm.setArguments(bundle);
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+
+               FragmentManager fragmentManager = activity.getSupportFragmentManager();
+               fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+                       .addToBackStack(null).commit();
+//                }
+                // Toast.makeText(context,"Position"+m_id,Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+
 
     }
 
@@ -207,6 +287,7 @@ public class MatkaAdapter extends RecyclerView.Adapter<MatkaAdapter.ViewHolder> 
         TextView txtmatkaBid_openTime,txtmatkaBid_closeTime,txtMatkaName,txtMatka_startingNo,txtStatus,txtMatka_resNo,txtMatka_endNo;
         TextView txtMatka_id;
         ImageView imageGame;
+        RelativeLayout rel_matka;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -217,11 +298,12 @@ public class MatkaAdapter extends RecyclerView.Adapter<MatkaAdapter.ViewHolder> 
             txtMatka_startingNo=(TextView)itemView.findViewById(R.id.matka_starting_Number);
             txtMatka_resNo=(TextView)itemView.findViewById(R.id.matka_res_Number);
             txtMatka_endNo=(TextView)itemView.findViewById(R.id.matka_end_Number);
-
+rel_matka = itemView.findViewById(R.id.rlchange);
             txtStatus=(TextView)itemView.findViewById(R.id.matkaBettingStatus);
             imageGame=(ImageView)itemView.findViewById(R.id.matka_image);
             txtMatka_id=(TextView) itemView.findViewById(R.id.matka_id);
-
+            vibe = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            common = new Common(context);
 
         }
     }

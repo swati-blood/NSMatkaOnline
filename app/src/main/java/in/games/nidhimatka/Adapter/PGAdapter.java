@@ -113,23 +113,23 @@ public class PGAdapter extends BaseAdapter {
         {
             case 0:
                 rl_change.setBackgroundColor(context.getResources().getColor(R.color.play1));
-                img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pll2));
+                img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pl2));
                 // imageGame.setBackgroundResource(R.drawable.play_game_1);
                 break;
 
             case 1:
                 rl_change.setBackgroundColor(context.getResources().getColor(R.color.play2));
-                img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pll2));
+                img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pl2));
                 break;
 
             case 2:
                 rl_change.setBackgroundColor(context.getResources().getColor(R.color.play3));
-                img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pll2));
+                img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pl2));
                 break;
 
             case 3:
                 rl_change.setBackgroundColor(context.getResources().getColor(R.color.play4));
-                img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pll2));
+                img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pl2));
                 break;
             default:rl_change.setBackgroundColor(GRAY);
         }

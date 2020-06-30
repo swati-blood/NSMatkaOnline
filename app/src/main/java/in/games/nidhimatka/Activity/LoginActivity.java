@@ -63,8 +63,10 @@ import in.games.nidhimatka.Model.UsersObjects;
 import in.games.nidhimatka.NetworkStateChangeReciever;
 import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.Session_management;
+import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -235,7 +237,17 @@ public class LoginActivity extends AppCompatActivity {
                     {
                         mainName=mName;
 //                        Login(mName,mPass);
-                        getUserLoginRequest(mName,mPass);
+                        if (ConnectivityReceiver.isConnected()) {
+
+                            getUserLoginRequest(mName,mPass);
+                        }
+                        else
+                        {
+                            Intent intent = new Intent(LoginActivity.this, NoInternetConnection.class);
+                            startActivity(intent);
+                        }
+
+
                     }
 
 //                    if(!mName.isEmpty()||!mPass.isEmpty())
@@ -294,10 +306,11 @@ public class LoginActivity extends AppCompatActivity {
                             String phonepay=common.checkNull(jsonObject.getString("phonepay_no").toString());
                             String wallet=common.checkNull(jsonObject.getString("wallet").toString());
                             String dob=common.checkNull(jsonObject.getString("dob").toString());
+                            String gender=common.checkNull(jsonObject.getString("gender").toString());
                             String p = jsonObject.getString("password");
                             if (mPass.equals(p)) {
                                 session_management.createLoginSession(id,name,username,mobile,email,address
-                                ,city,pincode,accno,bank,ifsc,holder,paytm,tez,phonepay,dob,wallet);
+                                ,city,pincode,accno,bank,ifsc,holder,paytm,tez,phonepay,dob,wallet,gender);
                                 Intent intent = new Intent(ctx, MainActivity.class);
                                 intent.putExtra("username", jsonObject.getString("username").toString());
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

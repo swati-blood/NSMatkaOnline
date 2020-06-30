@@ -18,7 +18,7 @@
 
             android:type="linear"
             android:angle="135"
-            android:endColor="#A81629">
+            android:endColor="@color/colorPrimaryDark">
         </gradient>
 
 

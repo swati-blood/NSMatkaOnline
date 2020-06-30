@@ -390,7 +390,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     boolean resp=response.getBoolean("responce");
                     if(resp)
                     {
-                        session_management.updateEmailSection(email,dob);
+                        session_management.updateEmailSection(email,dob,"","");
                         common.showToast(""+response.getString("message"));
 
                     }

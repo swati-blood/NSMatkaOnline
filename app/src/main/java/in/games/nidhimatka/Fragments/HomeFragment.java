@@ -77,32 +77,32 @@ MatkaAdapter matkaAdapter ;
        View view = inflater.inflate(R.layout.fragment_home2, container, false);
        initViews(view);
 
-       rv_matka.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv_matka, new RecyclerTouchListener.OnItemClickListener() {
-           @Override
-           public void onItemClick(View view, int position) {
-               MatkasObjects objects = matkaList.get(position);
-               Bundle bundle = new Bundle();
-
-               bundle.putString("matka_name",objects.getName());
-               bundle.putString("m_id",objects.getId());
-               bundle.putString("start_number",objects.getStarting_num());
-               bundle.putString("number",objects.getNumber());
-               bundle.putString("end_number",objects.getEnd_num());
-               bundle.putString("end_time",objects.getBid_end_time());
-               bundle.putString("start_time",objects.getBid_start_time());
-               Fragment fm  = new MainFragment();
-               fm.setArguments(bundle);
-               FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-               fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                       .addToBackStack(null).commit();
-
-           }
-
-           @Override
-           public void onLongItemClick(View view, int position) {
-
-           }
-       }));
+//       rv_matka.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv_matka, new RecyclerTouchListener.OnItemClickListener() {
+//           @Override
+//           public void onItemClick(View view, int position) {
+//               MatkasObjects objects = matkaList.get(position);
+//               Bundle bundle = new Bundle();
+//
+//               bundle.putString("matka_name",objects.getName());
+//               bundle.putString("m_id",objects.getId());
+//               bundle.putString("start_number",objects.getStarting_num());
+//               bundle.putString("number",objects.getNumber());
+//               bundle.putString("end_number",objects.getEnd_num());
+//               bundle.putString("end_time",objects.getBid_end_time());
+//               bundle.putString("start_time",objects.getBid_start_time());
+//               Fragment fm  = new MainFragment();
+//               fm.setArguments(bundle);
+//               FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//               fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+//                       .addToBackStack(null).commit();
+//
+//           }
+//
+//           @Override
+//           public void onLongItemClick(View view, int position) {
+//
+//           }
+//       }));
        return  view;
     }
 

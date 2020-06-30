@@ -36,6 +36,7 @@ import in.games.nidhimatka.Fragments.GenerateMpinFragment;
 import in.games.nidhimatka.Fragments.HistroyFragment;
 import in.games.nidhimatka.Fragments.HomeFragment;
 import in.games.nidhimatka.Fragments.HowToPLayFragment;
+import in.games.nidhimatka.Fragments.MyProfileFragment;
 import in.games.nidhimatka.Fragments.NoticeFragment;
 import in.games.nidhimatka.Fragments.ProfileFragment;
 import in.games.nidhimatka.Fragments.WalletFragment;
@@ -117,7 +118,7 @@ TextView txt_wallet,txtUserName ;
         Fragment fm = null;
 
         if (id == R.id.nav_profile) {
-           fm = new ProfileFragment();
+           fm = new MyProfileFragment();
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)

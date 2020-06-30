@@ -77,12 +77,10 @@ public class SelectGameFragment extends Fragment {
 
                GameModel model = game_list.get(position);
                tv_game.setText(model.getName());
+               Fragment fm = null ;
                if( model.getType().equals("0"))
                {
-
-
-                   Fragment fm = null ;
-                                     fm = new PanaFragment();
+                   fm = new PanaFragment();
 
                    final Bundle arg = new Bundle();
                    arg.putString("game_id",model.getId());
@@ -91,11 +89,15 @@ public class SelectGameFragment extends Fragment {
                    arg.putString("matka_name",getArguments().getString("matka_name"));
                    arg.putString("start_time",getArguments().getString("start_time"));
                    arg.putString("end_time",getArguments().getString("end_time"));
+                   fm.setArguments(arg);
+                   FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                   fragmentManager.beginTransaction().replace(R.id.container_frame, fm)
+                           .addToBackStack(null).commit();
 
                }
                else if( model.getType().equals("1"))
                {
-                   Fragment fm = null ;
+
                    final Bundle arg = new Bundle();
                    arg.putString("game_id",model.getId());
                    arg.putString("game_name",model.getName());
