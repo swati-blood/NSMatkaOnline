@@ -18,6 +18,7 @@ public class URLs {
     public static final String URL_MOBILE=BASE_URL+"getMobile";
     public static final String URL_INSERT_SANGAM=BASE_URL+"insert_sangam_data";
     public static final String URL_BID_HISTORY=BASE_URL+"getBidHistory";
+
     public static final String URL_WITHDRAW_REQUEST=BASE_URL+"insert_withdraw_request";
     public static final String URL_MATKA_WITH_ID=BASE_URL+"get_matka_with_id";
     public static final String URL_GENERATE_OTP=BASE_URL+"generate_otp";

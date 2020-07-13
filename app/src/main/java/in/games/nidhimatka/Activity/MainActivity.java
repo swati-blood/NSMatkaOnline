@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import in.games.nidhimatka.Adapter.MatakListViewAdapter;
 import in.games.nidhimatka.Adapter.MatkaAdapter;
 import in.games.nidhimatka.Common.Common;
+import in.games.nidhimatka.Fragments.AddFunds;
+import in.games.nidhimatka.Fragments.AllHistoryFragment;
 import in.games.nidhimatka.Fragments.GameRatesFragment;
 import in.games.nidhimatka.Fragments.GenerateMpinFragment;
 import in.games.nidhimatka.Fragments.HistroyFragment;
@@ -40,6 +42,7 @@ import in.games.nidhimatka.Fragments.MyProfileFragment;
 import in.games.nidhimatka.Fragments.NoticeFragment;
 import in.games.nidhimatka.Fragments.ProfileFragment;
 import in.games.nidhimatka.Fragments.WalletFragment;
+import in.games.nidhimatka.Fragments.WithdrawFundsFragment;
 import in.games.nidhimatka.Model.MatkaObject;
 import in.games.nidhimatka.Model.MatkasObjects;
 import in.games.nidhimatka.Prevalent.Prevalent;
@@ -52,7 +55,7 @@ import static in.games.nidhimatka.Config.Constants.KEY_WALLET;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 Activity activity = MainActivity.this;
-TextView txt_wallet,txtUserName ;
+TextView txt_wallet,txtUserName ,txt_title ;
     DrawerLayout drawer;
     Session_management session_management;
     @Override
@@ -61,6 +64,7 @@ TextView txt_wallet,txtUserName ;
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         txt_wallet = findViewById(R.id.txtWallet);
+        txt_title = findViewById(R.id.tv_title);
       session_management=new Session_management(activity);
 
       drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -132,6 +136,22 @@ TextView txt_wallet,txtUserName ;
             fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
                     .addToBackStack(null).commit();
         }
+        else if (id == R.id.nav_add)
+        {
+            fm = new AddFunds();
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+                    .addToBackStack(null).commit();
+        }
+        else if (id == R.id.nav_withdrw)
+        {
+            fm = new WithdrawFundsFragment();
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+                    .addToBackStack(null).commit();
+        }
         else if (id == R.id.nav_mpin) {
 
             fm = new GenerateMpinFragment();
@@ -148,9 +168,10 @@ TextView txt_wallet,txtUserName ;
                     .addToBackStack(null).commit();
         }
         else if (id == R.id.nav_history) {
-
-            fm = new HistroyFragment();
-
+            Bundle bundle = new Bundle();
+            bundle.putString("type","bid");
+            fm = new AllHistoryFragment();
+            fm.setArguments(bundle);
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
                     .addToBackStack(null).commit();
@@ -158,8 +179,10 @@ TextView txt_wallet,txtUserName ;
         }
         else if (id == R.id.nav_wallet) {
 
-            fm = new WalletFragment();
-
+            Bundle bundle = new Bundle();
+            bundle.putString("type","funds");
+            fm = new AllHistoryFragment();
+            fm.setArguments(bundle);
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
                     .addToBackStack(null).commit();
@@ -210,6 +233,7 @@ TextView txt_wallet,txtUserName ;
 
     }
     public void setTitle(String title) {
-//        getSupportActionBar().setTitle(title);
+      txt_title.setText(title);
+      txt_title.setSelected(true);
     }
 }

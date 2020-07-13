@@ -65,11 +65,13 @@ import in.games.nidhimatka.Model.TableModel;
 import in.games.nidhimatka.Model.WalletObjects;
 import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Module;
 import in.games.nidhimatka.Util.Session_management;
+import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 import static in.games.nidhimatka.Activity.PanaActivity.total;
 import static in.games.nidhimatka.Config.Constants.KEY_ID;
@@ -639,7 +641,14 @@ public class Common {
         btn_dialog_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertData(list,m_id,c,game_id,w,dashName,progressDialog,btnSave,start_time,end_time);
+                if (ConnectivityReceiver.isConnected()) {
+                    insertData(list, m_id, c, game_id, w, dashName, progressDialog, btnSave, start_time, end_time);
+                }
+                else
+                {
+                    Intent intent = new Intent(context, NoInternetConnection.class);
+                   context.startActivity(intent);
+                }
 
             }
         });

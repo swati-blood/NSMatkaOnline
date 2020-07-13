@@ -20,8 +20,8 @@
             android:id="@+id/addpointsimage"
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:src="@drawable/logo"
-            android:tint="@color/colorPrimary"
+            android:src="@drawable/icon"
+
             android:layout_centerHorizontal="true"/>
 
         <EditText

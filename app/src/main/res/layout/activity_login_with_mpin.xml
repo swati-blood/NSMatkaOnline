@@ -21,8 +21,8 @@
         android:id="@+id/appLogo"
         android:layout_width="350dp"
         android:layout_height="300dp"
-        android:src="@drawable/logo"
-android:tint="@color/colorPrimary"
+        android:src="@drawable/icon"
+
         android:padding="20dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"

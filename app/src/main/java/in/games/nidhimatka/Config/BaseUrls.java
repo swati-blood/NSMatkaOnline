@@ -11,4 +11,6 @@ public class BaseUrls {
     public static final String URL_REGISTER=BASE_URL+"sign_up";
     public static final String URL_REQUEST=BASE_URL+"add_request";
     public static final String URL_GET_WALLET_AMOUNT=BASE_URL+"getWalletAmount";
+    public static final String URL_GET_HISTORY=BASE_URL+"get_history";
+    public static final String URL_FUND_HISTORY=BASE_URL+"request_history";
 }

@@ -1,5 +1,6 @@
 package in.games.nidhimatka.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -24,9 +25,11 @@ import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Session_management;
+import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 import static in.games.nidhimatka.Config.Constants.KEY_ACCOUNNO;
 import static in.games.nidhimatka.Config.Constants.KEY_ADDRESS;
@@ -132,8 +135,14 @@ public class BankFragment extends Fragment implements View.OnClickListener {
             }
             else
             {
-
-                storeBankDetails(acc_no,b_name,ifsc,name,u_id);
+                if(ConnectivityReceiver.isConnected())
+                {
+                storeBankDetails(acc_no,b_name,ifsc,name,u_id);}
+                else
+                {
+                    Intent intent = new Intent(getActivity(), NoInternetConnection.class);
+                    startActivity(intent);
+                }
             }
 
 

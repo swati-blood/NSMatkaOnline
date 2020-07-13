@@ -1,6 +1,11 @@
 package in.games.nidhimatka.Fragments;
 
 import android.app.Dialog;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -12,9 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,11 +55,17 @@ import in.games.nidhimatka.CustomSlider;
 import in.games.nidhimatka.Model.MatkaObject;
 import in.games.nidhimatka.Model.MatkasObjects;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Module;
 import in.games.nidhimatka.Util.RecyclerTouchListener;
 import in.games.nidhimatka.Util.Session_management;
+import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
+
+import static in.games.nidhimatka.Activity.splash_activity.app_link;
+import static in.games.nidhimatka.Activity.splash_activity.ver_code;
+
 
 public class HomeFragment extends Fragment {
 
@@ -64,6 +78,7 @@ MatkaAdapter matkaAdapter ;
     Module module;
     public static String mainName="";
     int flag =0 ;
+    float version_code ;
     SliderLayout home_slider ;
     public HomeFragment() {
         // Required empty public constructor
@@ -116,11 +131,34 @@ MatkaAdapter matkaAdapter ;
     progressDialog = new LoadingBar(getActivity());
     common = new Common(getActivity());
     module = new Module();
-    makeSliderRequest();
-    getMatkaData();
+    if(ConnectivityReceiver.isConnected()) {
+        makeSliderRequest();
+        getMatkaData();
+//        showUpdateDialog();
+    } else
+    {
+        Intent intent = new Intent(getActivity(), NoInternetConnection.class);
+        startActivity(intent);
+    }
+
     rv_matka.setLayoutManager(new LinearLayoutManager(getActivity()));
        matkaAdapter = new MatkaAdapter(getActivity(),matkaList);
        rv_matka.setAdapter(matkaAdapter);
+       try {
+           PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+           version_code = pInfo.versionCode;
+           // Toast.makeText(splash_activity.this,""+version,Toast.LENGTH_LONG).show();
+           if(version_code==ver_code)
+           {
+
+           }
+           else {
+               showUpdateDialog();
+           }
+
+       } catch (PackageManager.NameNotFoundException e) {
+           e.printStackTrace();
+       }
    }
 
     public void getMatkaData()
@@ -255,5 +293,49 @@ MatkaAdapter matkaAdapter ;
         super.onStart();
         common.getWalletAmount();
         ((MainActivity)getActivity()).setWalletCounter(session_management.getUserDetails().get(Constants.KEY_WALLET));
+
+    }
+
+    void showUpdateDialog()
+    {
+        final Dialog dialog=new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_version);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.BOTTOM;
+        wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        window.setAttributes(wlp);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+       Button btnCancel = dialog.findViewById(R.id.cancel);
+       Button btnUpdate = dialog.findViewById(R.id.update);
+       btnCancel.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               dialog.dismiss();
+               getActivity().finishAffinity();
+
+           }
+       });
+       btnUpdate.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               String url = null;
+if (app_link==null || app_link.isEmpty())
+{
+    url ="https://play.google.com/store?hl=en_IN";
+}
+else
+{
+    url = app_link;
+}
+               Log.e("äsdsd",""+url);
+               Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setData(Uri.parse(url));
+                                startActivity(intent);
+           }
+       });
+        dialog.show();
     }
 }

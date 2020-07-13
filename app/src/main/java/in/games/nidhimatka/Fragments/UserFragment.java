@@ -1,6 +1,7 @@
 package in.games.nidhimatka.Fragments;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -32,9 +33,11 @@ import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Session_management;
+import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 import static in.games.nidhimatka.Config.Constants.KEY_ADDRESS;
 import static in.games.nidhimatka.Config.Constants.KEY_CITY;
@@ -220,8 +223,15 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             }
             else
             {
-                storeProfileData(date ,name,gender,email);
-                storeAddressData(add,city,pin,u_id);
+                if (ConnectivityReceiver.isConnected()) {
+                    storeProfileData(date, name, gender, email);
+                    storeAddressData(add, city, pin, u_id);
+                }
+                else
+                {
+                    Intent intent = new Intent(getActivity(), NoInternetConnection.class);
+                    startActivity(intent);
+                }
             }
         }
         else if (v.getId()==R.id.et_dob)

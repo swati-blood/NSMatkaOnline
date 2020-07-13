@@ -7,11 +7,14 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -40,7 +43,10 @@ import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 public class splash_activity extends AppCompatActivity {
 
     Session_management session_management;
-   float version_code;
+   public static  float ver_code=0;
+    private AlertDialog dialog;
+  float version_code;
+    public static final int MY_PERMISSIONS_REQUEST_WRITE_FIELS = 102;
    Common common;
    public static String home_text ="", withdrw_text="",tagline= "" ,min_add_amount="",link = "" ,app_link="",share_link="",msg_status="",withdrw_no="";
     @Override
@@ -49,13 +55,25 @@ public class splash_activity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_activity);
    common=new Common(splash_activity.this);
    session_management=new Session_management(splash_activity.this);
-        try {
-            PackageInfo pInfo = getApplicationContext().getPackageManager().getPackageInfo(getPackageName(), 0);
-             version_code = pInfo.versionCode;
-           // Toast.makeText(splash_activity.this,""+version,Toast.LENGTH_LONG).show();
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        Thread background = new Thread() {
+            public void run() {
+
+                try {
+                    // Thread will sleep for 5 seconds
+                    sleep(2 * 1000);
+
+                    // After 5 seconds redirect to another intent
+                    checkAppPermissions();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        // start thread
+        background.start();
+
         if (ConnectivityReceiver.isConnected()) {
 
             getApiData();
@@ -79,7 +97,7 @@ public class splash_activity extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                try
                 {
-                    float ver_code=0;
+
                     String msg="";
                         JSONObject dataObj=response.getJSONObject(0);
                         tagline = dataObj.getString("tag_line");
@@ -92,59 +110,59 @@ public class splash_activity extends AppCompatActivity {
                         share_link = dataObj.getString("share_link");
                         ver_code=Float.parseFloat(dataObj.getString("version"));
                         msg=dataObj.getString("message");
+//
+//
+//                    if(version_code==ver_code)
+//                    {
+//                        if(session_management.isLoggedIn())
+//                        {
+//                            Intent intent = new Intent(splash_activity.this,MainActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//
+//                        }
+//                        else
+//                        {
+//                            Intent intent = new Intent(splash_activity.this,LoginActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//
+//                        }
 
-
-                    if(version_code==ver_code)
-                    {
-                        if(session_management.isLoggedIn())
-                        {
-                            Intent intent = new Intent(splash_activity.this,MainActivity.class);
-                            startActivity(intent);
-                            finish();
-
-                        }
-                        else
-                        {
-                            Intent intent = new Intent(splash_activity.this,LoginActivity.class);
-                            startActivity(intent);
-                            finish();
-
-                        }
-
-                    }
-                    else
-                    {
-                        AlertDialog.Builder builder=new AlertDialog.Builder(splash_activity.this);
-                        builder.setTitle("Version Information");
-                        builder.setMessage(msg);
-                        builder.setCancelable(false);
-                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                                String url = null;
-                                try {
-                                    url = app_link;
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-                                Intent intent = new Intent(Intent.ACTION_VIEW);
-                                intent.setData(Uri.parse(url));
-                                startActivity(intent);
-
-                            }
-                        });
-                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                                finishAffinity();
-                            }
-                        });
-                        AlertDialog alertDialog=builder.create();
-                        alertDialog.show();
-                    }
+//                    }
+//                    else
+//                    {
+//                        AlertDialog.Builder builder=new AlertDialog.Builder(splash_activity.this);
+//                        builder.setTitle("Version Information");
+//                        builder.setMessage(msg);
+//                        builder.setCancelable(false);
+//                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                                String url = null;
+//                                try {
+//                                    url = app_link;
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                }
+//
+//                                Intent intent = new Intent(Intent.ACTION_VIEW);
+//                                intent.setData(Uri.parse(url));
+//                                startActivity(intent);
+//
+//                            }
+//                        });
+//                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                dialogInterface.dismiss();
+//                                finishAffinity();
+//                            }
+//                        });
+//                        AlertDialog alertDialog=builder.create();
+//                        alertDialog.show();
+//                    }
                 }
                 catch (Exception ex)
                 {
@@ -169,5 +187,81 @@ public class splash_activity extends AppCompatActivity {
 
 
     }
+    public void checkAppPermissions() {
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.INTERNET)
+                != PackageManager.PERMISSION_GRANTED  ||
+                ContextCompat.checkSelfPermission(this,
+                        android.Manifest.permission.ACCESS_NETWORK_STATE)
+                        != PackageManager.PERMISSION_GRANTED
+        ) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    android.Manifest.permission.INTERNET) && ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    android.Manifest.permission.ACCESS_NETWORK_STATE)) {
+                go_next();
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{
+                                android.Manifest.permission.INTERNET,
+                                android.Manifest.permission.ACCESS_NETWORK_STATE
+                        },
+                        MY_PERMISSIONS_REQUEST_WRITE_FIELS);
+            }
+        } else {
+            go_next();
+        }
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        if (requestCode == MY_PERMISSIONS_REQUEST_WRITE_FIELS) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                go_next();
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(splash_activity.this);
+                builder.setMessage("App required some permission please enable it")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                openPermissionScreen();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                                dialog.dismiss();
+                            }
+                        });
+                dialog = builder.show();
+            }
+            return;
+        }
+    }
+
+    public void go_next() {
+        if(session_management.isLoggedIn())
+        {
+            Intent intent = new Intent(splash_activity.this,MainActivity.class);
+            startActivity(intent);
+            finish();
+
+        }
+        else
+        {
+            Intent intent = new Intent(splash_activity.this,LoginActivity.class);
+            startActivity(intent);
+            finish();
+
+        }
+    }
+
+
+    public void openPermissionScreen() {
+        // startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                Uri.fromParts("package", splash_activity.this.getPackageName(), null));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }

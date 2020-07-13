@@ -1,5 +1,6 @@
 package in.games.nidhimatka.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -31,10 +32,12 @@ import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.Model.GameModel;
 import in.games.nidhimatka.Model.MatkasObjects;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Module;
 import in.games.nidhimatka.Util.RecyclerTouchListener;
+import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,8 +80,14 @@ public class MatkaListFragment extends Fragment {
         recyclerView.setAdapter(matkaCategoryAdapter);
 
 
-
-        getMatkaData();
+if(ConnectivityReceiver.isConnected())
+{
+        getMatkaData();}
+else
+{
+    Intent intent = new Intent(getActivity(), NoInternetConnection.class);
+    startActivity(intent);
+}
        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new RecyclerTouchListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
