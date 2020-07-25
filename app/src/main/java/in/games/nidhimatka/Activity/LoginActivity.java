@@ -306,7 +306,7 @@ public class LoginActivity extends AppCompatActivity {
                             String phonepay=common.checkNull(jsonObject.getString("phonepay_no").toString());
                             String wallet=common.checkNull(jsonObject.getString("wallet").toString());
                             String dob=common.checkNull(jsonObject.getString("dob").toString());
-                            String gender=common.checkNull(jsonObject.getString("gender").toString());
+                           String gender=common.checkNull(jsonObject.getString("gender").toString());
                             String p = jsonObject.getString("password");
                             if (mPass.equals(p)) {
                                 session_management.createLoginSession(id,name,username,mobile,email,address

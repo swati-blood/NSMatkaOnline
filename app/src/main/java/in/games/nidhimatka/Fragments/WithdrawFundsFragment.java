@@ -124,9 +124,9 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
                 String a[]=saveCurrentTime.split(":");
                 hours=Integer.parseInt(a[0]);
                 //  Toast.makeText(WithdrawalActivity.this, ""+day +hours, Toast.LENGTH_SHORT).show();
-                if((hours>=10&&hours<17)&&(day>1 && day<7)) {
-
-
+//                if((hours>=10&&hours<17)&&(day>1 && day<7))
+                if(day>1 && day<7)
+                {
                     String user_id = common.getUserId();
                     String pnts = String.valueOf(points);
                     String st = "pending";

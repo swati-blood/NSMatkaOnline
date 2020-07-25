@@ -87,7 +87,7 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
         game_id = getArguments().getString("game_id");
         s_time = getArguments().getString("start_time");
         e_time = getArguments().getString("end_time");
-        w_amount = txtWalet.getText().toString();
+        w_amount = ((MainActivity) getActivity()).getWallet();
         list=new ArrayList<>();
         ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
         btnAdd.setOnClickListener(this);

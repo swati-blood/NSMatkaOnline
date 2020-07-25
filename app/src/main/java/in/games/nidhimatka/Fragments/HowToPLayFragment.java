@@ -26,8 +26,10 @@ import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
 import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 import static in.games.nidhimatka.Config.BaseUrls.URL_PLAY;
 
@@ -62,10 +64,13 @@ public class HowToPLayFragment extends Fragment {
             }
         });
 
-
-
-        getHowToPlayData();
-
+if (ConnectivityReceiver.isConnected()) {
+    getHowToPlayData();
+} else
+{
+    Intent intent = new Intent(getActivity(), NoInternetConnection.class);
+    startActivity(intent);
+}
 
 
         return  view ;

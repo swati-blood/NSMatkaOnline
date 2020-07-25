@@ -4,6 +4,14 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -98,7 +106,28 @@ public class Module {
 
 
 
+    public String VolleyErrorMessage(VolleyError error)
+    {
+        String str_error ="";
+        if (error instanceof TimeoutError) {
+            str_error="Connection Timeout";
+        } else if (error instanceof AuthFailureError) {
+            str_error="Session Timeout";
+            //TODO
+        } else if (error instanceof ServerError) {
+            str_error="Server not responding please try again later";
+            //TODO
+        } else if (error instanceof NetworkError) {
+            str_error="Server not responding please try again later";
+            //TODO
+        } else if (error instanceof ParseError) {
+            //TODO
+            str_error="An Unknown error occur";
+        }else if(error instanceof NoConnectionError){
+            str_error="No Internet Connection";
+        }
 
-
+        return str_error;
+    }
 
 }

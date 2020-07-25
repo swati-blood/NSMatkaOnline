@@ -39,7 +39,7 @@
             android:drawableLeft="@drawable/ic_account_balance_wallet_black_24dp"
             android:padding="5dp"
             android:textColor="#ffffff"
-            />
+      />
 
     </RelativeLayout>
 

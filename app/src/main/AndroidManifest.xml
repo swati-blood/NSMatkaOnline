@@ -39,6 +39,7 @@
         <activity android:name=".Activity.VerificationActivity" />
         <activity android:name=".Activity.UpdatePasswordActivity" />
         <activity android:name=".Activity.NewGameActivity" />
+        <activity android:name=".networkconnectivity.NoInternetConnection" />
         <activity android:name=".MyBaseActivity" />
 
         <service android:name=".MyFirebaseMessagingService">

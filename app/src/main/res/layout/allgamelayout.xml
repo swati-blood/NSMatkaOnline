@@ -86,7 +86,7 @@
                     android:id="@+id/list_table"
                     android:nestedScrollingEnabled="true"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"/>
+                    android:layout_height="280dp"/>
 
 
             <Button

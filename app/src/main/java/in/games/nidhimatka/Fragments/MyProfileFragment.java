@@ -85,9 +85,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         String x=common.checkNull(session_management.getUserDetails().get(KEY_PHONEPAY).toString());
         String tz=common.checkNull(session_management.getUserDetails().get(KEY_TEZ).toString());
         String p=common.checkNull(session_management.getUserDetails().get(KEY_PAYTM).toString());
-//     et_phonepe.setText(session_management.getUserDetails().get(KEY_PHONEPAY));
-//     et_gpay.setText(session_management.getUserDetails().get(KEY_TEZ));
-//     et_paytm.setText(session_management.getUserDetails().get(KEY_PAYTM));
+
      u_id = session_management.getUserDetails().get(KEY_ID);
         common.setDataEditText(et_phonepe,x);
         common.setDataEditText(et_paytm,p);

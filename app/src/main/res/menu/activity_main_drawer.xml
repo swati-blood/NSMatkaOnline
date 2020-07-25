@@ -9,8 +9,6 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/icons8_home_128px"
-            android:iconTint="@color/colorPrimaryDark"
-            android:iconTintMode="src_in"
             android:title="Home"
             />
     </group>
@@ -31,7 +29,39 @@
             android:id="@+id/nav_wallet"
             android:icon="@drawable/icons8_coin_wallet_96px"
 
-            android:title="Funds"
+            android:title="Funds History"
+            />
+    </group>
+    <group
+        android:id="@+id/nav_group_his"
+
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/icons8_order_history_100px"
+
+
+            android:title="Bidding History" />
+    </group>
+    <group
+        android:id="@+id/group_add"
+            android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_add"
+            android:icon="@drawable/icons8_exchange_rupee_128px"
+
+            android:title="Add Funds"
+            />
+    </group>
+    <group
+        android:id="@+id/nav_group_with"
+
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_withdrw"
+            android:icon="@drawable/icons8_refund_96px"
+
+            android:title="Withdraw Funds"
             />
     </group>
     <group
@@ -46,16 +76,7 @@
 
             android:title="Generate MPIN" />
     </group>
-    <group
-        android:id="@+id/nav_group_history"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_history"
-            android:icon="@drawable/icons8_order_history_100px"
 
-
-            android:title="History" />
-    </group>
 
     <group
         android:id="@+id/nav_group_rates"

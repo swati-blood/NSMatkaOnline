@@ -89,7 +89,7 @@ public class FragmentDigits extends Fragment implements View.OnClickListener {
         game_ids = getArguments().getString("game_id");
         s_time = getArguments().getString("start_time");
         e_time = getArguments().getString("end_time");
-        w_amounts = txtWalet.getText().toString();
+        w_amounts = ((MainActivity) getActivity()).getWallet();
         bet_type = txt_type.getText().toString();
         btn_submit.setOnClickListener(this);
         txt_date.setOnClickListener(this);

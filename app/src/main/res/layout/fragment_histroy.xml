@@ -31,8 +31,8 @@
            <RelativeLayout
                android:id="@+id/cvBidHistory"
 
-               android:background="@drawable/shape2"
-               android:padding="@dimen/_10sdp"
+               android:background="@drawable/edittextcorner"
+               android:padding="10dp"
                android:layout_marginTop="@dimen/_10sdp"
                android:layout_marginRight="10dp"
                android:layout_marginLeft="10dp"
@@ -41,10 +41,11 @@
                android:layout_height="wrap_content">
                <ImageView
                    android:id="@+id/star1"
-                   android:layout_width="55dp"
-                   android:layout_height="55dp"
+                   android:layout_width="42dp"
+                   android:layout_height="42dp"
+                    android:background="@drawable/bid"
                    android:layout_centerVertical="true"
-                   android:layout_marginLeft="10dp"
+
 
 
                    />
@@ -57,9 +58,9 @@
                    android:paddingLeft="10dp"
                    android:paddingRight="10dp"
                    android:text="Bid History"
-                   android:textSize="23dp"
-                   android:textStyle="bold|italic"
-                   android:textColor="@color/colorPrimary"/>
+                   android:textSize="16dp"
+                   android:textStyle="bold"
+                   android:padding="@dimen/_5sdp"/>
 
 
            </RelativeLayout>
@@ -81,8 +82,8 @@
            <RelativeLayout
                android:id="@+id/cvFund_req_history"
 
-               android:background="@drawable/shape2"
-               android:padding="@dimen/_10sdp"
+               android:background="@drawable/edittextcorner"
+               android:padding="10dp"
                android:layout_marginTop="@dimen/_10sdp"
                android:layout_marginRight="10dp"
                android:layout_marginLeft="10dp"
@@ -91,10 +92,10 @@
                android:layout_height="wrap_content">
                <ImageView
                    android:id="@+id/star2"
-                   android:layout_width="55dp"
-                   android:layout_height="55dp"
+                   android:layout_width="40dp"
+                   android:layout_height="40dp"
                    android:layout_centerVertical="true"
-                   android:layout_marginLeft="10dp"
+                   android:src="@drawable/money"
 
 
                    />
@@ -104,12 +105,10 @@
                    android:layout_toRightOf="@id/star2"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:paddingLeft="10dp"
-                   android:paddingRight="10dp"
                    android:text="Fund Request History"
-                   android:textSize="23dp"
-                   android:textStyle="bold|italic"
-                   android:textColor="@color/colorPrimary"/>
+                   android:textSize="16dp"
+                   android:textStyle="bold"
+                   android:padding="@dimen/_5sdp"/>
 
 
            </RelativeLayout>
@@ -131,8 +130,8 @@
            <RelativeLayout
                android:id="@+id/cvTrans_history"
 
-               android:background="@drawable/shape2"
-               android:padding="@dimen/_10sdp"
+               android:background="@drawable/edittextcorner"
+               android:padding="10dp"
                android:layout_marginTop="@dimen/_10sdp"
                android:layout_marginRight="10dp"
                android:layout_marginLeft="10dp"
@@ -142,10 +141,11 @@
                <ImageView
                    android:id="@+id/star3"
 
-                   android:layout_width="55dp"
-                   android:layout_height="55dp"
+                   android:layout_width="40dp"
+                   android:layout_height="40dp"
                    android:layout_centerVertical="true"
-                   android:layout_marginLeft="10dp"
+                 android:src="@drawable/histry"
+
 
 
                    />
@@ -155,12 +155,11 @@
                    android:layout_toRightOf="@id/star3"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:paddingLeft="10dp"
-                   android:paddingRight="10dp"
                    android:text="Transaction History"
-                   android:textSize="23dp"
-                   android:textStyle="bold|italic"
-                   android:textColor="@color/colorPrimary"/>
+
+                   android:textSize="16dp"
+                   android:textStyle="bold"
+                   android:padding="@dimen/_5sdp"/>
 
 
            </RelativeLayout>
@@ -235,8 +234,8 @@
            <RelativeLayout
                android:id="@+id/cvWithdraw_req"
 
-               android:background="@drawable/shape2"
-               android:padding="@dimen/_10sdp"
+               android:background="@drawable/edittextcorner"
+             android:padding="10dp"
                android:layout_marginTop="@dimen/_10sdp"
                android:layout_marginRight="10dp"
                android:layout_marginLeft="10dp"
@@ -245,12 +244,10 @@
                android:layout_height="wrap_content">
                <ImageView
                    android:id="@+id/star5"
-
-                   android:layout_width="55dp"
-                   android:layout_height="55dp"
+                   android:layout_width="40dp"
+                   android:layout_height="40dp"
                    android:layout_centerVertical="true"
-                   android:layout_marginLeft="10dp"
-
+                   android:src="@drawable/withdrw"
 
                    />
                <TextView
@@ -259,12 +256,11 @@
                    android:layout_toRightOf="@id/star5"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:paddingLeft="10dp"
-                   android:paddingRight="10dp"
+
                    android:text="Withdraw Request History"
-                   android:textSize="23dp"
-                   android:textStyle="bold|italic"
-                   android:textColor="@color/colorPrimary"/>
+                   android:textSize="16dp"
+                   android:textStyle="bold"
+                   android:padding="@dimen/_5sdp"/>
 
 
            </RelativeLayout>

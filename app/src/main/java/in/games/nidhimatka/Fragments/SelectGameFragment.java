@@ -18,6 +18,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 
 import java.util.ArrayList;
@@ -37,7 +40,10 @@ public class SelectGameFragment extends Fragment {
     SelectGameAdapter selectGameAdapter ;
     LoadingBar loadingBar ;
     ArrayList<GameModel> game_list;
-
+    Animation animation;
+    int[] animationList = {R.anim.zoom_in, R.anim.slide_down, R.anim.slide_up, R.anim.bounce};
+   LayoutAnimationController controller;
+    int i = 0;
     public SelectGameFragment() {
         // Required empty public constructor
     }
@@ -67,109 +73,119 @@ public class SelectGameFragment extends Fragment {
        game_list.add(new GameModel("12","Half Sangam","","1"));
        game_list.add(new GameModel("13","Full Sangam","","1"));
        game_list.add(new GameModel("14","Cycle Pana","","1"));
-       selectGameAdapter = new SelectGameAdapter(getActivity(),game_list);
+       selectGameAdapter = new SelectGameAdapter(getActivity(),game_list, getArguments().getString("m_id"),
+        getArguments().getString("matka_name"),
+       getArguments().getString("start_time"),
+       getArguments().getString("end_time"), getArguments().getString("start_num"),
+       getArguments().getString("num"),
+     getArguments().getString("end_num"));
        rv_games.setAdapter(selectGameAdapter);
 
-       rv_games.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv_games, new RecyclerTouchListener.OnItemClickListener() {
-           @Override
-           public void onItemClick(View view, int position) {
+//        animation = AnimationUtils.loadAnimation(getActivity(),
+//                R.anim.zoom_in);
 
-
-               GameModel model = game_list.get(position);
-               tv_game.setText(model.getName());
-               Fragment fm = null ;
-               if( model.getType().equals("0"))
-               {
-                   fm = new PanaFragment();
-
-                   final Bundle arg = new Bundle();
-                   arg.putString("game_id",model.getId());
-                   arg.putString("game_name",model.getName());
-                   arg.putString("m_id",getArguments().getString("m_id"));
-                   arg.putString("matka_name",getArguments().getString("matka_name"));
-                   arg.putString("start_time",getArguments().getString("start_time"));
-                   arg.putString("end_time",getArguments().getString("end_time"));
-                   fm.setArguments(arg);
-                   FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                   fragmentManager.beginTransaction().replace(R.id.container_frame, fm)
-                           .addToBackStack(null).commit();
-
-               }
-               else if( model.getType().equals("1"))
-               {
-
-                   final Bundle arg = new Bundle();
-                   arg.putString("game_id",model.getId());
-                   arg.putString("game_name",model.getName());
-                   arg.putString("m_id",getArguments().getString("m_id"));
-                   arg.putString("matka_name",getArguments().getString("matka_name"));
-                   arg.putString("start_time",getArguments().getString("start_time"));
-                   arg.putString("end_time",getArguments().getString("end_time"));
-
-
-                   switch (model.getName())
-                    {
-                        case  "Half Sangam" :
-                          fm = new HalfSangamFragment();
-                            break;
-                        case  "DP Motor" :
-                        case  "SP Motor" :
-                            fm = new SPMotor();
-                            break;
-                        case  "Cycle Pana" :
-                        fm = new CyclePana();
-                        break;
-                        case "Full Sangam" :
-                            fm = new FullSangamFragmnet();
-                            break;
-                        case "Panel Group" :
-                            fm = new GroupPanel();
-                            break;
-                        case "Group Jodi" :
-                            fm = new GroupJodi();
-                            break;
-                        case "Red Bracket": fm = new RedBracketFragment();
-                            break;
-                        case "Odd Even" : fm = new OddEvenFragment();
-                            break;
-//                        case "Single Pana" :
-//                         case "Double Pana":
-//                            fm = new FragmentDigits();
+//        rv_games.notifyDataSetChanged();
+//       rv_games.scheduleLayoutAnimation();
+//       rv_games.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv_games, new RecyclerTouchListener.OnItemClickListener() {
+//           @Override
+//           public void onItemClick(View view, int position) {
+//
+//
+//               GameModel model = game_list.get(position);
+//               tv_game.setText(model.getName());
+//               Fragment fm = null ;
+//               if( model.getType().equals("0"))
+//               {
+//                   fm = new PanaFragment();
+//
+//                   final Bundle arg = new Bundle();
+//                   arg.putString("game_id",model.getId());
+//                   arg.putString("game_name",model.getName());
+//                   arg.putString("m_id",getArguments().getString("m_id"));
+//                   arg.putString("matka_name",getArguments().getString("matka_name"));
+//                   arg.putString("start_time",getArguments().getString("start_time"));
+//                   arg.putString("end_time",getArguments().getString("end_time"));
+//                   fm.setArguments(arg);
+//                   FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                   fragmentManager.beginTransaction().replace(R.id.container_frame, fm)
+//                           .addToBackStack(null).commit();
+//
+//               }
+//               else if( model.getType().equals("1"))
+//               {
+//
+//                   final Bundle arg = new Bundle();
+//                   arg.putString("game_id",model.getId());
+//                   arg.putString("game_name",model.getName());
+//                   arg.putString("m_id",getArguments().getString("m_id"));
+//                   arg.putString("matka_name",getArguments().getString("matka_name"));
+//                   arg.putString("start_time",getArguments().getString("start_time"));
+//                   arg.putString("end_time",getArguments().getString("end_time"));
+//
+//
+//                   switch (model.getName())
+//                    {
+//                        case  "Half Sangam" :
+//                          fm = new HalfSangamFragment();
 //                            break;
-
-                        default:  fm = new SelectGameFragment();
-                        break;
-
-
-                    }
-                   fm.setArguments(arg);
-                   FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                   fragmentManager.beginTransaction().replace(R.id.container_frame, fm)
-                           .addToBackStack(null).commit();
-               }
-               else
-               {
-                   Intent intent=new Intent(getActivity(),PanaActivity.class);
-                   intent.putExtra("game_id",model.getId());
-                   intent.putExtra("game_name",model.getName());
-                   intent.putExtra("m_id",getArguments().getString("m_id"));
-                   intent.putExtra("matka_name",getArguments().getString("matka_name"));
-                   intent.putExtra("start_time",getArguments().getString("start_time"));
-                   intent.putExtra("end_time",getArguments().getString("end_time"));
-                   intent.putExtra("start_num",getArguments().getString("start_num"));
-                   intent.putExtra("num",getArguments().getString("num"));
-                   intent.putExtra("end_num",getArguments().getString("end_num"));
-                   startActivity(intent);
-               }
-
-
-           }
-
-           @Override
-           public void onLongItemClick(View view, int position) {
-
-           }
-       }));
+//                        case  "DP Motor" :
+//                        case  "SP Motor" :
+//                            fm = new SPMotor();
+//                            break;
+//                        case  "Cycle Pana" :
+//                        fm = new CyclePana();
+//                        break;
+//                        case "Full Sangam" :
+//                            fm = new FullSangamFragmnet();
+//                            break;
+//                        case "Panel Group" :
+//                            fm = new GroupPanel();
+//                            break;
+//                        case "Group Jodi" :
+//                            fm = new GroupJodi();
+//                            break;
+//                        case "Red Bracket": fm = new RedBracketFragment();
+//                            break;
+//                        case "Odd Even" : fm = new OddEvenFragment();
+//                            break;
+////                        case "Single Pana" :
+////                         case "Double Pana":
+////                            fm = new FragmentDigits();
+////                            break;
+//
+//                        default:  fm = new SelectGameFragment();
+//                        break;
+//
+//
+//                    }
+//                   fm.setArguments(arg);
+//                   FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                   fragmentManager.beginTransaction().replace(R.id.container_frame, fm)
+//                           .addToBackStack(null).commit();
+//               }
+//               else
+//               {
+//                   Intent intent=new Intent(getActivity(),PanaActivity.class);
+//                   intent.putExtra("game_id",model.getId());
+//                   intent.putExtra("game_name",model.getName());
+//                   intent.putExtra("m_id",getArguments().getString("m_id"));
+//                   intent.putExtra("matka_name",getArguments().getString("matka_name"));
+//                   intent.putExtra("start_time",getArguments().getString("start_time"));
+//                   intent.putExtra("end_time",getArguments().getString("end_time"));
+//                   intent.putExtra("start_num",getArguments().getString("start_num"));
+//                   intent.putExtra("num",getArguments().getString("num"));
+//                   intent.putExtra("end_num",getArguments().getString("end_num"));
+//                   startActivity(intent);
+//               }
+//
+//
+//           }
+//
+//           @Override
+//           public void onLongItemClick(View view, int position) {
+//
+//           }
+//       }));
 
 
        return  view ;

@@ -1,5 +1,6 @@
 package in.games.nidhimatka.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -42,8 +43,10 @@ import in.games.nidhimatka.Model.Withdraw_requwset_obect;
 import in.games.nidhimatka.Objects.Fund_Request_HistoryObject;
 import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
 import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 import static in.games.nidhimatka.Config.BaseUrls.URL_BID_HISTORY;
 
@@ -91,25 +94,23 @@ public class AllHistryListFragment extends Fragment {
         trans_list = new ArrayList<>();
         fund_list = new ArrayList<>();
         w_list = new ArrayList<>();
-        if (type.equalsIgnoreCase("transaction"))
-        {
-            getTranssactionHistoryData(user_id);
-        }
-        else if (type.equalsIgnoreCase("bid"))
-        {
-            matka_id = getArguments().getString("matka_id");
-            getBidData(user_id,matka_id);
+        if (ConnectivityReceiver.isConnected()) {
+            if (type.equalsIgnoreCase("transaction")) {
+                getTranssactionHistoryData(user_id);
+            } else if (type.equalsIgnoreCase("bid")) {
+                matka_id = getArguments().getString("matka_id");
+                getBidData(user_id, matka_id);
 
-        }
-        else if (type.equalsIgnoreCase("withdraw"))
+            } else if (type.equalsIgnoreCase("withdraw")) {
+                getWithdrawData(user_id);
+            } else if (type.equalsIgnoreCase("funds")) {
+                getRequestData(user_id);
+            }
+        }   else
         {
-            getWithdrawData(user_id);
+            Intent intent = new Intent(getActivity(), NoInternetConnection.class);
+            startActivity(intent);
         }
-        else if (type.equalsIgnoreCase("funds"))
-        {
-            getRequestData(user_id);
-        }
-
 
     }
 

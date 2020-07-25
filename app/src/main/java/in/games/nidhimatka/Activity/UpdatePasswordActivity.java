@@ -23,7 +23,9 @@ import java.util.HashMap;
 import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomJsonRequest;
+import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 import static in.games.nidhimatka.Config.BaseUrls.URL_UPDATE_PASS;
 
@@ -89,9 +91,17 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
             }
             else
             {
+
                 if(pass.equals(cpass))
                 {
-                    updatePassword(mobile,pass);
+                    if (ConnectivityReceiver.isConnected()) {
+                        updatePassword(mobile, pass);
+                    }
+                    else
+                    {
+                        Intent intent = new Intent(this, NoInternetConnection.class);
+                        startActivity(intent);
+                    }
                 }
                 else
                 {

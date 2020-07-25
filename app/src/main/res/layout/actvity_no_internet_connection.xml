@@ -7,14 +7,20 @@
     android:layout_gravity="center">
 
 
-    <ImageView
+<!--    <ImageView-->
+<!--        android:id="@+id/no_internet_connection"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:backgroundTint="@color/white"-->
+<!--        android:src="@drawable/no_connection"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:gravity="center" />-->
+
+    <pl.droidsonroids.gif.GifImageView
         android:id="@+id/no_internet_connection"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:backgroundTint="@color/white"
-        android:src="@drawable/no_connection"
-        android:layout_gravity="center"
-        android:gravity="center" />
-
+        android:src="@drawable/noconnection"
+        android:scaleType="center"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

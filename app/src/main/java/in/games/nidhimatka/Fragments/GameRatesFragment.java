@@ -1,5 +1,6 @@
 package in.games.nidhimatka.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -30,8 +31,10 @@ import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.Model.GameRateModel;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 import static in.games.nidhimatka.Config.BaseUrls.URL_NOTICE;
 
@@ -67,7 +70,13 @@ public class GameRatesFragment extends Fragment {
       jannat_recycler=v.findViewById(R.id.jannat_recycler);
       starline_recycler=v.findViewById(R.id.starline_recycler);
       ((MainActivity) getActivity()).setTitle("Game Rates");
-      getNotice();
+      if (ConnectivityReceiver.isConnected()) {
+          getNotice();
+      } else
+      {
+          Intent intent = new Intent(getActivity(), NoInternetConnection.class);
+          startActivity(intent);
+      }
   }
     private void getNotice() {
 
