@@ -42,10 +42,11 @@ import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 public class splash_activity extends AppCompatActivity {
 
+    final String TAG=splash_activity.class.getSimpleName();
     Session_management session_management;
-   public static  float ver_code=0;
+   public static int ver_code=0;
     private AlertDialog dialog;
-  float version_code;
+
     public static final int MY_PERMISSIONS_REQUEST_WRITE_FIELS = 102;
    Common common;
    public static String home_text ="", withdrw_text="",tagline= "" ,min_add_amount="",link = "" ,app_link="",share_link="",msg_status="",withdrw_no="";
@@ -55,24 +56,24 @@ public class splash_activity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_activity);
    common=new Common(splash_activity.this);
    session_management=new Session_management(splash_activity.this);
-        Thread background = new Thread() {
-            public void run() {
-
-                try {
-                    // Thread will sleep for 5 seconds
-                    sleep(2 * 1000);
-
-                    // After 5 seconds redirect to another intent
-                    checkAppPermissions();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        // start thread
-        background.start();
+//        Thread background = new Thread() {
+//            public void run() {
+//
+//                try {
+//                    // Thread will sleep for 5 seconds
+//                    sleep(2 * 1000);
+//
+//                    // After 5 seconds redirect to another intent
+//                    checkAppPermissions();
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        };
+//
+//        // start thread
+//        background.start();
 
         if (ConnectivityReceiver.isConnected()) {
 
@@ -95,6 +96,7 @@ public class splash_activity extends AppCompatActivity {
         CustomVolleyJsonArrayRequest customVolleyJsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.GET, BaseUrls.URL_INDEX, params, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                Log.e(TAG,""+response.toString());
                try
                 {
 
@@ -108,8 +110,9 @@ public class splash_activity extends AppCompatActivity {
                         msg_status = dataObj.getString("msg_status");
                         app_link = dataObj.getString("app_link");
                         share_link = dataObj.getString("share_link");
-                        ver_code=Float.parseFloat(dataObj.getString("version"));
+                        ver_code=Integer.parseInt(dataObj.getString("version"));
                         msg=dataObj.getString("message");
+                    checkAppPermissions();
 //
 //
 //                    if(version_code==ver_code)

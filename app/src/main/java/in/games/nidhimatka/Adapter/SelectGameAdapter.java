@@ -69,7 +69,7 @@ public class SelectGameAdapter extends RecyclerView.Adapter<SelectGameAdapter.Vi
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final GameModel model = game_list.get(position);
        holder.game_name.setText(model.getName());
-       holder.game_img.setImageDrawable(activity.getDrawable(R.drawable.cyclepana));
+       holder.game_img.setImageDrawable(activity.getDrawable(model.getImg()));
 //       holder.lin_game.setLayoutAnimation(controller);
        holder.lin_game.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -91,7 +91,7 @@ public class SelectGameAdapter extends RecyclerView.Adapter<SelectGameAdapter.Vi
                    arg.putString("end_time",end_time);
                    fm.setArguments(arg);
                    AppCompatActivity activity=(AppCompatActivity) v.getContext();
-                   activity.getSupportFragmentManager().beginTransaction().replace(R.id.contentPanel,fm)
+                   activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,fm)
                            .addToBackStack(null)
                            .commit();
 
@@ -145,7 +145,7 @@ public class SelectGameAdapter extends RecyclerView.Adapter<SelectGameAdapter.Vi
                    }
                    fm.setArguments(arg);
                    AppCompatActivity activity=(AppCompatActivity) v.getContext();
-                   activity.getSupportFragmentManager().beginTransaction().replace(R.id.contentPanel,fm)
+                   activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,fm)
                            .addToBackStack(null)
                            .commit();
 

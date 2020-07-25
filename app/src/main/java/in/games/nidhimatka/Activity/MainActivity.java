@@ -3,12 +3,15 @@ package in.games.nidhimatka.Activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,6 +24,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,20 +61,22 @@ import static in.games.nidhimatka.Config.Constants.KEY_WALLET;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 Activity activity = MainActivity.this;
 TextView txt_wallet,txtUserName ,txt_title ;
-
     DrawerLayout drawer;
+    Toolbar toolbar;
     Session_management session_management;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+
 //        txt_wallet = findViewById(R.id.txtWallet);
 //        txt_title = findViewById(R.id.tv_title);
       session_management=new Session_management(activity);
-              setSupportActionBar(toolbar);
-      drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setPadding(0, toolbar.getPaddingTop(),0, toolbar.getPaddingBottom());
+        setSupportActionBar(toolbar);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -87,29 +93,62 @@ TextView txt_wallet,txtUserName ,txt_title ;
             txtUserName.setText(session_management.getUserDetails().get(KEY_NAME).toString());
         }
 
-//        toolbar.setPadding(0, toolbar.getPaddingTop(),0, toolbar.getPaddingBottom());
-//
-//
-//        setSupportActionBar(toolbar);
+
 //        getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
         Fragment fm = new HomeFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
+
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+
+                try {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    Fragment fr = getSupportFragmentManager().findFragmentById(R.id.contentPanel);
+
+                    final String fm_name = fr.getClass().getSimpleName();
+                    Log.e("backstack: ", ": " + fm_name);
+                    if (fm_name.contentEquals("HomeFragment")) {
+                        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                        toggle.setDrawerIndicatorEnabled(true);
+                        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                        toggle.syncState();
+
+                    }
+                    else {
+
+                        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+                        toggle.setDrawerIndicatorEnabled(false);
+                        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                        toggle.syncState();
+
+                        toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                onBackPressed();
+                            }
+                        });
+                    }
+
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-//        txt_wallet.setText(session_management.getUserDetails().get(KEY_WALLET).toString());
             new Common(activity).getWalletAmount();
-//       new Common(activity).setWallet_Amount(txt_wallet,new LoadingBar(activity), Prevalent.currentOnlineuser.getId());
     }
-//    public void setWalletCounter(String walletAmount)
-//    {
-//        txt_wallet.setText(walletAmount);
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
@@ -139,20 +178,6 @@ TextView txt_wallet,txtUserName ,txt_title ;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        getMenuInflater().inflate(R.menu.main, menu);
-//
-//        final MenuItem cart_item = menu.findItem(R.id.action_cart);
-//        final MenuItem wish_item = menu.findItem(R.id.action_wishlist);
-//        cart_item.setVisible(true);
-//        wish_item.setVisible(true);
-//        if (item.getItemId()==R.id.action_wallet)
-//        {
-//
-//        }
-//        else if (item.getItemId()==R.id.action_notification)
-//        {
-//
-//        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -164,57 +189,37 @@ TextView txt_wallet,txtUserName ,txt_title ;
         if (id == R.id.nav_profile) {
            fm = new MyProfileFragment();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
+
         }
         else if (id == R.id.nav_home)
         {
            fm = new HomeFragment();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
         }
         else if (id == R.id.nav_add)
         {
             fm = new AddFunds();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
         }
         else if (id == R.id.nav_withdrw)
         {
             fm = new WithdrawFundsFragment();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
         }
         else if (id == R.id.nav_mpin) {
 
             fm = new GenerateMpinFragment();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
         } else if (id == R.id.nav_how_toPlay) {
 
             fm = new HowToPLayFragment();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
         }
         else if (id == R.id.nav_history) {
             Bundle bundle = new Bundle();
             bundle.putString("type","bid");
             fm = new AllHistoryFragment();
             fm.setArguments(bundle);
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
 
         }
         else if (id == R.id.nav_wallet) {
@@ -223,25 +228,15 @@ TextView txt_wallet,txtUserName ,txt_title ;
             bundle.putString("type","funds");
             fm = new AllHistoryFragment();
             fm.setArguments(bundle);
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
-
         }
 
         else if (id == R.id.nav_gameRates) {
             fm = new GameRatesFragment();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
         }
         else if (id == R.id.nav_noticeBoard) {
             fm = new NoticeFragment();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
 
         }
         else if (id == R.id.nav_logout) {
@@ -267,8 +262,15 @@ TextView txt_wallet,txtUserName ,txt_title ;
             alertDialog.show();
         }
 
+        if(fm!=null){
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+                    .addToBackStack(null)
+                    .commit();
 
+        }
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
 
     }

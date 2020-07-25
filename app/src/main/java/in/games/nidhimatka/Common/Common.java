@@ -725,7 +725,7 @@ public class Common {
                     session_management.updateWallet(String.valueOf(rem));
                     if(context.toString().contains("MainActivity"))
                     {
-                        ((MainActivity)context).setWalletCounter(String.valueOf(rem));
+                        ((MainActivity)context).setWallet_Amount(String.valueOf(rem));
 
                     }
                     else

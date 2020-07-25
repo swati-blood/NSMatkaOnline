@@ -3,10 +3,10 @@ package in.games.nidhimatka.Model;
 public class GameModel {
     String id ;
     String name ;
-    String img ;
+    int img ;
     String type ;
 
-    public GameModel(String id, String name, String img, String type) {
+    public GameModel(String id, String name, int img, String type) {
         this.id = id;
         this.name = name;
         this.img = img;
@@ -37,11 +37,11 @@ public class GameModel {
         this.name = name;
     }
 
-    public String getImg() {
+    public int getImg() {
         return img;
     }
 
-    public void setImg(String img) {
+    public void setImg(int img) {
         this.img = img;
     }
 }

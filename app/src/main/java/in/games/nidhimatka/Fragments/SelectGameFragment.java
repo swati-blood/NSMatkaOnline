@@ -59,20 +59,20 @@ public class SelectGameFragment extends Fragment {
        rv_games =  view.findViewById(R.id.recycler_games);
        rv_games.setLayoutManager(new GridLayoutManager(getActivity(),3));
        game_list = new ArrayList<>();
-       game_list.add(new GameModel("1","Odd Even","","1"));
-       game_list.add(new GameModel("2","Single Digit","","0"));
-       game_list.add(new GameModel("3","Jodi Digit","","0"));
-       game_list.add(new GameModel("4","Red Bracket","","1"));
-       game_list.add(new GameModel("5","Panel Group","","1"));
-       game_list.add(new GameModel("6","Group Jodi","","1"));
-       game_list.add(new GameModel("7","Single Pana","","2"));
-       game_list.add(new GameModel("8","Double Pana","","2"));
-       game_list.add(new GameModel("9","Triple Pana","","0"));
-       game_list.add(new GameModel("10","SP Motor","","1"));
-       game_list.add(new GameModel("11","DP Motor","","1"));
-       game_list.add(new GameModel("12","Half Sangam","","1"));
-       game_list.add(new GameModel("13","Full Sangam","","1"));
-       game_list.add(new GameModel("14","Cycle Pana","","1"));
+       game_list.add(new GameModel("1","Odd Even",R.drawable.odd_even,"1"));
+       game_list.add(new GameModel("2","Single Digit",R.drawable.single_digit,"0"));
+       game_list.add(new GameModel("3","Jodi Digit",R.drawable.jodi_digits,"0"));
+       game_list.add(new GameModel("4","Red Bracket",R.drawable.red_brackets,"1"));
+       game_list.add(new GameModel("5","Panel Group",R.drawable.panel_group_icon,"1"));
+       game_list.add(new GameModel("6","Group Jodi",R.drawable.group_jodi,"1"));
+       game_list.add(new GameModel("7","Single Pana",R.drawable.single_pana,"2"));
+       game_list.add(new GameModel("8","Double Pana",R.drawable.double_pana,"2"));
+       game_list.add(new GameModel("9","Triple Pana",R.drawable.triple_pana,"0"));
+       game_list.add(new GameModel("10","SP Motor",R.drawable.sp_motor,"1"));
+       game_list.add(new GameModel("11","DP Motor",R.drawable.dp_motor,"1"));
+       game_list.add(new GameModel("12","Half Sangam",R.drawable.half_sangam_digit,"1"));
+       game_list.add(new GameModel("13","Full Sangam",R.drawable.full_sangam_digits,"1"));
+       game_list.add(new GameModel("14","Cycle Pana",R.drawable.cyclepana,"1"));
        selectGameAdapter = new SelectGameAdapter(getActivity(),game_list, getArguments().getString("m_id"),
         getArguments().getString("matka_name"),
        getArguments().getString("start_time"),

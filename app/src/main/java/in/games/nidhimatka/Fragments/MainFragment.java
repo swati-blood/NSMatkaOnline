@@ -53,8 +53,6 @@ TextView tv_m_name ,tv_s_time ,tv_end_time,tv_num;
      tv_game = view.findViewById(R.id.gamename);
      tv_num = view.findViewById(R.id.matkanumber);
         ((MainActivity) getActivity()).setTitle(matka_name);
-
-
             tv_s_time.setText(common.get24To12Format(start_time));
             tv_end_time.setText(common.get24To12Format(end_time));
 

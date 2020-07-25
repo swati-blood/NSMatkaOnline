@@ -1,6 +1,8 @@
 package in.games.nidhimatka.Fragments;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -18,6 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +76,7 @@ import static in.games.nidhimatka.Config.BaseUrls.URL_Matka;
 
 public class HomeFragment extends Fragment {
 
+    public final String TAG=HomeFragment.class.getSimpleName();
 MatkaAdapter matkaAdapter ;
     private ArrayList<MatkasObjects> matkaList;
     private RecyclerView rv_matka;
@@ -95,6 +99,46 @@ MatkaAdapter matkaAdapter ;
         // Inflate the layout for this fragment
        View view = inflater.inflate(R.layout.fragment_home2, container, false);
        initViews(view);
+       view.setFocusableInTouchMode(true);
+       view.requestFocus();
+       view.setOnKeyListener(new View.OnKeyListener() {
+           @Override
+           public boolean onKey(View v, int keyCode, KeyEvent event) {
+               if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                   AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+                   builder.setTitle("Confirmation");
+                   builder.setMessage("Are you sure want to exit?");
+                   builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialogInterface, int i) {
+                           dialogInterface.dismiss();
+                           //((MainActivity) getActivity()).finish();
+                           getActivity().finishAffinity();
+
+
+                       }
+                   })
+                           .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                               @Override
+                               public void onClick(DialogInterface dialogInterface, int i) {
+                                   dialogInterface.dismiss();
+                               }
+                           });
+                   final AlertDialog dialog=builder.create();
+                   dialog.setOnShowListener( new DialogInterface.OnShowListener() {
+                       @Override
+                       public void onShow(DialogInterface arg0) {
+                           dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+                           dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+                       }
+                   });
+                   dialog.show();
+                   return true;
+               }
+               return false;
+           }
+       });
+
 
 //       rv_matka.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv_matka, new RecyclerTouchListener.OnItemClickListener() {
 //           @Override
@@ -151,6 +195,7 @@ MatkaAdapter matkaAdapter ;
        try {
            PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
            version_code = pInfo.versionCode;
+           Log.e(TAG,""+ver_code+" - "+version_code);
            // Toast.makeText(splash_activity.this,""+version,Toast.LENGTH_LONG).show();
            if(version_code==ver_code)
            {
@@ -311,6 +356,7 @@ MatkaAdapter matkaAdapter ;
         Window window = dialog.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
         wlp.gravity = Gravity.BOTTOM;
+        wlp.width= WindowManager.LayoutParams.MATCH_PARENT;
         wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         window.setAttributes(wlp);
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;

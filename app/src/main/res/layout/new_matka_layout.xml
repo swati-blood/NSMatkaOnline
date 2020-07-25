@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp">
 
@@ -16,7 +15,7 @@
             android:id="@+id/cardView1"
             android:layout_width="match_parent"
             android:layout_margin="2dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="10dp"
             android:layout_height="wrap_content"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_centerVertical="true"
@@ -27,13 +26,13 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:paddingLeft="10dp"
-    android:layout_height="110dp">
+    android:layout_height="100dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:paddingBottom="5dp"
 
                 android:weightSum="10"
                 >
@@ -149,20 +148,19 @@
 
 
                         <LinearLayout
+                            android:layout_gravity="center_horizontal"
                             android:id="@+id/rLayoutBidsTime"
                             android:layout_width="match_parent"
-
-                            android:gravity="bottom"
+                            android:gravity="center_horizontal"
                             android:layout_height="wrap_content">
 
                             <in.games.nidhimatka.Fonts.LatoBLack
                                 android:id="@+id/matka_txt_open_bid_Time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-
                                 android:text="OPEN-BIDS-"
                                 android:textColor="@color/btnColor"
-                                android:textSize="12dp" />
+                                android:textSize="10dp" />
 
                             <in.games.nidhimatka.Fonts.LatoBLack
                                 android:id="@+id/matka_open_bid_Time"
@@ -173,7 +171,7 @@
                                 android:paddingLeft="2dp"
                                 android:text="12:28 am"
                                 android:textColor="@color/btnColor"
-                                android:textSize="12dp" />
+                                android:textSize="10dp" />
                             <View
 
                                 android:layout_width="2dp"
@@ -191,7 +189,7 @@
                                 android:layout_toLeftOf="@id/matka_close_bid_Time"
                                 android:text="  Close-BIDS-"
                                 android:textColor="@color/btnColor"
-                                android:textSize="12dp" />
+                                android:textSize="10dp" />
 
                             <in.games.nidhimatka.Fonts.LatoBLack
                                 android:id="@+id/matka_close_bid_Time"
@@ -202,7 +200,7 @@
                                 android:paddingLeft="2dp"
                                 android:text="12:28 am"
                                 android:textColor="@color/btnColor"
-                                android:textSize="12dp" />
+                                android:textSize="10dp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -223,7 +221,7 @@
                 </LinearLayout>
                 <ImageView
                     android:id="@+id/matka_image"
-                    android:layout_width="70dp"
+                    android:layout_width="50dp"
                     android:layout_weight=".3"
                     android:layout_gravity="center_vertical"
                     android:layout_height="70dp"
