@@ -292,7 +292,7 @@ MatkaAdapter matkaAdapter ;
     public void onStart() {
         super.onStart();
         common.getWalletAmount();
-        ((MainActivity)getActivity()).setWalletCounter(session_management.getUserDetails().get(Constants.KEY_WALLET));
+//        ((MainActivity)getActivity()).setWalletCounter(session_management.getUserDetails().get(Constants.KEY_WALLET));
 
     }
 

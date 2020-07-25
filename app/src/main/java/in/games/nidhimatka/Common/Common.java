@@ -732,7 +732,8 @@ public class Common {
                     session_management.updateWallet(String.valueOf(rem));
                     if(context.toString().contains("MainActivity"))
                     {
-                        ((MainActivity)context).setWalletCounter(String.valueOf(rem));
+//                        ((MainActivity)context).setWalletCounter(String.valueOf(rem));
+                        ((MainActivity)context).setWallet_Amount(String.valueOf(rem));
 
                     }
                     else
@@ -2211,6 +2212,8 @@ loadingBar.show();
                    JSONObject object=response.getJSONObject(0);
                    String wamt=object.getString("wallet_points");
                    session_management.updateWallet(wamt);
+                   ((MainActivity)context).setWallet_Amount(String.valueOf(wamt));
+
                }
                catch (Exception ex)
                {

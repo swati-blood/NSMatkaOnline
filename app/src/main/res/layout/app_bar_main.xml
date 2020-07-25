@@ -17,63 +17,55 @@
             android:layout_height="?attr/actionBarSize"
             app:titleTextColor="@color/white"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/_10sdp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/txtWallet"
-                    android:id="@+id/tv_title"
-                    android:layout_centerVertical="true"
-                    android:padding="5dp"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:ellipsize="marquee"
-                    android:text="@string/app_name"
-                    android:textColor="@color/white"/>
-                <TextView
-                    android:id="@+id/txtWallet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="@color/white"
-                    android:textSize="16dp"
-                    android:gravity="center"
-                    android:layout_toLeftOf="@+id/txtNotification"
-                    android:padding="5dp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:layout_centerVertical="true"
-                    android:drawableTint="@color/white"
-                    android:drawableLeft="@drawable/ic_account_balance_wallet_black_24dp"
-                    />
-                <TextView
-                    android:id="@+id/txtNotification"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+<!--            <RelativeLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginEnd="@dimen/_10sdp">-->
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_toLeftOf="@+id/txtWallet"-->
+<!--                    android:id="@+id/tv_title"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:textSize="18dp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:ellipsize="marquee"-->
+<!--                    android:text="@string/app_name"-->
+<!--                    android:textColor="@color/white"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/txtWallet"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="0"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="16dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:layout_toLeftOf="@+id/txtNotification"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:layout_marginRight="@dimen/_10sdp"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:drawableTint="@color/white"-->
+<!--                    android:drawableLeft="@drawable/ic_account_balance_wallet_black_24dp"-->
+<!--                    />-->
+<!--                <TextView-->
+<!--                    android:id="@+id/txtNotification"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
 
 
 
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:backgroundTint="@color/white"
-                    android:background="@drawable/ic_notifications_active_black_24dp"
-                    />
-            </RelativeLayout>
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:backgroundTint="@color/white"-->
+<!--                    android:background="@drawable/ic_notifications_active_black_24dp"-->
+<!--                    />-->
+<!--            </RelativeLayout>-->
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:visibility="gone"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

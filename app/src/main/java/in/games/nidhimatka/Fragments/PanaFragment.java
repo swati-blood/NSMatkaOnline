@@ -112,7 +112,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         game_id = getArguments().getString("game_id");
       s_time = getArguments().getString("start_time");
         e_time = getArguments().getString("end_time");
-        w_amount = txtWalet.getText().toString();
+        w_amount =((MainActivity) getActivity()).getWallet();
         bet_type = txt_type.getText().toString();
         btn_submit.setOnClickListener(this);
         txt_date.setOnClickListener(this);

@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,8 @@ public class NewGameActivity extends AppCompatActivity implements View.OnClickLi
     TextView open_single_p , close_single_p , open_double,close_double ,open_triple , close_triple,open_cylce,close_cylce,halfsngm,fullsngm,jodi ,open_single,close_single;
     TextView bt_back ,txtMatkaName;
     private String dashName;
+
+    Animation animation;
 
     private Toolbar toolbar;
 
@@ -47,7 +51,8 @@ public class NewGameActivity extends AppCompatActivity implements View.OnClickLi
 
         toolbar=findViewById(R.id.toolbar);
         txtMatkaName=findViewById(R.id.board);
-
+        animation = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.bounce);
 
         txtMatkaName.setText(dashName+ " DASHBOARD");
         txtMatkaName.setSelected(true);

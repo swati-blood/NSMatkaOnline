@@ -98,7 +98,7 @@ Dialog dialog ;
         game_id = getArguments().getString("game_id");
         s_time = getArguments().getString("start_time");
         e_time = getArguments().getString("end_time");
-        w_amount = txtWalet.getText().toString();
+        w_amount =((MainActivity) getActivity()).getWallet();
         list=new ArrayList<>();
         btnAdd.setOnClickListener(this);
         btnSave.setOnClickListener(this);

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,6 +57,7 @@ import static in.games.nidhimatka.Config.Constants.KEY_WALLET;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 Activity activity = MainActivity.this;
 TextView txt_wallet,txtUserName ,txt_title ;
+
     DrawerLayout drawer;
     Session_management session_management;
     @Override
@@ -63,10 +65,10 @@ TextView txt_wallet,txtUserName ,txt_title ;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        txt_wallet = findViewById(R.id.txtWallet);
-        txt_title = findViewById(R.id.tv_title);
+//        txt_wallet = findViewById(R.id.txtWallet);
+//        txt_title = findViewById(R.id.tv_title);
       session_management=new Session_management(activity);
-
+              setSupportActionBar(toolbar);
       drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -100,21 +102,59 @@ TextView txt_wallet,txtUserName ,txt_title ;
     @Override
     protected void onStart() {
         super.onStart();
-        txt_wallet.setText(session_management.getUserDetails().get(KEY_WALLET).toString());
-//        new Common(activity).setWallet_Amount(txt_wallet,new LoadingBar(activity), Prevalent.currentOnlineuser.getId());
+//        txt_wallet.setText(session_management.getUserDetails().get(KEY_WALLET).toString());
+            new Common(activity).getWalletAmount();
+//       new Common(activity).setWallet_Amount(txt_wallet,new LoadingBar(activity), Prevalent.currentOnlineuser.getId());
     }
-    public void setWalletCounter(String walletAmount)
-    {
-        txt_wallet.setText(walletAmount);
-    }
+//    public void setWalletCounter(String walletAmount)
+//    {
+//        txt_wallet.setText(walletAmount);
+//    }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        final MenuItem wallet_item = menu.findItem(R.id.action_wallet);
+        final MenuItem notification_item = menu.findItem(R.id.action_notification);
+        wallet_item.setVisible(true);
+        notification_item.setVisible(true);
+        View count_wallet = wallet_item.getActionView();
+//        View count_notify =notification_item.getActionView();
+//       count_wallet.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                menu.performIdentifierAction(wallet_item.getItemId(), 0);
+//
+//            }
+//        });
+
+        txt_wallet = (TextView) wallet_item.getActionView().findViewById(R.id.tv_menu_wallet);
+
+
         return true;
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        getMenuInflater().inflate(R.menu.main, menu);
+//
+//        final MenuItem cart_item = menu.findItem(R.id.action_cart);
+//        final MenuItem wish_item = menu.findItem(R.id.action_wishlist);
+//        cart_item.setVisible(true);
+//        wish_item.setVisible(true);
+//        if (item.getItemId()==R.id.action_wallet)
+//        {
+//
+//        }
+//        else if (item.getItemId()==R.id.action_notification)
+//        {
+//
+//        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -233,7 +273,18 @@ TextView txt_wallet,txtUserName ,txt_title ;
 
     }
     public void setTitle(String title) {
-      txt_title.setText(title);
-      txt_title.setSelected(true);
+        getSupportActionBar().setTitle(title);
+    }
+    public void setWallet_Amount(String wallet) {
+        try {
+            txt_wallet.setText(wallet);
+        } catch (Exception e) {
+
+        }
+    }
+    public String getWallet()
+    {
+        String s = txt_wallet.getText().toString().trim();
+        return s;
     }
 }
