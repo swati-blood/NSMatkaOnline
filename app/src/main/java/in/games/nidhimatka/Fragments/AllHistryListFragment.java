@@ -34,6 +34,7 @@ import in.games.nidhimatka.Adapter.TransactionHistoryAdapter;
 import in.games.nidhimatka.Adapter.Withdraw_request_Adapter;
 import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
+import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.Model.BidHistoryObjects;
 import in.games.nidhimatka.Model.TransactionHistoryObjects;
@@ -43,6 +44,8 @@ import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
 import in.games.nidhimatka.Util.LoadingBar;
+
+import static in.games.nidhimatka.Config.BaseUrls.URL_BID_HISTORY;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -121,7 +124,7 @@ public class AllHistryListFragment extends Fragment {
 
         bid_list.clear();
 
-        CustomVolleyJsonArrayRequest customVolleyJsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.POST, URLs.URL_BID_HISTORY, params, new Response.Listener<JSONArray>() {
+        CustomVolleyJsonArrayRequest customVolleyJsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.POST, URL_BID_HISTORY, params, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Log.e("histort_bid",response.toString());
@@ -193,7 +196,7 @@ public class AllHistryListFragment extends Fragment {
 
         progressDialog.show();
         trans_list.clear();
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URLs.Url_transaction_history, new Response.Listener<String>() {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, BaseUrls.Url_transaction_history, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -278,7 +281,7 @@ public class AllHistryListFragment extends Fragment {
         progressDialog.show();
 
         w_list.clear();
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URLs.Url_wthdraw_req_history, new Response.Listener<String>() {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, BaseUrls.Url_wthdraw_req_history, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("wdrw_histry",response.toString());
@@ -363,7 +366,7 @@ public class AllHistryListFragment extends Fragment {
         params.put("user_id",user_id);
 
         fund_list.clear();
-        CustomVolleyJsonArrayRequest customJsonRequest=new CustomVolleyJsonArrayRequest(Request.Method.POST, URLs.Url_req_history, params, new Response.Listener<JSONArray>() {
+        CustomVolleyJsonArrayRequest customJsonRequest=new CustomVolleyJsonArrayRequest(Request.Method.POST, BaseUrls.Url_req_history, params, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Log.e("asdasd",""+response.toString());

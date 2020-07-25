@@ -41,6 +41,7 @@ import in.games.nidhimatka.Adapter.MatakListViewAdapter;
 import in.games.nidhimatka.Adapter.MatkaAdapter;
 import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
+import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Config.Constants;
 import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.CustomSlider;
@@ -48,10 +49,13 @@ import in.games.nidhimatka.Model.MatkaObject;
 import in.games.nidhimatka.Model.MatkasObjects;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.CustomJsonRequest;
+import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Module;
 import in.games.nidhimatka.Util.RecyclerTouchListener;
 import in.games.nidhimatka.Util.Session_management;
+
+import static in.games.nidhimatka.Config.BaseUrls.URL_Matka;
 
 public class HomeFragment extends Fragment {
 
@@ -127,13 +131,11 @@ MatkaAdapter matkaAdapter ;
     {
         progressDialog.show();
 
-        final JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(URLs.URL_Matka, new
+        final JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(URL_Matka, new
                 Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-
                         matkaList.clear();
-
                         for(int i=0; i<response.length();i++)
                         {
                             try
@@ -196,7 +198,8 @@ MatkaAdapter matkaAdapter ;
 
     private void makeSliderRequest() {
     HashMap<String,String> params = new HashMap<>();
-      CustomJsonRequest req = new CustomJsonRequest(Request.Method.POST, URLs.URL_SLIDERS,params,
+
+      CustomJsonRequest req = new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_SLIDERS,params,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -205,18 +208,21 @@ MatkaAdapter matkaAdapter ;
                             String status = response.getString("status");
                             if (status.equals("success"))
                             {
-                                JSONObject object =response.getJSONObject("data");
+                                JSONArray arr=response.getJSONArray("data");
                                 ArrayList<HashMap<String, String>> listarray = new ArrayList<>();
 
+                                for(int i=0; i<arr.length();i++)
+                                {
+                                    JSONObject object =arr.getJSONObject(0);
                                     HashMap<String, String> url_maps = new HashMap<String, String>();
                                     url_maps.put("id", object.getString("id"));
                                     url_maps.put("title", object.getString("title"));
-                                    url_maps.put("image", URLs.IMG_SLIDER_URL + object.getString("image"));
+                                    url_maps.put("image", BaseUrls.IMG_SLIDER_URL + object.getString("image"));
                                     url_maps.put("description",object.getString("description"));
-                                    //   Toast.makeText(context,""+modelList.get(position).getProduct_image(),Toast.LENGTH_LONG).show();
-
                                     listarray.add(url_maps);
 
+
+                                }
                                 for (final HashMap<String, String> name : listarray) {
                                     CustomSlider textSliderView = new CustomSlider(getActivity());
                                     textSliderView.description(name.get("")).image(name.get("image")).setScaleType( BaseSliderView.ScaleType.Fit);

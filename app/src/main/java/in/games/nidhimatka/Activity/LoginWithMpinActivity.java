@@ -43,6 +43,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.games.nidhimatka.Common.Common;
+import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.Model.UsersObjects;
 import in.games.nidhimatka.NetworkStateChangeReciever;
@@ -172,80 +173,80 @@ public class LoginWithMpinActivity extends AppCompatActivity {
 
     }
 
-    private void getForgotMpin(final String mail) {
-
-
-        progressDialog.show();
-
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URLs.Url_forgot_mpin,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        try
-                        {
-                            JSONObject jsonObject=new JSONObject(response);
-                            String success=jsonObject.getString("status");
-                            if(success.equals("success"))
-                            {
-                                progressDialog.dismiss();
-                                Toast.makeText(LoginWithMpinActivity.this, "Mail sent to your email address!!!", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                            }
-                            else if(success.equals("unsuccessful"))
-                            {
-                                progressDialog.dismiss();
-                                String msg=jsonObject.getString("message");
-                                Toast.makeText(LoginWithMpinActivity.this, ""+msg, Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                                return;
-                            }
-
-
-
-                        }
-                        catch (Exception e)
-                        {
-                            e.printStackTrace();
-                            progressDialog.dismiss();
-                            Toast.makeText(LoginWithMpinActivity.this, "Updation failed"+e.getMessage(), Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                            //  btnReg.setVisibility(View.VISIBLE);
-
-
-                        }
-
-                    }
-                },
-
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                    }
-                })
-
-        {
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params=new HashMap<>();
-
-                params.put("email",mail);
-                // params.put("phonepay",phonepaynumber);
-
-
-                return params;
-            }
-
-        };
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-
-
-
-
-    }
+//    private void getForgotMpin(final String mail) {
+//
+//
+//        progressDialog.show();
+//
+//        StringRequest stringRequest=new StringRequest(Request.Method.POST, BaseUrls.Url_forgot_mpin,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//
+//                        try
+//                        {
+//                            JSONObject jsonObject=new JSONObject(response);
+//                            String success=jsonObject.getString("status");
+//                            if(success.equals("success"))
+//                            {
+//                                progressDialog.dismiss();
+//                                Toast.makeText(LoginWithMpinActivity.this, "Mail sent to your email address!!!", Toast.LENGTH_SHORT).show();
+//                                dialog.dismiss();
+//                            }
+//                            else if(success.equals("unsuccessful"))
+//                            {
+//                                progressDialog.dismiss();
+//                                String msg=jsonObject.getString("message");
+//                                Toast.makeText(LoginWithMpinActivity.this, ""+msg, Toast.LENGTH_SHORT).show();
+//                                dialog.dismiss();
+//                                return;
+//                            }
+//
+//
+//
+//                        }
+//                        catch (Exception e)
+//                        {
+//                            e.printStackTrace();
+//                            progressDialog.dismiss();
+//                            Toast.makeText(LoginWithMpinActivity.this, "Updation failed"+e.getMessage(), Toast.LENGTH_SHORT).show();
+//                            dialog.dismiss();
+//                            //  btnReg.setVisibility(View.VISIBLE);
+//
+//
+//                        }
+//
+//                    }
+//                },
+//
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        progressDialog.dismiss();
+//                    }
+//                })
+//
+//        {
+//
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> params=new HashMap<>();
+//
+//                params.put("email",mail);
+//                // params.put("phonepay",phonepaynumber);
+//
+//
+//                return params;
+//            }
+//
+//        };
+//        RequestQueue requestQueue= Volley.newRequestQueue(this);
+//        requestQueue.add(stringRequest);
+//
+//
+//
+//
+//    }
 
     @Override
     protected void onStart() {

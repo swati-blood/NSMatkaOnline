@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_sheet_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    android:clickable="true"
+    android:gravity="bottom|left"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="-3dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/hotlist_bell"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="4dp"
+
+            android:gravity="bottom"
+
+            android:src="@drawable/ic_notifications_active_black_24dp" />
+
+        <TextView
+            android:id="@+id/txtWallet"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/hotlist_bell"
+            android:gravity="center"
+            android:drawablePadding="5dp"
+            android:visibility="gone"
+            android:text="99"
+            android:textSize="16dp"
+            android:drawableLeft="@drawable/ic_account_balance_wallet_black_24dp"
+            android:padding="5dp"
+            android:textColor="#ffffff"
+            />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

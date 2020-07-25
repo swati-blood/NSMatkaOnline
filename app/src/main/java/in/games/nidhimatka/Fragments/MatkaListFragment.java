@@ -36,6 +36,8 @@ import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Module;
 import in.games.nidhimatka.Util.RecyclerTouchListener;
 
+import static in.games.nidhimatka.Config.BaseUrls.URL_Matka;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -116,7 +118,7 @@ public class MatkaListFragment extends Fragment {
         String json_tag="json_get_matkas";
         HashMap<String,String> map=new HashMap<>();
 
-        CustomVolleyJsonArrayRequest customVolleyJsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.POST, URLs.URL_Matka, map, new Response.Listener<JSONArray>() {
+        CustomVolleyJsonArrayRequest customVolleyJsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.POST, URL_Matka, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 

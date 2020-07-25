@@ -25,8 +25,7 @@ import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 
-import static in.games.nidhimatka.Config.URLs.URL_UPDATE_PASS;
-
+import static in.games.nidhimatka.Config.BaseUrls.URL_UPDATE_PASS;
 
 public class UpdatePasswordActivity extends AppCompatActivity implements View.OnClickListener {
 

@@ -18,9 +18,18 @@
             app:titleTextColor="@color/white"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
             <RelativeLayout
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/_10sdp">
+                <in.games.nidhimatka.Fonts.LatoBLack
+                    android:id="@+id/tv_title"
+                    android:textSize="18dp"
+                    android:text="Title"
+                    android:textColor="@color/white"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/txtWallet"
                     android:layout_width="wrap_content"

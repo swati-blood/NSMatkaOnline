@@ -72,6 +72,8 @@ import in.games.nidhimatka.Util.Module;
 import in.games.nidhimatka.Util.Session_management;
 
 import static in.games.nidhimatka.Activity.PanaActivity.total;
+import static in.games.nidhimatka.Config.BaseUrls.URL_INSERT_DATA;
+import static in.games.nidhimatka.Config.BaseUrls.URL_MOBILE;
 import static in.games.nidhimatka.Config.Constants.KEY_ID;
 import static in.games.nidhimatka.Config.Constants.KEY_NAME;
 import static in.games.nidhimatka.Config.Constants.KEY_WALLET;
@@ -101,7 +103,7 @@ public class Common {
     {
         String json_tag_request="json_mobile_request";
         HashMap<String, String> params=new HashMap<String, String>();
-        CustomJsonRequest customVolleyJsonArrayRequest=new CustomJsonRequest(Request.Method.GET, URLs.URL_MOBILE, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customVolleyJsonArrayRequest=new CustomJsonRequest(Request.Method.GET, URL_MOBILE, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
@@ -424,7 +426,7 @@ public class Common {
         HashMap<String, String> params=new HashMap<String, String>();
         params.put("id",m_id);
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URLs.URL_MATKA_WITH_ID, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_MATKA_WITH_ID, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try
@@ -817,7 +819,7 @@ loadingBar.show();
         HashMap<String, String> params=new HashMap<String, String>();
         params.put("id",m_id);
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URLs.URL_MATKA_WITH_ID, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_MATKA_WITH_ID, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
@@ -1123,7 +1125,7 @@ loadingBar.show();
         params.put("id",m_id);
         progressDialog.show();
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URLs.URL_MATKA_WITH_ID, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_MATKA_WITH_ID, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 progressDialog.dismiss();
@@ -1259,7 +1261,7 @@ loadingBar.show();
         HashMap<String, String> params=new HashMap<>();
         params.put("id",m_id);
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URLs.URL_StarLine_id, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_StarLine_id, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
@@ -1374,7 +1376,7 @@ loadingBar.show();
         HashMap<String, String> params=new HashMap<>();
         params.put("id",m_id);
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URLs.Url_matka_with_id, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_MATKA_WITH_ID, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -1485,7 +1487,7 @@ loadingBar.show();
         HashMap<String, String> params=new HashMap<>();
         params.put("id",m_id);
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URLs.Url_matka_with_id, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_MATKA_WITH_ID, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
@@ -1588,7 +1590,7 @@ loadingBar.show();
         params.put("id",m_id);
         progressDialog.show();
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URLs.URL_MATKA_WITH_ID, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_MATKA_WITH_ID, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try
@@ -1740,7 +1742,7 @@ loadingBar.show();
         progressDialog.show();
 
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URLs.URL_INSERT_DATA, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URL_INSERT_DATA, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
@@ -1748,13 +1750,11 @@ loadingBar.show();
                 {
                     Log.d("insert_data",response.toString());
                     JSONObject jsonObject=response;
-                    // Toast.makeText(context,""+response.toString(),Toast.LENGTH_LONG).show();
                     final String status=jsonObject.getString("status");
                     progressDialog.dismiss();
                     if(status.equals("success"))
                     {
 
-                        //updateWalletAmount(id,amt,context);
                         Intent intent=new Intent(context, MainActivity.class);
 //                        intent.putExtra("matkaName",matka_name);
 //                        intent.putExtra("m_id",m_id);
@@ -2189,36 +2189,39 @@ loadingBar.show();
        return str;
    }
 
-   public void getWalletAmount()
-   {
-       loadingBar.show();
-       HashMap<String,String> params=new HashMap<>();
-       params.put("user_id",session_management.getUserDetails().get(KEY_ID).toString());
-       CustomVolleyJsonArrayRequest jsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.POST, BaseUrls.URL_GET_WALLET_AMOUNT, params, new Response.Listener<JSONArray>() {
-           @Override
-           public void onResponse(JSONArray response) {
-               loadingBar.dismiss();
-               try {
-                   JSONObject object=response.getJSONObject(0);
-                   String wamt=object.getString("wallet_points");
-                   session_management.updateWallet(wamt);
-               }
-               catch (Exception ex)
-               {
-                   ex.printStackTrace();
-               }
+    public void getWalletAmount()
+    {
+        loadingBar.show();
+        HashMap<String,String> params=new HashMap<>();
+        params.put("user_id",session_management.getUserDetails().get(KEY_ID).toString());
+        CustomVolleyJsonArrayRequest jsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.POST, BaseUrls.URL_GET_WALLET_AMOUNT, params, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                loadingBar.dismiss();
+                try {
+                    JSONObject object=response.getJSONObject(0);
+                    String wamt=object.getString("wallet_points");
+                    session_management.updateWallet(wamt);
+                    ((MainActivity)context).setWallet_Amount(String.valueOf(wamt));
 
-           }
-       }, new Response.ErrorListener() {
-           @Override
-           public void onErrorResponse(VolleyError error) {
-               loadingBar.dismiss();
-               showVolleyError(error);
-           }
-       });
-       AppController.getInstance().addToRequestQueue(jsonArrayRequest);
+                }
+                catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                }
 
-   }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loadingBar.dismiss();
+                showVolleyError(error);
+            }
+        });
+        AppController.getInstance().addToRequestQueue(jsonArrayRequest);
+
+    }
 }
+
 
 

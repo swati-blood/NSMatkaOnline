@@ -42,6 +42,8 @@ import in.games.nidhimatka.Util.SmsListener;
 import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 import static in.games.nidhimatka.Activity.splash_activity.msg_status;
+import static in.games.nidhimatka.Config.BaseUrls.URL_GENERATE_OTP;
+import static in.games.nidhimatka.Config.BaseUrls.URL_VERIFICATION;
 
 
 public class VerificationActivity extends AppCompatActivity implements View.OnClickListener {
@@ -111,11 +113,11 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
 
                    if(type.equalsIgnoreCase("f"))
                    {
-                       sendOtpforPass(mobile,otp, URLs.URL_GENERATE_OTP);
+                       sendOtpforPass(mobile,otp, URL_GENERATE_OTP);
                    }
                    else
                    {
-                       sendOtpforPass(mobile,otp,URLs.URL_VERIFICATION);
+                       sendOtpforPass(mobile,otp,URL_VERIFICATION);
                    }
                }
                else
@@ -199,11 +201,11 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
             {
                 if(type.equalsIgnoreCase("f"))
                 {
-                    sendOtpforPass(mobile,otp,URLs.URL_GENERATE_OTP);
+                    sendOtpforPass(mobile,otp,URL_GENERATE_OTP);
                 }
                 else
                 {
-                    sendOtpforPass(mobile,otp,URLs.URL_VERIFICATION);
+                    sendOtpforPass(mobile,otp,URL_VERIFICATION);
                 }
             }
         }

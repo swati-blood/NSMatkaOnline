@@ -36,7 +36,7 @@ import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Session_management;
 
 import static in.games.nidhimatka.Config.Constants.*;
-import static in.games.nidhimatka.Config.URLs.URL_REGIST;
+
 
 /**
  * A simple {@link Fragment} subclass.

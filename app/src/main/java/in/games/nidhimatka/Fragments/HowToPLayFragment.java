@@ -29,6 +29,8 @@ import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 
+import static in.games.nidhimatka.Config.BaseUrls.URL_PLAY;
+
 public class HowToPLayFragment extends Fragment {
     TextView bt_back,txtData,txtLink;
     RelativeLayout rel_click;
@@ -73,7 +75,7 @@ public class HowToPLayFragment extends Fragment {
         String json_request_tag="json_how_request";
         HashMap<String,String> params=new HashMap<String,String>();
 
-        CustomVolleyJsonArrayRequest customVolleyJsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.GET, URLs.URL_PLAY, params, new Response.Listener<JSONArray>() {
+        CustomVolleyJsonArrayRequest customVolleyJsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.GET, URL_PLAY, params, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 

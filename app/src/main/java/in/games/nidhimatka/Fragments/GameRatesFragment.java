@@ -33,6 +33,8 @@ import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 
+import static in.games.nidhimatka.Config.BaseUrls.URL_NOTICE;
+
 
 public class GameRatesFragment extends Fragment {
     LoadingBar progressDialog;
@@ -75,7 +77,7 @@ public class GameRatesFragment extends Fragment {
         String tag_json_obj = "game_rate";
         Map<String, String> params = new HashMap<String, String>();
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URLs.URL_NOTICE, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URL_NOTICE, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 

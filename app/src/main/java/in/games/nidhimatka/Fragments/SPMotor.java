@@ -40,6 +40,7 @@ import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.Adapter.TableAdaper;
 import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
+import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.Model.TableModel;
 import in.games.nidhimatka.Objects.sp_input_data;
@@ -180,11 +181,11 @@ public class SPMotor extends Fragment implements View.OnClickListener {
 
                             else {
                             if (game_name.equalsIgnoreCase("sp motor")) {
-                                getDataSet(inputData, p, bet,URLs.URL_SpMotor);
+                                getDataSet(inputData, p, bet, BaseUrls.URL_SpMotor);
                             }
                             else
                             {
-                                getDataSet(inputData, p, bet,URLs.URL_DpMotor);
+                                getDataSet(inputData, p, bet,BaseUrls.URL_DpMotor);
                             }
                         }
 //

@@ -3,11 +3,15 @@ package in.games.nidhimatka.Activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,21 +58,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 Activity activity = MainActivity.this;
 TextView txt_wallet,txtUserName ;
     DrawerLayout drawer;
+    TextView tv_title;
     Session_management session_management;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        txt_wallet = findViewById(R.id.txtWallet);
+//        txt_wallet = findViewById(R.id.txtWallet);
+//        tv_title = findViewById(R.id.tv_title);
       session_management=new Session_management(activity);
 
       drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(activity.getResources().getColorStateList(R.color.colorPrimaryDark));
@@ -84,19 +89,85 @@ TextView txt_wallet,txtUserName ;
 //        toolbar.setPadding(0, toolbar.getPaddingTop(),0, toolbar.getPaddingBottom());
 //
 //
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
         Fragment fm = new HomeFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
                 .commit();
+
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                try {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    android.app.Fragment fr = getFragmentManager().findFragmentById(R.id.contentPanel);
+
+                    final String fm_name = fr.getClass().getSimpleName();
+                    Log.e("backstack: ", ": " + fm_name);
+                    if (fm_name.contentEquals("HomeFragment")) {
+                        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                        toggle.setDrawerIndicatorEnabled(true);
+                        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                        toggle.syncState();
+
+                    }
+//                            else if(fm_name.contentEquals("Reward_fragment")) {
+//                                drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+//                                toggle.setDrawerIndicatorEnabled(true);
+//                                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//                                toggle.syncState();
+//                            }
+//                            else if (fm_name.contentEquals("My_order_fragment") ||
+//                                    fm_name.contentEquals("Thanks_fragment")) {
+//                                drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+//
+//                                toggle.setDrawerIndicatorEnabled(false);
+//                                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//                                toggle.syncState();
+//
+//                                toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(View view) {
+//                                        android.app.Fragment fm = new Home_fragment();
+//                                        android.app.FragmentManager fragmentManager = getFragmentManager();
+//                                        fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+//                                                .addToBackStack(null).commit();
+//                                    }
+//                                });
+//                            }
+                    else {
+
+                        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+                        toggle.setDrawerIndicatorEnabled(false);
+                        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                        toggle.syncState();
+
+                        toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                onBackPressed();
+                            }
+                        });
+                    }
+
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        txt_wallet.setText(session_management.getUserDetails().get(KEY_WALLET).toString());
+        new Common(activity).getWalletAmount();
+//        txt_wallet.setText(session_management.getUserDetails().get(KEY_WALLET).toString());
 //        new Common(activity).setWallet_Amount(txt_wallet,new LoadingBar(activity), Prevalent.currentOnlineuser.getId());
     }
     public void setWalletCounter(String walletAmount)
@@ -108,8 +179,27 @@ TextView txt_wallet,txtUserName ;
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        final MenuItem wallet_item = menu.findItem(R.id.action_wallet);
+        final MenuItem notification_item = menu.findItem(R.id.action_notification);
+        wallet_item.setVisible(true);
+        notification_item.setVisible(true);
+        View count_wallet = wallet_item.getActionView();
+//        View count_notify =notification_item.getActionView();
+//       count_wallet.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                menu.performIdentifierAction(wallet_item.getItemId(), 0);
+//
+//            }
+//        });
+
+        txt_wallet = (TextView) wallet_item.getActionView().findViewById(R.id.tv_menu_wallet);
+
+
         return true;
     }
+
 
 
     @Override
@@ -128,57 +218,38 @@ TextView txt_wallet,txtUserName ;
         {
            fm = new HomeFragment();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
         }
         else if (id == R.id.nav_mpin) {
 
             fm = new GenerateMpinFragment();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
         } else if (id == R.id.nav_how_toPlay) {
 
             fm = new HowToPLayFragment();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
+
         }
         else if (id == R.id.nav_history) {
 
             fm = new HistroyFragment();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
 
         }
         else if (id == R.id.nav_wallet) {
 
             fm = new WalletFragment();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
 
         }
 
         else if (id == R.id.nav_gameRates) {
             fm = new GameRatesFragment();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
+
         }
         else if (id == R.id.nav_noticeBoard) {
             fm = new NoticeFragment();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                    .addToBackStack(null).commit();
 
         }
         else if (id == R.id.nav_logout) {
@@ -204,12 +275,31 @@ TextView txt_wallet,txtUserName ;
             alertDialog.show();
         }
 
+        if (fm != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+                    .addToBackStack(null).commit();
+
+        }
+
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
 
     }
     public void setTitle(String title) {
-//        getSupportActionBar().setTitle(title);
+    getSupportActionBar().setTitle(title);
+    }
+    public void setWallet_Amount(String wallet) {
+        try {
+            txt_wallet.setText(wallet);
+        } catch (Exception e) {
+
+        }
+    }
+    public String getWallet()
+    {
+        String s = txt_wallet.getText().toString().trim();
+        return s;
     }
 }
