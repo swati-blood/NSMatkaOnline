@@ -198,7 +198,7 @@ public class RegisterActivity extends AppCompatActivity {
                   if(resp)
                   {
                       common.showToast(""+response.getString("message").toString());
-                      Intent intent=new Intent(RegisterActivity.this,MainActivity.class);
+                      Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
                       startActivity(intent);
                       finish();
 
