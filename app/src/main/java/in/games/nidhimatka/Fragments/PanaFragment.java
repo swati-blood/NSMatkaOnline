@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.material.tabs.TabLayout;
 
 import java.text.ParseException;
@@ -113,6 +114,12 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
       s_time = getArguments().getString("start_time");
         e_time = getArguments().getString("end_time");
         w_amount =((MainActivity) getActivity()).getWallet();
+        if (matka_id.equalsIgnoreCase("3"))
+        {
+            txt_type.setVisibility(View.GONE);
+            bet_type="Close";
+        }
+
         bet_type = txt_type.getText().toString();
         btn_submit.setOnClickListener(this);
         txt_date.setOnClickListener(this);

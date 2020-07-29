@@ -49,7 +49,7 @@ public class splash_activity extends AppCompatActivity {
 
     public static final int MY_PERMISSIONS_REQUEST_WRITE_FIELS = 102;
    Common common;
-   public static String home_text ="", withdrw_text="",tagline= "" ,min_add_amount="",link = "" ,app_link="",share_link="",msg_status="",withdrw_no="";
+   public static String home_text ="",dialog_image="", withdrw_text="",tagline= "" ,min_add_amount="",link = "" ,app_link="",share_link="",msg_status="",withdrw_no="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +110,7 @@ public class splash_activity extends AppCompatActivity {
                         msg_status = dataObj.getString("msg_status");
                         app_link = dataObj.getString("app_link");
                         share_link = dataObj.getString("share_link");
+                        dialog_image = dataObj.getString("dialog_img");
                         ver_code=Integer.parseInt(dataObj.getString("version"));
                         msg=dataObj.getString("message");
                     checkAppPermissions();

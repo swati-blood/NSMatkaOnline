@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 
@@ -69,12 +71,13 @@ import in.games.nidhimatka.Util.Session_management;
 import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 import static in.games.nidhimatka.Activity.splash_activity.app_link;
+import static in.games.nidhimatka.Activity.splash_activity.dialog_image;
 import static in.games.nidhimatka.Activity.splash_activity.ver_code;
 
 
 import static in.games.nidhimatka.Config.BaseUrls.URL_Matka;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     public final String TAG=HomeFragment.class.getSimpleName();
 MatkaAdapter matkaAdapter ;
@@ -88,6 +91,7 @@ MatkaAdapter matkaAdapter ;
     int flag =0 ;
     float version_code ;
     SliderLayout home_slider ;
+    CardView card_starline;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -179,10 +183,17 @@ MatkaAdapter matkaAdapter ;
     progressDialog = new LoadingBar(getActivity());
     common = new Common(getActivity());
     module = new Module();
+    card_starline = v.findViewById(R.id.card_starline);
+    card_starline.setOnClickListener(this);
     if(ConnectivityReceiver.isConnected()) {
         makeSliderRequest();
         getMatkaData();
 //        showUpdateDialog();
+        if (!dialog_image.isEmpty())
+        {
+            showImageDialog(dialog_image);
+        }
+
     } else
     {
         Intent intent = new Intent(getActivity(), NoInternetConnection.class);
@@ -389,5 +400,45 @@ else
            }
        });
         dialog.show();
+    }
+
+    public void showImageDialog(String img)
+    {
+
+        final Dialog dialog=new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_image);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+      ImageView imageView=dialog.findViewById(R.id.dialog_img);
+    ImageView img_close=dialog.findViewById(R.id.img_close);
+        dialog.setCanceledOnTouchOutside(false);
+        if(dialog.isShowing())
+        {
+            dialog.dismiss();
+        }
+        dialog.show();
+
+        Glide.with(getActivity()).load(BaseUrls.IMG_DIALOG_URL+dialog_image).asBitmap().into(imageView);
+
+        img_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId()==R.id.card_starline)
+        {
+            Fragment fm  = new StarlineFragment();
+
+               FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+               fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+                       .addToBackStack(null).commit();
+        }
+
     }
 }
