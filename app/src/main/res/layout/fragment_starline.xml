@@ -22,7 +22,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_150sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -58,6 +58,7 @@
                         android:weightSum="3">
 
                         <Button
+                            android:id="@+id/star_histry"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -66,13 +67,16 @@
                             android:textColor="@color/white"
                             android:text="Staline Bid History"/>
                         <Button
+                            android:id="@+id/star_result"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_margin="2dp"
                             android:background="@drawable/gradients_background"
                             android:textColor="@color/white"
-                            android:text="Staline Bid Results"/> <Button
+                            android:text="Staline Bid Results"/>
+                        <Button
+                            android:id="@+id/star_term"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -85,18 +89,17 @@
                     </LinearLayout>
                     <TextView
                         android:id="@+id/game_rate"
-                        android:visibility="gone"
+                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/colorAccent"
                         android:textAlignment="center"
                         android:paddingLeft="5dp"
                         android:paddingRight="10dp"
-                        android:text="Welcome to : KING STARLINE"
-                        android:textSize="16dp"
-
-                        android:textStyle="italic|bold"/>
+                        android:text=""
+                        android:textSize="12dp"
+/>
 
                 </LinearLayout>
 
@@ -118,10 +121,10 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="10dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
-                <androidx.recyclerview.widget.RecyclerView
+                <ListView
                     android:id="@+id/listView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:smoothScrollbar="true"
                     android:nestedScrollingEnabled="false"
                     android:splitMotionEvents="true"/>

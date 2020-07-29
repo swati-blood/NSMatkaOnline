@@ -13,10 +13,8 @@ import android.os.Bundle;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.Gravity;
@@ -28,8 +26,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -50,23 +46,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import in.games.nidhimatka.Activity.MainActivity;
-import in.games.nidhimatka.Adapter.MatakListViewAdapter;
 import in.games.nidhimatka.Adapter.MatkaAdapter;
 import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Config.BaseUrls;
-import in.games.nidhimatka.Config.Constants;
-import in.games.nidhimatka.Config.URLs;
 import in.games.nidhimatka.CustomSlider;
-import in.games.nidhimatka.Model.MatkaObject;
+import in.games.nidhimatka.Fragments.starline.StarlineFragment;
 import in.games.nidhimatka.Model.MatkasObjects;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomJsonRequest;
-import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Module;
-import in.games.nidhimatka.Util.RecyclerTouchListener;
 import in.games.nidhimatka.Util.Session_management;
 import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 

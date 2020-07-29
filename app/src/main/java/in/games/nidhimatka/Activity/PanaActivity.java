@@ -1,6 +1,7 @@
 package in.games.nidhimatka.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.Activity;
@@ -24,6 +25,7 @@ import java.util.Date;
 import in.games.nidhimatka.Adapter.PagerAdapter;
 import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Model.TableModel;
+import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Session_management;
@@ -37,7 +39,7 @@ import static in.games.nidhimatka.Objects.sp_input_data.singlePaana;
 public class PanaActivity extends AppCompatActivity implements View.OnClickListener {
    ImageView iv_back;
    TextView tv_title,tv_wallet;
-   //CardView Section
+    CardView card_matka ,card_star;
    TextView tv_matkaname,tv_matkanumber,tv_gamename,tv_bid_open,tv_bid_close;
     public static ArrayList<TableModel> bet_list,tempList,bidList;
    int tot=0;
@@ -48,6 +50,7 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
    TabLayout tablayout;
     Button btn_submit;
     Common common;
+    int m_id=0;
     LoadingBar loadingBar;
     Activity ctx=PanaActivity.this;
    ViewPager viewpager;
@@ -73,6 +76,8 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         tv_gamename=findViewById(R.id.gamename);
         tv_bid_open=findViewById(R.id.bid_open);
         tv_bid_close=findViewById(R.id.bid_close);
+        card_matka = findViewById(R.id.card_matka);
+        card_star= findViewById(R.id.card_star);
         total=findViewById(R.id.bet_total);
         iv_back.setOnClickListener(this);
         txt_date.setOnClickListener(this);
@@ -84,15 +89,28 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         bet_list=new ArrayList<>();
         tempList=new ArrayList<>();
         bidList=new ArrayList<>();
-        matka_names = getIntent().getStringExtra("matka_name");
-        game_names = getIntent().getStringExtra("game_name");
+
         matka_id = getIntent().getStringExtra("m_id");
-        game_ids = getIntent().getStringExtra("game_id");
+        m_id = Integer.parseInt(matka_id);
         s_time = getIntent().getStringExtra("start_time");
         e_time = getIntent().getStringExtra("end_time");
-        start_num = getIntent().getStringExtra("start_num");
-        num = getIntent().getStringExtra("num");
-        end_num = getIntent().getStringExtra("end_num");
+
+        if (m_id>20)
+        {
+            card_star.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            card_matka.setVisibility(View.VISIBLE);
+            matka_names = getIntent().getStringExtra("matka_name");
+            game_names = getIntent().getStringExtra("game_name");
+            game_ids = getIntent().getStringExtra("game_id");
+
+            start_num = getIntent().getStringExtra("start_num");
+            num = getIntent().getStringExtra("num");
+            end_num = getIntent().getStringExtra("end_num");
+        }
+
         setTabLayout();
         if(game_names.equalsIgnoreCase("Single Pana"))
         {
