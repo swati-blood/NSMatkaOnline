@@ -36,6 +36,7 @@ import in.games.nidhimatka.Model.TableModel;
 import in.games.nidhimatka.Objects.sp_input_data;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.Util.ToastMsg;
 
 
 public class CyclePana extends Fragment implements View.OnClickListener {
@@ -49,6 +50,7 @@ public class CyclePana extends Fragment implements View.OnClickListener {
     private TextView txtDigit,txtPoint,txtType;
     TextView bt_back;
     TextView btnDelete;
+    ToastMsg toastMsg ;
     private TextView txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id ,txt_timer,tv_timer ;
     private Dialog dialog;
     private TextView txtOpen,txtClose;
@@ -148,6 +150,7 @@ public class CyclePana extends Fragment implements View.OnClickListener {
         txtType=(TextView)v.findViewById(R.id.type);
         btnDelete=(TextView)v. findViewById(R.id.del);
         common = new Common(getActivity());
+     toastMsg = new ToastMsg(getActivity());
         progressDialog = new LoadingBar(getActivity());
         matka_name = getArguments().getString("matka_name");
         game_name = getArguments().getString("game_name");
@@ -178,11 +181,11 @@ public class CyclePana extends Fragment implements View.OnClickListener {
             String bet = type ;
             if (game_date.equals("Select Date"))
             {
-                Toast.makeText(getActivity(),"Select Date",Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError("Select Date");
             }
            else if (bet.equals("Select Type"))
            {
-                Toast.makeText(getActivity(),"Select game type",Toast.LENGTH_LONG).show();
+               toastMsg.toastIconError("Select game type");
 
             } else if (TextUtils.isEmpty(editText.getText().toString())) {
                 editText.setError("Please enter any digit");
@@ -539,7 +542,7 @@ public class CyclePana extends Fragment implements View.OnClickListener {
        if (Integer.parseInt(p)>Integer.parseInt(w_amount))
         {
 //         Toast.makeText(getActivity(),"Insufficient Amount",Toast.LENGTH_LONG).show();
-         common.errorMessageDialog("Insufficient Amount");
+            toastMsg.toastIconError(("Insufficient Amount"));
          clrControls();
         }
         else {

@@ -32,6 +32,7 @@ import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Fragments.MainFragment;
 import in.games.nidhimatka.Model.MatkasObjects;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.ToastMsg;
 
 public class MatkaAdapter extends RecyclerView.Adapter<MatkaAdapter.ViewHolder> {
 
@@ -247,7 +248,7 @@ public class MatkaAdapter extends RecyclerView.Adapter<MatkaAdapter.ViewHolder> 
                     if(endDiff<0)
                     {
 //                 common.errorMessageDialog("BID IS CLOSED");
-                        common.showToast("Bid is Closed for today");
+                       new ToastMsg(context).toastInfo("Bid is Closed for today");
                     }
 
                Bundle bundle = new Bundle();

@@ -5,10 +5,14 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.Common.Common;
@@ -21,7 +25,7 @@ import in.games.nidhimatka.R;
 public class StarMainFragment extends Fragment {
     String matka_name ,matka_id,start_time ,end_time ,start_num,num , end_num ;
     TextView tv_m_name ,tv_s_time ,tv_end_time,tv_num;
-    public static TextView tv_game;
+    public static TextView tv_star_date,tv_star_time,star_game_name;
     Common common;
 
     public StarMainFragment() {
@@ -35,21 +39,25 @@ public class StarMainFragment extends Fragment {
         // Inflate the layout for this fragment
       View view= inflater.inflate(R.layout.fragment_star_main, container, false);
 
-//        matka_name =getArguments().getString("matka_name");
         matka_id =getArguments().getString("matka_id");
         end_time =getArguments().getString("end_time");
         start_time=getArguments().getString("start_time");
-//        start_num=getArguments().getString("start_number");
-//        end_num=getArguments().getString("end_number");
-//        num=getArguments().getString("number");
+
         common=new Common(getActivity());
-//        tv_end_time= view.findViewById(R.id.bid_close);
-//        tv_s_time = view.findViewById(R.id.bid_open);
+        tv_star_date= view.findViewById(R.id.tv_date);
+        tv_star_time = view.findViewById(R.id.tv_time);
 //        tv_m_name = view.findViewById(R.id.matkaname);
-//        tv_game = view.findViewById(R.id.gamename);
+     star_game_name = view.findViewById(R.id.game_name);
 //        tv_num = view.findViewById(R.id.matkanumber);
-//        ((MainActivity) getActivity()).setTitle(matka_name);
-//        tv_s_time.setText(common.get24To12Format(start_time));
+        ((MainActivity) getActivity()).setTitle("StarLine Games");
+      tv_star_time.setText(common.get24To12Format(start_time));
+        Date date = new Date();
+
+        SimpleDateFormat dFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        String ctt = dFormat.format(date);
+        tv_star_date.setText(ctt);
+
 //        tv_end_time.setText(common.get24To12Format(end_time));
 //
 //        tv_game.setText("");

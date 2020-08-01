@@ -37,11 +37,13 @@ import in.games.nidhimatka.Model.TableModel;
 import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.Util.ToastMsg;
 
 import static in.games.nidhimatka.Adapter.PointsAdapter.getPonitsList;
 import static in.games.nidhimatka.Adapter.PointsAdapter.is_empty;
 import static in.games.nidhimatka.Adapter.PointsAdapter.is_error;
 import static in.games.nidhimatka.Adapter.PointsAdapter.ponitsList;
+import static in.games.nidhimatka.Fragments.starline.StarMainFragment.star_game_name;
 import static in.games.nidhimatka.Objects.sp_input_data.doublePanna;
 import static in.games.nidhimatka.Objects.sp_input_data.group_jodi_array;
 import static in.games.nidhimatka.Objects.sp_input_data.group_jodi_digits;
@@ -73,9 +75,10 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
     LoadingBar loadingBar;
     ViewPager viewPager ;
     int selected_pos =0;
+    int m_id =0;
  public static String bet_type ="";
           String bet_date="";
-
+    ToastMsg toastMsg ;
 
     public PanaFragment() {
         // Required empty public constructor
@@ -106,8 +109,8 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         tempList = new ArrayList<>();
         single_pana_list = new ArrayList<>();
         common = new Common(getActivity());
+       toastMsg = new ToastMsg(getActivity());
         loadingBar = new LoadingBar(getActivity());
-        matka_name = getArguments().getString("matka_name");
         game_name = getArguments().getString("game_name");
         matka_id = getArguments().getString("m_id");
         game_id = getArguments().getString("game_id");
@@ -119,17 +122,52 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
             txt_type.setVisibility(View.GONE);
             bet_type="Close";
         }
+        else
+        {
+            txt_type.setVisibility(View.VISIBLE);
+        }
 
         bet_type = txt_type.getText().toString();
         btn_submit.setOnClickListener(this);
         txt_date.setOnClickListener(this);
         txt_type.setOnClickListener(this);
         total.setOnClickListener(this);
-        ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
+
        setLayout(game_name);
-
+        m_id= Integer.parseInt(matka_id);
        Log.e("gme",game_name + game_id +matka_name+matka_id);
+        if (m_id>20)
+        {   ((MainActivity) getActivity()).setTitle("Starline"+"-"+game_name);
+            Date date = new Date();
+            SimpleDateFormat dFormat = new SimpleDateFormat("dd/MM/yyyy EEEE");
+        String ctt = dFormat.format(date);
+        txt_date.setText(ctt);
+            star_game_name.setText(game_name);
+            txt_date.setVisibility(View.GONE);
+            txt_type.setVisibility(View.GONE);
+            try {
 
+                if (common.getTimeDifference(s_time) > 0) {
+
+                    txt_type.setText("Open");
+                } else {
+                    txt_type.setText("Close");
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.printStackTrace();
+            }
+        }
+        else
+        {
+            txt_date.setVisibility(View.VISIBLE);
+            txt_type.setVisibility(View.VISIBLE);
+            matka_name = getArguments().getString("matka_name");
+            ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
+
+
+        }
 
     }
 
@@ -205,15 +243,15 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
             bet_date = txt_date.getText().toString();
 
             if (bet_date.equals("Select Date")) {
-                Toast.makeText(getActivity(), "Select Date", Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError("Select Date");
             } else if (bet_type.equals("Select Type")) {
-                Toast.makeText(getActivity(), "Select game type", Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError("Select game type");
 
             } else if (is_empty) {
-                Toast.makeText(getActivity(), "Please enter some points", Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError("Please enter some points");
             } else {
                 if (is_error) {
-                    Toast.makeText(getActivity(), "Minimum bid amount is 10", Toast.LENGTH_LONG).show();
+                    toastMsg.toastIconError( "Minimum bid amount is 10");
                 } else {
                     int amt = 0;
                     for (int j = 0; j < list.size(); j++) {
@@ -221,7 +259,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
                     }
 
                     if (amt > Integer.parseInt(w_amount)) {
-                        common.errorMessageDialog("Insufficient Amount");
+                        toastMsg.toastIconError("Insufficient Amount");
 
                     } else {
                         try {
@@ -250,7 +288,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
                                     common.setBidsDialog(Integer.parseInt(w_amount), tempList, matka_id, g_d, game_id, w_amount, matka_name, loadingBar, btn_submit, s_time, e_time);
                                 } else {
 
-                                    common.errorMessageDialog("Betting is Closed Now");
+                                    toastMsg.toastIconError("Betting is Closed Now");
 
                                 }
                             } else {

@@ -44,6 +44,7 @@ import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Module;
 import in.games.nidhimatka.Util.Session_management;
+import in.games.nidhimatka.Util.ToastMsg;
 import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 import static in.games.nidhimatka.Config.BaseUrls.URL_FUND_HISTORY;
@@ -63,6 +64,7 @@ public class AllHistoryFragment extends Fragment {
     FundsHistryAdapter fundsHistryAdapter;
     Session_management session_management ;
     String user_id ,type ;
+    ToastMsg toastMsg ;
 
     public AllHistoryFragment() {
         // Required empty public constructor
@@ -79,6 +81,7 @@ public class AllHistoryFragment extends Fragment {
      bid_list = new ArrayList<>();
      req_list = new ArrayList<>();
      loadingBar = new LoadingBar(getActivity());
+   toastMsg = new ToastMsg(getActivity());
     session_management = new Session_management(getActivity());
     user_id = session_management.getUserDetails().get(KEY_ID);
    type = getArguments().getString("type");
@@ -145,17 +148,18 @@ public class AllHistoryFragment extends Fragment {
                             }
                             else
                             {
-                                Toast.makeText(getActivity(),"No History Available",Toast.LENGTH_LONG).show();
+                                toastMsg.toastInfo("No History Available");
                             }
 
 
                     }
                     else
                     {
-                        Toast.makeText(getActivity(),""+response.get("Error").toString(),Toast.LENGTH_LONG).show();
+                        toastMsg.toastIconError(""+response.get("Error").toString());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+
                 }
 
             }
@@ -168,7 +172,7 @@ public class AllHistoryFragment extends Fragment {
 
                 if(!msg.equals(""))
                 {
-                    Toast.makeText(getActivity(),""+msg,Toast.LENGTH_LONG).show();
+                    toastMsg.toastIconError(""+msg);
                 }
             }
         });
@@ -218,14 +222,14 @@ public class AllHistoryFragment extends Fragment {
                         }
                         else
                         {
-                            Toast.makeText(getActivity(),"No History Available",Toast.LENGTH_LONG).show();
+                            toastMsg.toastInfo("No History Available");
                         }
 
 
                     }
                     else
                     {
-                        Toast.makeText(getActivity(),""+response.get("Error").toString(),Toast.LENGTH_LONG).show();
+                        toastMsg.toastIconError(""+response.get("Error").toString());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -241,7 +245,7 @@ public class AllHistoryFragment extends Fragment {
 
                 if(!msg.equals(""))
                 {
-                    Toast.makeText(getActivity(),""+msg,Toast.LENGTH_LONG).show();
+                    toastMsg.toastIconError(""+msg);
                 }
             }
         });

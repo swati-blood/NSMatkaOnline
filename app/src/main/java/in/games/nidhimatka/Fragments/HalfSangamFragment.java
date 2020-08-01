@@ -36,6 +36,7 @@ import in.games.nidhimatka.Model.TableModel;
 import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.Util.ToastMsg;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +46,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
     private TextView txtDigit,txtPoint,txtType,btnDelete;
     private TextView txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,tv_timer;
     int val_p=0;
+    ToastMsg toastMsg ;
     private int stat=0;
     private final String[] singlePaana={"137","128","146","236","245","290","380","470","489","560","678","579",
             "119","155","227","335","344","399","588","669","777","100","129","138","147","156","237","246",
@@ -78,6 +80,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
     LoadingBar progressDialog;
     private ListView lstView;
      private Dialog dialog;
+
     TextView txt_date ,btnChange ;
     private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "open" ,game_date="";
     private static int flag=0;
@@ -119,6 +122,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
         TextView txtWalet=  toolbar.findViewById(R.id.txtWallet);
 
         common = new Common(getActivity());
+       toastMsg = new ToastMsg(getActivity());
         progressDialog = new LoadingBar(getActivity());
         matka_name = getArguments().getString("matka_name");
         game_name = getArguments().getString("game_name");
@@ -147,7 +151,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
             int er = list.size();
             if (er <= 0) {
                 String message = "Please Add Some Bids";
-                common.errorMessageDialog(message);
+                toastMsg.toastIconError(message);
                 return;
             } else {
 
@@ -213,7 +217,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
 
                     int wallet_amount = Integer.parseInt(w_amount);
                     if (wallet_amount < amt) {
-                        new Common(getActivity()).errorMessageDialog("Insufficient Amount");
+                        toastMsg.toastIconError("Insufficient Amount");
 //                            setBidsDialog(HalfSangamActivity.this,Integer.parseInt(w),list);
 //                           return;
                     } else {
@@ -221,7 +225,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
 //                            btnSave.setEnabled(false);
                         //    Toast.makeText(HalfSangamActivity.this,""+jsonArray,Toast.LENGTH_LONG).show();
                     }} catch (Exception err) {
-                            Toast.makeText(getActivity(), "Err" + err.getMessage(), Toast.LENGTH_LONG).show();
+                    toastMsg.toastIconError("Err" + err.getMessage());
                         }
 
                     }
@@ -236,7 +240,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
             game_date = txt_date.getText().toString();
             if (game_date.equals("Select Date"))
             {
-                Toast.makeText(getActivity(),"Select Date",Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError("Select Date");
             }
 //            else if (type.equals("Select Type"))
 //            {
@@ -265,7 +269,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
 
                     } else if(!Arrays.asList(singlePaana).contains(close_panna))
                     {
-                        Toast.makeText(getActivity(),"This is invalid pana",Toast.LENGTH_LONG).show();
+                        toastMsg.toastIconError("This is invalid pana");
                         etClosePanna.setText("");
                         etClosePanna.requestFocus();
                         return;
@@ -282,7 +286,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
 
                         }
                         else if (pints > Integer.parseInt(w_amount)) {
-                            common.errorMessageDialog("Insufficient Amount");
+                            toastMsg.toastIconError("Insufficient Amount");
                         }
                         else {
                             //setTableRowforOPenDigit(open_digit, close_panna, points);
@@ -313,7 +317,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
                         return;
                     } else if(!Arrays.asList(singlePaana).contains(open_panna))
                     {
-                        Toast.makeText(getActivity(),"This is invalid pana",Toast.LENGTH_LONG).show();
+                        toastMsg.toastIconError("This is invalid pana");
                         etOpenPanna.setText("");
                         etOpenPanna.requestFocus();
                         return;
@@ -330,7 +334,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
 
                         }
                         else if (pints > Integer.parseInt(w_amount)) {
-                            common.errorMessageDialog("Insufficient Amount");
+                            toastMsg.toastIconError("Insufficient Amount");
                         }else {
                             //   setTableRowforCloseDigit(close_digit, open_panna, points);
 //                                module.addData(HalfSangamActivity.this,close_digit+"-"+open_panna,points,"Half Sangam",list,tableAdaper,list_table,btnSave);

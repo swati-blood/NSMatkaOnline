@@ -37,6 +37,7 @@ import in.games.nidhimatka.Model.TableModel;
 import in.games.nidhimatka.Objects.sp_input_data;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.Util.ToastMsg;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +52,7 @@ public class RedBracketFragment extends Fragment implements View.OnClickListener
     TableAdaper tableAdaper;
     List<TableModel> list;
     TextView txt_date,txt_type;
+    ToastMsg toastMsg;
     private Button btnAdd,btnSave,btnType,btnGameType;
     private TextView txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id ,txtOpen,txtClose;
 CheckBox chkBox ;
@@ -91,6 +93,7 @@ Dialog dialog ;
         TextView txtWalet=  toolbar.findViewById(R.id.txtWallet);
         etPoints=(EditText)v.findViewById(R.id.etPoints);
         common = new Common(getActivity());
+       toastMsg = new ToastMsg(getActivity());
         progressDialog = new LoadingBar(getActivity());
         matka_name = getArguments().getString("matka_name");
         game_name = getArguments().getString("game_name");
@@ -140,11 +143,11 @@ Dialog dialog ;
             game_date = txt_date.getText().toString();
             String vt = type;
             if (game_date.equals("Select Date")) {
-                Toast.makeText(getActivity(), "Select Date", Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError( "Select Date");
             }
             else if (type.equals("Select Type"))
             {
-                Toast.makeText(getActivity(),"Select game type",Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError("Select game type");
 
             }
 
@@ -169,7 +172,7 @@ Dialog dialog ;
 
 
                         } else if (pints > Integer.parseInt(w_amount)) {
-                            common.errorMessageDialog("Insufficient Amount");
+                            toastMsg.toastIconError("Insufficient Amount");
                         } else {
                             for (int i = 0; i <= red_bracket.length - 1; i++) {
                                 //setOddData(red_bracket[i], points, "close");
@@ -194,7 +197,7 @@ Dialog dialog ;
                         etPoints.requestFocus();
                         return;
                     } else if (!Arrays.asList(red_bracket).contains(digits)) {
-                        common.errorMessageDialog("Invalid Jodi");
+                        toastMsg.toastIconError(("Invalid Jodi"));
                         return;
                     } else {
                         int pints = Integer.parseInt(points);
@@ -208,7 +211,7 @@ Dialog dialog ;
 
                         }
                         else if (pints > Integer.parseInt(w_amount)) {
-                            common.errorMessageDialog("Insufficient Amount");
+                            toastMsg.toastIconError("Insufficient Amount");
                         }
                         else {
 
@@ -224,7 +227,7 @@ Dialog dialog ;
 
             } else {
                 String message = "Biding closed for this date";
-                common.errorMessageDialog(message);
+                toastMsg.toastIconError(message);
                 return;
             }
 
@@ -239,7 +242,7 @@ Dialog dialog ;
             }
             if (amt>Integer.parseInt(w_amount))
             {
-                common.errorMessageDialog("Insufficient Amount");
+                toastMsg.toastIconError(("Insufficient Amount"));
                 clrControls();
             }
             else {
@@ -272,7 +275,7 @@ Dialog dialog ;
                             common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
                         } else {
                             clrControls();
-                            common.errorMessageDialog("Betting is Closed Now");
+                            toastMsg.toastIconError(("Betting is Closed Now"));
 
                         }
                     } else {

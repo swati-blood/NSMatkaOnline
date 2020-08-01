@@ -32,6 +32,7 @@ import in.games.nidhimatka.Model.TableModel;
 import in.games.nidhimatka.Objects.sp_input_data;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.Util.ToastMsg;
 
 public class GroupPanel extends Fragment implements View.OnClickListener {
     private final String[] d1={"123","178","137","678","236","367","128","268"};
@@ -86,6 +87,7 @@ public class GroupPanel extends Fragment implements View.OnClickListener {
     AutoCompleteTextView editText;
     private TextView txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id ,txt_timer,tv_timer ;
     Dialog dialog ;
+    ToastMsg toastMsg;
     private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "" ,game_date="";
     public GroupPanel() {
     }
@@ -111,6 +113,7 @@ public class GroupPanel extends Fragment implements View.OnClickListener {
         TextView txtWalet=  toolbar.findViewById(R.id.txtWallet);
         etPoints=(EditText)v.findViewById(R.id.etPoints);
         common = new Common(getActivity());
+       toastMsg = new ToastMsg(getActivity());
         progressDialog = new LoadingBar(getActivity());
         matka_name = getArguments().getString("matka_name");
         game_name = getArguments().getString("game_name");
@@ -142,11 +145,11 @@ public class GroupPanel extends Fragment implements View.OnClickListener {
             String vt = type;
             if (game_date.equals("Select Date"))
             {
-                Toast.makeText(getActivity(),"Select Date",Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError("Select Date");
             }
             else if (type.equals("Select Type"))
             {
-                Toast.makeText(getActivity(),"Select game type",Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError("Select game type");
 
             }
 
@@ -173,7 +176,7 @@ public class GroupPanel extends Fragment implements View.OnClickListener {
 
 
                     }else if (pints > Integer.parseInt(w_amount)) {
-                        common.errorMessageDialog("Insufficient Amount");
+                        toastMsg.toastIconError("Insufficient Amount");
                     }
                     else {
                         String th = "close";
@@ -238,7 +241,7 @@ public class GroupPanel extends Fragment implements View.OnClickListener {
             else
             {
                 String message="Biding closed for this date";
-                common.errorMessageDialog(message);
+                toastMsg.toastIconError(message);
                 return;
             }
         }
@@ -252,7 +255,7 @@ public class GroupPanel extends Fragment implements View.OnClickListener {
             }
             if (amt>Integer.parseInt(w_amount))
             {
-                common.errorMessageDialog("Insufficient Amount");
+                toastMsg.toastIconError("Insufficient Amount");
                 clrControls();
             }
             else {
@@ -285,7 +288,7 @@ public class GroupPanel extends Fragment implements View.OnClickListener {
                             common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
                         } else {
                             clrControls();
-                            common.errorMessageDialog("Betting is Closed Now");
+                            toastMsg.toastIconError("Betting is Closed Now");
 
                         }
                     } else {

@@ -43,6 +43,7 @@ import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Session_management;
+import in.games.nidhimatka.Util.ToastMsg;
 
 import static in.games.nidhimatka.Activity.splash_activity.min_add_amount;
 import static in.games.nidhimatka.Activity.splash_activity.withdrw_text;
@@ -56,6 +57,7 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
     private TextView txtback,txtWalletAmount,txtMobile ,txt_withdrw_instrctions;
     private LoadingBar progressDialog;
     private EditText etPoint;
+    ToastMsg toastMsg ;
     private Button btnSave;
     String saveCurrentDate,saveCurrentTime;
     int day,hours;
@@ -79,6 +81,7 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
     {
         ((MainActivity) getActivity()).setTitle("Withdraw Funds");
         common=new Common(getActivity());
+       toastMsg=new ToastMsg(getActivity());
         session_management=new Session_management(getActivity());
         txtback=(TextView)v.findViewById(R.id.txtBack);
         txtWalletAmount=(TextView)v.findViewById(R.id.wallet_amount);
@@ -136,12 +139,12 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
 
                         if(t_amt<Integer.parseInt(min_add_amount))
                         {
-                            common.errorMessageDialog("Minimum Withdraw amount "+min_add_amount);
+                            toastMsg.toastIconError(("Minimum Withdraw amount "+min_add_amount));
                         }
                         else
                         {
                             if (t_amt > w_amt) {
-                                common.errorMessageDialog("Your requested amount exceeded");
+                                toastMsg.toastIconError("Your requested amount exceeded");
                                 return;
                             } else {
                                 // saveInfoIntoDatabase(user_id, String.valueOf(t_amt), st);
@@ -151,12 +154,12 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
                         }
 
                     } else {
-                        common.errorMessageDialog("You don't have enough points in wallet ");
+                        toastMsg.toastIconError("You don't have enough points in wallet ");
                     }
 
                 }
                 else{
-                    common.errorMessageDialog("Time Out ");
+                    toastMsg.toastIconError("Time Out ");
                     return;
 
                 }

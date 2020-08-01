@@ -27,4 +27,8 @@
     <color name="play1">#CC3A47</color>
     <color name="blue">#040342</color>
     <color name="green">#053004</color>
+    <color name="error">#D5080F</color>
+    <color name="succes">#329505</color>
+    <color name="info">#FB6605</color>
+
 </resources>

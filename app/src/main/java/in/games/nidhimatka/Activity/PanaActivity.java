@@ -29,6 +29,7 @@ import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Session_management;
+import in.games.nidhimatka.Util.ToastMsg;
 
 import static in.games.nidhimatka.Adapter.PointsAdapter.is_empty;
 import static in.games.nidhimatka.Adapter.PointsAdapter.is_error;
@@ -43,7 +44,7 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
    TextView tv_matkaname,tv_matkanumber,tv_gamename,tv_bid_open,tv_bid_close;
     public static ArrayList<TableModel> bet_list,tempList,bidList;
    int tot=0;
-    TextView txt_date,txtOpen,txtClose,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id;
+    TextView txt_date,txtOpen,txtClose,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_s_date,txt_s_time;
     public static TextView txt_type,total  ;
     Dialog dialog ;
     Session_management session_management;
@@ -51,10 +52,12 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
     Button btn_submit;
     Common common;
     int m_id=0;
+    private int stat=0;
     LoadingBar loadingBar;
     Activity ctx=PanaActivity.this;
    ViewPager viewpager;
    PagerAdapter pagerAdapter;
+   ToastMsg toastMsg;
     public static String game_names, matka_names, matka_id ,game_ids ,w_amounts ,s_time ,e_time,start_num,end_num,num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +72,9 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         tv_wallet=findViewById(R.id.tv_wallet);
         viewpager=findViewById(R.id.viewpager);
         txt_date = findViewById(R.id.tv_date);
+        txt_s_date = findViewById(R.id.txt_date);
         txt_type = findViewById(R.id.tv_type);
+        txt_s_time = findViewById(R.id.txt_time);
         btn_submit = findViewById(R.id.btn_sbmit);
         tv_matkaname=findViewById(R.id.matkaname);
         tv_matkanumber=findViewById(R.id.matkanumber);
@@ -89,23 +94,48 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         bet_list=new ArrayList<>();
         tempList=new ArrayList<>();
         bidList=new ArrayList<>();
-
+        toastMsg = new ToastMsg(PanaActivity.this);
         matka_id = getIntent().getStringExtra("m_id");
         m_id = Integer.parseInt(matka_id);
         s_time = getIntent().getStringExtra("start_time");
         e_time = getIntent().getStringExtra("end_time");
+        game_names = getIntent().getStringExtra("game_name");
+        game_ids = getIntent().getStringExtra("game_id");
 
         if (m_id>20)
-        {
+        {   card_matka.setVisibility(View.GONE);
             card_star.setVisibility(View.VISIBLE);
-        }
+            txt_date.setVisibility(View.GONE);
+            txt_type.setVisibility(View.GONE);
+            try {
+                Date date = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy EEEE");
+                SimpleDateFormat dFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+                String ctt = dFormat.format(date);
+                String times =common.get24To12Format(s_time);
+                Log.e("time",times.toString());
+                String ctt_day = dateFormat.format(date);
+                txt_s_date.setText(ctt);
+                txt_date.setText(ctt_day);
+                txt_s_time.setText(times);
+                if (common.getTimeDifference(s_time) > 0) {
+
+                    txt_type.setText("Open");
+                } else {
+                    txt_type.setText("Close");
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.printStackTrace();
+            }
+             }
         else
         {
             card_matka.setVisibility(View.VISIBLE);
+            card_star.setVisibility(View.GONE);
             matka_names = getIntent().getStringExtra("matka_name");
-            game_names = getIntent().getStringExtra("game_name");
-            game_ids = getIntent().getStringExtra("game_id");
-
             start_num = getIntent().getStringExtra("start_num");
             num = getIntent().getStringExtra("num");
             end_num = getIntent().getStringExtra("end_num");
@@ -155,7 +185,9 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
+
         tv_wallet.setText(session_management.getUserDetails().get(KEY_WALLET));
+
     }
 
     void setTabLayout() {
@@ -229,21 +261,25 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
            String bet_date = txt_date.getText().toString();
 
             if (bet_date.equals("Select Date")) {
-                Toast.makeText(ctx, "Select Date", Toast.LENGTH_LONG).show();
+//                Toast.makeText(ctx, "Select Date", Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError("Select Date");
             } else if (bet_type.equals("Select Type")) {
-                Toast.makeText(ctx, "Select game type", Toast.LENGTH_LONG).show();
+//                Toast.makeText(ctx, "Select game type", Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError("Select game type");
 
             } else if (tot==0) {
-                Toast.makeText(ctx, "Please enter some points", Toast.LENGTH_LONG).show();
+//                Toast.makeText(ctx, "Please enter some points", Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError("Please enter some points");
             } else {
                 if (String.valueOf(tot).length()<2) {
-                    Toast.makeText(ctx, "Minimum bid amount is 10", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(ctx, "Minimum bid amount is 10", Toast.LENGTH_LONG).show();
+                    toastMsg.toastIconError("Minimum bid amount is 10");
                 } else {
 
                     String w_amount=common.getUserWallet().toString();
 
                     if (tot > Integer.parseInt(w_amount)) {
-                        common.errorMessageDialog("Insufficient Amount");
+                        toastMsg.toastIconError("Insufficient Amount");
 
                     } else {
                         try {
@@ -272,7 +308,8 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
                                     common.setBidsDialog(Integer.parseInt(w_amount), tempList, matka_id, g_d, game_ids, w_amount, matka_names, loadingBar, btn_submit, s_time, e_time);
                                 } else {
 
-                                    common.errorMessageDialog("Betting is Closed Now");
+//                                    common.errorMessageDialog("Betting is Closed Now");
+                                   toastMsg.toastIconError("Betting is Closed Now");
 
                                 }
                             } else {

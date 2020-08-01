@@ -34,6 +34,7 @@ import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Session_management;
+import in.games.nidhimatka.Util.ToastMsg;
 
 import static in.games.nidhimatka.Config.Constants.*;
 
@@ -178,7 +179,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             String paytmNumber=etPaytm.getText().toString().trim();
             if (phonepaynumber.isEmpty() && teznumber.isEmpty() && paytmNumber.isEmpty())
             {
-                Toast.makeText(getActivity(), "Enter at least one detail", Toast.LENGTH_SHORT).show();
+                new ToastMsg(getActivity()).toastIconError("Enter at least one detail");
             }
             else
             {
@@ -290,12 +291,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     if(resp)
                     {
                         session_management.updateAccSection(accno,bankname,ifsc,hod_name);
-                        common.showToast(""+response.getString("message"));
+//                        common.showToast(""+response.getString("message"));
+                       new ToastMsg(getActivity()).toastIconSuccess(""+response.getString("message"));
 
                     }
                     else
                     {
-                        common.showToast(""+response.getString("error"));
+                        new ToastMsg(getActivity()).toastIconError(""+response.getString("error"));
                     }
 
                 }
@@ -312,7 +314,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 String msg=common.VolleyErrorMessage(error);
                 if(!msg.isEmpty())
                 {
-                    common.showToast(msg);
+                   new ToastMsg(getActivity()).toastIconError(msg);
                 }
             }
         });
@@ -341,19 +343,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     if(resp)
                     {
                         session_management.updatePaymentSection(teznumber,paytmno,phonepay);
-                        common.showToast(""+response.getString("message"));
+                        new ToastMsg(getActivity()).toastIconSuccess(""+response.getString("message"));
 
                     }
                     else
                     {
-                        common.showToast(""+response.getString("error"));
+                      new ToastMsg(getActivity()).toastIconError(""+response.getString("error"));
                     }
 
                 }
                 catch (Exception ex)
                 {
                     ex.printStackTrace();
-                    common.showToast(wrong);
+                    new ToastMsg(getActivity()).toastIconError(wrong);
                 }
 
 
@@ -365,7 +367,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 String msg=common.VolleyErrorMessage(error);
                 if(!msg.isEmpty())
                 {
-                    common.showToast(msg);
+                    new ToastMsg(getActivity()).toastIconError(msg);
                 }
             }
         });
@@ -391,19 +393,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     if(resp)
                     {
                         session_management.updateEmailSection(email,dob,"","");
-                        common.showToast(""+response.getString("message"));
+                        new ToastMsg(getActivity()).toastIconSuccess(""+response.getString("message"));
 
                     }
                    else
                     {
-                        common.showToast(""+response.getString("error"));
+                        new ToastMsg(getActivity()).toastIconError(""+response.getString("error"));
                     }
 
                 }
                 catch (Exception ex)
                 {
                     ex.printStackTrace();
-                    common.showToast(wrong);
+                    new ToastMsg(getActivity()).toastIconError(wrong);
                 }
             }
         }, new Response.ErrorListener() {
@@ -413,7 +415,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 String msg=common.VolleyErrorMessage(error);
                 if(!msg.isEmpty())
                 {
-                    common.showToast(msg);
+                    new ToastMsg(getActivity()).toastIconError(msg);
                 }
             }
         });
@@ -439,19 +441,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     if(resp)
                     {
                         session_management.updateAddressSection(a,c,p);
-                        common.showToast(""+response.getString("message"));
+                        new ToastMsg(getActivity()).toastIconSuccess(""+response.getString("message"));
 
                     }
                     else
                     {
-                        common.showToast(""+response.getString("error"));
+                        new ToastMsg(getActivity()).toastIconError(""+response.getString("error"));
                     }
 
                 }
                 catch (Exception ex)
                 {
                     ex.printStackTrace();
-                    common.showToast(wrong);
+                    new ToastMsg(getActivity()).toastIconError(wrong);
                 }
 
             }
@@ -462,7 +464,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 String msg=common.VolleyErrorMessage(error);
                 if(!msg.isEmpty())
                 {
-                    common.showToast(msg);
+                    new ToastMsg(getActivity()).toastIconError(msg);
                 }
             }
         });

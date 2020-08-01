@@ -66,6 +66,7 @@ import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.Session_management;
+import in.games.nidhimatka.Util.ToastMsg;
 import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 
@@ -81,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
     private Dialog dialog;
     private EditText edtEmail,edtEmailId;
     public static String mainName="";
+    ToastMsg toastMsg = new ToastMsg(LoginActivity.this);
     Activity ctx = LoginActivity.this;
      Button btnRegister,btnForgetPassword,btnForgetUserID;
     private Button btnForPassword,btnForUserID;
@@ -317,12 +319,14 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             } else {
-                                Toast.makeText(ctx, "Password is not correct ", Toast.LENGTH_LONG).show();
+//                                Toast.makeText(ctx, "Password is not correct ", Toast.LENGTH_LONG).show();
+                            toastMsg.toastIconError("Password is not correct ");
                             }
 
                         }
                          else {
-                            Toast.makeText(ctx, ""+response.getString("error").toString(), Toast.LENGTH_LONG).show();
+//                            Toast.makeText(ctx, ""+response.getString("error").toString(), Toast.LENGTH_LONG).show();
+                          toastMsg.toastIconError(response.getString("error"));
                         }
 
                     } catch (Exception ex) {
@@ -339,7 +343,8 @@ public class LoginActivity extends AppCompatActivity {
                 String msg=common.VolleyErrorMessage(error);
                 if(!msg.isEmpty())
                 {
-                    common.showToast(""+msg);
+//                    common.showToast(""+msg);
+                    toastMsg.toastIconError(""+msg);
                 }
 
             }

@@ -22,6 +22,7 @@ import java.util.Date;
 
 import in.games.nidhimatka.Model.Starline_Objects;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.ToastMsg;
 
 import static android.graphics.Color.GRAY;
 
@@ -202,7 +203,9 @@ public class PGAdapter extends BaseAdapter {
         }
         catch (Exception ex)
         {
-            Toast.makeText(context,"err :--  "+ex.getMessage()+"\n "+gm_time+"\n "+current_time, Toast.LENGTH_LONG).show();
+            ex.printStackTrace();
+            new ToastMsg(context).toastIconError("Something went Wrong");
+//            Toast.makeText(context,"err :--  "+ex.getMessage()+"\n "+gm_time+"\n "+current_time, Toast.LENGTH_LONG).show();
         }
         String d=""+h+":"+m;
         return String.valueOf(d);

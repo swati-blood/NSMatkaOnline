@@ -47,6 +47,7 @@ import in.games.nidhimatka.Objects.sp_input_data;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.Util.ToastMsg;
 
 public class SPMotor extends Fragment implements View.OnClickListener {
     Common common;
@@ -63,6 +64,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
     private EditText etDgt,etPnt;
     String matName="";
     Dialog dialog ;
+    ToastMsg toastMsg;
     private EditText etPoints;
     LoadingBar progressDialog;
     private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "",game_date="";
@@ -92,6 +94,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
         etPoints=(EditText)v.findViewById(R.id.etPoints);
         etDigits=(EditText)v.findViewById(R.id.etSingleDigit);
         common = new Common(getActivity());
+     toastMsg = new ToastMsg(getActivity());
         progressDialog = new LoadingBar(getActivity());
         matka_name = getArguments().getString("matka_name");
         game_name = getArguments().getString("game_name");
@@ -119,11 +122,11 @@ public class SPMotor extends Fragment implements View.OnClickListener {
             String bet = type;
             if (game_date.equals("Select Date"))
             {
-                Toast.makeText(getActivity(),"Select Date",Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError("Select Date");
             }
             else if (type.equals("Select Type"))
             {
-                Toast.makeText(getActivity(),"Select game type",Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError("Select game type");
 
             }
 
@@ -149,7 +152,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
                     }
                     else if (pints>Integer.parseInt(w_amount))
                     {
-                        common.errorMessageDialog("Insufficient Amount");
+                        toastMsg.toastIconError("Insufficient Amount");
                     }
                     else {
                         list.clear();
@@ -176,7 +179,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
 
                         String inputData =etDigits.getText().toString().trim();
                         if (inputData.equals("false")) {
-                            Toast.makeText(getActivity(), "Wrong input", Toast.LENGTH_LONG).show();
+                            toastMsg.toastIconError( "Wrong input");
                         }
 
                             else {
@@ -206,7 +209,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
             }
             if (amt>Integer.parseInt(w_amount))
             {
-                common.errorMessageDialog("Insufficient Amount");
+                toastMsg.toastIconError("Insufficient Amount");
                 clrControls();
             }
             else {
@@ -239,7 +242,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
                             common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
                         } else {
                             clrControls();
-                            common.errorMessageDialog("Betting is Closed Now");
+                            toastMsg.toastIconError("Betting is Closed Now");
 
                         }
                     } else {
@@ -297,7 +300,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
 
                     } else {
                         progressDialog.dismiss();
-                        Toast.makeText(getActivity(), "Something wrong", Toast.LENGTH_LONG).show();
+                        toastMsg.toastIconError( "Something went wrong");
 
                     }
 
@@ -308,7 +311,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
 
                 } catch (Exception ex) {
                     progressDialog.dismiss();
-                    Toast.makeText(getActivity(), "Error :" + ex.getMessage(), Toast.LENGTH_LONG).show();
+                    toastMsg.toastIconError("Error :" + ex.getMessage());
                     return;
                 }
 
@@ -318,7 +321,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
             public void onErrorResponse(VolleyError error) {
 
                 progressDialog.dismiss();
-                Toast.makeText(getActivity(), "Error :" + error.getMessage(), Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError( "Error :" + error.getMessage());
                 return;
             }
         });

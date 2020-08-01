@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,6 +39,7 @@ import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Config.URLs;
+import in.games.nidhimatka.Fragments.AllHistoryFragment;
 import in.games.nidhimatka.Model.GameRateModel;
 import in.games.nidhimatka.Model.Starline_Objects;
 import in.games.nidhimatka.R;
@@ -46,11 +48,12 @@ import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Module;
 import in.games.nidhimatka.Util.Session_management;
+import in.games.nidhimatka.Util.ToastMsg;
 import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 import static in.games.nidhimatka.Config.BaseUrls.URL_STARLINE;
 
-public class StarlineFragment extends Fragment {
+public class StarlineFragment extends Fragment implements View.OnClickListener {
     ListView rv_matka;
     ArrayList<GameRateModel> list;
     ArrayList<GameRateModel> slist;
@@ -62,6 +65,7 @@ public class StarlineFragment extends Fragment {
     Module module;
     RelativeLayout swipe;
     TextView txt_game_rate;
+    Button btn_bid,btn_result , btn_terms;
     public StarlineFragment() {
         // Required empty public constructor
     }
@@ -84,11 +88,16 @@ public class StarlineFragment extends Fragment {
         ((MainActivity) getActivity()).setTitle(getActivity().getResources().getString(R.string.app_name));
         rv_matka= v.findViewById(R.id.listView);
         txt_game_rate= v.findViewById(R.id.game_rate);
+        btn_bid= v.findViewById(R.id.star_histry);
+        btn_result= v.findViewById(R.id.star_result);
+       btn_terms= v.findViewById(R.id.star_term);
         swipe = v.findViewById(R.id.swipe_layout);
         progressDialog = new LoadingBar(getActivity());
         common = new Common(getActivity());
         module = new Module();
-
+        btn_terms.setOnClickListener(this);
+        btn_bid.setOnClickListener(this);
+        btn_result.setOnClickListener(this);
         if(ConnectivityReceiver.isConnected()) {
 
             getMatkaData();
@@ -129,7 +138,7 @@ public class StarlineFragment extends Fragment {
                 //Toast.makeText(PlayGameActivity.this,"sTime "+sTime+"\n dt"+ddt,Toast.LENGTH_LONG).show();
                 if(sTime<=c_tm)
                 {
-                    common.errorMessageDialog("Betting is closed for today");
+                    new ToastMsg(getActivity()).toastInfo("Betting is closed for today");
                     return;
 
                 }
@@ -372,5 +381,26 @@ public class StarlineFragment extends Fragment {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.star_histry:
+                Bundle bundle = new Bundle();
+                bundle.putString("type","starline");
+               Fragment fm = new AllHistoryFragment();
+                fm.setArguments(bundle);
+                FragmentManager fragmentManager =getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+                        .addToBackStack(null)
+                        .commit();
 
+                break;
+            case R.id.star_result:
+        break;
+            case R.id.star_term:
+        break;
+        }
+
+    }
 }

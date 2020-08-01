@@ -70,6 +70,7 @@ import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Module;
 import in.games.nidhimatka.Util.Session_management;
+import in.games.nidhimatka.Util.ToastMsg;
 
 import static in.games.nidhimatka.Activity.PanaActivity.total;
 import static in.games.nidhimatka.Config.BaseUrls.URL_INSERT_DATA;
@@ -419,163 +420,6 @@ public class Common {
         }
     }
 
-    private void setDataTo(final TextView txtOpen, final TextView txtClose, final String m_id, final LoadingBar progressDialog, final String date_cuurent) {
-        progressDialog.show();
-
-        String json_tag="json_reg_tag";
-        HashMap<String, String> params=new HashMap<String, String>();
-        params.put("id",m_id);
-
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_MATKA_WITH_ID, params, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try
-                {
-                    JSONObject object=response;
-                    String status=object.getString("status");
-                    if(status.equals("success"))
-                    {
-                        JSONObject jsonObject=object.getJSONObject("data");
-                        MatkasObjects matkasObjects=new MatkasObjects();
-                        matkasObjects.setId(jsonObject.getString("id"));
-                        matkasObjects.setName(jsonObject.getString("name"));
-                        matkasObjects.setStart_time(jsonObject.getString("start_time"));
-                        matkasObjects.setEnd_time(jsonObject.getString("end_time"));
-                        matkasObjects.setStarting_num(jsonObject.getString("starting_num"));
-                        matkasObjects.setNumber(jsonObject.getString("number"));
-                        matkasObjects.setEnd_num(jsonObject.getString("end_num"));
-                        matkasObjects.setBid_start_time(jsonObject.getString("bid_start_time"));
-                        matkasObjects.setBid_end_time(jsonObject.getString("bid_end_time"));
-                        matkasObjects.setCreated_at(jsonObject.getString("created_at"));
-                        matkasObjects.setUpdated_at(jsonObject.getString("updated_at"));
-                        matkasObjects.setSat_start_time(jsonObject.getString("sat_start_time"));
-                        matkasObjects.setSat_end_time(jsonObject.getString("sat_end_time"));
-                        matkasObjects.setStatus(jsonObject.getString("status"));
-
-
-                        String dt=new SimpleDateFormat("EEEE").format(new Date());
-                        String bid_start="";
-                        if(dt.equals("Saturday"))
-                        {
-                            bid_start=matkasObjects.getSat_start_time();
-                        }
-
-                        else if(dt.equals("Sunday"))
-                        {
-                            bid_start=matkasObjects.getStart_time();
-                        }
-                        else
-                        {
-                            bid_start=matkasObjects.getBid_start_time();
-
-                        }
-                        Date current_time=new Date();
-                        SimpleDateFormat sformat=new SimpleDateFormat("HH:mm:ss");
-                        String c_date=sformat.format(current_time);
-
-                        String startTimeSplliting[]=bid_start.split(":");
-                        int s_hours= Integer.parseInt(startTimeSplliting[0]);
-                        int s_min= Integer.parseInt(startTimeSplliting[1]);
-                        int s_sec= Integer.parseInt(startTimeSplliting[2]);
-                        String currentTimeSplitting[]=c_date.split(":");
-                        int c_hours= Integer.parseInt(currentTimeSplitting[0]);
-                        int c_min= Integer.parseInt(currentTimeSplitting[1]);
-                        int c_sec= Integer.parseInt(currentTimeSplitting[2]);
-
-                        int flag=0;
-                        if(s_hours>c_hours)
-                        {
-                            flag=1;
-                        }
-                        else if(s_hours==c_hours)
-                        {
-                            if(s_min>c_min)
-                            {
-                                flag=1;
-                            }
-                            else if(s_min==c_min)
-                            {
-                                if(s_sec>c_sec)
-                                {
-                                    flag=1;
-                                }
-                                else
-                                {
-                                    flag=0;
-                                }
-                                flag=0;
-                            }
-                            else
-                            {
-                                flag=0;
-                            }
-                        }
-                        else
-                        {
-                            flag=0;
-                        }
-
-                        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy");
-
-                        Date d1=simpleDateFormat.parse(date_cuurent);
-                        Date date=new Date();
-                        SimpleDateFormat dateFormat1=new SimpleDateFormat("dd/MM/yyyy");
-                        String s1=dateFormat1.format(date);
-                        Date d2=simpleDateFormat.parse(s1);
-                        if(d1.compareTo(d2)==0)
-                        {
-                            if(flag==1)
-                            {
-                                txtOpen.setText("Open Bet");
-                                txtClose.setText("Close Bet");
-                            }
-                            else if(flag==0)
-                            {
-                                txtOpen.setVisibility(View.GONE);
-                                txtClose.setText("Close Bet");
-
-                            }
-
-                        }
-                        else
-                        {
-                            txtOpen.setText("Open Bet");
-                            txtClose.setText("Close Bet");
-                        }
-
-                        progressDialog.dismiss();
-                    }
-                    else
-                    {
-                        progressDialog.dismiss();
-                        Toast.makeText(context,"Something ", Toast.LENGTH_LONG).show();
-
-                    }
-                }
-                catch(Exception ex)
-                {
-                    progressDialog.dismiss();
-                    Toast.makeText(context,"Something "+ex.getMessage(), Toast.LENGTH_LONG).show();
-
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                String msg=VolleyErrorMessage(error);
-                errorMessageDialog(msg);
-
-
-            }
-        });
-
-        AppController.getInstance().addToRequestQueue(customJsonRequest,json_tag);
-
-
-    }
     public void addData(String digit, String point, String type, List<TableModel> list, TableAdaper tableAdaper, ListView list_table, Button btnSave) {
 
         list.add(new TableModel(digit, point, type));
@@ -736,7 +580,7 @@ public class Common {
 
                 }
             } catch (Exception ex) {
-                Toast.makeText(context, "Err" + ex.getMessage(), Toast.LENGTH_LONG).show();
+             new ToastMsg(context).toastIconError( "Err" + ex.getMessage());
             }
 
         }
@@ -1118,140 +962,7 @@ loadingBar.show();
 
     }
 
-    public void setBetDateDay(final String m_id, final Button btnGameType, final LoadingBar progressDialog)
-    {
-        String json_request_tag="matka_with_id";
-        HashMap<String, String> params=new HashMap<String, String>();
-        params.put("id",m_id);
-        progressDialog.show();
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_MATKA_WITH_ID, params, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                progressDialog.dismiss();
-                try
-                {
-                    String status=response.getString("status");
-                    if(status.equals("success"))
-                    {
-                        JSONObject jsonObject=response.getJSONObject("data");
-                        MatkasObjects matkasObjects = new MatkasObjects();
-                        matkasObjects.setId(jsonObject.getString("id"));
-                        matkasObjects.setName(jsonObject.getString("name"));
-                        matkasObjects.setStart_time(jsonObject.getString("start_time"));
-                        matkasObjects.setEnd_time(jsonObject.getString("end_time"));
-                        matkasObjects.setStarting_num(jsonObject.getString("starting_num"));
-                        matkasObjects.setNumber(jsonObject.getString("number"));
-                        matkasObjects.setEnd_num(jsonObject.getString("end_num"));
-                        matkasObjects.setBid_start_time(jsonObject.getString("bid_start_time"));
-                        matkasObjects.setBid_end_time(jsonObject.getString("bid_end_time"));
-                        matkasObjects.setCreated_at(jsonObject.getString("created_at"));
-                        matkasObjects.setUpdated_at(jsonObject.getString("updated_at"));
-                        matkasObjects.setSat_start_time(jsonObject.getString("sat_start_time"));
-                        matkasObjects.setSat_end_time(jsonObject.getString("sat_end_time"));
-                        matkasObjects.setStatus(jsonObject.getString("status"));
-
-                        String dt=new SimpleDateFormat("EEEE").format(new Date());
-                        String bid_start = "";
-                        String bid_end="";
-//                        String bid_start = matkasObjects.getBid_start_time();
-//                        String bid_end=matkasObjects.getBid_end_time().toString();
-
-                        if(dt.equals("Sunday"))
-                        {
-                            bid_start=matkasObjects.getStart_time();
-                            bid_end=matkasObjects.getEnd_time();
-                        }
-                        else if(dt.equals("Saturday"))
-                        {
-                            bid_start=matkasObjects.getSat_start_time();
-                            bid_end=matkasObjects.getSat_end_time();
-
-                        }
-                        else
-                        {
-                            bid_start=matkasObjects.getBid_start_time();
-                            bid_end=matkasObjects.getBid_end_time();
-
-                        }
-
-
-                        String time1 = bid_start.toString();
-                        String time2 = bid_end.toString();
-
-                        Date cdate=new Date();
-
-
-
-                        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-                        String time3=format.format(cdate);
-                        Date date1 = null;
-                        Date date2=null;
-                        Date date3=null;
-                        try {
-                            date1 = format.parse(time1);
-                            date2 = format.parse(time2);
-                            date3=format.parse(time3);
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-
-                        long difference = date3.getTime() - date1.getTime();
-                        long as=(difference/1000)/60;
-
-                        long diff_close=date3.getTime()-date2.getTime();
-                        long c=(diff_close/1000)/60;
-                        Log.e("dataaaa",""+c);
-                        Date c_dat=new Date();
-                        SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy EEEE");
-                        String s_dt=dateFormat.format(c_dat);
-                        String n_dt= getNextDate(s_dt);
-                        String a_dt= getNextDate(n_dt);
-
-                        if(c>0)
-                        {progressDialog.dismiss();
-                            btnGameType.setText(s_dt+" Bet Close");
-
-
-                            // Toast.makeText(OddEvenActivity.this,""+s_dt+"  Close",Toast.LENGTH_LONG).show();
-                        }
-                        else
-                        {
-                            progressDialog.dismiss();
-                            btnGameType.setText(s_dt+" Bet Open");
-
-                        }
-
-
-//                        }
-
-
-                    } else {
-                        progressDialog.dismiss();
-                        Toast.makeText(context,"Something wrong", Toast.LENGTH_LONG).show();
-
-
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    ex.printStackTrace();
-                    Toast.makeText(context,"something went wrong ", Toast.LENGTH_LONG).show();
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                String msg=VolleyErrorMessage(error);
-                errorMessageDialog(msg);
-            }
-        });
-        AppController.getInstance().addToRequestQueue(customJsonRequest,json_request_tag);
-    }
 
     public void getStarlineGameData(final String m_id, final Button btnType, final LoadingBar progressDialog)
     {
@@ -1764,7 +1475,7 @@ loadingBar.show();
 
                         context.startActivity(intent);
 
-                        Toast.makeText(context,"Bid Added Successfully.", Toast.LENGTH_LONG).show();
+                       new ToastMsg(context).toastIconSuccess("Bid Added Successfully.");
                     }
                     else if(status.equals("failed"))
                     {
@@ -1811,7 +1522,10 @@ loadingBar.show();
                 catch (Exception ex)
                 {
                     progressDialog.dismiss();
-                    Toast.makeText(context,"Err"+ex.getMessage(), Toast.LENGTH_LONG).show();
+                    ex.printStackTrace();
+                    Log.e("",ex.getStackTrace().toString());
+//                    Toast.makeText(context,"Err"+ex.getMessage(), Toast.LENGTH_LONG).show();
+                    new ToastMsg(context).toastIconError("Err"+ex.getMessage());
                 }
             }
         }, new Response.ErrorListener() {
@@ -2198,6 +1912,7 @@ loadingBar.show();
             @Override
             public void onResponse(JSONArray response) {
                 loadingBar.dismiss();
+                Log.e("wallet",response.toString());
                 try {
                     JSONObject object=response.getJSONObject(0);
                     String wamt=object.getString("wallet_points");

@@ -46,6 +46,7 @@ import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
 import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.Util.ToastMsg;
 import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 import static in.games.nidhimatka.Config.BaseUrls.URL_BID_HISTORY;
@@ -136,7 +137,7 @@ public class AllHistryListFragment extends Fragment {
                     if(h.equals("null") || h.equals(null))
                     {
                         progressDialog.dismiss();
-                        common.errorMessageDialog("No history for this Matka");
+                        new ToastMsg(getActivity()).toastIconError(("No history for this Matka"));
                     }
                     else
                     {
@@ -174,7 +175,7 @@ public class AllHistryListFragment extends Fragment {
                 catch (Exception ex)
                 {
                     progressDialog.dismiss();
-                    Toast.makeText(getActivity(),"Something went wrong",Toast.LENGTH_LONG).show();
+                 new ToastMsg(getActivity()).toastIconError("Something went wrong");
                 }
 
             }
@@ -243,7 +244,7 @@ public class AllHistryListFragment extends Fragment {
                 catch (Exception ex)
                 {
                     progressDialog.dismiss();
-                    Toast.makeText(getActivity(),""+ex.getMessage(),Toast.LENGTH_LONG).show();
+                    new ToastMsg(getActivity()).toastIconError(""+ex.getMessage());
                     return;
                 }
 
@@ -253,7 +254,7 @@ public class AllHistryListFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(),"Error"+error.toString(),Toast.LENGTH_LONG).show();
+                        new ToastMsg(getActivity()).toastIconError("Error"+error.toString());
 //                        Log.e("Volley",error.toString());
                         progressDialog.dismiss();
                     }
@@ -290,7 +291,7 @@ public class AllHistryListFragment extends Fragment {
                 if(response.equals("empty"))
                 {
                     progressDialog.dismiss();
-                    Toast.makeText(getActivity(),"empty",Toast.LENGTH_LONG).show();
+                    new ToastMsg(getActivity()).toastIconError("empty");
 //                        Log.e("Volley",error.toString());
 
                 }
@@ -322,7 +323,7 @@ public class AllHistryListFragment extends Fragment {
                     }
                     catch (Exception ex)
                     {
-                        Toast.makeText(getActivity(),"There is no history",Toast.LENGTH_LONG).show();
+                        new ToastMsg(getActivity()).toastInfo("There is no history");
 //                        Log.e("Volley",error.toString());
                         progressDialog.dismiss();
                     }
@@ -336,7 +337,7 @@ public class AllHistryListFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        Toast.makeText(getActivity(),"Error"+error.toString(),Toast.LENGTH_LONG).show();
+                        new ToastMsg(getActivity()).toastIconError("Error"+error.toString());
 //                        Log.e("Volley",error.toString());
                         progressDialog.dismiss();
                     }
@@ -402,13 +403,13 @@ public class AllHistryListFragment extends Fragment {
                     }
                     else
                     {
-                        common.errorMessageDialog("No History Found");
+                        new ToastMsg(getActivity()).toastInfo("No History Found");
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    Toast.makeText(getActivity(),"There is no history for this game",Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getActivity(),"There is no history for this game",Toast.LENGTH_LONG).show();
 //                        Log.e("Volley",error.toString());
                     progressDialog.dismiss();
                 }
@@ -419,7 +420,7 @@ public class AllHistryListFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
                 String msg=common.VolleyErrorMessage(error);
-                common.errorMessageDialog(msg);
+                new ToastMsg(getActivity()).toastIconError((msg));
 
             }
         });

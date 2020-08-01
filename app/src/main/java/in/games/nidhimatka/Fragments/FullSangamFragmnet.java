@@ -34,6 +34,7 @@ import in.games.nidhimatka.Model.TableModel;
 import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.Util.ToastMsg;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +46,7 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
     private int val_p=0;
     private TextView txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id;
     private Dialog dialog;
+    ToastMsg toastMsg ;
     private final String[] singlePaana={"137","128","146","236","245","290","380","470","489","560","678","579",
             "119","155","227","335","344","399","588","669","777","100","129","138","147","156","237","246",
             "345","390","480","570","589","679","110","228","255","336","499","660","778","200","444",
@@ -103,6 +105,7 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
         TextView txtWalet=  toolbar.findViewById(R.id.txtWallet);
         etPoints=(EditText)v.findViewById(R.id.etPoints);
         common = new Common(getActivity());
+       toastMsg = new ToastMsg(getActivity());
         progressDialog = new LoadingBar(getActivity());
         matka_name = getArguments().getString("matka_name");
         game_name = getArguments().getString("game_name");
@@ -133,11 +136,11 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
 
             if (game_date.equals("Select Date"))
             {
-                Toast.makeText(getActivity(),"Select Date",Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError("Select Date");
             }
 //            else if (type.equals("Select Type"))
 //            {
-//                Toast.makeText(getActivity(),"Select game type",Toast.LENGTH_LONG).show();
+//                toastMsg.toastIconError("Select game type");
 //
 //            }
 
@@ -159,13 +162,13 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
                     etPoints.requestFocus();
                     return;
                 } else if (!Arrays.asList(singlePaana).contains(open_pana)) {
-                    Toast.makeText(getActivity(), "This is invalid pana", Toast.LENGTH_LONG).show();
+                    toastMsg.toastIconError("This is invalid pana");
                     etOpenPana.setText("");
                     etOpenPana.requestFocus();
                     return;
 
                 } else if (!Arrays.asList(singlePaana).contains(close_pana)) {
-                    Toast.makeText(getActivity(), "This is invalid pana", Toast.LENGTH_LONG).show();
+                    toastMsg.toastIconError("This is invalid pana");
                     etClosePana.setText("");
                     etClosePana.requestFocus();
                     return;
@@ -182,7 +185,7 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
 
                     }
                     else if (pints > Integer.parseInt(w_amount)) {
-                        common.errorMessageDialog("Insufficient Amount");
+                        toastMsg.toastIconError("Insufficient Amount");
                     }
                     else {
                         //  setTableRowData(open_pana, close_pana, points);
@@ -205,7 +208,7 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
             int er = list.size();
             if (er <= 0) {
                 String message = "Please Add Some Bids";
-                common.errorMessageDialog(message);
+                toastMsg.toastIconError(message);
                 return;
             } else {
 
@@ -272,7 +275,7 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
                     if (wallet_amount < amt) {
 
                         String message = "Insufficient Amount";
-                        common.errorMessageDialog(message);
+                        toastMsg.toastIconError(message);
                         return;
 
                     } else {

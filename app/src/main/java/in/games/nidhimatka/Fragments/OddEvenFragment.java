@@ -36,6 +36,7 @@ import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Model.TableModel;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.Util.ToastMsg;
 
 public class OddEvenFragment extends Fragment implements View.OnClickListener {
     Common common;
@@ -56,6 +57,7 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
     private TextView txt_date,txt_type ,txtOpen,txtClose,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id;
     String bet_date="";
     private String bet_status="";
+    ToastMsg toastMsg;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,6 +82,7 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
         TextView txtWalet=  toolbar.findViewById(R.id.txtWallet);
         etPoints=(EditText)v.findViewById(R.id.etPoints);
         common = new Common(getActivity());
+       toastMsg = new ToastMsg(getActivity());
         progressDialog = new LoadingBar(getActivity());
         matka_name = getArguments().getString("matka_name");
         game_name = getArguments().getString("game_name");
@@ -158,11 +161,11 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
         String bet = type;
         if (game_date.equals("Select Date"))
         {
-            Toast.makeText(getActivity(),"Select Date",Toast.LENGTH_LONG).show();
+            toastMsg.toastIconError("Select Date");
         }
         else if (type.equals("Select Type"))
         {
-            Toast.makeText(getActivity(),"Select game type",Toast.LENGTH_LONG).show();
+            toastMsg.toastIconError("Select game type");
 
         }
 
@@ -193,7 +196,7 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
             }
             else if (pints>Integer.parseInt(w_amount))
             {
-                common.errorMessageDialog("Insufficient Amount");
+                toastMsg.toastIconError("Insufficient Amount");
             }
             else
             {
@@ -246,7 +249,7 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
                 }
                 else
                 {
-                    Toast.makeText(getActivity(),"Please select any digit type",Toast.LENGTH_LONG).show();
+                    toastMsg.toastIconError("Please select any digit type");
                     return;
                 }
             }
@@ -263,7 +266,7 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
         }
         if (amt>Integer.parseInt(w_amount))
         {
-            common.errorMessageDialog("Insufficient Amount");
+            toastMsg.toastIconError("Insufficient Amount");
             clrControls();
         }
         else {
@@ -292,7 +295,7 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
                         common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
                     } else {
                         clrControls();
-                        common.errorMessageDialog("Betting is Closed Now");
+                        toastMsg.toastIconError("Betting is Closed Now");
 
                     }
                 } else {

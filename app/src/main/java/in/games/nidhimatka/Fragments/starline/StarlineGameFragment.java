@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,11 +41,11 @@ public class StarlineGameFragment extends Fragment {
 
         ((MainActivity) getActivity()).setTitle("Starline Game");
         rv_games =  view.findViewById(R.id.recycler_games);
-        rv_games.setLayoutManager(new GridLayoutManager(getActivity(),3));
+        rv_games.setLayoutManager(new GridLayoutManager(getActivity(),2));
         game_list = new ArrayList<>();
 //       game_list.add(new GameModel("1","Odd Even",R.drawable.odd_even,"1"));
         game_list.add(new GameModel("2","Single Digit",R.drawable.single_digit,"0"));
-        game_list.add(new GameModel("3","Jodi Digit",R.drawable.jodi_digits,"0"));
+//        game_list.add(new GameModel("3","Jodi Digit",R.drawable.jodi_digits,"0"));
 //       game_list.add(new GameModel("4","Red Bracket",R.drawable.red_brackets,"1"));
 //       game_list.add(new GameModel("5","Panel Group",R.drawable.panel_group_icon,"1"));
 //       game_list.add(new GameModel("6","Group Jodi",R.drawable.group_jodi,"1"));
@@ -53,13 +54,14 @@ public class StarlineGameFragment extends Fragment {
         game_list.add(new GameModel("9","Triple Pana",R.drawable.triple_pana,"0"));
 //       game_list.add(new GameModel("10","SP Motor",R.drawable.sp_motor,"1"));
 //       game_list.add(new GameModel("11","DP Motor",R.drawable.dp_motor,"1"));
-        game_list.add(new GameModel("12","Half Sangam",R.drawable.half_sangam_digit,"1"));
-        game_list.add(new GameModel("13","Full Sangam",R.drawable.full_sangam_digits,"1"));
+//        game_list.add(new GameModel("12","Half Sangam",R.drawable.half_sangam_digit,"1"));
+//        game_list.add(new GameModel("13","Full Sangam",R.drawable.full_sangam_digits,"1"));
 //       game_list.add(new GameModel("14","Cycle Pana",R.drawable.cyclepana,"1"));
         selectGameAdapter = new StralinegameAdapter(getActivity(),game_list, getArguments().getString("m_id"),
                 getArguments().getString("start_time"),
                 getArguments().getString("end_time"));
         rv_games.setAdapter(selectGameAdapter);
+        Log.e("m_id",getArguments().getString("m_id"));
 //        rv_games.notifyDataSetChanged();
 //       rv_games.scheduleLayoutAnimation();
 //       rv_games.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv_games, new RecyclerTouchListener.OnItemClickListener() {

@@ -34,6 +34,7 @@ import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.Util.ToastMsg;
 import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 import static in.games.nidhimatka.Config.BaseUrls.URL_NOTICE;
@@ -46,6 +47,7 @@ public class GameRatesFragment extends Fragment {
     ArrayList<GameRateModel> slist;
     GameRateAdapter gameRateAdapter;
     RecyclerView jannat_recycler,starline_recycler;
+    ToastMsg toastMsg;
 
 
     public GameRatesFragment() {
@@ -66,6 +68,7 @@ public class GameRatesFragment extends Fragment {
   public void initViews(View v)
   {
       progressDialog=new LoadingBar(getActivity());
+      toastMsg=new ToastMsg(getActivity());
       //    progressDialog.setTitle("Please wait");
       jannat_recycler=v.findViewById(R.id.jannat_recycler);
       starline_recycler=v.findViewById(R.id.starline_recycler);
@@ -134,14 +137,14 @@ public class GameRatesFragment extends Fragment {
                 }
                 catch (Exception ex)
                 {progressDialog.dismiss();
-                    Toast.makeText(getActivity(),""+ex.getMessage(),Toast.LENGTH_LONG).show();
+                    toastMsg.toastIconError(""+ex.getMessage());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
-                Toast.makeText(getActivity(),""+error.getMessage(),Toast.LENGTH_LONG).show();
+                toastMsg.toastIconError(""+error.getMessage());
             }
         });
         AppController.getInstance().addToRequestQueue(customJsonRequest,tag_json_obj);
