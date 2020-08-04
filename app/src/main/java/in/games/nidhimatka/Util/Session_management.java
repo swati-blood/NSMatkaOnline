@@ -53,6 +53,7 @@ public class Session_management {
         editor.putString(KEY_DOB, dob);
         editor.putString(KEY_WALLET, wallet);
         editor.putString(KEY_GENDER, gender);
+        editor.putBoolean(KEY_DIALOG, false);
 
         editor.commit();
     }
@@ -81,6 +82,7 @@ public class Session_management {
         user.put(KEY_WALLET, prefs.getString(KEY_WALLET, ""));
         user.put(KEY_DOB, prefs.getString(KEY_DOB, ""));
         user.put(KEY_GENDER, prefs.getString(KEY_GENDER, ""));
+
         return user;
     }
 
@@ -117,6 +119,11 @@ public class Session_management {
     public void updateWallet(String wallet)
     {
         editor.putString(KEY_WALLET, wallet);
+        editor.apply();
+    }
+    public void updateDilogStatus(boolean flag)
+    {
+        editor.putBoolean(KEY_DIALOG, flag);
         editor.apply();
     }
 
@@ -170,37 +177,10 @@ public class Session_management {
     public boolean isLoggedIn() {
         return prefs.getBoolean(IS_LOGIN, false);
     }
-//    public void updateProfile(String image, String name, String cnt)
-//    {
-//        editor.putString(KEY_IMAGE,image);
-//        editor.putString(KEY_NAME,name);
-//        editor.putString(KEY_CNT,cnt);
-//        editor.commit();
-//    }
-//
-//    public HashMap<String, String> getUpdateProfile()
-//    {
-//        HashMap<String, String> map=new HashMap<>();
-//        map.put(KEY_IMAGE,prefs.getString(KEY_IMAGE,null));
-//        map.put(KEY_NAME,prefs.getString(KEY_NAME,null));
-//        map.put(KEY_CNT,prefs.getString(KEY_CNT,null));
-//        return map;
-//    }
-//
-//    public void updateUserName(String name)
-//    {
-//        editor.putString(KEY_NAME,name);
-//        editor.commit();
-//    }
-//    public void setCategoryId(String id)
-//    {
-//        editor.putString(KEY_CAT,id);
-//        editor.commit();
-//    }
-//
-//    public String getCategoryId()
-//    {
-//        return prefs.getString(KEY_CAT,"");
-//    }
+    public boolean isDialogStatus() {
+        return prefs.getBoolean(KEY_DIALOG, false);
+    }
+
+
 
 }

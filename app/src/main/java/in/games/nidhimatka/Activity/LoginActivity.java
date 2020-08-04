@@ -82,13 +82,10 @@ public class LoginActivity extends AppCompatActivity {
     private Dialog dialog;
     private EditText edtEmail,edtEmailId;
     public static String mainName="";
-    ToastMsg toastMsg = new ToastMsg(LoginActivity.this);
+    ToastMsg toastMsg;
     Activity ctx = LoginActivity.this;
      Button btnRegister,btnForgetPassword,btnForgetUserID;
     private Button btnForPassword,btnForUserID;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
         etName=(EditText)findViewById(R.id.etUser);
         etPassword=(EditText)findViewById(R.id.etPass);
         common=new Common(LoginActivity.this);
-
+toastMsg= new ToastMsg(LoginActivity.this);
         btnRegister=(Button)findViewById(R.id.login_register_btn);
         btnForPassword=(Button)findViewById(R.id.btnForgetPass);
         btnForUserID=(Button)findViewById(R.id.btnForgetUserId);

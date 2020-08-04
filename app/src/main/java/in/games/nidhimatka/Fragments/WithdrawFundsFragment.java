@@ -86,9 +86,9 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
         txtback=(TextView)v.findViewById(R.id.txtBack);
         txtWalletAmount=(TextView)v.findViewById(R.id.wallet_amount);
         txtWalletAmount.setVisibility(View.GONE);
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        TextView txtWalet=  toolbar.findViewById(R.id.txtWallet);
-        w_amt = Integer.parseInt(txtWalet.getText().toString().trim());
+//        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+//        TextView txtWalet=  toolbar.findViewById(R.id.txtWallet);
+        w_amt = Integer.parseInt(session_management.getUserDetails().get(KEY_WALLET));
         etPoint=(EditText)v.findViewById(R.id.etRequstPoints);
         btnSave=(Button)v.findViewById(R.id.add_Request);
         txtMobile=(TextView)v.findViewById(R.id.textview5);

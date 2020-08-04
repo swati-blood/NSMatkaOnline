@@ -28,6 +28,7 @@ public class Constants {
     public static final String KEY_DOB="dob";
     public static final String KEY_WALLET="wallet";
     public static final String KEY_GENDER="gender";
+    public static final String KEY_DIALOG="dialog_status";
 
     public static final String REV_FRAG_POSITION="fragment_position";
     public static final String REV_TYPE="type";

@@ -1917,6 +1917,7 @@ loadingBar.show();
                     JSONObject object=response.getJSONObject(0);
                     String wamt=object.getString("wallet_points");
                     session_management.updateWallet(wamt);
+                    Log.e("Common_wallet","wallet_amt_-- "+session_management.getUserDetails().get(KEY_WALLET));
                     ((MainActivity)context).setWallet_Amount(String.valueOf(wamt));
 
                 }

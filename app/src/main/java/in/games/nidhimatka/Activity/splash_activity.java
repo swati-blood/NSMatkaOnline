@@ -246,6 +246,7 @@ public class splash_activity extends AppCompatActivity {
     public void go_next() {
         if(session_management.isLoggedIn())
         {
+            session_management.updateDilogStatus(false);
             Intent intent = new Intent(splash_activity.this,MainActivity.class);
             startActivity(intent);
             finish();

@@ -67,6 +67,8 @@ import static in.games.nidhimatka.Activity.splash_activity.ver_code;
 
 
 import static in.games.nidhimatka.Config.BaseUrls.URL_Matka;
+import static in.games.nidhimatka.Config.Constants.KEY_DIALOG;
+import static in.games.nidhimatka.Config.Constants.KEY_WALLET;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
@@ -179,10 +181,16 @@ MatkaAdapter matkaAdapter ;
     if(ConnectivityReceiver.isConnected()) {
         makeSliderRequest();
         getMatkaData();
+        Log.e(TAG,""+session_management.getUserDetails().get(KEY_WALLET));
 //        showUpdateDialog();
         if (!dialog_image.isEmpty())
         {
-            showImageDialog(dialog_image);
+            if(!session_management.isDialogStatus())
+            {
+                showImageDialog(dialog_image);
+                session_management.updateDilogStatus(true);
+            }
+
         }
 
     } else
@@ -400,8 +408,8 @@ else
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_image);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-      ImageView imageView=dialog.findViewById(R.id.dialog_img);
-    ImageView img_close=dialog.findViewById(R.id.img_close);
+        ImageView imageView=dialog.findViewById(R.id.dialog_img);
+        ImageView img_close=dialog.findViewById(R.id.img_close);
         dialog.setCanceledOnTouchOutside(false);
         if(dialog.isShowing())
         {
