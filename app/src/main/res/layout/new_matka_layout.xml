@@ -65,13 +65,16 @@
                             android:textAllCaps="true"
                             android:textColor="@color/colorAccent"
                             android:textSize="18dp" />
-
+<RelativeLayout
+    android:layout_below="@id/matkaName"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
                         <RelativeLayout
-                            android:id="@+id/rLayoutNumbers"
+                            android:id="@+id/rlNum"
                             android:layout_width="match_parent"
                             android:gravity="center"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/matkaName"
+
                             android:layout_centerHorizontal="true">
 
                             <in.games.nidhimatka.Fonts.LatoBLack
@@ -145,63 +148,92 @@
                                 android:visibility="invisible" />
 
                         </RelativeLayout>
+    <in.games.nidhimatka.Fonts.LatoBLack
+        android:id="@+id/tv_loader"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Loading..."
+        android:textColor="#316D35"
+        android:layout_gravity="center_vertical"
+        android:textSize="16dp" />
+</RelativeLayout>
+                      <LinearLayout
+                          android:id="@+id/linMain"
+                          android:orientation="vertical"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content">
+                          <in.games.nidhimatka.Fonts.LatoBLack
+                              android:id="@+id/tv_text"
+                              android:visibility="gone"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:layout_centerHorizontal="true"
+                              android:gravity="center"
+                              android:text=""
+                              android:textColor="@color/black"
+                              android:layout_gravity="center_vertical"
+                              android:textSize="10dp" />
 
+                          <LinearLayout
+                              android:layout_gravity="center_horizontal"
+                              android:id="@+id/rLayoutBidsTime"
+                              android:layout_width="match_parent"
+                              android:gravity="center_horizontal"
+                              android:layout_height="wrap_content">
 
-                        <LinearLayout
-                            android:layout_gravity="center_horizontal"
-                            android:id="@+id/rLayoutBidsTime"
-                            android:layout_width="match_parent"
-                            android:gravity="center_horizontal"
-                            android:layout_height="wrap_content">
+                              <in.games.nidhimatka.Fonts.LatoBLack
+                                  android:id="@+id/matka_txt_open_bid_Time"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:text="OPEN-BIDS-"
+                                  android:textColor="@color/btnColor"
+                                  android:textSize="10dp" />
 
-                            <in.games.nidhimatka.Fonts.LatoBLack
-                                android:id="@+id/matka_txt_open_bid_Time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="OPEN-BIDS-"
-                                android:textColor="@color/btnColor"
-                                android:textSize="10dp" />
+                              <in.games.nidhimatka.Fonts.LatoBLack
+                                  android:id="@+id/matka_open_bid_Time"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:layout_centerHorizontal="true"
+                                  android:layout_toRightOf="@id/matka_txt_open_bid_Time"
+                                  android:paddingLeft="2dp"
+                                  android:text="12:28 am"
+                                  android:textColor="@color/btnColor"
+                                  android:textSize="10dp" />
+                              <View
 
-                            <in.games.nidhimatka.Fonts.LatoBLack
-                                android:id="@+id/matka_open_bid_Time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_toRightOf="@id/matka_txt_open_bid_Time"
-                                android:paddingLeft="2dp"
-                                android:text="12:28 am"
-                                android:textColor="@color/btnColor"
-                                android:textSize="10dp" />
-                            <View
+                                  android:layout_width="2dp"
+                                  android:layout_height="match_parent"
+                                  android:layout_margin="2dp"
 
-                                android:layout_width="2dp"
-                                android:layout_height="match_parent"
-                                android:layout_margin="2dp"
+                                  android:layout_centerInParent="true"
+                                  android:background="@android:color/darker_gray"
+                                  android:textColor="@color/btnColor"
+                                  />
+                              <in.games.nidhimatka.Fonts.LatoBLack
+                                  android:id="@+id/matka_txt_close_bid_Time"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:layout_toLeftOf="@id/matka_close_bid_Time"
+                                  android:text="  Close-BIDS-"
+                                  android:textColor="@color/btnColor"
+                                  android:textSize="10dp" />
 
-                                android:layout_centerInParent="true"
-                                android:background="@android:color/darker_gray"
-                                android:textColor="@color/btnColor"
-                              />
-                            <in.games.nidhimatka.Fonts.LatoBLack
-                                android:id="@+id/matka_txt_close_bid_Time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_toLeftOf="@id/matka_close_bid_Time"
-                                android:text="  Close-BIDS-"
-                                android:textColor="@color/btnColor"
-                                android:textSize="10dp" />
+                              <in.games.nidhimatka.Fonts.LatoBLack
+                                  android:id="@+id/matka_close_bid_Time"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:layout_centerHorizontal="true"
+                                  android:layout_alignParentEnd="true"
+                                  android:paddingLeft="2dp"
+                                  android:text="12:28 am"
+                                  android:textColor="@color/btnColor"
+                                  android:textSize="10dp" />
+                          </LinearLayout>
+                      </LinearLayout>
 
-                            <in.games.nidhimatka.Fonts.LatoBLack
-                                android:id="@+id/matka_close_bid_Time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_alignParentEnd="true"
-                                android:paddingLeft="2dp"
-                                android:text="12:28 am"
-                                android:textColor="@color/btnColor"
-                                android:textSize="10dp" />
-                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -210,7 +242,7 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="5dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/rLayoutNumbers"
+                        android:layout_below="@id/linMain"
                         android:layout_centerHorizontal="true"
                         android:gravity="center"
                         android:text="Betting is Running For Today"

@@ -1,29 +1,25 @@
-package in.games.nidhimatka.Fragments;
+package in.games.nidhimatka.Activity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
@@ -31,16 +27,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Map;
 
-import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Config.BaseUrls;
-import in.games.nidhimatka.Config.URLs;
+import in.games.nidhimatka.Fragments.AddFunds;
+import in.games.nidhimatka.Fragments.HomeFragment;
 import in.games.nidhimatka.Intefaces.GetAppSettingData;
 import in.games.nidhimatka.Model.AppSettingModel;
-import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomJsonRequest;
@@ -54,13 +48,11 @@ import static in.games.nidhimatka.Config.Constants.KEY_EMAIL;
 import static in.games.nidhimatka.Config.Constants.KEY_MOBILE;
 import static in.games.nidhimatka.Config.Constants.KEY_NAME;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class AddFunds extends Fragment implements View.OnClickListener, PaymentResultListener {
-    private final String TAG=AddFunds.class.getSimpleName();
+public class AddFundRequestActivity extends AppCompatActivity implements View.OnClickListener, PaymentResultListener {
+    private final String TAG= AddFundRequestActivity.class.getSimpleName();
     Common common;
     EditText etPoints;
+    Activity ctx=AddFundRequestActivity.this;
     String themeColor,desc,imageUrl,requestStatus,gatewayStatus,pnts;
     LoadingBar progressDialog;
     private TextView bt_back,txtMatka;
@@ -68,44 +60,42 @@ public class AddFunds extends Fragment implements View.OnClickListener, PaymentR
     private TextView txtWallet_amount;
     int min_amount ;
     Session_management session_management;
-    public AddFunds() {
-        // Required empty public constructor
-    }
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-       View view = inflater.inflate(R.layout.fragment_add_funds, container, false);
-       initViews(view);
-       Checkout.preload(getActivity().getApplicationContext());
-       common.appSettingData(new GetAppSettingData() {
-           @Override
-           public void getAppSettingData(AppSettingModel model) {
-               min_amount=Integer.parseInt(model.getMin_amount().toString());
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_fund_request);
+        initViews();
+        Checkout.preload(getApplicationContext());
+        common.appSettingData(new GetAppSettingData() {
+            @Override
+            public void getAppSettingData(AppSettingModel model) {
+                min_amount=Integer.parseInt(model.getMin_amount().toString());
 //               Log.e(TAG, "getAppSettingData: "+model.getMin_amount().toString());
-           }
-       });
-       getGatewaySetting();
-       return  view ;
+            }
+        });
+        getGatewaySetting();
+
     }
 
-    void initViews(View v)
+    void initViews()
     {
-        session_management=new Session_management(getActivity());
-        ((MainActivity) getActivity()).setTitle("Add Funds");
-        txtMatka=(TextView)v.findViewById(R.id.board);
-        etPoints=(EditText)v.findViewById(R.id.etRequstPoints);
-        btnRequest=(Button)v.findViewById(R.id.add_Request);
-        progressDialog=new LoadingBar(getActivity());
-        bt_back=(TextView)v.findViewById(R.id.txtBack);
-        txtWallet_amount=(TextView)v.findViewById(R.id.wallet_amount);
-        common=new Common(getActivity());
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Add Funds");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        session_management=new Session_management(ctx);
+        txtMatka=(TextView)findViewById(R.id.board);
+        etPoints=(EditText)findViewById(R.id.etRequstPoints);
+        btnRequest=(Button)findViewById(R.id.add_Request);
+        progressDialog=new LoadingBar(ctx);
+        bt_back=(TextView)findViewById(R.id.txtBack);
+        txtWallet_amount=(TextView)findViewById(R.id.wallet_amount);
+        common=new Common(ctx);
         btnRequest.setOnClickListener(this);
 
     }
-
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.add_Request)
@@ -131,45 +121,46 @@ public class AddFunds extends Fragment implements View.OnClickListener, PaymentR
                     String user_id= common.getUserId();
                     pnts=String.valueOf(points);
                     if (ConnectivityReceiver.isConnected()) {
-                     if(gatewayStatus.equals("0")){
-                         saveInfoIntoDatabase(user_id, pnts, requestStatus, "Add");
-                     }else if(gatewayStatus.equals("1")){
-                         startPayment(2);
-                     }
+                        if(gatewayStatus.equals("0")){
+                            saveInfoIntoDatabase(user_id, pnts, requestStatus, "Add","");
+                        }else if(gatewayStatus.equals("1")){
+                            startPayment(points);
+                        }
 
 //                        saveInfoIntoDatabase(user_id, p, st, "Add");
                     } else
                     {
-                        Intent intent = new Intent(getActivity(), NoInternetConnection.class);
+                        Intent intent = new Intent(ctx, NoInternetConnection.class);
                         startActivity(intent);
                     }
                 }
             }
         }
     }
-    private void saveInfoIntoDatabase(final String user_id, final String points, final String st,String type) {
-       progressDialog.show();
-       HashMap<String,String> params=new HashMap<>();
-       params.put("user_id",user_id);
-       params.put("points",points);
-       params.put("request_status",st);
-       params.put("type",type);
+    private void saveInfoIntoDatabase(final String user_id, final String points, final String st,String type,String trans_id) {
+        progressDialog.show();
+        HashMap<String,String> params=new HashMap<>();
+        params.put("user_id",user_id);
+        params.put("points",points);
+        params.put("request_status",st);
+        params.put("type",type);
+        params.put("trans_id",trans_id);
 
         CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_REQUEST, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 progressDialog.dismiss();
                 try {
-                     boolean resp=response.getBoolean("responce");
-                     if(resp)
-                     {
-                         common.showToast(""+response.getString("message"));
-                         loadFragment();
-                     }
-                     else
-                     {
-                         common.showToast(""+response.getString("error"));
-                     }
+                    boolean resp=response.getBoolean("responce");
+                    if(resp)
+                    {
+                        common.showToast(""+response.getString("message"));
+                       finish();
+                    }
+                    else
+                    {
+                        common.showToast(""+response.getString("error"));
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -187,15 +178,6 @@ public class AddFunds extends Fragment implements View.OnClickListener, PaymentR
         AppController.getInstance().addToRequestQueue(customJsonRequest);
     }
 
-    public void loadFragment()
-    {
-        Fragment fm  = new HomeFragment();
-
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                .addToBackStack(null).commit();
-
-    }
     public void startPayment(int amt) {
         /**
          * Instantiate Checkout
@@ -211,7 +193,7 @@ public class AddFunds extends Fragment implements View.OnClickListener, PaymentR
         /**
          * Reference to current activity
          */
-        Activity activity=getActivity();
+        Activity activity=AddFundRequestActivity.this;
         /**
          * Pass your payment options to the Razorpay Checkout as a JSONObject
          */
@@ -236,8 +218,7 @@ public class AddFunds extends Fragment implements View.OnClickListener, PaymentR
     @Override
     public void onPaymentSuccess(String s) {
         Log.e(TAG, "onPaymentSuccess: "+s.toString() );
-//        common.showToast("Payment Success");
-        saveInfoIntoDatabase(common.getUserId(),pnts,requestStatus,"add");
+        saveInfoIntoDatabase(common.getUserId(),pnts,requestStatus,"Add",s);
     }
 
     @Override
@@ -251,15 +232,15 @@ public class AddFunds extends Fragment implements View.OnClickListener, PaymentR
         CustomVolleyJsonArrayRequest arrReq=new CustomVolleyJsonArrayRequest(Request.Method.POST, URL_GET_GATEWAY, params, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-            try {
-              imageUrl=response.getJSONObject(0).getString("icon");
-              themeColor=response.getJSONObject(0).getString("theme_color");
-              desc=response.getJSONObject(0).getString("description");
-              requestStatus=response.getJSONObject(0).getString("request_status");
-              gatewayStatus=response.getJSONObject(0).getString("gateway_status");
-            }catch (Exception ex){
-                ex.printStackTrace();
-            }
+                try {
+                    imageUrl=response.getJSONObject(0).getString("icon");
+                    themeColor=response.getJSONObject(0).getString("theme_color");
+                    desc=response.getJSONObject(0).getString("description");
+                    requestStatus=response.getJSONObject(0).getString("request_status");
+                    gatewayStatus=response.getJSONObject(0).getString("gateway_status");
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -268,5 +249,17 @@ public class AddFunds extends Fragment implements View.OnClickListener, PaymentR
             }
         });
         AppController.getInstance().addToRequestQueue(arrReq);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 }

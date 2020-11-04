@@ -234,7 +234,6 @@ MatkaAdapter matkaAdapter ;
                             try
                             {
                                 JSONObject jsonObject=response.getJSONObject(i);
-
                                 MatkasObjects matkasObjects=new MatkasObjects();
                                 matkasObjects.setId(jsonObject.getString("id"));
                                 matkasObjects.setName(jsonObject.getString("name"));
@@ -250,8 +249,11 @@ MatkaAdapter matkaAdapter ;
                                 matkasObjects.setSat_start_time(jsonObject.getString("sat_start_time"));
                                 matkasObjects.setSat_end_time(jsonObject.getString("sat_end_time"));
                                 matkasObjects.setStatus(jsonObject.getString("status"));
+                                matkasObjects.setLoader(jsonObject.getString("loader"));
+                                matkasObjects.setText(jsonObject.getString("text"));
+                                matkasObjects.setText_status(jsonObject.getString("text_status"));
                                 matkaList.add(matkasObjects);
-                              matkaAdapter.notifyDataSetChanged();
+                                matkaAdapter.notifyDataSetChanged();
 
 
                             }

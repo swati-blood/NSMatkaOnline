@@ -8,16 +8,17 @@
 <!--        android:layout_height="wrap_content">-->
         <LinearLayout
             android:id="@+id/lin_game"
-            android:padding="5dp"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="130dp"
+                android:scaleType="centerCrop"
                 android:id="@+id/game_img"/>
             <TextView
+                android:visibility="gone"
                 android:id="@+id/game_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

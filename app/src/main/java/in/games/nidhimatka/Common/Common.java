@@ -30,10 +30,13 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,10 +58,12 @@ import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Config.Constants;
 import in.games.nidhimatka.Config.URLs;
+import in.games.nidhimatka.Intefaces.GetAppSettingData;
 import in.games.nidhimatka.Intefaces.GetRemainWallet;
 import in.games.nidhimatka.Intefaces.UpdateBidAmount;
 import in.games.nidhimatka.Intefaces.UpdateTotalBidAmount;
 import in.games.nidhimatka.Intefaces.VolleyCallBack;
+import in.games.nidhimatka.Model.AppSettingModel;
 import in.games.nidhimatka.Model.MatkasObjects;
 import in.games.nidhimatka.Model.Starline_Objects;
 import in.games.nidhimatka.Model.TableModel;
@@ -1567,7 +1572,7 @@ loadingBar.show();
     public String checkNull(String s)
     {
         String str="";
-        if(s==null)
+        if(s==null || s.isEmpty() || s.equalsIgnoreCase("null"))
         {
             str="";
         }
@@ -1936,6 +1941,45 @@ loadingBar.show();
         });
         AppController.getInstance().addToRequestQueue(jsonArrayRequest);
 
+    }
+
+    public boolean checkNullString(String str){
+
+        if(str == null || str.isEmpty() || str.equalsIgnoreCase("null")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void appSettingData(final GetAppSettingData settingData){
+        loadingBar.show();
+        HashMap<String,String> params=new HashMap<>();
+        CustomVolleyJsonArrayRequest arrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.POST, BaseUrls.URL_INDEX, params, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                loadingBar.dismiss();
+                try {
+                    List<AppSettingModel> list=new ArrayList<>();
+                    list.clear();
+                    Gson gson=new Gson();
+                    Type listType=new TypeToken<List<AppSettingModel>>(){}.getType();
+                    list=gson.fromJson(response.toString(),listType);
+                    settingData.getAppSettingData(list.get(0));
+
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loadingBar.dismiss();
+                showVolleyError(error);
+            }
+        });
+        AppController.getInstance().addToRequestQueue(arrayRequest);
     }
 }
 

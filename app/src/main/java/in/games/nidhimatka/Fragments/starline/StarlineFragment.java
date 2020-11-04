@@ -197,7 +197,7 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
                 Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.e("starline",response.toString());
+                        Log.e("starline_response",response.toString());
 
                         for(int i=0; i<response.length();i++)
                         {

@@ -162,7 +162,11 @@ public class StralinegameAdapter extends RecyclerView.Adapter<StralinegameAdapte
 
             }
         });
-
+        if(model.isIs_disable()){
+            holder.itemView.setVisibility(View.GONE);
+        }else{
+            holder.itemView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

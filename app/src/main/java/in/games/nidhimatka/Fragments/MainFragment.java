@@ -58,8 +58,12 @@ TextView tv_m_name ,tv_s_time ,tv_end_time,tv_num;
 
      tv_game.setText("");
      tv_m_name.setText(matka_name);
+     if(common.checkNullString(end_num)){
+         tv_num.setText(start_num+" - "+num);
+     }else{
+         tv_num.setText(start_num+" - "+num+" - "+end_num);
+     }
 
-     tv_num.setText(start_num+" - "+num+" - "+end_num);
 
 
 

@@ -143,7 +143,20 @@ public class MatkaAdapter extends RecyclerView.Adapter<MatkaAdapter.ViewHolder> 
             viewHolder.txtMatka_endNo.setText(end_number);
         }
 
+        if(postion.getLoader().equals("1")){
+            viewHolder.rlNum.setVisibility(View.GONE);
+            viewHolder.tv_loader.setVisibility(View.VISIBLE);
+        }else{
 
+            viewHolder.rlNum.setVisibility(View.VISIBLE);
+            viewHolder.tv_loader.setVisibility(View.GONE);
+        }
+        viewHolder.tv_text.setText(common.checkNull(postion.getText()));
+        if(postion.getText_status().equals("1")){
+            viewHolder.tv_text.setVisibility(View.VISIBLE);
+        }else{
+            viewHolder.tv_text.setVisibility(View.GONE);
+        }
         viewHolder.txtMatka_id.setText(postion.getId());
         String status=postion.getStatus();
 
@@ -285,9 +298,11 @@ public class MatkaAdapter extends RecyclerView.Adapter<MatkaAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtmatkaBid_openTime,txtmatkaBid_closeTime,txtMatkaName,txtMatka_startingNo,txtStatus,txtMatka_resNo,txtMatka_endNo;
+        TextView txtmatkaBid_openTime,txtmatkaBid_closeTime,
+                txtMatkaName,txtMatka_startingNo,txtStatus,txtMatka_resNo,txtMatka_endNo,tv_text,tv_loader;
         TextView txtMatka_id;
         ImageView imageGame;
+        RelativeLayout rlNum;
         RelativeLayout rel_matka;
 
         public ViewHolder(@NonNull View itemView) {
@@ -299,7 +314,10 @@ public class MatkaAdapter extends RecyclerView.Adapter<MatkaAdapter.ViewHolder> 
             txtMatka_startingNo=(TextView)itemView.findViewById(R.id.matka_starting_Number);
             txtMatka_resNo=(TextView)itemView.findViewById(R.id.matka_res_Number);
             txtMatka_endNo=(TextView)itemView.findViewById(R.id.matka_end_Number);
-rel_matka = itemView.findViewById(R.id.rlchange);
+            rel_matka = itemView.findViewById(R.id.rlchange);
+            rlNum = itemView.findViewById(R.id.rlNum);
+            tv_loader = itemView.findViewById(R.id.tv_loader);
+            tv_text = itemView.findViewById(R.id.tv_text);
             txtStatus=(TextView)itemView.findViewById(R.id.matkaBettingStatus);
             imageGame=(ImageView)itemView.findViewById(R.id.matka_image);
             txtMatka_id=(TextView) itemView.findViewById(R.id.matka_id);

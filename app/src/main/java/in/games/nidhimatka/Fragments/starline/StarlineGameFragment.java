@@ -11,13 +11,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.Adapter.SelectGameAdapter;
 import in.games.nidhimatka.Adapter.StralinegameAdapter;
+import in.games.nidhimatka.AppController;
+import in.games.nidhimatka.Common.Common;
+import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Model.GameModel;
+import in.games.nidhimatka.Model.GameStatusModel;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
 import in.games.nidhimatka.Util.LoadingBar;
 
 /**
@@ -27,7 +43,9 @@ public class StarlineGameFragment extends Fragment {
     RecyclerView rv_games;
     StralinegameAdapter selectGameAdapter ;
     LoadingBar loadingBar ;
+    List<GameStatusModel> tempList;
     ArrayList<GameModel> game_list;
+    Common common;
     public StarlineGameFragment() {
         // Required empty public constructor
     }
@@ -41,27 +59,12 @@ public class StarlineGameFragment extends Fragment {
 
         ((MainActivity) getActivity()).setTitle("Starline Game");
         rv_games =  view.findViewById(R.id.recycler_games);
+        common=new Common(getActivity());
+        loadingBar=new LoadingBar(getActivity());
         rv_games.setLayoutManager(new GridLayoutManager(getActivity(),2));
         game_list = new ArrayList<>();
-//       game_list.add(new GameModel("1","Odd Even",R.drawable.odd_even,"1"));
-        game_list.add(new GameModel("2","Single Digit",R.drawable.single_digit,"0"));
-//        game_list.add(new GameModel("3","Jodi Digit",R.drawable.jodi_digits,"0"));
-//       game_list.add(new GameModel("4","Red Bracket",R.drawable.red_brackets,"1"));
-//       game_list.add(new GameModel("5","Panel Group",R.drawable.panel_group_icon,"1"));
-//       game_list.add(new GameModel("6","Group Jodi",R.drawable.group_jodi,"1"));
-        game_list.add(new GameModel("7","Single Pana",R.drawable.single_pana,"2"));
-        game_list.add(new GameModel("8","Double Pana",R.drawable.double_pana,"2"));
-        game_list.add(new GameModel("9","Triple Pana",R.drawable.triple_pana,"0"));
-//       game_list.add(new GameModel("10","SP Motor",R.drawable.sp_motor,"1"));
-//       game_list.add(new GameModel("11","DP Motor",R.drawable.dp_motor,"1"));
-//        game_list.add(new GameModel("12","Half Sangam",R.drawable.half_sangam_digit,"1"));
-//        game_list.add(new GameModel("13","Full Sangam",R.drawable.full_sangam_digits,"1"));
-//       game_list.add(new GameModel("14","Cycle Pana",R.drawable.cyclepana,"1"));
-        selectGameAdapter = new StralinegameAdapter(getActivity(),game_list, getArguments().getString("m_id"),
-                getArguments().getString("start_time"),
-                getArguments().getString("end_time"));
-        rv_games.setAdapter(selectGameAdapter);
-        Log.e("m_id",getArguments().getString("m_id"));
+        tempList=new ArrayList<>();
+
 //        rv_games.notifyDataSetChanged();
 //       rv_games.scheduleLayoutAnimation();
 //       rv_games.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv_games, new RecyclerTouchListener.OnItemClickListener() {
@@ -166,5 +169,91 @@ public class StarlineGameFragment extends Fragment {
 //       }));
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getGames();
+
+    }
+
+    private void setStarlineGames(List<GameStatusModel> list)
+    {
+        game_list.clear();
+        //       game_list.add(new GameModel("1","Odd Even",R.drawable.odd_even,"1",getStAble(list,1)));
+        game_list.add(new GameModel("2","Single Digit",R.drawable.ic_single,"0",getStAble(list,2)));
+//        game_list.add(new GameModel("3","Jodi Digit",R.drawable.jodi_digits,"0",getStAble(list,3)));
+//       game_list.add(new GameModel("4","Red Bracket",R.drawable.red_brackets,"1",getStAble(list,4)));
+//       game_list.add(new GameModel("5","Panel Group",R.drawable.panel_group_icon,"1",getStAble(list,5)));
+//       game_list.add(new GameModel("6","Group Jodi",R.drawable.group_jodi,"1",getStAble(list,6)));
+        game_list.add(new GameModel("7","Single Pana",R.drawable.ic_singlepana,"2",getStAble(list,7)));
+        game_list.add(new GameModel("8","Double Pana",R.drawable.ic_doublepana,"2",getStAble(list,8)));
+        game_list.add(new GameModel("9","Triple Pana",R.drawable.ic_triple_pana,"0",getStAble(list,9)));
+//       game_list.add(new GameModel("10","SP Motor",R.drawable.sp_motor,"1",getStAble(list,10)));
+//       game_list.add(new GameModel("11","DP Motor",R.drawable.dp_motor,"1",getStAble(list,11)));
+//        game_list.add(new GameModel("12","Half Sangam",R.drawable.half_sangam_digit,"1",getStAble(list,12)));
+//        game_list.add(new GameModel("13","Full Sangam",R.drawable.full_sangam_digits,"1",getStAble(list,13)));
+//       game_list.add(new GameModel("14","Cycle Pana",R.drawable.cyclepana,"1",getStAble(list,14)));
+        removeGames(game_list);
+        selectGameAdapter = new StralinegameAdapter(getActivity(),game_list, getArguments().getString("m_id"),
+                getArguments().getString("start_time"),
+                getArguments().getString("end_time"));
+        rv_games.setAdapter(selectGameAdapter);
+        Log.e("m_id",getArguments().getString("m_id"));
+    }
+
+    public void getGames(){
+        tempList.clear();
+        loadingBar.show();
+        HashMap<String,String> params=new HashMap<>();
+        CustomVolleyJsonArrayRequest arrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.POST,  BaseUrls.URL_GET_GAMES,params, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                loadingBar.dismiss();
+                try {
+                    Gson gson=new Gson();
+                    Type listType=new TypeToken<List<GameStatusModel>>(){}.getType();
+                    tempList=gson.fromJson(response.toString(),listType);
+                    setStarlineGames(tempList);
+
+
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loadingBar.dismiss();
+                common.showVolleyError(error);
+
+            }
+        });
+        AppController.getInstance().addToRequestQueue(arrayRequest);
+    }
+    private boolean getStAble(List<GameStatusModel> list,int id){
+        boolean flag=false;
+        String gId=String.valueOf(id);
+        for(int i=0; i<list.size();i++){
+            if(list.get(i).getGame_id().equals(gId)){
+                if(list.get(i).getIs_starline_disable().equals("0")){
+                    flag=false;
+                }else{
+                    flag=true;
+                }
+                break;
+            }
+
+        }
+        return flag;
+    }
+    private void removeGames(ArrayList<GameModel> list){
+        for(int i=0; i<list.size();i++){
+            if(list.get(i).isIs_disable()){
+                list.remove(i);
+            }
+        }
+
     }
 }

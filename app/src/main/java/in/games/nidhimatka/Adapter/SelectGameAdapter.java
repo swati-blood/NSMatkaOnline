@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,7 @@ public class SelectGameAdapter extends RecyclerView.Adapter<SelectGameAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final GameModel model = game_list.get(position);
+
        holder.game_name.setText(model.getName());
        holder.game_img.setImageDrawable(activity.getDrawable(model.getImg()));
 //       holder.lin_game.setLayoutAnimation(controller);
@@ -168,6 +170,12 @@ public class SelectGameAdapter extends RecyclerView.Adapter<SelectGameAdapter.Vi
 
            }
        });
+        Log.e("availability", "onBindViewHolder: ."+model.isIs_disable() );
+       if(model.isIs_disable()){
+           holder.itemView.setVisibility(View.GONE);
+       }else{
+           holder.itemView.setVisibility(View.VISIBLE);
+       }
 
 
     }

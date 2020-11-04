@@ -38,6 +38,8 @@ import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.Config.URLs;
+import in.games.nidhimatka.Intefaces.GetAppSettingData;
+import in.games.nidhimatka.Model.AppSettingModel;
 import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.CustomJsonRequest;
@@ -45,7 +47,6 @@ import in.games.nidhimatka.Util.LoadingBar;
 import in.games.nidhimatka.Util.Session_management;
 import in.games.nidhimatka.Util.ToastMsg;
 
-import static in.games.nidhimatka.Activity.splash_activity.min_add_amount;
 import static in.games.nidhimatka.Activity.splash_activity.withdrw_text;
 import static in.games.nidhimatka.Config.Constants.KEY_WALLET;
 
@@ -61,6 +62,7 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
     private Button btnSave;
     String saveCurrentDate,saveCurrentTime;
     int day,hours;
+    String min_add_amount="0";
     Session_management session_management;
     int w_amt ;
     public WithdrawFundsFragment() {
@@ -74,6 +76,12 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
         // Inflate the layout for this fragment
        View view =inflater.inflate(R.layout.fragment_withdraw_funds, container, false);
        initView(view);
+       common.appSettingData(new GetAppSettingData() {
+           @Override
+           public void getAppSettingData(AppSettingModel model) {
+                min_add_amount=model.getMin_withdraw().toString();
+           }
+       });
        return  view ;
     }
 
@@ -180,6 +188,7 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
         params.put("request_status",st);
         params.put("type",type);
         params.put("wallet",rem);
+        params.put("trans_id","");
 
         CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_REQUEST, params, new Response.Listener<JSONObject>() {
             @Override

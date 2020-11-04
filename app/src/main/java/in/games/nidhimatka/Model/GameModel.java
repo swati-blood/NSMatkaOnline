@@ -5,12 +5,14 @@ public class GameModel {
     String name ;
     int img ;
     String type ;
+    boolean is_disable;
 
-    public GameModel(String id, String name, int img, String type) {
+    public GameModel(String id, String name, int img, String type, boolean is_disable) {
         this.id = id;
         this.name = name;
         this.img = img;
         this.type = type;
+        this.is_disable = is_disable;
     }
 
     public String getType() {
@@ -43,5 +45,13 @@ public class GameModel {
 
     public void setImg(int img) {
         this.img = img;
+    }
+
+    public boolean isIs_disable() {
+        return is_disable;
+    }
+
+    public void setIs_disable(boolean is_disable) {
+        this.is_disable = is_disable;
     }
 }

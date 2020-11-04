@@ -64,52 +64,35 @@ public class PGAdapter extends BaseAdapter {
         ImageView img=(ImageView)view.findViewById(R.id.pg_image);
         RelativeLayout rl_change=(RelativeLayout)view.findViewById(R.id.rlchange);
         Starline_Objects postion=list.get(position);
-
-
-        //viewHolder.txtId.setText(""+postion.getId());
-
-       Date date=new Date();
+        Date date=new Date();
         SimpleDateFormat format1=new SimpleDateFormat("hh:mm aa");
         String dr=format1.format(date);
-
-        //boolean sTime=getTimeStatus(String.valueOf(postion.getS_game_time()));
-        int sTime=getTimeFormatStatus(String.valueOf(postion.getS_game_time()));
 
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HH");
         String ddt=simpleDateFormat.format(date);
         int c_tm= Integer.parseInt(ddt);
-       // txtTime.setText(postion.getS_game_time()+" - "+getCloseStatus(postion.getS_game_end_time().toString(),dr));
-       txtTime.setText(postion.getS_game_time());
-       //txtTime.setText(postion.getS_game_end_time().toString()+" -- "+dr);
-       // Toast.makeText(context,"db_time:-  "++"\n curr_time:-  "+dr,Toast.LENGTH_LONG).show();
+        txtTime.setText(postion.getS_game_time());
 
-      String tm=getCloseStatus(postion.getS_game_end_time().toString(),dr);
+       String tm=getCloseStatus(postion.getS_game_end_time().toString(),dr);
        String[] end_time=tm.split(":");
        int h= Integer.parseInt(end_time[0].toString());
        int m= Integer.parseInt(end_time[1].toString());
 
-        if(h<=0 && m<0)
-        {
+        if(h<=0 && m<0){
             txtId.setText("Bet Is Running ");
             txtNumber.setText("***-**");
-
             txtId.setTextColor(Color.parseColor("#053004"));
-            //txtStatus.setText("o");
-
         }
-        else
-        {
+        else{
             txtId.setText("Bet is Closed ");
-
             txtId.setTextColor(Color.parseColor("#b31109"));
             txtNumber.setText(""+postion.getS_game_number());
             img.setVisibility(View.INVISIBLE);
-            //txtStatus.setText("c");
         }
 
 
-      //  img.setImageResource(R.drawable.pll);
-        int cl=position%4;
+
+//        int cl=position%4;
 //        switch (cl)
 //        {
 //            case 0:

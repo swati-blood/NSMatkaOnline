@@ -198,7 +198,9 @@ TextView txt_wallet,txtUserName ,txt_title ;
         }
         else if (id == R.id.nav_add)
         {
-            fm = new AddFunds();
+            Intent intent=new Intent(MainActivity.this,AddFundRequestActivity.class);
+            startActivity(intent);
+//            fm = new AddFunds();
 
         }
         else if (id == R.id.nav_withdrw)

@@ -6,11 +6,12 @@ public class MatkasObjects {
     String name,start_time,end_time,starting_num,number;
     String end_num,bid_start_time,bid_end_time,created_at;
     String updated_at,status,sat_end_time,sat_start_time;
+    String loader,text,text_status;
 
     public MatkasObjects() {
     }
 
-    public MatkasObjects(String id, String name, String start_time, String end_time, String starting_num, String number, String end_num, String bid_start_time, String bid_end_time, String created_at, String updated_at, String status, String sat_end_time, String sat_start_time) {
+    public MatkasObjects(String id, String name, String start_time, String end_time, String starting_num, String number, String end_num, String bid_start_time, String bid_end_time, String created_at, String updated_at, String status, String sat_end_time, String sat_start_time, String loader, String text, String text_status) {
         this.id = id;
         this.name = name;
         this.start_time = start_time;
@@ -25,6 +26,9 @@ public class MatkasObjects {
         this.status = status;
         this.sat_end_time = sat_end_time;
         this.sat_start_time = sat_start_time;
+        this.loader = loader;
+        this.text = text;
+        this.text_status = text_status;
     }
 
     public String getId() {
@@ -137,5 +141,29 @@ public class MatkasObjects {
 
     public void setSat_start_time(String sat_start_time) {
         this.sat_start_time = sat_start_time;
+    }
+
+    public String getLoader() {
+        return loader;
+    }
+
+    public void setLoader(String loader) {
+        this.loader = loader;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getText_status() {
+        return text_status;
+    }
+
+    public void setText_status(String text_status) {
+        this.text_status = text_status;
     }
 }

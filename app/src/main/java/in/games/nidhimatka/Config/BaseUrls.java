@@ -35,5 +35,7 @@ public class BaseUrls {
     public static final String Url_transaction_history=BASE_URL+"transaction";
     public static final String URL_GET_HISTORY=BASE_URL+"get_history";
     public static final String URL_FUND_HISTORY=BASE_URL+"request_history";
+    public static final String URL_GET_GAMES=BASE_URL+"getGames";
+    public static final String URL_GET_GATEWAY=BASE_URL+"gateway_setting";
 
 }
