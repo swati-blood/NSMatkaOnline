@@ -95,15 +95,15 @@
                     <ImageView
 
                         android:id="@+id/img"
-
+          android:layout_centerHorizontal="true"
                         android:layout_width="110dp"
                         android:layout_height="100dp"
-
+                       android:src="@drawable/icons8_youtube_128px"
 
                         />
                     <TextView
                         android:id="@+id/link"
-
+   android:visibility="gone"
                         android:layout_toRightOf="@id/img"
                         android:textSize="20dp"
 

@@ -71,7 +71,7 @@ public class FundsHistryAdapter extends RecyclerView.Adapter<FundsHistryAdapter.
 
         if (model.getRequest_status().equals("pending"))
         {
-            holder.tv_status.setText("Status : Pending" );
+            holder.tv_status.setText("Status:\nPending" );
         }
         else
         {

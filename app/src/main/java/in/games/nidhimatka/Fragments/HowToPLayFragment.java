@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,9 +34,10 @@ import in.games.nidhimatka.networkconnectivity.NoInternetConnection;
 
 import static in.games.nidhimatka.Config.BaseUrls.URL_PLAY;
 
-public class HowToPLayFragment extends Fragment {
+public class HowToPLayFragment extends Fragment implements View.OnClickListener{
     TextView bt_back,txtData,txtLink;
     RelativeLayout rel_click;
+    ImageView img;
     LoadingBar progressDialog;
     public HowToPLayFragment() {
         // Required empty public constructor
@@ -49,20 +51,14 @@ public class HowToPLayFragment extends Fragment {
         ((MainActivity) getActivity()).setTitle("How to Play");
        View view =  inflater.inflate(R.layout.fragment_how_to_p_lay, container, false);
         progressDialog=new LoadingBar(getActivity());
-
+        img=view.findViewById(R.id.img);
         txtData=(TextView)view.findViewById(R.id.w2);
         txtLink=(TextView)view.findViewById(R.id.link);
         rel_click=(RelativeLayout)view.findViewById(R.id.rel_click);
 
-        rel_click.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        rel_click.setOnClickListener(this);
+        img.setOnClickListener(this);
 
-                String h= txtLink.getText().toString().trim();
-                Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(h));
-                startActivity(intent);
-            }
-        });
 
 if (ConnectivityReceiver.isConnected()) {
     getHowToPlayData();
@@ -110,6 +106,16 @@ if (ConnectivityReceiver.isConnected()) {
 
         AppController.getInstance().addToRequestQueue(customVolleyJsonArrayRequest,json_request_tag);
 
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.rel_click || v.getId() == R.id.img){
+            String h= txtLink.getText().toString().trim();
+            Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(h));
+            startActivity(intent);
+        }
 
     }
 }

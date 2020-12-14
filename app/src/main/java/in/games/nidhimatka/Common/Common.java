@@ -27,9 +27,11 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -45,6 +47,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -70,6 +73,7 @@ import in.games.nidhimatka.Model.TableModel;
 import in.games.nidhimatka.Model.WalletObjects;
 import in.games.nidhimatka.Prevalent.Prevalent;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.ConnectivityReceiver;
 import in.games.nidhimatka.Util.CustomJsonRequest;
 import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
 import in.games.nidhimatka.Util.LoadingBar;
@@ -663,21 +667,20 @@ public class Common {
 
     public void getDateData(final String m_id, final TextView txtCurrentDate, final TextView txtNextDate, final TextView txtAfterNextDate , final LoadingBar loadingBar)
     {
-loadingBar.show();
+        loadingBar.show();
         String json_tag="json_matka_id";
         HashMap<String, String> params=new HashMap<String, String>();
         params.put("id",m_id);
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_MATKA_WITH_ID, params, new Response.Listener<JSONObject>() {
+        postRequest(BaseUrls.URL_MATKA_WITH_ID, params, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONObject response) {
-
+            public void onResponse(String response) {
                 try {
                     if (loadingBar.isShowing())
                     {
                         loadingBar.dismiss();
                     }
-                    JSONObject jsonObject = response;
+                    JSONObject jsonObject = new JSONObject(response);
                     String status = jsonObject.getString("status");
                     if (status.equals("success")) {
                         JSONObject object = jsonObject.getJSONObject("data");
@@ -818,13 +821,10 @@ loadingBar.show();
                                 //btn.setText(s_dt+" Bet Open");
 //                                txtCurrentDate.setText(s_dt + " Bet Open");
                                 txtCurrentDate.setText(s_dt );
-
-
                             }
 
                             if(nd.equals("c"))
                             {
-//                                txtNextDate.setText(n_dt + " Bet Close");
                                 txtNextDate.setText(n_dt );
 
                             }
@@ -863,17 +863,14 @@ loadingBar.show();
 
                 }
             }
-
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                progressDialog.dismiss();
                 String msg=VolleyErrorMessage(error);
                 errorMessageDialog(msg);
             }
         });
 
-        AppController.getInstance().addToRequestQueue(customJsonRequest,json_tag);
 
 
     }
@@ -1980,6 +1977,27 @@ loadingBar.show();
             }
         });
         AppController.getInstance().addToRequestQueue(arrayRequest);
+    }
+
+    public void postRequest(final String url, final HashMap<String,String> params, Response.Listener<String> listener, Response.ErrorListener errorListener){
+        if(!ConnectivityReceiver.isConnected()){
+            showToast("No Internet Connection");
+            return;
+        }
+
+        StringRequest request=new StringRequest(Request.Method.POST,url,listener,errorListener){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Log.e("url_params", ""+url+" - "+params);
+                return params;
+            }
+        };
+        RetryPolicy mRetryPolicy = new DefaultRetryPolicy(
+                10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        request.setRetryPolicy(mRetryPolicy);
+        AppController.getInstance().addToRequestQueue(request,"req");
     }
 }
 

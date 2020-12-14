@@ -1,13 +1,16 @@
 package in.games.nidhimatka.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -80,6 +83,23 @@ TextView tv_m_name ,tv_s_time ,tv_end_time,tv_num;
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container_frame, fm)
                 .commit();
+        fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+               try {
+                   InputMethodManager inputMethodManager=(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                   inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),0);
+                   Fragment fr=getActivity().getSupportFragmentManager().findFragmentById(R.id.container_frame);
+                   String frName=fr.getClass().getSimpleName();
+                   Log.e("Fragment_main", "onBackStackChanged: "+frName);
+                   if(frName.contentEquals("SelectGameFragment")){
+                       tv_game.setText("");
+                   }
+               }catch (Exception ex){
+                   ex.printStackTrace();
+               }
+            }
+        });
       return  view;
     }
 }

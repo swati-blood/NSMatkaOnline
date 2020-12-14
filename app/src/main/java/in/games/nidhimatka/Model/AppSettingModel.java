@@ -5,9 +5,17 @@ package in.games.nidhimatka.Model;
  */
 public class AppSettingModel {
     String id,version,app_link,share_link,message,home_text,withdraw_text,withdraw_no,min_withdraw,tag_line,min_amount,
-            msg_status,dialog_img;
+            msg_status,dialog_img,starline_status;
 
     public AppSettingModel() {
+    }
+
+    public String getStarline_status() {
+        return starline_status;
+    }
+
+    public void setStarline_status(String starline_status) {
+        this.starline_status = starline_status;
     }
 
     public String getId() {

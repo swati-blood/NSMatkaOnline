@@ -25,6 +25,7 @@ import static in.games.nidhimatka.Activity.PanaActivity.bet_list;
 import static in.games.nidhimatka.Activity.PanaActivity.total;
 import static in.games.nidhimatka.Activity.PanaActivity.txt_type;
 
+
 public class SigleDoublePanaAdapter extends RecyclerView.Adapter<SigleDoublePanaAdapter.ViewHolder> {
     List<String> digit_list ;
     Activity activity;

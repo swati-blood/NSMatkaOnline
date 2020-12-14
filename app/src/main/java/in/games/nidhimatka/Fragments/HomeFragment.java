@@ -52,6 +52,8 @@ import in.games.nidhimatka.Common.Common;
 import in.games.nidhimatka.Config.BaseUrls;
 import in.games.nidhimatka.CustomSlider;
 import in.games.nidhimatka.Fragments.starline.StarlineFragment;
+import in.games.nidhimatka.Intefaces.GetAppSettingData;
+import in.games.nidhimatka.Model.AppSettingModel;
 import in.games.nidhimatka.Model.MatkasObjects;
 import in.games.nidhimatka.R;
 import in.games.nidhimatka.Util.ConnectivityReceiver;
@@ -179,6 +181,16 @@ MatkaAdapter matkaAdapter ;
     card_starline = v.findViewById(R.id.card_starline);
     card_starline.setOnClickListener(this);
     if(ConnectivityReceiver.isConnected()) {
+        common.appSettingData(new GetAppSettingData() {
+            @Override
+            public void getAppSettingData(AppSettingModel model) {
+                if(model.getStarline_status().equals("0")){
+                    card_starline.setVisibility(View.GONE);
+                }else{
+                    card_starline.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         makeSliderRequest();
         getMatkaData();
         Log.e(TAG,""+session_management.getUserDetails().get(KEY_WALLET));
