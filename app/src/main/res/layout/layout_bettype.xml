@@ -22,7 +22,7 @@
         android:textSize="18dp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:textColor="@color/iconColor"
-        android:textStyle="italic|bold"/>
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/rd_open"

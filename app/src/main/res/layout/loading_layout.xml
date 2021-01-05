@@ -19,7 +19,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
 
-                app:lottie_rawRes="@raw/loading_bar_animation"
+                app:lottie_rawRes="@raw/loading_bar"
                 app:lottie_autoPlay="true"
                 android:background="@android:color/transparent"
                 android:layout_centerInParent="true"

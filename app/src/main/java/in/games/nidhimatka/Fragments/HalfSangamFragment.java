@@ -312,7 +312,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
                         etOpenPanna.requestFocus();
                         return;
                     } else if (TextUtils.isEmpty(points)) {
-                        etPoints.setError("Enter points");
+                        etPoints.setError("Enter Point");
                         etPoints.requestFocus();
                         return;
                     } else if(!Arrays.asList(singlePaana).contains(open_panna))

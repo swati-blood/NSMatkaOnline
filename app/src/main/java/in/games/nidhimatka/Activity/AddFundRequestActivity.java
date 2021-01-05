@@ -50,12 +50,14 @@ import static in.games.nidhimatka.Config.Constants.KEY_NAME;
 
 public class AddFundRequestActivity extends AppCompatActivity implements View.OnClickListener, PaymentResultListener {
     private final String TAG= AddFundRequestActivity.class.getSimpleName();
+   TextView txtBack;
+
     Common common;
     EditText etPoints;
     Activity ctx=AddFundRequestActivity.this;
     String themeColor,desc,imageUrl,requestStatus,gatewayStatus,pnts;
     LoadingBar progressDialog;
-    private TextView bt_back,txtMatka;
+    public TextView bt_back,txtMatka;
     Button btnRequest;
     private TextView txtWallet_amount;
     int min_amount ;
@@ -64,6 +66,8 @@ public class AddFundRequestActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_fund_request);
+
+
         initViews();
         Checkout.preload(getApplicationContext());
         common.appSettingData(new GetAppSettingData() {
@@ -91,8 +95,11 @@ public class AddFundRequestActivity extends AppCompatActivity implements View.On
         btnRequest=(Button)findViewById(R.id.add_Request);
         progressDialog=new LoadingBar(ctx);
         bt_back=(TextView)findViewById(R.id.txtBack);
+
+
         txtWallet_amount=(TextView)findViewById(R.id.wallet_amount);
         common=new Common(ctx);
+
         btnRequest.setOnClickListener(this);
 
     }
@@ -106,14 +113,14 @@ public class AddFundRequestActivity extends AppCompatActivity implements View.On
 
             if(TextUtils.isEmpty(etPoints.getText().toString()))
             {
-                etPoints.setError("Enter Some Points");
+                etPoints.setError("Enter Some Coins");
                 return;
             }
             else
             {
                 if(points<min_amount)
                 {
-                    common.errorMessageDialog("Minimum Range for points is "+ min_amount);
+                    common.errorMessageDialog("Minimum Range for coin is "+ min_amount);
 
                 }
                 else
@@ -254,11 +261,14 @@ public class AddFundRequestActivity extends AppCompatActivity implements View.On
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
-            case R.id.home:
+            case android.R.id.home:
+
                 finish();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+
         }
 
     }

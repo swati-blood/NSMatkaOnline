@@ -62,9 +62,9 @@
                       android:layout_height="wrap_content"
                       android:paddingLeft="10dp"
                       android:paddingRight="10dp"
-                      android:text="Add Points"
+                      android:text="Add Coins"
                       android:textSize="25dp"
-                      android:textStyle="bold|italic"
+                      android:textStyle="bold"
                       android:textColor="@color/colorPrimary"/>
 
 
@@ -112,9 +112,9 @@
                       android:layout_height="wrap_content"
                       android:paddingLeft="10dp"
                       android:paddingRight="10dp"
-                      android:text="Withdraw Points"
+                      android:text="Withdraw Coins"
                       android:textSize="25dp"
-                      android:textStyle="bold|italic"
+                      android:textStyle="bold"
                       android:textColor="@color/colorPrimaryDark"/>
 
 

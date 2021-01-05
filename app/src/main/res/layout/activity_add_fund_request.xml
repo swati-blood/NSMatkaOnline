@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Activity.AddFundRequestActivity">
     <LinearLayout
         android:orientation="vertical"
@@ -20,8 +21,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:titleTextColor="@color/white"
+                android:background="@color/iconColor"
                 app:titleTextAppearance="@style/TitleBarTextAppearance"
                 app:popupTheme="@style/AppTheme.PopupOverlay" >
+
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -31,47 +34,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
+
             android:layout_marginTop="80dp">
 
             <ImageView
                 android:id="@+id/addpointsimage"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
-                android:src="@drawable/icon"
+                android:src="@drawable/app_logo"
 
                 android:layout_centerHorizontal="true"/>
 
             <EditText
                 android:id="@+id/etRequstPoints"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
 
                 android:layout_below="@+id/addpointsimage"
                 android:background="@drawable/shape2"
-                android:backgroundTint="@color/white"
+
 
 
                 android:textSize="18dp"
                 android:padding="10dp"
                 android:hint="Enter Points"
                 android:gravity="center"
-                android:textColorHint="@color/iconColor"
+                android:textColorHint="@color/grey"
                 android:textColor="@color/iconColor"
                 android:inputType="number"
                 android:layout_marginRight="10dp" />
 
             <ImageView
                 android:id="@+id/img"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="22dp"
                 android:layout_below="@+id/addpointsimage"
-                android:layout_marginTop="7dp"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/icons8_money_bag_rupee_240px"
-                android:backgroundTint="@color/colorPrimaryDark"
                 android:layout_alignTop="@+id/etRequstPoints"
-                />
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/icons8_money_bag_rupee_240px"
+                android:backgroundTint="@color/iconColor" />
 
             <Button
                 android:id="@+id/add_Request"

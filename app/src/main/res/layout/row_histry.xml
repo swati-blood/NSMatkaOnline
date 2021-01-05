@@ -157,7 +157,7 @@
                      android:layout_height="wrap_content"
                     android:textColor="@color/colorAccent"
                      android:padding="2dp"
-                     android:text="Points : "
+                     android:text="Coins : "
 
                      android:gravity="center"
                      android:textSize="15dp"

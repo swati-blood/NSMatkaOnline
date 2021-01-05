@@ -41,7 +41,7 @@
             android:icon="@drawable/icons8_order_history_100px"
 
 
-            android:title="Bidding History" />
+            android:title="Game History" />
     </group>
     <group
         android:id="@+id/group_add"
@@ -91,12 +91,12 @@
         android:id="@+id/nav_group_play"
         android:checkableBehavior="single">
 
-        <item
-            android:id="@+id/nav_how_toPlay"
-            android:icon="@drawable/icons8_play_128px"
+<!--        <item-->
+<!--            android:id="@+id/nav_how_toPlay"-->
+<!--            android:icon="@drawable/icons8_play_128px"-->
 
-            android:title="How To Play"
-            />
+<!--            android:title="How To Play"-->
+<!--            />-->
     </group>
     <group
         android:id="@+id/nav_group_notice"

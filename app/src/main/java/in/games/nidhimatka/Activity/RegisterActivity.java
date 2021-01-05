@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -42,6 +43,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnRegister;
     TextView txt_back ;
     Common common;
+
+    CheckBox checkbox;
     private EditText txtName,txtMobile,txtPass,txtConPass,txtUserName;
 //    static String URL_REGIST="http://anshuwap.com/AddaApp/register.php";
 
@@ -50,6 +53,9 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        checkbox=findViewById (R.id.checkbox);
+
         txt_back = findViewById(R.id.txt_back);
         txtName=(EditText)findViewById(R.id.etName);
        common=new Common(RegisterActivity.this);
@@ -102,6 +108,10 @@ public class RegisterActivity extends AppCompatActivity {
                   txtConPass.setError("Please re-enter password");
                   txtConPass.requestFocus();
                   return;
+              }
+              else if(!checkbox.isChecked ()){
+                  Toast.makeText (RegisterActivity.this, "Please Accept Terms and Conditions", Toast.LENGTH_SHORT).show ( );
+
               }
 
               else

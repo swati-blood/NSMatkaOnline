@@ -5,8 +5,8 @@ package in.games.nidhimatka.Config;
  */
 public class BaseUrls {
 
-    public static final String BASE_URL="https://nidhionlinematka.in/api/";
-    public static final String BASE_IMAGE_URL="https://nidhionlinematka.in/assets/images/";
+    public static final String BASE_URL="https://roseflavour.com/api/";
+    public static final String BASE_IMAGE_URL="https://roseflavour.com/assets/images/";
     public static final String IMG_SLIDER_URL =BASE_IMAGE_URL+ "sliders/";
     public static final String IMG_DIALOG_URL =BASE_IMAGE_URL+ "dialog/";
     public static final String URL_INDEX=BASE_URL+"getIndex";

@@ -22,23 +22,24 @@
 
 
 
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16dp"
-            android:layout_margin="10dp"
-            android:textStyle="bold|italic"
+<!--        <TextView-->
+<!--            android:id="@+id/text1"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_vertical|center_horizontal"-->
+<!--            android:textColor="@color/colorPrimary"-->
+<!--            android:textSize="16dp"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:textStyle="italic"-->
 
-            android:text="GAME RATES"/>
+<!--            android:text="GAME RATES"/>-->
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/jannat_recycler"
             android:layout_margin="10dp"
-            android:layout_below="@+id/text1"/>
+           />
 
 
 

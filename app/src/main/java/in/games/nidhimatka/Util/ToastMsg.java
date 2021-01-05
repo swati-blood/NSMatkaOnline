@@ -40,7 +40,7 @@ public class ToastMsg {
         View view=layoutInflater.inflate(R.layout.toast_icon_text,null);
         ((TextView)view.findViewById(R.id.message)).setText(s);
         ((ImageView) view.findViewById(R.id.icon)).setImageResource(R.drawable.icons8_medium_priority_52px);
-        ((CardView) view.findViewById(R.id.parent_view)).setCardBackgroundColor(context.getResources().getColor(R.color.info));
+        ((CardView) view.findViewById(R.id.parent_view)).setCardBackgroundColor(context.getResources().getColor(R.color.error));
         toast.setView(view);
         toast.show();
 

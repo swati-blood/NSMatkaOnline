@@ -6,11 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".splash_activity"
+    android:background="@color/white"
    >
 
 
         <LinearLayout
-
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -19,11 +20,12 @@
             <ImageView
                 android:id="@+id/logo"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="200dp"
+                android:src="@drawable/app_logo"
           />
 
             <TextView
-
+android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:gravity="center_horizontal"
                 android:layout_height="wrap_content"
@@ -40,12 +42,12 @@
                 android:layout_height="wrap_content">
 
             <ProgressBar
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="20dp"
                 style="?android:attr/progressBarStyleSmall"
                 android:layout_centerHorizontal="true"
                android:indeterminateTint="@color/colorPrimary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_width="30dp"
+                android:layout_height="35dp"/>
             </RelativeLayout>
 
         </LinearLayout>

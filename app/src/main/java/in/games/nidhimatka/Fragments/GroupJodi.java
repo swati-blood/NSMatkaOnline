@@ -161,7 +161,7 @@ public class GroupJodi extends Fragment implements View.OnClickListener {
                     editText.requestFocus();
                     return;
                 } else if (TextUtils.isEmpty(etPoints.getText().toString())) {
-                    etPoints.setError("Please enter some point");
+                    etPoints.setError("Please enter some points");
                     etPoints.requestFocus();
                     return;
 
@@ -287,7 +287,7 @@ public class GroupJodi extends Fragment implements View.OnClickListener {
                             common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
                         } else {
                             clrControls();
-                            toastMsg.toastIconError("Betting is Closed Now");
+                            toastMsg.toastIconError("Biding is Closed Now");
 
                         }
                     } else {

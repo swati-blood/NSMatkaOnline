@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:text="Select Date :"
         android:textSize="14dp"
-        android:background="@color/play1"
+        android:background="@color/colorPrimary"
         android:textColor="@color/white"
         android:padding="@dimen/_10sdp"
         android:textAlignment="center"/>

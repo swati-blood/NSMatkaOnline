@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +54,7 @@ import in.games.nidhimatka.R;
 public class LoginWithMpinActivity extends AppCompatActivity {
     Snackbar snackbar;
     View view;
+    TextView txtBack;
     Common common;
     boolean isConnected;
     Button btnLogin,btn_Mpin;
@@ -73,6 +75,13 @@ public class LoginWithMpinActivity extends AppCompatActivity {
         btnLogin=(Button)findViewById(R.id.login_mpilogin_btn);
         etMpin=(EditText)findViewById(R.id.etMpin);
         btn_Mpin=(Button) findViewById(R.id.btn_mpin);
+        txtBack=findViewById (R.id.txt_back);
+        txtBack.setOnClickListener (new View.OnClickListener ( ) {
+            @Override
+            public void onClick(View v) {
+                finish ();
+            }
+        });
 
         boolean sdfff=common.isConnected();
         if(sdfff==true)

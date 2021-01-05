@@ -4,7 +4,7 @@
 
 <!--    <stroke android:color="@color/textColor"-->
 <!--        android:width="1dp"/>-->
-    <corners android:radius="150dp" />
+    <corners android:radius="80dp" />
 
 <!--        <gradient-->
 <!--            android:startColor="#0E000B"-->
@@ -14,11 +14,11 @@
 <!--            android:endColor="#B8072B">-->
 <!--        </gradient>-->
     <gradient
-            android:startColor="@color/colorPrimary"
+            android:startColor="@color/blue"
 
             android:type="linear"
             android:angle="135"
-            android:endColor="@color/colorPrimaryDark">
+            android:endColor="@color/colorPrimary">
         </gradient>
 
 

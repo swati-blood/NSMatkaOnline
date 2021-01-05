@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_10sdp"
-                app:cardBackgroundColor="@color/homebg"
+                app:cardBackgroundColor="#A38DFD"
                 app:cardCornerRadius="@dimen/_10sdp">
 
                 <LinearLayout
@@ -43,7 +43,7 @@
                         android:layout_marginBottom="@dimen/_25sdp"
                         android:gravity="center"
                         android:text="Profile "
-                        android:textColor="@color/white"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="20dp"
                         android:textStyle="bold"
 
@@ -156,7 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_10sdp"
-                app:cardBackgroundColor="@color/homebg"
+                app:cardBackgroundColor="#A38DFD"
 
                 app:cardCornerRadius="@dimen/_10sdp">
 
@@ -177,7 +177,7 @@
                         android:layout_marginBottom="@dimen/_25sdp"
                         android:gravity="center"
                         android:text="Address"
-                        android:textColor="@color/white"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="20dp"
                         android:textStyle="bold"
 

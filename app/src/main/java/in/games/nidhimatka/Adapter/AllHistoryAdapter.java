@@ -68,11 +68,11 @@ public class AllHistoryAdapter extends RecyclerView.Adapter<AllHistoryAdapter.Vi
      }
      else if(model.getStatus().equals("won")||model.getStatus().equals("win"))
      {
-         holder.txt_result.setText("You wont the bet");
+         holder.txt_result.setText("You wont the bid");
          holder.txt_result.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.icons8_happy_16px,0);
      }
      else if(model.getStatus().equals("loss"))
-     {  holder.txt_result.setText("You Lost the bet");
+     {  holder.txt_result.setText("You Lost the bid");
          holder.txt_result.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.icons8_sad_16px,0);
      }
 

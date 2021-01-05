@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.AddFunds">
+    tools:context=".Fragments.AddFunds"
+    android:background="@color/white">
 
     <!-- TODO: Update blank fragment layout -->
 <ScrollView
@@ -20,7 +21,7 @@
             android:id="@+id/addpointsimage"
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:src="@drawable/icon"
+            android:src="@drawable/app_logo"
 
             android:layout_centerHorizontal="true"/>
 

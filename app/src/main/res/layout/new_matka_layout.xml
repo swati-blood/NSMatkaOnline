@@ -189,7 +189,7 @@
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
                                   android:text="OPEN-BIDS-"
-                                  android:textColor="@color/btnColor"
+                                  android:textColor="@color/colorPrimary"
                                   android:textSize="10dp" />
 
                               <in.games.nidhimatka.Fonts.LatoBLack
@@ -200,7 +200,7 @@
                                   android:layout_toRightOf="@id/matka_txt_open_bid_Time"
                                   android:paddingLeft="2dp"
                                   android:text="12:28 am"
-                                  android:textColor="@color/btnColor"
+                                  android:textColor="@color/colorPrimary"
                                   android:textSize="10dp" />
                               <View
 
@@ -210,7 +210,7 @@
 
                                   android:layout_centerInParent="true"
                                   android:background="@android:color/darker_gray"
-                                  android:textColor="@color/btnColor"
+                                  android:textColor="@color/colorPrimary"
                                   />
                               <in.games.nidhimatka.Fonts.LatoBLack
                                   android:id="@+id/matka_txt_close_bid_Time"
@@ -218,7 +218,7 @@
                                   android:layout_height="wrap_content"
                                   android:layout_toLeftOf="@id/matka_close_bid_Time"
                                   android:text="  Close-BIDS-"
-                                  android:textColor="@color/btnColor"
+                                  android:textColor="@color/colorPrimary"
                                   android:textSize="10dp" />
 
                               <in.games.nidhimatka.Fonts.LatoBLack
@@ -229,7 +229,7 @@
                                   android:layout_alignParentEnd="true"
                                   android:paddingLeft="2dp"
                                   android:text="12:28 am"
-                                  android:textColor="@color/btnColor"
+                                  android:textColor="@color/colorPrimary"
                                   android:textSize="10dp" />
                           </LinearLayout>
                       </LinearLayout>
@@ -245,8 +245,8 @@
                         android:layout_below="@id/linMain"
                         android:layout_centerHorizontal="true"
                         android:gravity="center"
-                        android:text="Betting is Running For Today"
-                        android:textColor="@color/btnColor"
+                        android:text="Bidding is Running For Today"
+                        android:textColor="@color/colorPrimary"
                         android:layout_gravity="center_vertical"
                         android:textSize="14dp" />
 
@@ -257,7 +257,7 @@
                     android:layout_weight=".3"
                     android:layout_gravity="center_vertical"
                     android:layout_height="70dp"
-                    android:src="@drawable/pl2"
+                    android:src="@drawable/circled_play"
 
                     />
             </LinearLayout>

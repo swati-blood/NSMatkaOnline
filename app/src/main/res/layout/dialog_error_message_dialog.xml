@@ -29,7 +29,7 @@
        android:id="@+id/txtmessage"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:text="message"
+       android:text="Message"
        android:textSize="23dp"
        android:padding="5dp"
        android:layout_gravity="center_horizontal"

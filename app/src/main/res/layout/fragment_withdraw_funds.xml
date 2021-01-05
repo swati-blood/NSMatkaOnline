@@ -31,29 +31,16 @@
                 >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/textview1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="sans-serif-black"
                     android:text="Withdraw"
-                    android:textSize="20dp"
-                    android:textStyle="italic"
 
                     android:textColor="@color/black"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="sans-serif-black"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/withdrw_msg"
-                    android:layout_below="@+id/textview1"
-                    android:text="Withdrawal Requesting Time Is 10:00am To 3:00pm. The Amount Will Be Credited To Your Bank Account In Between 10:00am To 5:00pm Within 24hrs From Request. "
-                    android:textSize="16dp"
-                    android:textStyle="italic"
-                    android:layout_centerHorizontal="true"
-                    android:textAlignment="center"
-                    android:fontFamily="sans-serif"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -121,6 +108,20 @@
                     android:layout_centerHorizontal="true"
                     android:textAlignment="center"
                     android:fontFamily="sans-serif-black"/>
+
+                <TextView
+android:layout_marginTop="8dp"
+                    android:id="@+id/withdrw_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textview1"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="sans-serif"
+                    android:text="Withdrawal Requesting Time Is 10:00am To 3:00pm. The Amount Will Be Credited To Your Bank Account In Between 10:00am To 5:00pm Within 24hrs From Request. "
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16dp"
+                    android:textStyle="italic" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -194,7 +195,7 @@
 
                 android:textSize="18dp"
                 android:padding="10dp"
-                android:hint="Enter Points"
+                android:hint="Enter Coins"
                 android:gravity="left"
 
                 android:textColor="@color/colorPrimary"
@@ -203,7 +204,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_below="@id/relWallet"
                 android:layout_marginTop="10dp"
-                />
+                tools:ignore="RtlCompat" />
             <Button
                 android:id="@+id/add_Request"
                 android:layout_width="match_parent"

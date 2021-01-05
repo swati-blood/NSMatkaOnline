@@ -209,7 +209,7 @@
 
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
-                           android:text="POINTS    "
+                           android:text="COINS    "
                            android:textColor="@color/colorAccent"
                            android:layout_centerVertical="true"
                            android:paddingLeft="10dp"
@@ -226,7 +226,7 @@
 
                            android:maxLength="5"
                            android:textSize="14dp"
-                           android:hint="Points"
+                           android:hint="Coins"
                            android:textColor="@color/colorAccent"
                            android:background="@drawable/shape2"/>
 

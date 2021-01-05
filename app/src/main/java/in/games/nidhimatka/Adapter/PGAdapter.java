@@ -79,12 +79,12 @@ public class PGAdapter extends BaseAdapter {
        int m= Integer.parseInt(end_time[1].toString());
 
         if(h<=0 && m<0){
-            txtId.setText("Bet Is Running ");
+            txtId.setText("Bid Is Running ");
             txtNumber.setText("***-**");
             txtId.setTextColor(Color.parseColor("#053004"));
         }
         else{
-            txtId.setText("Bet is Closed ");
+            txtId.setText("Bid is Closed ");
             txtId.setTextColor(Color.parseColor("#b31109"));
             txtNumber.setText(""+postion.getS_game_number());
             img.setVisibility(View.INVISIBLE);

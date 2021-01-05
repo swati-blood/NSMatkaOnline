@@ -155,9 +155,9 @@ TextView txt_wallet,txtUserName ,txt_title ;
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         final MenuItem wallet_item = menu.findItem(R.id.action_wallet);
-        final MenuItem notification_item = menu.findItem(R.id.action_notification);
+        //final MenuItem notification_item = menu.findItem(R.id.action_notification);
         wallet_item.setVisible(true);
-        notification_item.setVisible(true);
+        //notification_item.setVisible(true);
         View count_wallet = wallet_item.getActionView();
 //        View count_notify =notification_item.getActionView();
 //       count_wallet.setOnClickListener(new View.OnClickListener() {
@@ -212,11 +212,12 @@ TextView txt_wallet,txtUserName ,txt_title ;
 
             fm = new GenerateMpinFragment();
 
-        } else if (id == R.id.nav_how_toPlay) {
-
-            fm = new HowToPLayFragment();
-
-        }
+   }
+        //else if (id == R.id.nav_how_toPlay) {
+//
+//            fm = new HowToPLayFragment();
+//
+//        }
         else if (id == R.id.nav_history) {
             Bundle bundle = new Bundle();
             bundle.putString("type","bid");

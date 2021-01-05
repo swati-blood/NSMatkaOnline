@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.hololo.library.otpview.OTPView;
 
 import org.json.JSONObject;
 
@@ -47,9 +49,9 @@ import static in.games.nidhimatka.Config.BaseUrls.URL_VERIFICATION;
 
 
 public class VerificationActivity extends AppCompatActivity implements View.OnClickListener {
-
+ImageView iv_back;
     RelativeLayout rel_gen,rel_verify,rel_timer;
-    EditText et_phone,et_otp;
+    EditText et_phone;
     Button btn_send,btn_verify,btn_resend;
     TextView tv_timer;
     String type="";
@@ -57,6 +59,8 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
     Common common;
     ProgressDialog loadingBar;
     String str="";
+OTPView et_otp;
+
     public static final String OTP_REGEX = "[0-9]{3,6}";
     CountDownTimer countDownTimer ;
     private final int REQUEST_ID_MULTIPLE_PERMISSIONS=1;
@@ -70,11 +74,23 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void initViews() {
+        iv_back=findViewById (R.id.iv_back);
+
+        iv_back.setOnClickListener (new View.OnClickListener ( ) {
+            @Override
+            public void onClick(View v) {
+                finish ();
+            }
+        });
         rel_gen=findViewById(R.id.rel_gen);
         rel_verify=findViewById(R.id.rel_verify);
         rel_timer=findViewById(R.id.rel_timer);
         et_phone=findViewById(R.id.et_phone);
-        et_otp=findViewById(R.id.et_otp);
+        et_otp=(OTPView) findViewById(R.id.et_otp);
+
+
+
+
         btn_send=findViewById(R.id.btn_send);
         btn_verify=findViewById(R.id.btn_verify);
         btn_resend=findViewById(R.id.btn_resend);
@@ -89,6 +105,7 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
         btn_resend.setOnClickListener(this);
         checkAndRequestPermissions();
     }
+
 
     @Override
     public void onClick(View view) {
@@ -130,7 +147,7 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
         }
         else if(view.getId() == R.id.btn_verify)
         {
-          String stringOtp=et_otp.getText().toString();
+          String stringOtp=et_otp.getOtp ().toString();
           if(stringOtp.isEmpty())
           {
               common.showToast("Enter OTP");
@@ -216,11 +233,11 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
         HashMap<String, String> params=new HashMap<>();
         params.put("mobile",mobile);
         params.put("otp",otp);
-
+        Log.e ( "sendOtpforPass: ",params.toString () );
         CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.e("gen",""+response.toString());
+                Log.e("gen_ottt",""+response.toString());
                 loadingBar.dismiss();
                 try
                 {
@@ -240,7 +257,7 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
 
                                     @Override
                                     public void onFinish() {
-                                        et_otp.setText(otp);
+                                        et_otp.setOtp (otp);
                                     }
                                 };
                                 countDownTimer.start();
@@ -347,7 +364,7 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
 
                     if(!(otp.isEmpty() || otp.equals("")))
                     {
-                        et_otp.setText(otp);
+                        et_otp.setOtp (otp);
 
 
                     }

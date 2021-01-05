@@ -288,7 +288,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
                                     common.setBidsDialog(Integer.parseInt(w_amount), tempList, matka_id, g_d, game_id, w_amount, matka_name, loadingBar, btn_submit, s_time, e_time);
                                 } else {
 
-                                    toastMsg.toastIconError("Betting is Closed Now");
+                                    toastMsg.toastIconError("Biding is Closed Now");
 
                                 }
                             } else {

@@ -81,12 +81,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-
-
                 android:padding="0dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-
+                android:background="@drawable/shape2"
 
                 >
 
@@ -97,7 +95,7 @@
                     android:layout_height="40dp"
                     android:paddingLeft="10dp"
                     android:layout_marginTop="0dp"
-                    android:background="@drawable/gradient_button"
+
                     android:backgroundTint="@color/white"
                     android:drawableLeft="@drawable/ic_account_circle_black_24dp"
                     android:drawableTint="@color/colorAccent"
@@ -116,13 +114,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_below="@id/relativeLayout_1"
-
-
                 android:padding="0dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
 
-
+                android:background="@drawable/shape2"
                 >
                 <ImageView
                     android:id="@+id/imageViewUserIcon"
@@ -142,8 +138,9 @@
                     android:paddingLeft="10dp"
                     android:layout_marginTop="0dp"
                     android:layout_toRightOf="@id/imageViewUserIcon"
-                    android:background="@drawable/gradient_button"
-                    android:backgroundTint="@color/white"
+
+                    android:background="@drawable/shape2"
+
                     android:drawableLeft="@drawable/ic_account_circle_black_24dp"
                     android:drawableTint="@color/colorAccent"
                     android:drawablePadding="10dp"
@@ -183,8 +180,8 @@
                 <EditText
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
-                    android:background="@drawable/gradient_button"
-                    android:backgroundTint="@color/white"
+
+                   android:background="@drawable/shape2"
                     android:drawableLeft="@drawable/ic_email_black_24dp"
                     android:drawableTint="@color/colorAccent"
                     android:drawablePadding="10dp"
@@ -227,6 +224,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
 
+                    android:background="@drawable/shape2"
                     android:layout_toRightOf="@id/imageViewUserIcon3"
                     android:layout_height="wrap_content">
 
@@ -247,13 +245,12 @@
                         android:id="@+id/etMobile"
                         android:layout_toRightOf="@id/txt91"
                         android:layout_width="match_parent"
-
                         android:layout_height="40dp"
                         android:fontFamily="@font/lato"
                         android:paddingLeft="10dp"
                         android:layout_marginTop="0dp"
-                        android:background="@drawable/gradient_button"
-                        android:backgroundTint="@color/white"
+                        android:background="@drawable/shape2"
+
                         android:drawableLeft="@drawable/ic_call_black_24dp"
                         android:drawableTint="@color/colorAccent"
                         android:drawablePadding="10dp"
@@ -273,6 +270,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
 
+                android:background="@drawable/shape2"
                 android:layout_below="@id/relativeLayout5"
                 android:padding="0dp"
                 android:layout_marginLeft="30dp"
@@ -296,8 +294,8 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="0dp"
                     android:layout_toRightOf="@id/imageViewUserIcon4"
-                    android:background="@drawable/gradient_button"
-                    android:backgroundTint="@color/white"
+                    android:background="@drawable/shape2"
+
                     android:drawableLeft="@drawable/ic_lock_black_24dp"
                     android:drawablePadding="10dp"
                     android:drawableTint="@color/colorAccent"
@@ -319,6 +317,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
 
+                android:background="@drawable/shape2"
                 android:layout_below="@id/relativeLayout6"
                 android:padding="0dp"
                 android:layout_marginLeft="30dp"
@@ -350,8 +349,8 @@ android:visibility="gone"
                     android:layout_toRightOf="@id/imageViewUserIcon5"
 
                     android:hint="Confirm Password"
-                    android:background="@drawable/gradient_button"
-                    android:backgroundTint="@color/white"
+                    android:background="@drawable/shape2"
+
                     android:drawableLeft="@drawable/ic_lock_black_24dp"
                     android:drawableTint="@color/colorAccent"
                     android:drawablePadding="10dp"
@@ -372,7 +371,7 @@ android:visibility="gone"
                     android:fontFamily="@font/lato"
                     android:textSize="16dp"
                     android:textStyle="bold"
-                    android:text="Accept Terms And Contidions"
+                    android:text="Accept Terms And Conditions"
                     android:buttonTint="@color/colorAccent"
                     android:layout_marginTop="20dp" />
                 <in.games.nidhimatka.Fonts.LatoBLack

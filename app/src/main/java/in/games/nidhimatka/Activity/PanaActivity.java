@@ -309,7 +309,7 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
                                 } else {
 
 //                                    common.errorMessageDialog("Betting is Closed Now");
-                                   toastMsg.toastIconError("Betting is Closed Now");
+                                   toastMsg.toastIconError("Biding is Closed Now");
 
                                 }
                             } else {

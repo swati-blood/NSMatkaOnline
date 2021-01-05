@@ -15,14 +15,27 @@
 <!--        android:background="@drawable/background_page"-->
 <!--        android:alpha=".5"/>-->
 
-
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:titleTextColor="@color/white"
+        android:background="@color/iconColor"
+        app:titleTextAppearance="@style/TitleBarTextAppearance"
+        app:popupTheme="@style/AppTheme.PopupOverlay" >
+        <TextView
+            android:id="@+id/txtBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_keyboard_backspace_black_24dp"/>
+    </androidx.appcompat.widget.Toolbar>
 
     <ImageView
+        android:layout_below="@+id/toolbar"
         android:id="@+id/appLogo"
         android:layout_width="350dp"
         android:layout_height="300dp"
-        android:src="@drawable/icon"
-
+        android:src="@drawable/app_logo"
         android:padding="20dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"

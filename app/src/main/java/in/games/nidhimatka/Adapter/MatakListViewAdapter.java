@@ -219,7 +219,7 @@ public class MatakListViewAdapter extends BaseAdapter {
                 if (as < 0) {
                     flag = 2;
                     txtStatus.setTextColor( Color.parseColor( "#053004" ) );
-                    txtStatus.setText( "BETTING IS RUNNING" );
+                    txtStatus.setText( "BIDDING IS RUNNING" );
 //                    rel_matka.setOnClickListener(new View.OnClickListener() {
 //                        @Override
 //                        public void onClick(View v) {
@@ -252,7 +252,7 @@ public class MatakListViewAdapter extends BaseAdapter {
                     flag = 3;
 //                    txtStatus.setTextColor( Color.parseColor( "#FFA44546" ) );
                     txtStatus.setTextColor( Color.parseColor( "#b31109" ) );
-                    txtStatus.setText( "BETTING IS CLOSED" );
+                    txtStatus.setText( "Bidding IS CLOSED" );
 //                    rel_matka.setOnClickListener(new View.OnClickListener() {
 //                        @Override
 //                        public void onClick(View v) {
@@ -273,7 +273,7 @@ public class MatakListViewAdapter extends BaseAdapter {
             }
             else
             {
-                txtStatus.setText( "BETTING IS CLOSED" );
+                txtStatus.setText( "BIDDING IS CLOSED" );
                 txtStatus.setTextColor( Color.parseColor( "#b31109" ) );
 //                rel_matka.setOnClickListener(new View.OnClickListener() {
 //                    @Override

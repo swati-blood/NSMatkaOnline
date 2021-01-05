@@ -218,7 +218,7 @@ public class MatkaAdapter extends RecyclerView.Adapter<MatkaAdapter.ViewHolder> 
             viewHolder.txtStatus.setVisibility(View.INVISIBLE);
         }
 //
-        viewHolder.imageGame.setImageResource(R.drawable.pl2);
+        viewHolder.imageGame.setImageResource(R.drawable.circled_play);
 
       viewHolder.rel_matka.setOnClickListener(new View.OnClickListener() {
             @Override

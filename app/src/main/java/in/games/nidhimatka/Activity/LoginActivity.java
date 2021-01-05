@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -85,7 +86,8 @@ public class LoginActivity extends AppCompatActivity {
     ToastMsg toastMsg;
     Activity ctx = LoginActivity.this;
      Button btnRegister,btnForgetPassword,btnForgetUserID;
-    private Button btnForPassword,btnForUserID;
+    private Button btnForUserID;
+    TextView btnForPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
         common=new Common(LoginActivity.this);
 toastMsg= new ToastMsg(LoginActivity.this);
         btnRegister=(Button)findViewById(R.id.login_register_btn);
-        btnForPassword=(Button)findViewById(R.id.btnForgetPass);
+        btnForPassword=(TextView)findViewById(R.id.btnForgetPass);
         btnForUserID=(Button)findViewById(R.id.btnForgetUserId);
            session_management=new Session_management(LoginActivity.this);
         boolean sdfff=isConnected(LoginActivity.this);

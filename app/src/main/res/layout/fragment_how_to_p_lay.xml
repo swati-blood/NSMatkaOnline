@@ -34,7 +34,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:text="How to play"
                     android:layout_centerHorizontal="true"
-                    android:textStyle="italic|bold"/>
+                    android:textStyle="bold"/>
                 <View
                     android:id="@+id/lw1"
                     android:layout_below="@id/w1"
@@ -69,7 +69,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:text="Youtube Link"
                     android:layout_centerHorizontal="true"
-                    android:textStyle="italic|bold"/>
+                    android:textStyle="bold"/>
 
                 <View
                     android:id="@+id/lw2"

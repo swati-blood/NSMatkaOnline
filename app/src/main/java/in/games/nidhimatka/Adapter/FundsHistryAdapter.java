@@ -60,13 +60,13 @@ public class FundsHistryAdapter extends RecyclerView.Adapter<FundsHistryAdapter.
 
             holder.tv_amount.setTextColor(activity.getResources().getColor(R.color.greenColor));
             holder.tv_type.setTextColor(activity.getResources().getColor(R.color.greenColor));
-            holder.tv_type.setText("Points Added");
+            holder.tv_type.setText("Coins Added");
         }
         else
         {
             holder.tv_amount.setTextColor(activity.getResources().getColor(R.color.redColor));
             holder.tv_type.setTextColor(activity.getResources().getColor(R.color.redColor));
-            holder.tv_type.setText("Points Withdrawn");
+            holder.tv_type.setText("Coins Withdrawn");
         }
 
         if (model.getRequest_status().equals("pending"))

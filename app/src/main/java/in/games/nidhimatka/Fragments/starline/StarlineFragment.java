@@ -138,7 +138,7 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
                 //Toast.makeText(PlayGameActivity.this,"sTime "+sTime+"\n dt"+ddt,Toast.LENGTH_LONG).show();
                 if(sTime<=c_tm)
                 {
-                    new ToastMsg(getActivity()).toastInfo("Betting is closed for today");
+                    new ToastMsg(getActivity()).toastInfo("Biding is closed for today");
                     return;
 
                 }

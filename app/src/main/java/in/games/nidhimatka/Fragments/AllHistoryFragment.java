@@ -88,7 +88,7 @@ public class AllHistoryFragment extends Fragment {
    Log.e("type",type);
    if (ConnectivityReceiver.isConnected()) {
        if (type.equals("bid")) {
-           ((MainActivity) getActivity()).setTitle("Bid History");
+           ((MainActivity) getActivity()).setTitle("Game History");
 
            getHistry(user_id);
        } else if (type.equals("funds")) {
