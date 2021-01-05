@@ -38,7 +38,7 @@ RecyclerView recyclerView;
         recyclerView.setLayoutManager (new LinearLayoutManager(view.getContext ()));
         Notice_Model[]data=new Notice_Model[]{
 
-                new Notice_Model ("Withdraw", "Withdraw will be accepted from 10:00am till 2:00pm and amount will be credited within 24hrs. Withdrawal is not available on Sunday and on Bank Holidays.\\n For Funds Withdrawal Query Contact\""),
+                new Notice_Model ("Withdraw", "Withdraw will be accepted from 10:00am till 2:00pm and amount will be credited within 24hrs. Withdrawal is not available on Sunday and on Bank Holidays.For Funds Withdrawal Query Contact\""),
                 new Notice_Model ("Notice", "All customers are requested to update your Bank Account with IFSC code in your Profile before remittnaces. It's mandatory kindly cooperate"),
         };
 

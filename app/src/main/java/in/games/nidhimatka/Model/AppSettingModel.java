@@ -4,6 +4,7 @@ package in.games.nidhimatka.Model;
  * Developed by Binplus Technologies pvt. ltd.  on 04,November,2020
  */
 public class AppSettingModel {
+
     String id,version,app_link,share_link,message,home_text,withdraw_text,withdraw_no,min_withdraw,tag_line,min_amount,
             msg_status,dialog_img,starline_status;
 
@@ -17,6 +18,8 @@ public class AppSettingModel {
     public void setStarline_status(String starline_status) {
         this.starline_status = starline_status;
     }
+
+
 
     public String getId() {
         return id;

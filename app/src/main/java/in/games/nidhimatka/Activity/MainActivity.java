@@ -46,6 +46,7 @@ import in.games.nidhimatka.Fragments.HowToPLayFragment;
 import in.games.nidhimatka.Fragments.MyProfileFragment;
 import in.games.nidhimatka.Fragments.NoticeFragment;
 import in.games.nidhimatka.Fragments.ProfileFragment;
+import in.games.nidhimatka.Fragments.UserFragment;
 import in.games.nidhimatka.Fragments.WalletFragment;
 import in.games.nidhimatka.Fragments.WithdrawFundsFragment;
 import in.games.nidhimatka.Model.MatkaObject;
@@ -187,9 +188,9 @@ TextView txt_wallet,txtUserName ,txt_title ;
         Fragment fm = null;
 
         if (id == R.id.nav_profile) {
-           fm = new MyProfileFragment();
+           //fm = new MyProfileFragment();
 
-
+            fm=new UserFragment ();
         }
         else if (id == R.id.nav_home)
         {

@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -26,6 +27,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -74,9 +76,11 @@ import static in.games.nidhimatka.Config.Constants.KEY_WALLET;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
+    TextView tv_admin,tv_number ,text_number;
+
     public final String TAG=HomeFragment.class.getSimpleName();
 MatkaAdapter matkaAdapter ;
-    private ArrayList<MatkasObjects> matkaList;
+private ArrayList<MatkasObjects> matkaList;
     private RecyclerView rv_matka;
     LoadingBar progressDialog;
     Common common;
@@ -98,6 +102,23 @@ MatkaAdapter matkaAdapter ;
         // Inflate the layout for this fragment
        View view = inflater.inflate(R.layout.fragment_home2, container, false);
        initViews(view);
+
+text_number=(TextView)view.findViewById (R.id.number);
+
+       tv_number=view.findViewById (R.id.tv_number);
+   tv_number.setOnClickListener (new View.OnClickListener ( ) {
+     @Override
+     public void onClick(View v) {
+         String number = text_number.getText().toString();
+         Uri uri = Uri.parse("smsto:" + number);
+         Intent i = new Intent(Intent.ACTION_SENDTO, uri);
+         i.putExtra("sms_body","hello");
+         i.setPackage("com.whatsapp");
+         startActivity(i);
+     }
+ });
+
+
        view.setFocusableInTouchMode(true);
        view.requestFocus();
        view.setOnKeyListener(new View.OnKeyListener() {
@@ -179,11 +200,17 @@ MatkaAdapter matkaAdapter ;
     common = new Common(getActivity());
     module = new Module();
     card_starline = v.findViewById(R.id.card_starline);
+
+       tv_admin=v.findViewById (R.id.tv_admin);
     card_starline.setOnClickListener(this);
     if(ConnectivityReceiver.isConnected()) {
         common.appSettingData(new GetAppSettingData() {
             @Override
             public void getAppSettingData(AppSettingModel model) {
+
+                tv_admin.setText(Html.fromHtml(model.getHome_text ()));
+                text_number.setText (Html.fromHtml (model.getWithdraw_no ()));
+
                 if(model.getStarline_status().equals("0")){
                     card_starline.setVisibility(View.GONE);
                 }else{
@@ -191,7 +218,7 @@ MatkaAdapter matkaAdapter ;
                 }
             }
         });
-        makeSliderRequest();
+        //makeSliderRequest();
         getMatkaData();
         Log.e(TAG,""+session_management.getUserDetails().get(KEY_WALLET));
 //        showUpdateDialog();
@@ -324,7 +351,7 @@ MatkaAdapter matkaAdapter ;
                                     HashMap<String, String> url_maps = new HashMap<String, String>();
                                     url_maps.put("id", object.getString("id"));
                                     url_maps.put("title", object.getString("title"));
-                                    url_maps.put("image", BaseUrls.IMG_SLIDER_URL + object.getString("image"));
+                                   // url_maps.put("image", BaseUrls.IMG_SLIDER_URL + object.getString("image"));
                                     url_maps.put("description",object.getString("description"));
                                     listarray.add(url_maps);
 
