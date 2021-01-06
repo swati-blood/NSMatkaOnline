@@ -89,7 +89,9 @@ OTPView et_otp;
         et_otp=(OTPView) findViewById(R.id.et_otp);
 
 
-
+        if (et_phone.getText().toString().length() > 0) {
+            et_phone.getText().clear();
+        }
 
         btn_send=findViewById(R.id.btn_send);
         btn_verify=findViewById(R.id.btn_verify);

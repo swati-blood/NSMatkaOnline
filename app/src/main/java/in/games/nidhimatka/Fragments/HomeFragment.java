@@ -27,6 +27,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -90,7 +91,9 @@ private ArrayList<MatkasObjects> matkaList;
     int flag =0 ;
     float version_code ;
     SliderLayout home_slider ;
-    CardView card_starline;
+    CardView card_starline,card_home;
+    String wNo,wMsg;
+    RelativeLayout rl_whatsapp;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -102,22 +105,6 @@ private ArrayList<MatkasObjects> matkaList;
         // Inflate the layout for this fragment
        View view = inflater.inflate(R.layout.fragment_home2, container, false);
        initViews(view);
-
-text_number=(TextView)view.findViewById (R.id.number);
-
-       tv_number=view.findViewById (R.id.tv_number);
-   tv_number.setOnClickListener (new View.OnClickListener ( ) {
-     @Override
-     public void onClick(View v) {
-         String number = text_number.getText().toString();
-         Uri uri = Uri.parse("smsto:" + number);
-         Intent i = new Intent(Intent.ACTION_SENDTO, uri);
-         i.putExtra("sms_body","hello");
-         i.setPackage("com.whatsapp");
-         startActivity(i);
-     }
- });
-
 
        view.setFocusableInTouchMode(true);
        view.requestFocus();
@@ -191,11 +178,19 @@ text_number=(TextView)view.findViewById (R.id.number);
 
    private void initViews(View v)
    {
-    matkaList = new ArrayList<>();
+       text_number=(TextView)v.findViewById (R.id.number);
+
+       tv_number=v.findViewById (R.id.tv_number);
+       rl_whatsapp=v.findViewById (R.id.rl_whatsapp);
+       rl_whatsapp.setOnClickListener(this);
+
+
+       matkaList = new ArrayList<>();
     session_management=new Session_management(getActivity());
        ((MainActivity) getActivity()).setTitle(getActivity().getResources().getString(R.string.app_name));
     rv_matka= v.findViewById(R.id.listView);
     home_slider= v.findViewById(R.id.home_slider);
+       card_home= v.findViewById(R.id.card_home);
     progressDialog = new LoadingBar(getActivity());
     common = new Common(getActivity());
     module = new Module();
@@ -203,61 +198,10 @@ text_number=(TextView)view.findViewById (R.id.number);
 
        tv_admin=v.findViewById (R.id.tv_admin);
     card_starline.setOnClickListener(this);
-    if(ConnectivityReceiver.isConnected()) {
-        common.appSettingData(new GetAppSettingData() {
-            @Override
-            public void getAppSettingData(AppSettingModel model) {
 
-                tv_admin.setText(Html.fromHtml(model.getHome_text ()));
-                text_number.setText (Html.fromHtml (model.getWithdraw_no ()));
-
-                if(model.getStarline_status().equals("0")){
-                    card_starline.setVisibility(View.GONE);
-                }else{
-                    card_starline.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-        //makeSliderRequest();
-        getMatkaData();
-        Log.e(TAG,""+session_management.getUserDetails().get(KEY_WALLET));
-//        showUpdateDialog();
-        if (!dialog_image.isEmpty())
-        {
-            if(!session_management.isDialogStatus())
-            {
-                showImageDialog(dialog_image);
-                session_management.updateDilogStatus(true);
-            }
-
-        }
-
-    } else
-    {
-        Intent intent = new Intent(getActivity(), NoInternetConnection.class);
-        startActivity(intent);
-    }
-
-    rv_matka.setLayoutManager(new LinearLayoutManager(getActivity()));
-       matkaAdapter = new MatkaAdapter(getActivity(),matkaList);
-       rv_matka.setAdapter(matkaAdapter);
-       try {
-           PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
-           version_code = pInfo.versionCode;
-           Log.e(TAG,""+ver_code+" - "+version_code);
-           // Toast.makeText(splash_activity.this,""+version,Toast.LENGTH_LONG).show();
-           if(version_code==ver_code)
-           {
-
-           }
-           else {
-               showUpdateDialog();
-           }
-
-       } catch (PackageManager.NameNotFoundException e) {
-           e.printStackTrace();
-       }
    }
+
+
 
     public void getMatkaData()
     {
@@ -393,7 +337,87 @@ text_number=(TextView)view.findViewById (R.id.number);
     @Override
     public void onStart() {
         super.onStart();
-        common.getWalletAmount();
+
+        if(ConnectivityReceiver.isConnected()) {
+            common.appSettingData(new GetAppSettingData() {
+                @Override
+                public void getAppSettingData(AppSettingModel model) {
+
+                    tv_admin.setText(Html.fromHtml(model.getHome_text ()));
+                    if(common.checkNullString(model.getWhatsapp_no()) && common.checkNullString(model.getHome_text())){
+                        if(card_home.getVisibility()==View.VISIBLE)
+                            card_home.setVisibility(View.GONE);
+                    }else{
+                        if(card_home.getVisibility()==View.GONE)
+                            card_home.setVisibility(View.VISIBLE);
+
+                        if(common.checkNullString(model.getHome_text())){
+                            tv_admin.setVisibility(View.GONE);
+                        }else{
+                            tv_admin.setVisibility(View.VISIBLE);
+                            tv_admin.setText(Html.fromHtml(common.checkNull(model.getHome_text())));
+                        }
+
+                        if(common.checkNullString(model.getWhatsapp_no())){
+                            rl_whatsapp.setVisibility(View.GONE);
+                        }else{
+                            rl_whatsapp.setVisibility(View.VISIBLE);
+                            wMsg=model.getWhatsapp_msg();
+                            wNo=model.getWhatsapp_no();
+                        }
+
+
+                    }
+//                text_number.setText (Html.fromHtml (model.getWhatsapp_no ()));
+
+                    if(model.getStarline_status().equals("0")){
+                        card_starline.setVisibility(View.GONE);
+                    }else{
+                        card_starline.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
+
+            //makeSliderRequest();
+            getMatkaData();
+            common.getWalletAmount();
+//            Log.e(TAG,""+session_management.getUserDetails().get(KEY_WALLET));
+//        showUpdateDialog();
+//        if (!dialog_image.isEmpty())
+//        {
+//            if(!session_management.isDialogStatus())
+//            {
+//                showImageDialog(dialog_image);
+//                session_management.updateDilogStatus(true);
+//            }
+//
+//        }
+
+        } else
+        {
+            Intent intent = new Intent(getActivity(), NoInternetConnection.class);
+            startActivity(intent);
+        }
+
+        rv_matka.setLayoutManager(new LinearLayoutManager(getActivity()));
+        matkaAdapter = new MatkaAdapter(getActivity(),matkaList);
+        rv_matka.setAdapter(matkaAdapter);
+        try {
+            PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+            version_code = pInfo.versionCode;
+            Log.e(TAG,""+ver_code+" - "+version_code);
+            // Toast.makeText(splash_activity.this,""+version,Toast.LENGTH_LONG).show();
+            if(version_code==ver_code)
+            {
+
+            }
+            else {
+                showUpdateDialog();
+            }
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 //        ((MainActivity)getActivity()).setWalletCounter(session_management.getUserDetails().get(Constants.KEY_WALLET));
 
     }
@@ -478,6 +502,9 @@ else
                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
                        .addToBackStack(null).commit();
+        }
+        else if(v.getId() == R.id.rl_whatsapp){
+            common.whatsapp(wNo,wMsg);
         }
 
     }

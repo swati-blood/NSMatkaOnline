@@ -3,9 +3,11 @@ package in.games.nidhimatka.Common;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
@@ -39,6 +41,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1999,6 +2002,22 @@ public class Common {
         request.setRetryPolicy(mRetryPolicy);
         AppController.getInstance().addToRequestQueue(request,"req");
     }
+
+    public void whatsapp(String phone, String message) {
+        PackageManager packageManager = context.getPackageManager();
+        Intent i = new Intent(Intent.ACTION_VIEW);
+
+        try {
+            String url = "whatsapp://send?phone=91"+ phone +"&text=" + URLEncoder.encode(message, "UTF-8");
+            i.setData(Uri.parse(url));
+            if (i.resolveActivity(packageManager) != null) {
+                context.startActivity(i);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }
 
 
