@@ -7,6 +7,7 @@ public class AppSettingModel {
 
     String id,version,app_link,share_link,message,home_text,withdraw_text,withdraw_no,min_withdraw,tag_line,min_amount,
             msg_status,dialog_img,starline_status;
+    String whatsapp_no,whatsapp_msg;
 
     public AppSettingModel() {
     }
@@ -123,5 +124,21 @@ public class AppSettingModel {
 
     public void setDialog_img(String dialog_img) {
         this.dialog_img = dialog_img;
+    }
+
+    public String getWhatsapp_no() {
+        return whatsapp_no;
+    }
+
+    public void setWhatsapp_no(String whatsapp_no) {
+        this.whatsapp_no = whatsapp_no;
+    }
+
+    public String getWhatsapp_msg() {
+        return whatsapp_msg;
+    }
+
+    public void setWhatsapp_msg(String whatsapp_msg) {
+        this.whatsapp_msg = whatsapp_msg;
     }
 }
