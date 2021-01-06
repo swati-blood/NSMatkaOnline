@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 import in.games.nidhimatka.Fragments.NoticeFragment;
 import in.games.nidhimatka.Model.Notice_Model;
 import in.games.nidhimatka.R;
@@ -17,12 +19,13 @@ import in.games.nidhimatka.R;
 public class Notice_Adapter extends RecyclerView.Adapter<Notice_Adapter.ViewHolder>{
 
     NoticeFragment context;
-    Notice_Model[] data;
+    ArrayList<Notice_Model> data;
 
-    public Notice_Adapter(Notice_Model[]data, NoticeFragment activity){
-        this.data=data;
-        this.context=activity;
+    public Notice_Adapter(NoticeFragment context, ArrayList<Notice_Model> data) {
+        this.context = context;
+        this.data = data;
     }
+
     @NonNull
     @Override
     public Notice_Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -36,14 +39,14 @@ public class Notice_Adapter extends RecyclerView.Adapter<Notice_Adapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull Notice_Adapter.ViewHolder holder, int position) {
-        final Notice_Model datalist=data[position];
+        final Notice_Model datalist=data.get (position);
         holder.title.setText (datalist.getTitle ());
-        holder.detail.setText (datalist.getDetail());
+        holder.detail.setText (datalist.getDescription ());
     }
 
     @Override
     public int getItemCount() {
-        return data.length;
+        return data.size ();
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
 

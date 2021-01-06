@@ -82,7 +82,7 @@ public static Boolean is_empty = true , is_error = false ;
             @Override
             public void afterTextChanged(Editable s) {
                 if (txt_type.getText().toString().equalsIgnoreCase(activity.getResources().getString(R.string.select_type))) {
-                       common.showToast("Select Bet Type");
+                       common.showToast("Select Bid Type");
                 } else {
                     boolean backSpace = false;
                     if (beforeTextChangeValue.length() > s.toString().length()) {

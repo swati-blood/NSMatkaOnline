@@ -275,7 +275,7 @@ Dialog dialog ;
                             common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, game_date, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
                         } else {
                             clrControls();
-                            toastMsg.toastIconError(("Betting is Closed Now"));
+                            toastMsg.toastIconError(("Biddiing is Closed Now"));
 
                         }
                     } else {

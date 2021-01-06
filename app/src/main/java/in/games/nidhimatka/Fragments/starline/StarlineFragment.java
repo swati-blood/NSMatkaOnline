@@ -89,20 +89,21 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
         rv_matka= v.findViewById(R.id.listView);
         txt_game_rate= v.findViewById(R.id.game_rate);
         btn_bid= v.findViewById(R.id.star_histry);
-        //btn_result= v.findViewById(R.id.star_result);
+       // btn_result= v.findViewById(R.id.star_result);
       // btn_terms= v.findViewById(R.id.star_term);
         swipe = v.findViewById(R.id.swipe_layout);
         progressDialog = new LoadingBar(getActivity());
         common = new Common(getActivity());
         module = new Module();
-        btn_terms.setOnClickListener(this);
+       // btn_terms.setOnClickListener(this);
+
+       // btn_result.setOnClickListener(this);
         btn_bid.setOnClickListener(this);
-        btn_result.setOnClickListener(this);
         if(ConnectivityReceiver.isConnected()) {
 
             getMatkaData();
             getNotice();
-//        showUpdateDialog();
+//       showUpdateDialog();
 
         } else
         {
@@ -164,6 +165,7 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
         fm.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+                .addToBackStack (null)
                 .commit();
 //                    Intent intent=new Intent(PlayGameActivity.this, NewGameActivity.class);
 //                    intent.putExtra("tim",position);
@@ -394,6 +396,8 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
                 fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
                         .addToBackStack(null)
                         .commit();
+
+
 
                 break;
 //            case R.id.star_result:

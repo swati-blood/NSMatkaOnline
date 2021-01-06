@@ -197,7 +197,7 @@ public class MatkaAdapter extends RecyclerView.Adapter<MatkaAdapter.ViewHolder> 
         {
                 flag=2;
                 viewHolder.txtStatus.setTextColor(Color.parseColor("#316D35"));
-                viewHolder.txtStatus.setText("Betting is running for Today");
+                viewHolder.txtStatus.setText("Bidding is running for Today");
 
 
 
@@ -209,7 +209,7 @@ public class MatkaAdapter extends RecyclerView.Adapter<MatkaAdapter.ViewHolder> 
         {
             flag=3;
             viewHolder.txtStatus.setTextColor(Color.parseColor("#FFA44546"));
-            viewHolder.txtStatus.setText("Betting is close for today");
+            viewHolder.txtStatus.setText("Bidding is close for today");
         }
         else
         {

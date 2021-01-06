@@ -66,7 +66,7 @@
                            android:gravity="center"
                             android:background="@drawable/gradients_background"
                             android:textColor="@color/white"
-                            android:text="Staline Bid History"/>
+                            android:text="Starline Bid History"/>
 <!--                        <Button-->
 <!--                            android:id="@+id/star_result"-->
 <!--                            android:layout_width="0dp"-->

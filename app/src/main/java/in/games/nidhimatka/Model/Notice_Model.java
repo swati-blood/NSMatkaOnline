@@ -3,11 +3,15 @@ package in.games.nidhimatka.Model;
 public class Notice_Model {
 
     String title;
-    String detail;
-    public Notice_Model(String title,String detail) {
+    String description;
+    public Notice_Model(String title,String description) {
 
         this.title = title;
-        this.detail = detail;
+        this.description = description;
+    }
+
+    public Notice_Model() {
+
     }
 
     public String getTitle() {
@@ -18,12 +22,14 @@ public class Notice_Model {
         this.title = title;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+
+
+    public String getDescription() {
+        return description;
     }
 
-    public String getDetail() {
-        return detail;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }

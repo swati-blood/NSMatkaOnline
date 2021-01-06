@@ -283,7 +283,6 @@ public class SelectGameFragment extends Fragment {
      }
      return flag;
     }
-
     private void removeGames(ArrayList<GameModel> list){
         for(int i=0; i<list.size();i++){
               if(list.get(i).isIs_disable()){

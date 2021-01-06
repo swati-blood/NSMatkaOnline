@@ -1,6 +1,7 @@
 package in.games.nidhimatka.Fragments;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,10 +59,13 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     EditText et_name , et_mobile ,et_email,et_add ,et_city ,et_pin;
     TextView tv_date;
     Button btnSubmit ;
+    LoadingBar progressDialog;
+    LoadingBar loadingBar ;
+    //ProgressDialog progressDialog;
     RadioButton rc_male , rc_female;
     Session_management session_management ;
     String name , mobile, email ,add , gender ="" ,date ,city ,pin,u_id ;
-    LoadingBar progressDialog;
+    //LoadingBar progressDialog;
     Common common;
     int   year,month,day;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -79,6 +84,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     }
     void initViews(View v)
     {
+
         et_name= v.findViewById(R.id.etName);
         et_mobile= v.findViewById(R.id.etMobile);
         et_email= v.findViewById(R.id.et_email);
@@ -89,9 +95,11 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         btnSubmit= v.findViewById(R.id.btnSubmit);
         rc_female= v.findViewById(R.id.female);
         rc_male= v.findViewById(R.id.male);
-        progressDialog = new LoadingBar(getActivity());
+      //  progressDialog = new ProgressDialog (getActivity());
         common = new Common(getActivity());
         session_management = new Session_management(getActivity());
+        //loadingBar.show ();
+       // progressDialog.show ();
         rc_male.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

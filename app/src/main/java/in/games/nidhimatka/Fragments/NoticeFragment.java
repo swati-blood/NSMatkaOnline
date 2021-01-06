@@ -6,20 +6,42 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import in.games.nidhimatka.Activity.MainActivity;
 import in.games.nidhimatka.Adapter.Notice_Adapter;
+import in.games.nidhimatka.AppController;
 import in.games.nidhimatka.Model.Notice_Model;
 import in.games.nidhimatka.R;
+import in.games.nidhimatka.Util.CustomJsonRequest;
+import in.games.nidhimatka.Util.CustomVolleyJsonArrayRequest;
+import in.games.nidhimatka.Util.LoadingBar;
+import in.games.nidhimatka.Util.ToastMsg;
+
+import static in.games.nidhimatka.Config.BaseUrls.URL_NOTICEBOARD;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class NoticeFragment extends Fragment {
-RecyclerView recyclerView;
+    LoadingBar progressDialog;
+    RecyclerView recyclerView;
+    ArrayList<Notice_Model> notice_list;
     public NoticeFragment() {
         // Required empty public constructor
     }
@@ -30,23 +52,80 @@ RecyclerView recyclerView;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ((MainActivity) getActivity()).setTitle("Game Instructions");
-
+        progressDialog=new LoadingBar(getActivity());
 
         View view=inflater.inflate(R.layout.fragment_notice, container, false);
+        notice_list = new ArrayList<> (  );
         recyclerView=view.findViewById (R.id.recyclerView);
         recyclerView.setHasFixedSize (true);
         recyclerView.setLayoutManager (new LinearLayoutManager(view.getContext ()));
-        Notice_Model[]data=new Notice_Model[]{
 
-                new Notice_Model ("Withdraw", "Withdraw will be accepted from 10:00am till 2:00pm and amount will be credited within 24hrs. Withdrawal is not available on Sunday and on Bank Holidays.For Funds Withdrawal Query Contact\""),
-                new Notice_Model ("Notice", "All customers are requested to update your Bank Account with IFSC code in your Profile before remittnaces. It's mandatory kindly cooperate"),
-        };
+        //url
+      NoticeBoard ();
+//        StringRequest stringRequest=new StringRequest (Request.Method.POST, BaseUrls.Url_transaction_history, new Response.Listener<String> ( ) {
+//            @Override
+//            public void onResponse(String response) {
+//
+//            },new
+//        })
 
-
-
-        Notice_Adapter notice_adapter=new Notice_Adapter (data,NoticeFragment.this);
-        recyclerView.setAdapter (notice_adapter);
         return  view;
+    }
+
+        public void NoticeBoard() {
+            progressDialog.show();
+        HashMap< String,String>params=new HashMap<> (  );
+//        params.put ("title",title);
+//        params.put ("detail",detail);
+        CustomJsonRequest customVolleyJsonArrayRequest=new CustomJsonRequest (Request.Method.POST, URL_NOTICEBOARD, params, new Response.Listener<JSONObject> ( ) {
+
+            @Override
+          public void onResponse(JSONObject response) {
+                Log.d("notice",response.toString());
+try {
+        boolean status = response.getBoolean ("responce");
+        if (status)
+        {
+            JSONArray data_arr = response.getJSONArray ("data");
+            for(int i=0; i<=data_arr.length()-1;i++) {
+                JSONObject jsonObject = data_arr.getJSONObject(i);
+
+                Notice_Model model=new Notice_Model ();
+                model.setTitle (jsonObject.getString("title"));
+                model.setDescription (jsonObject.getString ("description"));
+                notice_list.add (model);
+            }
+            Notice_Adapter notice_adapter=new Notice_Adapter (NoticeFragment.this,notice_list);
+            recyclerView.setAdapter (notice_adapter);
+        }
+    progressDialog.dismiss ();
+
+} catch (Exception e) {
+    progressDialog.dismiss();
+    e.printStackTrace ( );
+    new ToastMsg(getActivity()).toastIconError("Something went wrong");
+}
+            }
+        }, new Response.ErrorListener ( ) {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                new ToastMsg(getActivity()).toastIconError("Error");
+            }
+        });
+        AppController.getInstance().addToRequestQueue(customVolleyJsonArrayRequest,"");
+
+//        StringRequest stringRequest=new StringRequest (Request.Method.POST, URL_NOTICEBOARD, params, new Response.Listener<> ( ) {
+//            @Override
+//            public void onResponse(Object response) {
+//
+//            }
+//        } ,new Response.ErrorListener ( ) {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        });
     }
 
 }
