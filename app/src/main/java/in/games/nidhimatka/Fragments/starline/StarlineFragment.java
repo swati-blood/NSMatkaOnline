@@ -89,8 +89,8 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
         rv_matka= v.findViewById(R.id.listView);
         txt_game_rate= v.findViewById(R.id.game_rate);
         btn_bid= v.findViewById(R.id.star_histry);
-        btn_result= v.findViewById(R.id.star_result);
-       btn_terms= v.findViewById(R.id.star_term);
+        //btn_result= v.findViewById(R.id.star_result);
+      // btn_terms= v.findViewById(R.id.star_term);
         swipe = v.findViewById(R.id.swipe_layout);
         progressDialog = new LoadingBar(getActivity());
         common = new Common(getActivity());
@@ -396,10 +396,10 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
                         .commit();
 
                 break;
-            case R.id.star_result:
-        break;
-            case R.id.star_term:
-        break;
+//            case R.id.star_result:
+//        break;
+//            case R.id.star_term:
+//        break;
         }
 
     }

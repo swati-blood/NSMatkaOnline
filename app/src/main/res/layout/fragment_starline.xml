@@ -55,35 +55,36 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:weightSum="3">
+                       >
 
                         <Button
+
                             android:id="@+id/star_histry"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:layout_margin="2dp"
+                           android:gravity="center"
                             android:background="@drawable/gradients_background"
                             android:textColor="@color/white"
                             android:text="Staline Bid History"/>
-                        <Button
-                            android:id="@+id/star_result"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_margin="2dp"
-                            android:background="@drawable/gradients_background"
-                            android:textColor="@color/white"
-                            android:text="Staline Bid Results"/>
-                        <Button
-                            android:id="@+id/star_term"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_margin="2dp"
-                        android:background="@drawable/gradients_background"
-                        android:textColor="@color/white"
-                        android:text="Term &amp; Coniditions"/>
+<!--                        <Button-->
+<!--                            android:id="@+id/star_result"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_margin="2dp"-->
+<!--                            android:background="@drawable/gradients_background"-->
+<!--                            android:textColor="@color/white"-->
+<!--                            android:text="Staline Bid Results"/>-->
+<!--                        <Button-->
+<!--                            android:id="@+id/star_term"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_margin="2dp"-->
+<!--                        android:background="@drawable/gradients_background"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:text="Term &amp; Coniditions"/>-->
 
 
                     </LinearLayout>

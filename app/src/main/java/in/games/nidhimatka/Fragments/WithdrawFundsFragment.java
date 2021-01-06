@@ -87,7 +87,7 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
 
     public  void initView(View v)
     {
-        ((MainActivity) getActivity()).setTitle("Withdraw Funds");
+        ((MainActivity) getActivity()).setTitle("Withdraw Points");
         common=new Common(getActivity());
        toastMsg=new ToastMsg(getActivity());
         session_management=new Session_management(getActivity());

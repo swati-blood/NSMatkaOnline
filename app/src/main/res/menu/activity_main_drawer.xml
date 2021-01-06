@@ -29,7 +29,7 @@
             android:id="@+id/nav_wallet"
             android:icon="@drawable/icons8_coin_wallet_96px"
 
-            android:title="Funds History"
+            android:title="Point History"
             />
     </group>
     <group
@@ -50,7 +50,7 @@
             android:id="@+id/nav_add"
             android:icon="@drawable/icons8_exchange_rupee_128px"
 
-            android:title="Add Funds"
+            android:title="Add Points"
             />
     </group>
     <group
@@ -61,7 +61,7 @@
             android:id="@+id/nav_withdrw"
             android:icon="@drawable/icons8_refund_96px"
 
-            android:title="Withdraw Funds"
+            android:title="Withdraw Points"
             />
     </group>
     <group

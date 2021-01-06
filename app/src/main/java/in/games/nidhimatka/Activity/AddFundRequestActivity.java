@@ -85,7 +85,7 @@ public class AddFundRequestActivity extends AppCompatActivity implements View.On
     {
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Add Funds");
+        getSupportActionBar().setTitle("Add Points");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
