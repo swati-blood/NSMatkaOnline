@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <in.games.nidhimatka.Fonts.LatoBLack
+            <in.games.rosegame.Fonts.LatoBLack
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-        <in.games.nidhimatka.Fonts.LatoBLack
+        <in.games.rosegame.Fonts.LatoBLack
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_centerHorizontal="true"
@@ -374,7 +374,7 @@ android:visibility="gone"
                     android:text="Accept Terms And Conditions"
                     android:buttonTint="@color/colorAccent"
                     android:layout_marginTop="20dp" />
-                <in.games.nidhimatka.Fonts.LatoBLack
+                <in.games.rosegame.Fonts.LatoBLack
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/t1"

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.games.nidhimatka.Fragments.HistroyFragment">
+    tools:context="in.games.rosegame.Fragments.HistroyFragment">
 
    <ScrollView
        android:layout_width="match_parent"

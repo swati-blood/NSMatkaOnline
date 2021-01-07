@@ -19,7 +19,7 @@
             android:layout_margin="5dp"
             android:orientation="vertical">
 
-            <in.games.nidhimatka.Fonts.LatoBLack
+            <in.games.rosegame.Fonts.LatoBLack
                 android:id="@+id/matkaname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="16dp"
                 android:textStyle="bold" />
-            <in.games.nidhimatka.Fonts.LatoBLack
+            <in.games.rosegame.Fonts.LatoBLack
                 android:id="@+id/matkanumber"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
                 android:layout_centerVertical="true"
 
                 android:textSize="14dp"/>
-            <in.games.nidhimatka.Fonts.LatoBLack
+            <in.games.rosegame.Fonts.LatoBLack
                 android:id="@+id/gamename"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
                 android:layout_weight="4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <in.games.nidhimatka.Fonts.LatoBLack
+                <in.games.rosegame.Fonts.LatoBLack
 
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
@@ -89,7 +89,7 @@
                     android:layout_centerVertical="true"
 
                     android:textSize="12dp"/>
-                <in.games.nidhimatka.Fonts.LatoBLack
+                <in.games.rosegame.Fonts.LatoBLack
                     android:id="@+id/bid_open"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
@@ -102,7 +102,7 @@
 
                     android:textSize="12dp"/>
 
-                <in.games.nidhimatka.Fonts.LatoBLack
+                <in.games.rosegame.Fonts.LatoBLack
 
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
@@ -114,7 +114,7 @@
                     android:layout_weight="2"
                     android:textSize="12dp"/>
 
-                <in.games.nidhimatka.Fonts.LatoBLack
+                <in.games.rosegame.Fonts.LatoBLack
                     android:id="@+id/bid_close"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

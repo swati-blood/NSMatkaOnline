@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "218160400171",
+    "project_id": "rosegames-bd08c",
+    "storage_bucket": "rosegames-bd08c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218160400171:android:c091d7a673faf15057a76e",
+        "android_client_info": {
+          "package_name": "in.games.rosegame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "218160400171-d3ha76e1iboqb8lc3udtkk3gl81m5eov.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.games.rosegame",
+            "certificate_hash": "651131e495da265f0073502fe3c96520b369b6ea"
+          }
+        },
+        {
+          "client_id": "218160400171-kd44nv3h468jkfeh3efah7vlps8ospaa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH1jxlasVOfd5isErOznna6965fWViiCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "218160400171-kd44nv3h468jkfeh3efah7vlps8ospaa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
