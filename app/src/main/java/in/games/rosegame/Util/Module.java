@@ -129,5 +129,35 @@ public class Module {
 
         return str_error;
     }
+    public static String get24To12Format(String timestr)
+    {
+        String tm="";
+        SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
+
+        try {
+            Date _24Hourst = _24HourSDF.parse(timestr);
+            tm = _12HourSDF.format(_24Hourst);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return tm;
+    }
+    public static long getTimeDifference(String time) {
+        long diff_e_s=0;
+        Date date = new Date();
+        SimpleDateFormat parseFormat = new SimpleDateFormat("HH:mm:ss");
+        String cur_time = parseFormat.format(date);
+        try {
+            final Date s_time = parseFormat.parse(cur_time.trim());
+            Date e_time = parseFormat.parse(time.trim());
+            diff_e_s = e_time.getTime() - s_time.getTime();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return diff_e_s;
+    }
 
 }

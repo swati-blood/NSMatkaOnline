@@ -1457,7 +1457,7 @@ public class Common {
 
                 try
                 {
-                    Log.d("insert_data",response.toString());
+                    Log.e("insert_data",response.toString());
                     JSONObject jsonObject=response;
                     final String status=jsonObject.getString("status");
                     progressDialog.dismiss();
@@ -2009,6 +2009,18 @@ public class Common {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public String getCurrentDateDay(){
+        String str="";
+        try {
+            Date date=new Date();
+            SimpleDateFormat smf=new SimpleDateFormat("dd/MM/yyyy EEEE");
+            str=smf.format(date);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return str;
     }
 
 }

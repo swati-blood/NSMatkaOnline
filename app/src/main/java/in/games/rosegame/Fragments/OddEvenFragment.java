@@ -93,6 +93,8 @@ public class OddEvenFragment extends Fragment implements View.OnClickListener {
         btnSave.setOnClickListener(this);
        txt_date.setOnClickListener(this);
         txt_type.setOnClickListener(this);
+        txt_date.setText(common.getCurrentDateDay());
+        txt_date.setClickable(false);
         chkEven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

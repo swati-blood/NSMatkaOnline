@@ -84,6 +84,9 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         txt_type.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
         common=new Common(ctx);
+        txt_date.setText(common.getCurrentDateDay());
+        txt_date.setClickable(false);
+
         loadingBar=new LoadingBar(ctx);
         session_management=new Session_management(ctx);
         bet_list=new ArrayList<>();

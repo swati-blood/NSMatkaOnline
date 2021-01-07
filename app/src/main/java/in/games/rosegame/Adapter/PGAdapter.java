@@ -72,7 +72,7 @@ public class PGAdapter extends BaseAdapter {
        String[] end_time=tm.split(":");
        int h= Integer.parseInt(end_time[0].toString());
        int m= Integer.parseInt(end_time[1].toString());
-
+        Log.e("starline", "getView: "+h+"  : "+m );
         if(h<=0 && m<0){
             txtId.setText("Bid Is Running ");
             txtNumber.setText("***-**");

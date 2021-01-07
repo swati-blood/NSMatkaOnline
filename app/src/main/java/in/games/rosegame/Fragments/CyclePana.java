@@ -160,7 +160,8 @@ public class CyclePana extends Fragment implements View.OnClickListener {
         btnSave.setOnClickListener(this);
        txt_type.setOnClickListener(this);
        txt_date.setOnClickListener(this);
-
+        txt_date.setText(common.getCurrentDateDay());
+        txt_date.setClickable(false);
 
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line, sp_input_data.cycle_pana_array);
         editText.setAdapter(adapter);

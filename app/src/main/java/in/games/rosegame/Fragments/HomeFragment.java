@@ -50,6 +50,7 @@ import java.util.HashMap;
 
 import in.games.rosegame.Activity.MainActivity;
 import in.games.rosegame.Adapter.MatkaAdapter;
+import in.games.rosegame.Adapter.NewMatkaAdpater;
 import in.games.rosegame.AppController;
 import in.games.rosegame.Common.Common;
 import in.games.rosegame.Config.BaseUrls;
@@ -78,7 +79,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     TextView tv_admin,tv_number ,text_number;
 
     public final String TAG=HomeFragment.class.getSimpleName();
-MatkaAdapter matkaAdapter ;
+NewMatkaAdpater matkaAdapter ;
 private ArrayList<MatkasObjects> matkaList;
     private RecyclerView rv_matka;
     LoadingBar progressDialog;
@@ -209,6 +210,7 @@ private ArrayList<MatkasObjects> matkaList;
                 Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        Log.e(TAG, "onResponse: "+response.toString() );
                         matkaList.clear();
                         for(int i=0; i<response.length();i++)
                         {
@@ -398,7 +400,7 @@ private ArrayList<MatkasObjects> matkaList;
         }
 
         rv_matka.setLayoutManager(new LinearLayoutManager(getActivity()));
-        matkaAdapter = new MatkaAdapter(getActivity(),matkaList);
+        matkaAdapter = new NewMatkaAdpater(getActivity(),matkaList);
         rv_matka.setAdapter(matkaAdapter);
         try {
             PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);

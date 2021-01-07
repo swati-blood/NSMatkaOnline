@@ -89,6 +89,7 @@
                                 android:textStyle="bold" />
 
                             <in.games.rosegame.Fonts.LatoBLack
+                                android:visibility="gone"
                                 android:id="@+id/matka_dess1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -101,6 +102,7 @@
                                 android:textStyle="bold" />
 
                             <in.games.rosegame.Fonts.LatoBLack
+                                android:visibility="gone"
                                 android:id="@+id/matka_res_Number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -112,6 +114,7 @@
                                 android:textStyle="bold" />
 
                             <in.games.rosegame.Fonts.LatoBLack
+                                android:visibility="gone"
                                 android:id="@+id/matka_dess2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -124,6 +127,7 @@
                                 android:textStyle="bold" />
 
                             <in.games.rosegame.Fonts.LatoBLack
+                                android:visibility="gone"
                                 android:id="@+id/matka_end_Number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -267,5 +271,10 @@
 
 
     </RelativeLayout>
+    <Button
+        android:visibility="gone"
+        android:id="@+id/btnPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

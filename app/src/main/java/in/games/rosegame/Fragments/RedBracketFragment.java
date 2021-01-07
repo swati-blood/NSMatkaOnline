@@ -105,7 +105,8 @@ Dialog dialog ;
         btnSave.setOnClickListener(this);
         txt_date.setOnClickListener(this);
         txt_type.setOnClickListener(this);
-
+        txt_date.setText(common.getCurrentDateDay());
+        txt_date.setClickable(false);
         ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,red_bracket);
         etDgt.setAdapter(adapter);

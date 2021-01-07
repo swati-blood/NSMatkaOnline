@@ -92,22 +92,22 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         txt_type = v.findViewById(R.id.tv_type);
         btn_submit = v.findViewById(R.id.btn_sbmit);
         rv_points = v.findViewById(R.id.rv_digits);
-      total = v.findViewById(R.id.bet_total);
+        total = v.findViewById(R.id.bet_total);
         tabLayout = v.findViewById(R.id.tablayout);
         viewPager = v.findViewById(R.id.viewpager);
-       Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         TextView txtWalet=  toolbar.findViewById(R.id.txtWallet);
         list = new ArrayList<>();
         bet_list = new ArrayList<>();
         tempList = new ArrayList<>();
         single_pana_list = new ArrayList<>();
         common = new Common(getActivity());
-       toastMsg = new ToastMsg(getActivity());
+         toastMsg = new ToastMsg(getActivity());
         loadingBar = new LoadingBar(getActivity());
         game_name = getArguments().getString("game_name");
         matka_id = getArguments().getString("m_id");
         game_id = getArguments().getString("game_id");
-      s_time = getArguments().getString("start_time");
+        s_time = getArguments().getString("start_time");
         e_time = getArguments().getString("end_time");
         w_amount =((MainActivity) getActivity()).getWallet();
         if (matka_id.equalsIgnoreCase("3"))
@@ -126,15 +126,15 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         txt_type.setOnClickListener(this);
         total.setOnClickListener(this);
 
+        txt_date.setText(common.getCurrentDateDay());
+        txt_date.setClickable(false);
        setLayout(game_name);
         m_id= Integer.parseInt(matka_id);
        Log.e("gme",game_name + game_id +matka_name+matka_id);
         if (m_id>20)
         {   ((MainActivity) getActivity()).setTitle("Starline"+"-"+game_name);
-            Date date = new Date();
-            SimpleDateFormat dFormat = new SimpleDateFormat("dd/MM/yyyy EEEE");
-        String ctt = dFormat.format(date);
-        txt_date.setText(ctt);
+
+
             star_game_name.setText(game_name);
             txt_date.setVisibility(View.GONE);
             txt_type.setVisibility(View.GONE);
