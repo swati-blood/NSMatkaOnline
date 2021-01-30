@@ -53,7 +53,7 @@
 
 
 
-                        <in.games.rosegame.Fonts.LatoBLack
+                        <in.matka.rose.Fonts.LatoBLack
                             android:id="@+id/matkaName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
 
                             android:layout_centerHorizontal="true">
 
-                            <in.games.rosegame.Fonts.LatoBLack
+                            <in.matka.rose.Fonts.LatoBLack
                                 android:id="@+id/matka_starting_Number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                                 android:textSize="16dp"
                                 android:textStyle="bold" />
 
-                            <in.games.rosegame.Fonts.LatoBLack
+                            <in.matka.rose.Fonts.LatoBLack
                                 android:visibility="gone"
                                 android:id="@+id/matka_dess1"
                                 android:layout_width="wrap_content"
@@ -101,7 +101,7 @@
                                 android:textSize="16dp"
                                 android:textStyle="bold" />
 
-                            <in.games.rosegame.Fonts.LatoBLack
+                            <in.matka.rose.Fonts.LatoBLack
                                 android:visibility="gone"
                                 android:id="@+id/matka_res_Number"
                                 android:layout_width="wrap_content"
@@ -113,7 +113,7 @@
                                 android:textSize="16dp"
                                 android:textStyle="bold" />
 
-                            <in.games.rosegame.Fonts.LatoBLack
+                            <in.matka.rose.Fonts.LatoBLack
                                 android:visibility="gone"
                                 android:id="@+id/matka_dess2"
                                 android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
                                 android:textSize="16dp"
                                 android:textStyle="bold" />
 
-                            <in.games.rosegame.Fonts.LatoBLack
+                            <in.matka.rose.Fonts.LatoBLack
                                 android:visibility="gone"
                                 android:id="@+id/matka_end_Number"
                                 android:layout_width="wrap_content"
@@ -138,7 +138,7 @@
                                 android:textSize="16dp"
                                 android:textStyle="bold" />
 
-                            <in.games.rosegame.Fonts.LatoBLack
+                            <in.matka.rose.Fonts.LatoBLack
                                 android:id="@+id/matka_id"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
                                 android:visibility="invisible" />
 
                         </RelativeLayout>
-    <in.games.rosegame.Fonts.LatoBLack
+    <in.matka.rose.Fonts.LatoBLack
         android:id="@+id/tv_loader"
         android:visibility="gone"
         android:layout_width="match_parent"
@@ -169,7 +169,7 @@
                           android:orientation="vertical"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content">
-                          <in.games.rosegame.Fonts.LatoBLack
+                          <in.matka.rose.Fonts.LatoBLack
                               android:id="@+id/tv_text"
                               android:visibility="gone"
                               android:layout_width="match_parent"
@@ -188,7 +188,7 @@
                               android:gravity="center_horizontal"
                               android:layout_height="wrap_content">
 
-                              <in.games.rosegame.Fonts.LatoBLack
+                              <in.matka.rose.Fonts.LatoBLack
                                   android:id="@+id/matka_txt_open_bid_Time"
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
@@ -196,7 +196,7 @@
                                   android:textColor="@color/colorPrimary"
                                   android:textSize="10dp" />
 
-                              <in.games.rosegame.Fonts.LatoBLack
+                              <in.matka.rose.Fonts.LatoBLack
                                   android:id="@+id/matka_open_bid_Time"
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
@@ -216,7 +216,7 @@
                                   android:background="@android:color/darker_gray"
                                   android:textColor="@color/colorPrimary"
                                   />
-                              <in.games.rosegame.Fonts.LatoBLack
+                              <in.matka.rose.Fonts.LatoBLack
                                   android:id="@+id/matka_txt_close_bid_Time"
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
@@ -225,7 +225,7 @@
                                   android:textColor="@color/colorPrimary"
                                   android:textSize="10dp" />
 
-                              <in.games.rosegame.Fonts.LatoBLack
+                              <in.matka.rose.Fonts.LatoBLack
                                   android:id="@+id/matka_close_bid_Time"
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
@@ -241,7 +241,7 @@
 
                     </LinearLayout>
 
-                    <in.games.rosegame.Fonts.LatoBLack
+                    <in.matka.rose.Fonts.LatoBLack
                         android:id="@+id/matkaBettingStatus"
                         android:layout_width="match_parent"
                         android:layout_marginTop="5dp"

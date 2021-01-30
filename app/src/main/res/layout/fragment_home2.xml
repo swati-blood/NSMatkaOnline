@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="in.games.rosegame.Fragments.HomeFragment">
+    tools:context="in.matka.rose.Fragments.HomeFragment">
 
     <ScrollView
         android:layout_below="@+id/appbar"
@@ -195,7 +195,7 @@
                     android:layout_height="match_parent">
                     <TextView
 
-
+                         android:id="@+id/tv_starline"
                         android:layout_width="0dp"
                         android:layout_weight="4"
                         android:layout_height="wrap_content"
@@ -203,9 +203,9 @@
                         android:textColor="@color/white"
                         android:textAlignment="center"
 
-                        android:text="Play Starline Game"
-                        android:textAllCaps="true"
-                        android:textSize="20dp"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textSize="18dp"
 
                         android:textStyle="italic|bold"/>
                     <ImageView

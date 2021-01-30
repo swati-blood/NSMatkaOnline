@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "218160400171",
-    "project_id": "rosegames-bd08c",
-    "storage_bucket": "rosegames-bd08c.appspot.com"
+    "project_number": "540431309896",
+    "project_id": "rose-matka-d4504",
+    "storage_bucket": "rose-matka-d4504.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:218160400171:android:c091d7a673faf15057a76e",
+        "mobilesdk_app_id": "1:540431309896:android:79ab503ee3d5eede8d0c7d",
         "android_client_info": {
-          "package_name": "in.games.rosegame"
+          "package_name": "in.matka.rose"
         }
       },
       "oauth_client": [
         {
-          "client_id": "218160400171-d3ha76e1iboqb8lc3udtkk3gl81m5eov.apps.googleusercontent.com",
+          "client_id": "540431309896-jf26rvm5aua80sdtks0nh19o7tc1fc02.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "in.games.rosegame",
+            "package_name": "in.matka.rose",
             "certificate_hash": "651131e495da265f0073502fe3c96520b369b6ea"
           }
         },
         {
-          "client_id": "218160400171-kd44nv3h468jkfeh3efah7vlps8ospaa.apps.googleusercontent.com",
+          "client_id": "540431309896-qhk1la9bk1dhne92b5oi31ve3o36duln.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCH1jxlasVOfd5isErOznna6965fWViiCY"
+          "current_key": "AIzaSyBU7VlL9VdeU7b3IAUibhj1o7H_potYimU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "218160400171-kd44nv3h468jkfeh3efah7vlps8ospaa.apps.googleusercontent.com",
+              "client_id": "540431309896-qhk1la9bk1dhne92b5oi31ve3o36duln.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="in.games.rosegame.Fragments.ProfileFragment">
+    tools:context="in.matka.rose.Fragments.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <ScrollView

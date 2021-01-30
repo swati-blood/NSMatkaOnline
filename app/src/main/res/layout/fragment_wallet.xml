@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.games.rosegame.Fragments.WalletFragment">
+    tools:context="in.matka.rose.Fragments.WalletFragment">
 
   <ScrollView
       android:layout_width="match_parent"
