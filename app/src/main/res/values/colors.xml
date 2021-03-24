@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#0C419F</color>
-    <color name="colorPrimaryDark">#2B0181</color>
+    <color name="colorPrimary">#ef8902</color>
+    <color name="colorPrimaryDark">#c37208</color>
     <color name="colorAccent">#000000</color>
     <color name="white">#ffffff</color>
     <color name="btnColor">#C58384</color>
@@ -11,7 +11,7 @@
     <color name="lowColor">#d82e43</color>
     <color name="greenColor">#316D35</color>
     <color name="redColor">#D5080F</color>
-    <color name="iconColor">#2B0181</color>
+    <color name="iconColor">#483d8b</color>
     <color name="black">#000000</color>
     <color name="transparent">#009C27B0</color>
     <color name="bg">#405E5C5C</color>
@@ -30,5 +30,6 @@
     <color name="error">#0C419F</color>
     <color name="succes">#329505</color>
     <color name="info">#A38DFD</color>
+    <color name="pink">#DC143C</color>
 
 </resources>

@@ -62,7 +62,7 @@
                 android:hint="Enter Points"
                 android:gravity="center"
                 android:textColorHint="@color/grey"
-                android:textColor="@color/iconColor"
+                android:textColor="@color/black"
                 android:inputType="number"
                 android:layout_marginRight="10dp" />
 
@@ -75,7 +75,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="14dp"
                 android:background="@drawable/icons8_money_bag_rupee_240px"
-                android:backgroundTint="@color/iconColor" />
+                android:backgroundTint="@color/colorPrimary" />
 
             <Button
                 android:id="@+id/add_Request"

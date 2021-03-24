@@ -43,7 +43,7 @@
        android:textColor="@color/black"
         android:textSize="15dp"
 
-        android:text=""/>
+        android:text="gg"/>
 
     <TextView
         android:id="@+id/nextDate"
@@ -75,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_marginTop="2dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="15dp"
         android:background="@drawable/outline"
         android:backgroundTint="@color/white"

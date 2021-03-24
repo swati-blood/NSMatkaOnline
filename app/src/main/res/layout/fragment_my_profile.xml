@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:text="User Profile"
                 android:textSize="16dp"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:padding="@dimen/_5sdp"
                 android:layout_gravity="center_vertical"/>
@@ -58,6 +59,7 @@
                 android:text="Bank Details"
                 android:textSize="16dp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 android:padding="@dimen/_5sdp"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
@@ -82,11 +84,12 @@
             android:layout_height="wrap_content"
             android:hint="Google Pay Number"
             android:textSize="16dp"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:padding="@dimen/_5sdp"
             android:inputType="number"
             android:singleLine="true"
-            android:textColor="@color/grey"
+
 
             android:background="@color/white"
             android:layout_gravity="center_vertical"/>
@@ -116,8 +119,8 @@
                 android:padding="@dimen/_5sdp"
                 android:inputType="number"
                 android:singleLine="true"
-                android:textColor="@color/grey"
 
+                android:textColor="@color/black"
                 android:background="@color/white"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
@@ -146,7 +149,7 @@
                 android:padding="@dimen/_5sdp"
                 android:inputType="number"
                 android:singleLine="true"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
 
                 android:background="@color/white"
                 android:layout_gravity="center_vertical"/>
@@ -162,7 +165,7 @@
             android:paddingRight="@dimen/_10sdp"
             android:text="Submit"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
 
 
             />

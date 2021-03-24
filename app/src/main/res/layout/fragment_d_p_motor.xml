@@ -196,15 +196,17 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/relativeLayout4"
                         >
+
                         <TextView
                             android:id="@+id/txtSingleDigit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/dp_motor"
-                            android:textColor="@color/white"
-                            android:layout_centerVertical="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="6dp"
                             android:paddingLeft="10dp"
-                            android:textSize="14dp"/>
+                            android:text="@string/dp_motor"
+                            android:textColor="@color/black"
+                            android:textSize="14dp" />
                         <EditText
                             android:id="@+id/etSingleDigit"
                             android:layout_width="180dp"
@@ -241,7 +243,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="POINTS    "
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:layout_centerVertical="true"
                         android:paddingLeft="10dp"
                         android:textSize="14dp"/>

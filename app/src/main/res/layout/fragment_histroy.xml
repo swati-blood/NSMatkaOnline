@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.matka.rose.Fragments.HistroyFragment">
+    tools:context="in.matka.NS.Fragments.HistroyFragment">
 
    <ScrollView
        android:layout_width="match_parent"
@@ -57,6 +57,7 @@
                    android:layout_height="wrap_content"
                    android:paddingLeft="10dp"
                    android:paddingRight="10dp"
+                   android:textColor="@color/black"
                    android:text="Game History"
                    android:textSize="16dp"
                    android:textStyle="bold"
@@ -108,6 +109,7 @@
                    android:text="Fund Request History"
                    android:textSize="16dp"
                    android:textStyle="bold"
+                   android:textColor="@color/black"
                    android:padding="@dimen/_5sdp"/>
 
 
@@ -156,7 +158,7 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="Transaction History"
-
+                   android:textColor="@color/black"
                    android:textSize="16dp"
                    android:textStyle="bold"
                    android:padding="@dimen/_5sdp"/>
@@ -260,6 +262,7 @@
                    android:text="Withdraw Request History"
                    android:textSize="16dp"
                    android:textStyle="bold"
+                   android:textColor="@color/black"
                    android:padding="@dimen/_5sdp"/>
 
 

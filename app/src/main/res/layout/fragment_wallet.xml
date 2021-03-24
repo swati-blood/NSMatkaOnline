@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.matka.rose.Fragments.WalletFragment">
+    tools:context="in.matka.NS.Fragments.WalletFragment">
 
   <ScrollView
       android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                       android:text="Add Coins"
                       android:textSize="25dp"
                       android:textStyle="bold"
-                      android:textColor="@color/colorPrimary"/>
+                      android:textColor="@color/black"/>
 
 
               </RelativeLayout>
@@ -115,7 +115,7 @@
                       android:text="Withdraw Coins"
                       android:textSize="25dp"
                       android:textStyle="bold"
-                      android:textColor="@color/colorPrimaryDark"/>
+                      android:textColor="@color/black"/>
 
 
               </RelativeLayout>

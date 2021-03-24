@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="in.matka.rose.Fragments.ProfileFragment">
+    tools:context="in.matka.NS.Fragments.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <ScrollView
@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_10sdp"
-                app:cardBackgroundColor="#A38DFD"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="@dimen/_10sdp">
 
                 <LinearLayout
@@ -55,7 +55,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
                         android:text="Mobile "
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
 
 
                         />
@@ -67,8 +67,8 @@
                         android:textSize="16dp"
                         android:layout_margin="5dp"
                         android:background="@drawable/shape2"
-                        android:textColorHint="@color/white"
-                        android:textColor="@color/white"
+                        android:textColorHint="@color/black"
+                        android:textColor="@color/black"
 
                         android:hint="mobile number"
                         android:inputType="textEmailAddress"
@@ -83,7 +83,7 @@
                         android:layout_marginTop="10dp"
                         android:paddingLeft="10dp"
                         android:text="Email "
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
 
 
                         />
@@ -95,8 +95,8 @@
 
                         android:layout_margin="5dp"
                         android:background="@drawable/shape2"
-                        android:textColorHint="@color/white"
-                        android:textColor="@color/white"
+                        android:textColorHint="@color/black"
+                        android:textColor="@color/black"
 
                         android:hint="email "
                         android:textSize="16dp"
@@ -110,7 +110,7 @@
                         android:layout_marginTop="10dp"
                         android:paddingLeft="10dp"
                         android:text="Date of Birth"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
 
 
                         />
@@ -122,8 +122,8 @@
 
                         android:layout_margin="5dp"
                         android:background="@drawable/shape2"
-                        android:textColorHint="@color/white"
-                        android:textColor="@color/white"
+                        android:textColorHint="@color/black"
+                        android:textColor="@color/black"
 
                         android:hint="Date of Birth"
                         android:inputType="textEmailAddress"
@@ -143,7 +143,7 @@
                         android:text="Update"
                         android:paddingLeft="@dimen/_10sdp"
                         android:paddingRight="@dimen/_10sdp"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/black" />
 
 
                 </LinearLayout>
@@ -156,7 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_10sdp"
-                app:cardBackgroundColor="#A38DFD"
+
 
                 app:cardCornerRadius="@dimen/_10sdp">
 
@@ -190,7 +190,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
                         android:text="Address"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
 
 
                         />
@@ -201,8 +201,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/shape2"
-                        android:textColorHint="@color/white"
-                        android:textColor="@color/white"
+                        android:textColorHint="@color/black"
+                        android:textColor="@color/black"
 
                         android:hint="Address"
                         android:inputType="textMultiLine"
@@ -218,7 +218,7 @@
                         android:layout_marginTop="10dp"
                         android:paddingLeft="10dp"
                         android:text="City"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
 
 
                         />
@@ -229,8 +229,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/shape2"
-                        android:textColorHint="@color/white"
-                        android:textColor="@color/white"
+                        android:textColorHint="@color/black"
+                        android:textColor="@color/black"
                         android:textSize="16dp"
                         android:hint="City"
                         android:inputType="text"
@@ -245,7 +245,7 @@
                         android:layout_marginTop="10dp"
                         android:paddingLeft="10dp"
                         android:text="Pincode"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
 
 
                         />
@@ -257,8 +257,8 @@
 
                         android:layout_marginTop="5dp"
                         android:background="@drawable/shape2"
-                        android:textColorHint="@color/white"
-                        android:textColor="@color/white"
+                        android:textColorHint="@color/black"
+                        android:textColor="@color/black"
                         android:textSize="16dp"
                         android:hint="PinCode"
                         android:inputType="number"
@@ -279,7 +279,7 @@
                         android:paddingRight="10dp"
 
                         android:text="Add Address"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
 
                         />
 

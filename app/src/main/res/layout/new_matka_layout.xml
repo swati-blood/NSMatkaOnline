@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginTop="3dp"
+        android:background="@drawable/gradients_background"
         android:layout_marginBottom="3dp">
 
         <androidx.cardview.widget.CardView
@@ -29,7 +30,7 @@
     android:layout_height="100dp">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="10dp"
                 android:paddingBottom="5dp"
@@ -53,7 +54,7 @@
 
 
 
-                        <in.matka.rose.Fonts.LatoBLack
+                        <in.matka.NS.Fonts.LatoBLack
                             android:id="@+id/matkaName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -77,18 +78,18 @@
 
                             android:layout_centerHorizontal="true">
 
-                            <in.matka.rose.Fonts.LatoBLack
+                            <in.matka.NS.Fonts.LatoBLack
                                 android:id="@+id/matka_starting_Number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="578"
 
 
-                                android:textColor="@color/iconColor"
+                                android:textColor="@color/black"
                                 android:textSize="16dp"
                                 android:textStyle="bold" />
 
-                            <in.matka.rose.Fonts.LatoBLack
+                            <in.matka.NS.Fonts.LatoBLack
                                 android:visibility="gone"
                                 android:id="@+id/matka_dess1"
                                 android:layout_width="wrap_content"
@@ -101,7 +102,7 @@
                                 android:textSize="16dp"
                                 android:textStyle="bold" />
 
-                            <in.matka.rose.Fonts.LatoBLack
+                            <in.matka.NS.Fonts.LatoBLack
                                 android:visibility="gone"
                                 android:id="@+id/matka_res_Number"
                                 android:layout_width="wrap_content"
@@ -113,7 +114,7 @@
                                 android:textSize="16dp"
                                 android:textStyle="bold" />
 
-                            <in.matka.rose.Fonts.LatoBLack
+                            <in.matka.NS.Fonts.LatoBLack
                                 android:visibility="gone"
                                 android:id="@+id/matka_dess2"
                                 android:layout_width="wrap_content"
@@ -126,7 +127,7 @@
                                 android:textSize="16dp"
                                 android:textStyle="bold" />
 
-                            <in.matka.rose.Fonts.LatoBLack
+                            <in.matka.NS.Fonts.LatoBLack
                                 android:visibility="gone"
                                 android:id="@+id/matka_end_Number"
                                 android:layout_width="wrap_content"
@@ -138,7 +139,7 @@
                                 android:textSize="16dp"
                                 android:textStyle="bold" />
 
-                            <in.matka.rose.Fonts.LatoBLack
+                            <in.matka.NS.Fonts.LatoBLack
                                 android:id="@+id/matka_id"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -152,7 +153,7 @@
                                 android:visibility="invisible" />
 
                         </RelativeLayout>
-    <in.matka.rose.Fonts.LatoBLack
+    <in.matka.NS.Fonts.LatoBLack
         android:id="@+id/tv_loader"
         android:visibility="gone"
         android:layout_width="match_parent"
@@ -169,7 +170,7 @@
                           android:orientation="vertical"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content">
-                          <in.matka.rose.Fonts.LatoBLack
+                          <in.matka.NS.Fonts.LatoBLack
                               android:id="@+id/tv_text"
                               android:visibility="gone"
                               android:layout_width="match_parent"
@@ -188,7 +189,7 @@
                               android:gravity="center_horizontal"
                               android:layout_height="wrap_content">
 
-                              <in.matka.rose.Fonts.LatoBLack
+                              <in.matka.NS.Fonts.LatoBLack
                                   android:id="@+id/matka_txt_open_bid_Time"
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
@@ -196,7 +197,7 @@
                                   android:textColor="@color/colorPrimary"
                                   android:textSize="10dp" />
 
-                              <in.matka.rose.Fonts.LatoBLack
+                              <in.matka.NS.Fonts.LatoBLack
                                   android:id="@+id/matka_open_bid_Time"
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
@@ -216,7 +217,7 @@
                                   android:background="@android:color/darker_gray"
                                   android:textColor="@color/colorPrimary"
                                   />
-                              <in.matka.rose.Fonts.LatoBLack
+                              <in.matka.NS.Fonts.LatoBLack
                                   android:id="@+id/matka_txt_close_bid_Time"
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
@@ -225,7 +226,7 @@
                                   android:textColor="@color/colorPrimary"
                                   android:textSize="10dp" />
 
-                              <in.matka.rose.Fonts.LatoBLack
+                              <in.matka.NS.Fonts.LatoBLack
                                   android:id="@+id/matka_close_bid_Time"
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
@@ -241,7 +242,7 @@
 
                     </LinearLayout>
 
-                    <in.matka.rose.Fonts.LatoBLack
+                    <in.matka.NS.Fonts.LatoBLack
                         android:id="@+id/matkaBettingStatus"
                         android:layout_width="match_parent"
                         android:layout_marginTop="5dp"
@@ -260,7 +261,7 @@
                     android:layout_width="50dp"
                     android:layout_weight=".3"
                     android:layout_gravity="center_vertical"
-                    android:layout_height="70dp"
+                    android:layout_height="100dp"
                     android:src="@drawable/circled_play"
 
                     />

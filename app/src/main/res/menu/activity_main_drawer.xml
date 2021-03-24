@@ -10,6 +10,8 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/icons8_home_128px"
             android:title="Home"
+
+
             />
     </group>
     <group

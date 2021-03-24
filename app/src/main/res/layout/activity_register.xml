@@ -35,13 +35,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:backgroundTint="@color/white"
             android:background="@drawable/ic_keyboard_backspace_black_24dp"
             />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <in.matka.rose.Fonts.LatoBLack
+            <in.matka.NS.Fonts.LatoBLack
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,13 +57,13 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-        <in.matka.rose.Fonts.LatoBLack
+        <in.matka.NS.Fonts.LatoBLack
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_centerHorizontal="true"
          android:text="*Note: All Fields Are Mandatory*"
          android:layout_below="@+id/toolbar"
-         android:textColor="@color/colorPrimary"
+         android:textColor="@color/colorPrimaryDark"
          android:textStyle="bold"
          android:layout_marginTop="15dp"
          android:textSize="18dp"
@@ -374,7 +375,7 @@ android:visibility="gone"
                     android:text="Accept Terms And Conditions"
                     android:buttonTint="@color/colorAccent"
                     android:layout_marginTop="20dp" />
-                <in.matka.rose.Fonts.LatoBLack
+                <in.matka.NS.Fonts.LatoBLack
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/t1"

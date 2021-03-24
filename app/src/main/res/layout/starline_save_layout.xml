@@ -293,7 +293,7 @@
                 android:layout_weight="5"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:background="#005308"
+                android:background="@color/colorPrimaryDark"
                 android:text="Ok"/>
 
             <Button

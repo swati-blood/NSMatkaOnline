@@ -37,18 +37,18 @@
 
                 <RadioButton
                     android:id="@+id/rd_open"
-                    android:buttonTint="@color/white"
+                    android:buttonTint="@color/black"
                     android:text="Open"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <RadioButton
                     android:id="@+id/rd_close"
-                    android:buttonTint="@color/white"
+                    android:buttonTint="@color/black"
                     android:text="Close"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
             </RadioGroup>

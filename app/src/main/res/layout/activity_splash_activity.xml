@@ -20,12 +20,13 @@
             <ImageView
                 android:id="@+id/logo"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="350dp"
                 android:src="@drawable/app_logo"
           />
 
             <TextView
-android:layout_marginTop="10dp"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:gravity="center_horizontal"
                 android:layout_height="wrap_content"
@@ -42,12 +43,23 @@ android:layout_marginTop="10dp"
                 android:layout_height="wrap_content">
 
             <ProgressBar
-                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                android:layout_marginTop="30dp"
                 style="?android:attr/progressBarStyleSmall"
                 android:layout_centerHorizontal="true"
                android:indeterminateTint="@color/colorPrimary"
                 android:layout_width="30dp"
                 android:layout_height="35dp"/>
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animationView"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                   android:layout_marginTop="-80dp"
+                    app:lottie_rawRes="@raw/loading_bar"
+                    app:lottie_autoPlay="true"
+                    android:background="@android:color/transparent"
+                    android:layout_centerInParent="true"
+                    app:lottie_loop="true"/>
             </RelativeLayout>
 
         </LinearLayout>

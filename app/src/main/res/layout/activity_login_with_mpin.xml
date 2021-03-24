@@ -19,14 +19,15 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:titleTextColor="@color/white"
-        android:background="@color/iconColor"
+        app:titleTextColor="@color/black"
+        android:background="@color/colorPrimary"
         app:titleTextAppearance="@style/TitleBarTextAppearance"
         app:popupTheme="@style/AppTheme.PopupOverlay" >
         <TextView
             android:id="@+id/txtBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
             android:background="@drawable/ic_keyboard_backspace_black_24dp"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -89,8 +90,8 @@
                 android:drawableTint="@color/colorAccent"
                 android:drawablePadding="10dp"
 
-                android:background="@drawable/gradient_button"
-                android:backgroundTint="@color/white"
+                android:background="@drawable/shape2"
+
 
                 android:hint="Enter MPIN Number"
                 android:textColor="@color/colorAccent"
@@ -110,7 +111,7 @@
             android:layout_marginRight="30dp"
             android:fontFamily="@font/lato"
             android:textStyle="bold"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textAllCaps="false"
             android:layout_marginTop="10dp"
             android:textSize="20dp"
