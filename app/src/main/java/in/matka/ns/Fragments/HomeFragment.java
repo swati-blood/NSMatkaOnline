@@ -274,8 +274,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-
+       // common.status ();
         if(ConnectivityReceiver.isConnected()) {
+           // common.status ();
             common.appSettingData(new GetAppSettingData() {
                 @Override
                 public void getAppSettingData(AppSettingModel model) {
