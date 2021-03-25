@@ -48,7 +48,7 @@ android:layout_marginTop="@dimen/_40sdp"
         android:layout_marginTop="-50dp"
         android:layout_below="@id/appLogo"
 
-
+android:visibility="gone"
         >
 
         <RelativeLayout
@@ -115,7 +115,7 @@ android:layout_marginTop="@dimen/_40sdp"
         android:layout_height="wrap_content"
         android:layout_marginTop="-30dp"
         android:layout_below="@id/appLogo"
-      android:visibility="gone"
+        android:visibility="gone"
         >
 
         <RelativeLayout
@@ -230,6 +230,45 @@ android:layout_marginTop="@dimen/_40sdp"
             android:layout_below="@+id/rel_timer"/>
 
     </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rel_forgetWhatsapp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-30dp"
+            android:layout_below="@id/appLogo"
+            android:visibility="gone"
+            >
+
+      <TextView
+          android:id="@+id/tv_whatsappMsg"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAlignment="center"
+          android:text="@string/app_name"
+          android:textColor="@color/black"
+          android:textSize="16sp"/>
+
+            <Button
+                android:id="@+id/btn_whatsapp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Contact Us"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:fontFamily="@font/lato"
+                android:background="@drawable/gradient_button"
+                android:backgroundTint="@color/light_green"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="20dp"
+                android:textSize="16dp"
+                android:layout_below="@id/tv_whatsappMsg"/>
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
     </ScrollView>

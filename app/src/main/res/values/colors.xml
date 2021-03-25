@@ -31,5 +31,6 @@
     <color name="succes">#329505</color>
     <color name="info">#A38DFD</color>
     <color name="pink">#DC143C</color>
+    <color name="light_green">#00E61F</color>
 
 </resources>
