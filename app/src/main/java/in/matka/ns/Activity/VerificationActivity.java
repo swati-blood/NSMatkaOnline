@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 
@@ -24,8 +25,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -34,31 +38,36 @@ import java.util.regex.Pattern;
 
 import in.matka.ns.AppController;
 import in.matka.ns.Common.Common;
+import in.matka.ns.Model.ForgetWhatsappModel;
 import in.matka.ns.R;
 import in.matka.ns.SmsReceiver;
 import in.matka.ns.Util.ConnectivityReceiver;
 import in.matka.ns.Util.CustomJsonRequest;
 import in.matka.ns.Util.SmsListener;
 import in.matka.ns.networkconnectivity.NoInternetConnection;
+import retrofit2.http.FormUrlEncoded;
 
 import static in.matka.ns.Activity.splash_activity.msg_status;
+import static in.matka.ns.Config.BaseUrls.URL_FORGET_PASSWORD_WHATSAPP;
 import static in.matka.ns.Config.BaseUrls.URL_GENERATE_OTP;
 import static in.matka.ns.Config.BaseUrls.URL_VERIFICATION;
 
 
 public class VerificationActivity extends AppCompatActivity implements View.OnClickListener {
 ImageView iv_back;
-    RelativeLayout rel_gen,rel_verify,rel_timer;
+    RelativeLayout rel_gen,rel_verify,rel_timer,rel_forgetWhatsapp;
     EditText et_phone;
-    Button btn_send,btn_verify,btn_resend;
+    Button btn_send,btn_verify,btn_resend,btn_whatsapp;
     TextView tv_timer;
     String type="";
     String otp="",mobile="" ;
     Common common;
     ProgressDialog loadingBar;
     String str="";
-//OTPView et_otp;
+    //OTPView et_otp;
     EditText et_otp;
+    TextView tv_whatsappMsg;
+    ArrayList<ForgetWhatsappModel> wList;
 
     public static final String OTP_REGEX = "[0-9]{3,6}";
     CountDownTimer countDownTimer,cTimer ;
@@ -70,6 +79,20 @@ ImageView iv_back;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verification);
         initViews();
+        forgetPasswordWhatsapp();
+        Log.e("status",msg_status);
+        if (msg_status.equals("0"))
+        {
+            rel_forgetWhatsapp.setVisibility(View.VISIBLE);
+        }else if (msg_status.equals("1"))
+        {
+            rel_gen.setVisibility(View.VISIBLE);
+        }
+        else {
+            rel_forgetWhatsapp.setVisibility(View.GONE);
+            rel_gen.setVisibility(View.GONE);
+        }
+
     }
 
     private void initViews() {
@@ -85,8 +108,12 @@ ImageView iv_back;
         rel_verify=findViewById(R.id.rel_verify);
         rel_timer=findViewById(R.id.rel_timer);
         et_phone=findViewById(R.id.et_phone);
+        btn_whatsapp = findViewById(R.id.btn_whatsapp);
+        rel_forgetWhatsapp = findViewById(R.id.rel_forgetWhatsapp);
 //        et_otp=(OTPView) findViewById(R.id.et_otp);
         et_otp=findViewById(R.id.et_otp);
+        tv_whatsappMsg = findViewById(R.id.tv_whatsappMsg);
+        wList = new ArrayList<>();
 
 
         if (et_phone.getText().toString().length() > 0) {
@@ -396,5 +423,45 @@ ImageView iv_back;
         {
             // Toast.makeText(SmsVerificationActivity.this,""+ex.getMessage(),Toast.LENGTH_LONG).show();
         }
+    }
+    public void forgetPasswordWhatsapp()
+    {
+        HashMap<String,String> params = new HashMap<>();
+        common.postRequest(URL_FORGET_PASSWORD_WHATSAPP, params, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+             Log.e("whatsapp_dgfghuji",response.toString());
+                try {
+                    JSONArray array = new JSONArray(response);
+                    ForgetWhatsappModel whatsappModel = new ForgetWhatsappModel();
+                    JSONObject object = array.getJSONObject(0);
+                    whatsappModel.setId(object.getString("id"));
+                    whatsappModel.setWhatsapp_no(object.getString("whatsapp_no"));
+                    whatsappModel.setWhatsapp_msg(object.getString("whatsapp_msg"));
+                    whatsappModel.setInfo_text(object.getString("info_text"));
+                    whatsappModel.setNo_visible(object.getString("no_visible"));
+                    whatsappModel.setStatus(object.getString("status"));
+                    wList.add(whatsappModel);
+
+                    tv_whatsappMsg.setText(wList.get(0).getInfo_text());
+                    btn_whatsapp.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("https://api.whatsapp.com/send?phone=%s&text=%s",wList.get(0).getWhatsapp_no(),wList.get(0).getWhatsapp_msg()))));
+                        }
+                    });
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
     }
 }
