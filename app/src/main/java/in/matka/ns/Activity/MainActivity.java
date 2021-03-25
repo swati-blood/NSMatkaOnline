@@ -299,6 +299,8 @@ TextView txt_wallet,txtUserName ,txt_title ;
     @Override
     protected void onStart() {
         super.onStart();
+        //common.status ();
+        new Common(activity).status ();
             new Common(activity).getWalletAmount();
     }
 
