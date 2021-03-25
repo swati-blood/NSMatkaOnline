@@ -22,14 +22,14 @@ android:background="@color/white"
 
 
     <RelativeLayout
-      android:layout_marginTop="@dimen/_80sdp"
+android:layout_marginTop="@dimen/_40sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
     <ImageView
         android:id="@+id/appLogo"
-        android:layout_width="370dp"
+        android:layout_width="320dp"
         android:layout_height="400dp"
         android:layout_marginTop="-80dp"
         android:src="@drawable/app_logo"
@@ -151,8 +151,8 @@ android:background="@color/white"
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:layout_marginTop="0dp"
-                android:background="@drawable/gradient_button"
-                android:backgroundTint="@color/white"
+                android:background="@drawable/shape2"
+           android:padding="10dp"
                 android:drawableLeft="@drawable/icons8_key_2_24px"
                 android:drawableTint="@color/black"
                 android:drawablePadding="10dp"
@@ -181,7 +181,7 @@ android:background="@color/white"
             android:layout_marginRight="30dp"
             android:textColor="@color/white"
             android:layout_marginTop="10dp"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:layout_below="@id/relativeLayout4"/>
 
    <RelativeLayout
@@ -226,7 +226,7 @@ android:background="@color/white"
             android:layout_marginRight="30dp"
             android:textColor="@color/white"
             android:layout_marginTop="10dp"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:layout_below="@+id/rel_timer"/>
 
     </RelativeLayout>

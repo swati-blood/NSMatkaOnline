@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="in.matka.NS">
+    package="in.matka.ns">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -14,17 +14,17 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name="in.matka.NS.AppController"
+        android:name="in.matka.ns.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="in.matka.NS.Activity.AddFundRequestActivity"></activity>
-        <activity android:name="in.matka.NS.Activity.PanaActivity" />
+        <activity android:name="in.matka.ns.Activity.AddFundRequestActivity"></activity>
+        <activity android:name="in.matka.ns.Activity.PanaActivity" />
         <activity
-            android:name="in.matka.NS.Activity.splash_activity"
+            android:name="in.matka.ns.Activity.splash_activity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -33,24 +33,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="in.matka.NS.Activity.MainActivity" />
-        <activity android:name="in.matka.NS.Activity.LoginActivity" />
-        <activity android:name="in.matka.NS.Activity.RegisterActivity" />
-        <activity android:name="in.matka.NS.Activity.LoginWithMpinActivity" />
-        <activity android:name="in.matka.NS.Activity.VerificationActivity" />
-        <activity android:name="in.matka.NS.Activity.UpdatePasswordActivity" />
-        <activity android:name="in.matka.NS.Activity.NewGameActivity" />
-        <activity android:name="in.matka.NS.networkconnectivity.NoInternetConnection" />
-        <activity android:name="in.matka.NS.MyBaseActivity" />
+        <activity android:name="in.matka.ns.Activity.MainActivity" />
+        <activity android:name="in.matka.ns.Activity.LoginActivity" />
+        <activity android:name="in.matka.ns.Activity.RegisterActivity" />
+        <activity android:name="in.matka.ns.Activity.LoginWithMpinActivity" />
+        <activity android:name="in.matka.ns.Activity.VerificationActivity" />
+        <activity android:name="in.matka.ns.Activity.UpdatePasswordActivity" />
+        <activity android:name="in.matka.ns.Activity.NewGameActivity" />
+        <activity android:name="in.matka.ns.networkconnectivity.NoInternetConnection" />
+        <activity android:name="in.matka.ns.MyBaseActivity" />
 
-        <service android:name="in.matka.NS.MyFirebaseMessagingService">
+        <service android:name="in.matka.ns.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <receiver
-            android:name="in.matka.NS.NetworkStateChangeReciever"
+            android:name="in.matka.ns.NetworkStateChangeReciever"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -59,7 +59,7 @@
 
         <meta-data android:name="com.onesignal.NotificationAccentColor.DEFAULT" android:value="FF00FF00" />
         <service
-            android:name="in.matka.NS.Util.NotificationExtenderExample"
+            android:name="in.matka.ns.Util.NotificationExtenderExample"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false">
             <intent-filter>
