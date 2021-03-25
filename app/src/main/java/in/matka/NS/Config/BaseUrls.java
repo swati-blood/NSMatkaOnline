@@ -5,7 +5,7 @@ package in.matka.NS.Config;
  */
 public class BaseUrls {
 
-    public static final String BASE_URL="https://kalyan21.anshuwap.com/Api/";
+    public static final String BASE_URL="https://ns.anshuwap.com/Api/";
 
     public static final String BASE_IMAGE_URL="https://roseflavour.com/assets/images/";
     public static final String IMG_SLIDER_URL =BASE_IMAGE_URL+ "sliders/";

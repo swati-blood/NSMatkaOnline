@@ -94,7 +94,7 @@ TextView txt_wallet,txtUserName ,txt_title ;
         menuList = new ArrayList<>();
         toolbar.setPadding(0, toolbar.getPaddingTop(),0, toolbar.getPaddingBottom());
         setSupportActionBar(toolbar);
-        getMenu();
+//        getMenu();
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
