@@ -39,6 +39,7 @@ import java.util.HashMap;
 
 import in.matka.ns.Adapter.MenuAdapter;
 import in.matka.ns.AppController;
+
 import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.Fragments.AllHistoryFragment;
@@ -56,8 +57,8 @@ import in.matka.ns.Util.Session_management;
 import static in.matka.ns.Config.Constants.KEY_NAME;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
-Activity activity = MainActivity.this;
-TextView txt_wallet,txtUserName ,txt_title ;
+    Activity activity = MainActivity.this;
+    TextView txt_wallet,txtUserName ,txt_title ;
     DrawerLayout drawer;
     RecyclerView list_menu;
     Toolbar toolbar;
@@ -78,21 +79,21 @@ TextView txt_wallet,txtUserName ,txt_title ;
 
 //        txt_wallet = findViewById(R.id.txtWallet);
 //        txt_title = findViewById(R.id.tv_title);
-        common=new Common (activity);
-      session_management=new Session_management(activity);
+        common=new Common(activity);
+        session_management=new Session_management(activity);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         String name="";
         name=session_management.getUserDetails().get(KEY_NAME);
         Log.e ("checkname", "onCreate: "+name);
 
-      // user_mobile.setText (name);
+        // user_mobile.setText (name);
 
         //list_menu = findViewById(R.id.list_menu);
         menuList = new ArrayList<>();
         toolbar.setPadding(0, toolbar.getPaddingTop(),0, toolbar.getPaddingBottom());
         setSupportActionBar(toolbar);
-       // getMenu();
+//        getMenu();
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -124,7 +125,7 @@ TextView txt_wallet,txtUserName ,txt_title ;
 //        Log.e ("checkname", "onCreate: "+name);
 //        user_mobile.setText (name);
 
-       txtUserName=(TextView)navigationView.getHeaderView(0).findViewById(R.id.user_mobile);
+        txtUserName=(TextView)navigationView.getHeaderView(0).findViewById(R.id.user_mobile);
 
 
 //        list_menu.addOnItemTouchListener(new RecyclerTouchListener(this, list_menu, new RecyclerTouchListener.OnItemClickListener() {
@@ -242,7 +243,7 @@ TextView txt_wallet,txtUserName ,txt_title ;
 
         }
         else {
-          // txtUserName.setText(session_management.getUserDetails().get(KEY_NAME).toString());
+            // txtUserName.setText(session_management.getUserDetails().get(KEY_NAME).toString());
         }
 
 
@@ -299,9 +300,7 @@ TextView txt_wallet,txtUserName ,txt_title ;
     @Override
     protected void onStart() {
         super.onStart();
-        //common.status ();
-        new Common(activity).status ();
-            new Common(activity).getWalletAmount();
+        new Common(activity).getWalletAmount();
     }
 
     @Override
@@ -341,13 +340,13 @@ TextView txt_wallet,txtUserName ,txt_title ;
         Fragment fm = null;
 
         if (id == R.id.nav_profile) {
-           //fm = new MyProfileFragment();
+            //fm = new MyProfileFragment();
 
             fm=new UserFragment ();
         }
         else if (id == R.id.nav_home)
         {
-           fm = new HomeFragment();
+            fm = new HomeFragment();
 
         }
         else if (id == R.id.nav_add)
@@ -366,7 +365,7 @@ TextView txt_wallet,txtUserName ,txt_title ;
 
             fm = new GenerateMpinFragment ();
 
-   }
+        }
         //else if (id == R.id.nav_how_toPlay) {
 //
 //            fm = new HowToPLayFragment();
@@ -449,7 +448,7 @@ TextView txt_wallet,txtUserName ,txt_title ;
     public void getMenu()
     {
         HashMap<String, String> params = new HashMap<>();
-       CustomJsonRequest customJsonRequest= new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_MENU, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest= new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_MENU, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -463,7 +462,7 @@ TextView txt_wallet,txtUserName ,txt_title ;
                         menuModel.setStatus(obj.getString("status"));
                         menuList.add(menuModel);
                     }
-                     Log.e("ksmdjcnhfb", String.valueOf(menuList.size()));
+                    Log.e("ksmdjcnhfb", String.valueOf(menuList.size()));
 //                    Gson gson= new Gson();
 //                    MenuModel menuModel = new MenuModel();
 //                    Type listType=new TypeToken<List<MenuModel>>(){}.getType();
