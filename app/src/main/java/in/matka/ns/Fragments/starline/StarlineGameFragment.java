@@ -180,20 +180,19 @@ public class StarlineGameFragment extends Fragment {
     private void setStarlineGames(List<GameStatusModel> list)
     {
         game_list.clear();
-        //       game_list.add(new GameModel("1","Odd Even",R.drawable.odd_even,"1",getStAble(list,1)));
         game_list.add(new GameModel("2","Single Digit",R.drawable.ic_single,"0",getStAble(list,2)));
-//        game_list.add(new GameModel("3","Jodi Digit",R.drawable.jodi_digits,"0",getStAble(list,3)));
-//       game_list.add(new GameModel("4","Red Bracket",R.drawable.red_brackets,"1",getStAble(list,4)));
-//       game_list.add(new GameModel("5","Panel Group",R.drawable.panel_group_icon,"1",getStAble(list,5)));
-//       game_list.add(new GameModel("6","Group Jodi",R.drawable.group_jodi,"1",getStAble(list,6)));
+        game_list.add(new GameModel("3","Jodi Digit",R.drawable.ic_jodi,"0",getStAble(list,3)));
+      // game_list.add(new GameModel("4","Red Bracket",R.drawable.red_brackets,"1",getStAble(list,4)));
+       //game_list.add(new GameModel("5","Panel Group",R.drawable.panel_group_icon,"1",getStAble(list,5)));
+      // game_list.add(new GameModel("6","Group Jodi",R.drawable.group_jodi,"1",getStAble(list,6)));
         game_list.add(new GameModel("7","Single Pana",R.drawable.ic_singlepana,"2",getStAble(list,7)));
         game_list.add(new GameModel("8","Double Pana",R.drawable.ic_doublepana,"2",getStAble(list,8)));
         game_list.add(new GameModel("9","Triple Pana",R.drawable.ic_triple_pana,"0",getStAble(list,9)));
-//       game_list.add(new GameModel("10","SP Motor",R.drawable.sp_motor,"1",getStAble(list,10)));
-//       game_list.add(new GameModel("11","DP Motor",R.drawable.dp_motor,"1",getStAble(list,11)));
-//        game_list.add(new GameModel("12","Half Sangam",R.drawable.half_sangam_digit,"1",getStAble(list,12)));
-//        game_list.add(new GameModel("13","Full Sangam",R.drawable.full_sangam_digits,"1",getStAble(list,13)));
-//       game_list.add(new GameModel("14","Cycle Pana",R.drawable.cyclepana,"1",getStAble(list,14)));
+      // game_list.add(new GameModel("10","SP Motor",R.drawable.sp_motor,"1",getStAble(list,10)));
+     //  game_list.add(new GameModel("11","DP Motor",R.drawable.dp_motor,"1",getStAble(list,11)));
+        game_list.add(new GameModel("12","Half Sangam",R.drawable.ic_halfsangam,"1",getStAble(list,12)));
+        game_list.add(new GameModel("13","Full Sangam",R.drawable.ic_fullsangam,"1",getStAble(list,13)));
+     //  game_list.add(new GameModel("14","Cycle Pana",R.drawable.cyclepana,"1",getStAble(list,14)));
         removeGames(game_list);
         selectGameAdapter = new StralinegameAdapter(getActivity(),game_list, getArguments().getString("m_id"),
                 getArguments().getString("start_time"),
@@ -238,7 +237,9 @@ public class StarlineGameFragment extends Fragment {
             if(list.get(i).getGame_id().equals(gId)){
                 if(list.get(i).getIs_starline_disable().equals("0")){
                     flag=false;
+
                 }else{
+                    list.remove (i);
                     flag=true;
                 }
                 break;

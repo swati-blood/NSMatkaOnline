@@ -5,8 +5,8 @@ package in.matka.ns.Config;
  */
 public class BaseUrls {
 
-    public static final String BASE_URL="https://kalyan21.anshuwap.com/Api/";
-//    public static final String BASE_URL ="https://ns.anshuwap.com/Api/";
+   // public static final String BASE_URL="https://kalyan21.anshuwap.com/Api/";
+    public static final String BASE_URL ="https://ns.anshuwap.com/Api/";
 
     public static final String BASE_IMAGE_URL="https://ns.anshuwap.com/assets/images/";
     public static final String IMG_SLIDER_URL =BASE_IMAGE_URL+ "sliders/";
@@ -44,6 +44,7 @@ public class BaseUrls {
     public static final String URL_STARLINE_HISTORY=BASE_URL+"getstarline_history";
     public static final String URL_NOTICEBOARD="https://roseflavour.com/api/getNoticeboard";
     public static final String URL_GETSTATUS=BASE_URL+"getLoginStatus";
+
 
 
 }
