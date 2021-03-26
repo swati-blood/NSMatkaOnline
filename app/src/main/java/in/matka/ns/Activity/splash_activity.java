@@ -68,7 +68,7 @@ public class splash_activity extends AppCompatActivity {
 //
 //        // start thread
 //        background.start();
-
+//
         if (ConnectivityReceiver.isConnected()) {
 
             getApiData();
