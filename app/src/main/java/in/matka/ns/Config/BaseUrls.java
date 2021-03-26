@@ -28,6 +28,8 @@ public class BaseUrls {
     public static final String URL_GENERATE_OTP=BASE_URL+"generate_otp";
     public static final String URL_BID_HISTORY=BASE_URL+"getBidHistory";
     public static final String URL_MOBILE=BASE_URL+"getMobile";
+    public static final String URL_FORGET_PASSWORD_WHATSAPP= BASE_URL+"password_details";
+
     public static final String URL_INSERT_DATA=BASE_URL+"insert_data";
     public static final String URL_StarLine_id = BASE_URL+"starline_data.php";
     public static final String URL_DpMotor = BASE_URL+"get_dpmotor";
