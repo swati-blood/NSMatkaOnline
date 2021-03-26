@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,46 +24,43 @@
         <TextView
             android:id="@+id/gamename"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_weight="1"
             android:text="game name"
             android:background="@drawable/shape2"
-
-
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:paddingStart="@dimen/_25sdp"
-            android:textSize="15sp"
-
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:textSize="14sp"
             android:textColor="@color/colorPrimary"/>
 
 
         <TextView
             android:id="@+id/gamerate"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_marginTop="20dp"
-
+            android:layout_marginTop="22dp"
             android:background="@drawable/shape2"
-            android:layout_centerHorizontal="true"
             android:text="game rate"
-           android:padding="15dp"
-            android:textSize="15sp"
-            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="15dp"
+            android:textSize="14sp"
+            android:gravity="end"
             android:textColor="@color/colorPrimary"/>
 
 
     </LinearLayout>
         <RelativeLayout
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_centerInParent="true"
             android:background="@drawable/circle"
             android:backgroundTint="@color/white">
         <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/stop"
             android:tint="#d77904"
             />
