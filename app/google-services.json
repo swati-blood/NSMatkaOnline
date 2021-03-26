@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "540431309896",
-    "project_id": "rose-matka-d4504",
-    "storage_bucket": "rose-matka-d4504.appspot.com"
+    "project_number": "127967244343",
+    "project_id": "nsgames-6379d",
+    "storage_bucket": "nsgames-6379d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:540431309896:android:79ab503ee3d5eede8d0c7d",
+        "mobilesdk_app_id": "1:127967244343:android:391a6fe8052b6011cb4fb2",
         "android_client_info": {
-          "package_name": "in.matka.rose"
+          "package_name": "in.matka.ns"
         }
       },
       "oauth_client": [
         {
-          "client_id": "540431309896-jf26rvm5aua80sdtks0nh19o7tc1fc02.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "in.matka.rose",
-            "certificate_hash": "651131e495da265f0073502fe3c96520b369b6ea"
-          }
-        },
-        {
-          "client_id": "540431309896-qhk1la9bk1dhne92b5oi31ve3o36duln.apps.googleusercontent.com",
+          "client_id": "127967244343-ab5luefnb1mdl1trprehp4jebeb8cp82.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBU7VlL9VdeU7b3IAUibhj1o7H_potYimU"
+          "current_key": "AIzaSyB8atmCB-3yrVvE6ppx_6Iz6LUOAgphFss"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "540431309896-qhk1la9bk1dhne92b5oi31ve3o36duln.apps.googleusercontent.com",
+              "client_id": "127967244343-ab5luefnb1mdl1trprehp4jebeb8cp82.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

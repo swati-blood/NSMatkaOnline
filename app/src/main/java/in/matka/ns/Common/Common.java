@@ -28,16 +28,19 @@ import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
@@ -79,6 +82,7 @@ import in.matka.ns.Util.Module;
 import in.matka.ns.Util.Session_management;
 import in.matka.ns.Util.ToastMsg;
 
+import static in.matka.ns.Config.BaseUrls.URL_GETSTATUS;
 import static in.matka.ns.Config.BaseUrls.URL_INSERT_DATA;
 import static in.matka.ns.Config.BaseUrls.URL_MOBILE;
 import static in.matka.ns.Config.Constants.KEY_ID;
@@ -1947,6 +1951,7 @@ public class Common {
         }
     }
 
+
     public void appSettingData(final GetAppSettingData settingData){
         loadingBar.show();
         HashMap<String,String> params=new HashMap<>();
@@ -2023,6 +2028,39 @@ public class Common {
             ex.printStackTrace();
         }
         return str;
+    }
+
+    public void status(){
+        HashMap<String,String>params = new HashMap<> (  );
+        CustomJsonRequest jsonArrayRequest = new CustomJsonRequest (Request.Method.POST, URL_GETSTATUS,params, new Response.Listener<JSONObject> () {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.e ("checkstatus", "onResponse: "+response );
+                try {
+                    JSONObject jsonObject=new JSONObject (String.valueOf (response));
+                   jsonObject.getString ("login_status");
+                    Log.e ("logintext", "onResponse: "+jsonObject.getString ("login_status"));
+                    if(jsonObject.getString ("login_status").equals ("0")){
+                      session_management.logoutSession ();
+                    }
+                    else {
+                        session_management.isLoggedIn ();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace ( );
+                }
+
+
+
+            }
+        }, new Response.ErrorListener ( ) {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        AppController.getInstance().addToRequestQueue(jsonArrayRequest);
     }
 
 }
