@@ -161,6 +161,7 @@ public class splash_activity extends AppCompatActivity {
 //                        AlertDialog alertDialog=builder.create();
 //                        alertDialog.show();
 //                    }
+//
                 }
                 catch (Exception ex)
                 {
