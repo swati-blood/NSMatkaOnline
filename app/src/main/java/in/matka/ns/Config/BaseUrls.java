@@ -5,8 +5,7 @@ package in.matka.ns.Config;
  */
 public class BaseUrls {
 
-    public static final String BASE_URL="https://kalyan21.anshuwap.com/Api/";
-//    public static final String BASE_URL ="https://ns.anshuwap.com/Api/";
+    public static final String BASE_URL="https://ns.anshuwap.com/Api/";
 
     public static final String BASE_IMAGE_URL="https://roseflavour.com/assets/images/";
     public static final String IMG_SLIDER_URL =BASE_IMAGE_URL+ "sliders/";
@@ -19,7 +18,6 @@ public class BaseUrls {
     public static final String URL_Matka=BASE_URL+"getMatkas";
     public static final String URL_MENU = BASE_URL+"getMenu";
     public static final String URL_STARLINE=BASE_URL+"get_starline";
-    public static final String URL_FORGET_PASSWORD_WHATSAPP=BASE_URL+"password_details";
 //    public static final String URL_STARLINE="https://smartmatka.com/api/get_starline";
     public static final String URL_MATKA_WITH_ID=BASE_URL+"get_matka_with_id";
     public static final String URL_PLAY=BASE_URL+"how_to_play";
