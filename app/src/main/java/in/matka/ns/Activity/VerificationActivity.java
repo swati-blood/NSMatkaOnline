@@ -81,17 +81,16 @@ ImageView iv_back;
         initViews();
         forgetPasswordWhatsapp();
         Log.e("status",msg_status);
-        if (msg_status.equals("0"))
+        if (msg_status.equals("0") && type.equalsIgnoreCase("f"))
         {
             rel_forgetWhatsapp.setVisibility(View.VISIBLE);
-        }else if (msg_status.equals("1"))
+        }else
         {
             rel_gen.setVisibility(View.VISIBLE);
-        }
-        else {
             rel_forgetWhatsapp.setVisibility(View.GONE);
-            rel_gen.setVisibility(View.GONE);
+
         }
+
 
     }
 
