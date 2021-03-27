@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.AppController;
 import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
@@ -61,6 +62,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         // Inflate the layout for this fragment
       View view= inflater.inflate(R.layout.fragment_my_profile, container, false);
       intiViews(view);
+        ((MainActivity) getActivity()).setTitle("Profile");
       return view;
     }
     void intiViews(View v)

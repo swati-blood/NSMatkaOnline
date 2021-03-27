@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.AppController;
 import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
@@ -60,6 +61,7 @@ public class BankFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View v = inflater.inflate(R.layout.fragment_bank, container, false);
+        ((MainActivity) getActivity()).setTitle("Bank Details");
        initViews(v);
        return  v ;
     }
