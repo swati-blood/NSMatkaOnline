@@ -122,7 +122,7 @@
                     android:fontFamily="sans-serif-black"/>
 
                 <TextView
-android:layout_marginTop="8dp"
+                    android:layout_marginTop="8dp"
                     android:id="@+id/withdrw_msg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -183,9 +183,7 @@ android:layout_marginTop="8dp"
                 android:id="@+id/linerLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/relWallet"
-
-                >
+                android:layout_below="@id/relWallet">
 
                 <ImageView
                     android:id="@+id/img"
@@ -194,7 +192,6 @@ android:layout_marginTop="8dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/icons8_money_bag_rupee_240px"
-
                     android:backgroundTint="@color/colorPrimary"/>
 
             </RelativeLayout>
@@ -204,12 +201,11 @@ android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape2"
-
                 android:textSize="18dp"
                 android:padding="10dp"
                 android:hint="Enter Points"
                 android:gravity="left"
-
+                android:maxLength="10"
                 android:textColor="@color/black"
                 android:inputType="number"
                 android:textAlignment="center"
@@ -217,6 +213,9 @@ android:layout_marginTop="8dp"
                 android:layout_below="@id/relWallet"
                 android:layout_marginTop="10dp"
                 tools:ignore="RtlCompat" />
+
+
+
             <Button
                 android:id="@+id/add_Request"
                 android:layout_width="match_parent"
