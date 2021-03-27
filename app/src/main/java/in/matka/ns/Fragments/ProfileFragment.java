@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         initViews(view);
+
         return view ;
 
     }
@@ -111,6 +113,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         String mobile = common.checkNull(session_management.getUserDetails().get(KEY_MOBILE));
         String email = common.checkNull(session_management.getUserDetails().get(KEY_EMAIL));
         String dob = common.checkNull(session_management.getUserDetails().get(KEY_DOB));
+        String upi = common.checkNull(session_management.getUserDetails().get(KEY_UPI));
+
 
         et_mobile.setText(mobile);
         et_mobile.setEnabled(false);
@@ -126,6 +130,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         common.setDataEditText(etBankName,bn);
         common.setDataEditText(etIfscCode,ic);
         common.setDataEditText(etAccHolderName,ah);
+
     }
 
     @Override
@@ -340,7 +345,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     boolean resp=response.getBoolean("responce");
                     if(resp)
                     {
-                        session_management.updatePaymentSection(teznumber,paytmno,phonepay);
+                        session_management.updatePaymentSection(teznumber,paytmno,phonepay,"");
                         new ToastMsg(getActivity()).toastIconSuccess(""+response.getString("message"));
 
                     }

@@ -297,7 +297,7 @@ toastMsg= new ToastMsg(LoginActivity.this);
                             String p = jsonObject.getString("password");
                             if (mPass.equals(p)) {
                                 session_management.createLoginSession(id,name,username,mobile,email,address
-                                ,city,pincode,accno,bank,ifsc,holder,paytm,tez,phonepay,dob,wallet,gender);
+                                ,city,pincode,accno,bank,ifsc,holder,paytm,tez,phonepay,dob,wallet,gender,"");
                                 Intent intent = new Intent(ctx, MainActivity.class);
                                 intent.putExtra("username", jsonObject.getString("username").toString());
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

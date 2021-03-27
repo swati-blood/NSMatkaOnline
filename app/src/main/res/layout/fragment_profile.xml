@@ -31,7 +31,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical"
 
                     android:padding="10dp">
@@ -40,7 +40,7 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/_25sdp"
+                        android:layout_marginBottom="10dp"
                         android:gravity="center"
                         android:text="Profile "
                         android:textColor="@color/colorPrimary"
@@ -48,6 +48,13 @@
                         android:textStyle="bold"
 
                         />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="visible"
+    >
+
 
                     <TextView
 
@@ -143,8 +150,8 @@
                         android:text="Update"
                         android:paddingLeft="@dimen/_10sdp"
                         android:paddingRight="@dimen/_10sdp"
-                        android:textColor="@color/black" />
-
+                        android:textColor="@color/white" />
+</LinearLayout>
 
                 </LinearLayout>
 
@@ -170,19 +177,15 @@
 
 
                     <TextView
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        android:layout_marginBottom="@dimen/_25sdp"
+                        android:layout_marginBottom="10dp"
                         android:gravity="center"
                         android:text="Address"
                         android:textColor="@color/colorPrimary"
                         android:textSize="20dp"
                         android:textStyle="bold"
-
                         />
-
 
                     <TextView
 
