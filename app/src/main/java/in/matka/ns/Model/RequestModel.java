@@ -7,6 +7,7 @@ public class RequestModel {
    String user_id;
    String type;
    String request_status;
+   String withdraw_type;
 
     public RequestModel() {
     }
@@ -57,5 +58,13 @@ public class RequestModel {
 
     public void setRequest_status(String request_status) {
         this.request_status = request_status;
+    }
+
+    public String getWithdraw_type() {
+        return withdraw_type;
+    }
+
+    public void setWithdraw_type(String withdraw_type) {
+        this.withdraw_type = withdraw_type;
     }
 }

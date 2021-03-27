@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -61,12 +62,15 @@ public class FundsHistryAdapter extends RecyclerView.Adapter<FundsHistryAdapter.
             holder.tv_amount.setTextColor(activity.getResources().getColor(R.color.colorPrimaryDark));
             holder.tv_type.setTextColor(activity.getResources().getColor(R.color.colorPrimary));
             holder.tv_type.setText("Points Added");
+            holder.lin_type.setVisibility(View.GONE);
         }
         else
         {
             holder.tv_amount.setTextColor(activity.getResources().getColor(R.color.redColor));
             holder.tv_type.setTextColor(activity.getResources().getColor(R.color.redColor));
             holder.tv_type.setText("Points Withdrawn");
+            holder.lin_type.setVisibility(View.VISIBLE);
+            holder.tv_wtype.setText(list.get(position).getWithdraw_type());
         }
 
         if (model.getRequest_status().equals("pending"))
@@ -86,7 +90,8 @@ public class FundsHistryAdapter extends RecyclerView.Adapter<FundsHistryAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_amount ,tv_type,tv_matka,tv_game ,tv_date,tv_time,tv_status;
+        TextView tv_amount ,tv_type,tv_matka,tv_game ,tv_date,tv_time,tv_status,tv_wtype;
+        LinearLayout lin_type;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_amount = itemView.findViewById(R.id.amount);
@@ -96,6 +101,8 @@ public class FundsHistryAdapter extends RecyclerView.Adapter<FundsHistryAdapter.
             tv_game = itemView.findViewById(R.id.game_name);
             tv_date = itemView.findViewById(R.id.date);
             tv_status = itemView.findViewById(R.id.status);
+            tv_wtype = itemView.findViewById(R.id.tv_type);
+            lin_type = itemView.findViewById(R.id.lin_type);
         }
     }
 }
