@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -141,7 +142,10 @@ ImageView iv_back;
     public void onClick(View view) {
 
         if(view.getId() ==R.id.btn_send)
-        {
+        { String phone_value=et_phone.getText().toString().trim();
+            int sf= Integer.parseInt(phone_value.substring(0,1));
+            int len=phone_value.length();
+
            mobile=et_phone.getText().toString();
            otp=common.getRandomKey(6);
            if(mobile.isEmpty())
@@ -149,11 +153,18 @@ ImageView iv_back;
                common.showToast("Enter Mobile Number");
                et_phone.requestFocus();
            }
-           else if(mobile.length()!=10)
-           {
-               common.showToast("Invalid Mobile Number");
-               et_phone.requestFocus();
-           }
+           else if(sf<6 || len<10)
+            {
+//                Toast.makeText(VerificationActivity.this,"Invalid Mobile number \n" +
+//                        "mobile number never start with 0 and <6", Toast.LENGTH_LONG).show();
+                common.showToast ("Invalid Mobile number \n" + "mobile number never start with 0 and <6");
+            }
+
+//           else if(mobile.length()!=10)
+//           {
+//               common.showToast("Invalid Mobile Number");
+//               et_phone.requestFocus();
+//           }
            else
            {
                if (ConnectivityReceiver.isConnected()) {

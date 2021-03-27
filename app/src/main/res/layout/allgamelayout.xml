@@ -86,7 +86,7 @@
                     android:id="@+id/list_table"
                     android:nestedScrollingEnabled="true"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="200dp"/>
 
 
             <Button
@@ -98,6 +98,7 @@
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:textAllCaps="false"
                 android:text="Save"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold"/>

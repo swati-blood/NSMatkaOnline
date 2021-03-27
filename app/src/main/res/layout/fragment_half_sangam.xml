@@ -31,7 +31,7 @@
                      android:text="@string/select_date"
                      android:gravity="center"
                      android:background="@drawable/shape2"
-
+                     android:drawableTint="@color/white"
                      android:layout_weight="1"
                      android:padding="5dp"
                      android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
@@ -165,10 +165,11 @@
                          android:layout_centerVertical="true"
                          android:textAlignment="center"
                          android:inputType="number"
+
                          android:maxLength="3"
                          android:textSize="14dp"
                          android:hint="@string/open_pana"
-
+                         android:dropDownHeight="140dp"
                          android:textColor="@color/colorAccent"
                          android:completionThreshold="1"
                          android:background="@drawable/shape2"/>
@@ -210,7 +211,7 @@
                          android:textAlignment="center"
                          android:inputType="number"
                          android:hint="@string/close_pana"
-
+                         android:dropDownHeight="140dp"
                          android:maxLength="3"
                          android:textSize="14dp"
                          android:textColor="@color/colorAccent"
@@ -275,7 +276,7 @@
 
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
-                         android:text="POINTS    "
+                         android:text="Points   "
                          android:textColor="@color/colorAccent"
                          android:layout_centerVertical="true"
                          android:paddingLeft="10dp"

@@ -204,6 +204,15 @@ toastMsg= new ToastMsg(LoginActivity.this);
                         etName.setError("Enter Mobile No");
                         etName.requestFocus();
                     }
+
+                String phone_value=etName.getText().toString().trim();
+                int sf= Integer.parseInt(phone_value.substring(0,1));
+                int len=phone_value.length();
+
+                if(sf<6 || len<10)
+                {
+                    common.showToast("Invalid Mobile number \n" + "mobile number never start with 0 and <6");
+                }
                     else if(TextUtils.isEmpty(mPass))
                     {
 
@@ -280,7 +289,7 @@ toastMsg= new ToastMsg(LoginActivity.this);
                             String ifsc=common.checkNull(jsonObject.getString("ifsc_code").toString());
                             String holder=common.checkNull(jsonObject.getString("account_holder_name").toString());
                             String paytm=common.checkNull(jsonObject.getString("paytm_no").toString());
-                            String tez=common.checkNull(jsonObject.getString("tez_no").toString());
+                            String tez=common.checkNull(jsonObject.getString("google_pay").toString());
                             String phonepay=common.checkNull(jsonObject.getString("phonepay_no").toString());
                             String wallet=common.checkNull(jsonObject.getString("wallet").toString());
                             String dob=common.checkNull(jsonObject.getString("dob").toString());

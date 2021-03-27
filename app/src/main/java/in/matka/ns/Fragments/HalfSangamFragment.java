@@ -133,7 +133,13 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
         txt_date.setOnClickListener(this);
         txt_date.setText(common.getCurrentDateDay());
         txt_date.setClickable(false);
-        ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
+
+        if(matka_name==null){
+            ((MainActivity) getActivity()).setTitle("Starline -"+game_name);
+        }
+        else {
+            ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
+        }
 
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,singlePaana);
         etOpenPanna.setAdapter(adapter);
