@@ -28,6 +28,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.AppController;
 import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
@@ -75,6 +76,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user, container, false);
+        ((MainActivity) getActivity()).setTitle("User Profile");
         initViews(view);
         return  view ;
     }

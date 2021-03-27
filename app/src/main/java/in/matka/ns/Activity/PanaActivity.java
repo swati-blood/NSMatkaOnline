@@ -111,7 +111,9 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         tv_title.setText (matka_names+"-"+game_names);
 
         if (m_id>20)
-        {   card_matka.setVisibility(View.GONE);
+
+        {   tv_title.setText ("Starline  -"+game_names);
+            card_matka.setVisibility(View.GONE);
             card_star.setVisibility(View.VISIBLE);
             txt_date.setVisibility(View.GONE);
             txt_type.setVisibility(View.GONE);

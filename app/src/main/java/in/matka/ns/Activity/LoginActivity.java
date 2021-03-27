@@ -204,6 +204,15 @@ toastMsg= new ToastMsg(LoginActivity.this);
                         etName.setError("Enter Mobile No");
                         etName.requestFocus();
                     }
+
+                String phone_value=etName.getText().toString().trim();
+                int sf= Integer.parseInt(phone_value.substring(0,1));
+                int len=phone_value.length();
+
+                if(sf<6 || len<10)
+                {
+                    common.showToast("Invalid Mobile number \n" + "mobile number never start with 0 and <6");
+                }
                     else if(TextUtils.isEmpty(mPass))
                     {
 

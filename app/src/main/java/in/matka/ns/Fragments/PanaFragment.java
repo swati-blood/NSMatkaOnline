@@ -85,6 +85,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pana, container, false);
+        ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
         initViews(view);
         return view;
     }
@@ -161,7 +162,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
             txt_date.setVisibility(View.VISIBLE);
             txt_type.setVisibility(View.VISIBLE);
             matka_name = getArguments().getString("matka_name");
-            ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
+
 
 
         }
