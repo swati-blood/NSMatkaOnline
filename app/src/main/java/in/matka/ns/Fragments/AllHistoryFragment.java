@@ -105,7 +105,7 @@ public class AllHistoryFragment extends Fragment {
 
     private void getStarLineHistory(String user_id) {
         loadingBar.show ();
-      HashMap<String, String> params = new HashMap<String, String>();
+       HashMap<String, String> params = new HashMap<String, String>();
        params.put("user_id",user_id);
        CustomJsonRequest jsonRequest=new CustomJsonRequest (Request.Method.POST, URL_STARLINE_HISTORY, params, new Response.Listener<JSONObject> ( ) {
            @Override
@@ -312,6 +312,7 @@ try{
                             model.setUser_id (obj.getString ("user_id"));
                             model.setType (obj.getString ("type"));
                             model.setTime (obj.getString ("time"));
+                            model.setWithdraw_type(obj.getString("withdraw_type"));
                             req_list.add (model);
                         }
                         Log.d ("req_list", String.valueOf (req_list.size ( )));
