@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
@@ -50,6 +51,7 @@ import static in.matka.ns.Objects.sp_input_data.triplePanna;
  * A simple {@link Fragment} subclass.
  */
 public class PanaFragment extends Fragment implements View.OnClickListener {
+    EditText et_points;
     TextView txt_date,txtOpen,txtClose,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id;
    public static TextView txt_type,total  ;
     Dialog dialog ;
@@ -88,6 +90,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initViews(View v) {
+        et_points=(EditText)v.findViewById (R.id.et_points);
         txt_date = v.findViewById(R.id.tv_date);
         txt_type = v.findViewById(R.id.tv_type);
         btn_submit = v.findViewById(R.id.btn_sbmit);
@@ -222,10 +225,15 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         }
         else if (v.getId() == R.id.btn_sbmit) {
             tempList.clear();
+          //  et_points.setText ("");
             for(int k=0; k<bet_list.size();k++)
             {
                 if(bet_list.get(k).getPoints().toString().equals("0") || bet_list.get(k).getPoints().toString().equals(""))
-                { }
+                {
+
+                }
+
+
                 else
                 {
 
@@ -235,15 +243,31 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
 
             bet_type = txt_type.getText().toString();
             bet_date = txt_date.getText().toString();
-
-            if (bet_date.equals("Select Date")) {
+// if(!et_points.getText ().equals ("")){
+//     tempList.clear ();
+//                et_points.setText ("");
+//
+//            }
+ if (bet_date.equals("Select Date")) {
                 toastMsg.toastIconError("Select Date");
             } else if (bet_type.equals("Select Type")) {
                 toastMsg.toastIconError("Select game type");
 
-            } else if (is_empty) {
+            }
+   else if(tempList.isEmpty ()){
+    toastMsg.toastIconError ("Add points");
+
+            }
+
+
+//            else if(et_points.equals ("")){
+//                toastMsg.toastIconError ("Please enter some points here");
+//           }
+            else if (is_empty) {
                 toastMsg.toastIconError("Please enter some points");
-            } else {
+            }
+            else {
+
                 if (is_error) {
                     toastMsg.toastIconError( "Minimum bid amount is 10");
                 } else {

@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
@@ -35,9 +37,11 @@ import static in.matka.ns.Objects.sp_input_data.singlePaana;
 public class PanaActivity extends AppCompatActivity implements View.OnClickListener {
    ImageView iv_back;
    TextView tv_title,tv_wallet;
+   RelativeLayout rel_holder;
     CardView card_matka ,card_star;
    TextView tv_matkaname,tv_matkanumber,tv_gamename,tv_bid_open,tv_bid_close;
-    public static ArrayList<TableModel> bet_list,tempList,bidList;
+    public  ArrayList<TableModel> bet_list,tempList,bidList;
+
    int tot=0;
     TextView txt_date,txtOpen,txtClose,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id,txt_s_date,txt_s_time;
     public static TextView txt_type,total  ;
@@ -49,8 +53,9 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
     int m_id=0;
     private int stat=0;
     LoadingBar loadingBar;
+    EditText et_points;
     Activity ctx=PanaActivity.this;
-   ViewPager viewpager;
+   ViewPager viewpager,viewpagerhide;
    PagerAdapter pagerAdapter;
    ToastMsg toastMsg;
     public static String game_names, matka_names, matka_id ,game_ids ,w_amounts ,s_time ,e_time,start_num,end_num,num;
@@ -61,6 +66,9 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         initViews();
     }
     private void initViews() {
+        viewpagerhide=findViewById (R.id.viewpagerhide);
+        et_points=(EditText)findViewById (R.id.et_points);
+       // rel_holder=findViewById (R.id.rel_holder);
         tablayout=findViewById(R.id.tablayout);
         iv_back=findViewById(R.id.iv_back);
         tv_title=findViewById(R.id.tv_title);
@@ -99,9 +107,8 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         e_time = getIntent().getStringExtra("end_time");
         game_names = getIntent().getStringExtra("game_name");
         game_ids = getIntent().getStringExtra("game_id");
-
-        tv_title.setText(matka_names+"-"+game_names);
-//        tv_title.setText (game_names);
+        //matka_names=getIntent ().getStringExtra ("matka_name");
+        tv_title.setText (matka_names+"-"+game_names);
 
         if (m_id>20)
         {   card_matka.setVisibility(View.GONE);
@@ -123,9 +130,12 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
                 if (common.getTimeDifference(s_time) > 0) {
 
                     txt_type.setText("Open");
+
                 } else {
                     txt_type.setText("Close");
+
                 }
+
             }
             catch (Exception ex)
             {
@@ -222,6 +232,7 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
             pagerAdapter=new PagerAdapter(getSupportFragmentManager(),9);
 
         }
+        viewpagerhide.setAdapter (pagerAdapter);
         viewpager.setAdapter(pagerAdapter);
 
     }
@@ -237,6 +248,10 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if (v.getId()==R.id.tv_type)
         {
+            viewpager.setVisibility (View.VISIBLE);
+            viewpagerhide.setVisibility (View.GONE);
+
+            //et_points.setEnabled (true);
             common.setBetTypeDialog(dialog,txtOpen,txtClose,txt_type,txt_date.getText().toString(),s_time,e_time);
         }
         else if (v.getId()==R.id.tv_date)
@@ -247,9 +262,12 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         else if(v.getId()==R.id.btn_sbmit)
         {
             tempList.clear();
+bet_list.clear ();
+
+
             for(int k=0; k<bidList.size();k++)
             {
-                if(bidList.get(k).getPoints().toString().equals("0") || bidList.get(k).getPoints().toString().equals("") || bidList.get(k).getPoints().toString().length()<=1)
+                if(bidList.get(k).getPoints().toString().equals("0") || bidList.get(k).getPoints().toString().equals("") )
                 { }
                 else
                 {
@@ -260,6 +278,12 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
 
            String bet_type = txt_type.getText().toString();
            String bet_date = txt_date.getText().toString();
+//          if(!bet_type.equals("Select Type")){
+//              //et_points.setEnabled (true);
+//              rel_holder.setVisibility (View.GONE);
+//            viewpager.setVisibility (View.VISIBLE);
+//
+//        }
 
             if (bet_date.equals("Select Date")) {
 //                Toast.makeText(ctx, "Select Date", Toast.LENGTH_LONG).show();
@@ -268,10 +292,18 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
 //                Toast.makeText(ctx, "Select game type", Toast.LENGTH_LONG).show();
                 toastMsg.toastIconError("Select game type");
 
-            } else if (tot==0) {
-//                Toast.makeText(ctx, "Please enter some points", Toast.LENGTH_LONG).show();
-                toastMsg.toastIconError("Please enter some points");
-            } else {
+            }
+
+            else if(tempList.isEmpty ()){
+
+                toastMsg.toastIconError ("Add points");
+
+            }
+//            else if (tot==0) {
+////                Toast.makeText(ctx, "Please enter some points", Toast.LENGTH_LONG).show();
+//                toastMsg.toastIconError("Please enter some points");
+//            }
+           else {
                 if (String.valueOf(tot).length()<2) {
 //                    Toast.makeText(ctx, "Minimum bid amount is 10", Toast.LENGTH_LONG).show();
                     toastMsg.toastIconError("Minimum bid amount is 10");

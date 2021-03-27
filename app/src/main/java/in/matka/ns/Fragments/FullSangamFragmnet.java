@@ -157,7 +157,7 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
                     etClosePana.requestFocus();
                     return;
                 } else if (TextUtils.isEmpty(points)) {
-                    etPoints.setError("Enter coins");
+                    etPoints.setError("Enter Points");
                     etPoints.requestFocus();
                     return;
                 } else if (!Arrays.asList(singlePaana).contains(open_pana)) {
