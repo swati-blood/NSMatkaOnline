@@ -252,7 +252,7 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
               finish();
         }
         else if (v.getId()==R.id.tv_type)
-        {//add
+        {
             viewpager.setVisibility (View.VISIBLE);
 viewpagerhide.setAdapter (null);
             viewpagerhide.setVisibility (View.GONE);
