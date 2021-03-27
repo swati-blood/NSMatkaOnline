@@ -238,10 +238,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:layout_weight="1"
                 android:textColor="@color/black"
                 android:padding="5dp"
+
                 android:layout_margin="2dp"
                 android:text="Select Withdraw Type"/>
 
@@ -265,7 +266,7 @@
                 <RadioButton
                     android:background="@drawable/shape3"
                     android:id="@+id/rb_upi"
-
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="UPI"
@@ -277,7 +278,7 @@
                 <RadioButton
                     android:background="@drawable/shape3"
                     android:id="@+id/rb_paytm"
-
+android:visibility="gone"
                     android:layout_marginTop="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -290,7 +291,7 @@
                 <RadioButton
                     android:layout_marginTop="2dp"
                     android:id="@+id/rb_google"
-
+                    android:visibility="gone"
                     android:background="@drawable/shape3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -301,7 +302,7 @@
                 <RadioButton
                     android:id="@+id/rb_phone"
                     android:layout_marginTop="2dp"
-
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Phone Pe"
@@ -316,6 +317,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Bank Account"
+                    android:visibility="gone"
                     android:background="@drawable/shape3"
                     android:buttonTint="@color/colorPrimary"
                     android:textColor="@color/black"

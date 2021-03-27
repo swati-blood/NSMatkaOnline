@@ -50,6 +50,7 @@ android:visibility="gone"
                       android:layout_margin="5dp"
                       android:background="@drawable/shape2"
                       android:hint="Name"
+                     android:paddingStart="@dimen/_15sdp"
                       android:padding="7dp"
 
                       />
@@ -62,6 +63,7 @@ android:visibility="gone"
                       android:background="@drawable/shape2"
                       android:hint="Mobile number"
                       android:inputType="number"
+                      android:paddingStart="@dimen/_15sdp"
                       android:padding="7dp"
 
                       />
@@ -89,6 +91,7 @@ android:visibility="gone"
                       android:textSize="16dp"
                       android:inputType="textEmailAddress"
                       android:padding="7dp"
+                      android:paddingStart="@dimen/_15sdp"
                       />
 
                   <TextView
@@ -112,7 +115,7 @@ android:visibility="gone"
                       android:background="@drawable/shape2"
 
                       android:text="Date of Birth"
-
+                      android:paddingStart="@dimen/_15sdp"
                       android:padding="7dp"
                       android:textSize="16dp"
 
@@ -146,12 +149,14 @@ android:visibility="gone"
                   <EditText
                       android:id="@+id/etAddress"
                       android:layout_width="match_parent"
-                      android:layout_height="@dimen/_100sdp"
+                      android:layout_height="@dimen/_80sdp"
                       android:layout_margin="5dp"
-                      android:background="@drawable/edittextcorner"
+
+                      android:background="@drawable/roundshape"
                       android:hint="Address"
                       android:inputType="textMultiLine"
-                      android:padding="10dp"
+                      android:paddingStart="@dimen/_15sdp"
+                      android:padding="7dp"
                       android:gravity="top"
                       android:textSize="16dp"
 
@@ -164,7 +169,7 @@ android:visibility="gone"
                       android:layout_height="wrap_content"
                       android:layout_margin="5dp"
                       android:background="@drawable/shape2"
-
+                      android:paddingStart="@dimen/_15sdp"
                       android:textSize="16dp"
                       android:hint="City"
                       android:inputType="text"
@@ -181,7 +186,7 @@ android:visibility="gone"
                       android:layout_margin="5dp"
                       android:layout_marginTop="5dp"
                       android:background="@drawable/shape2"
-
+                      android:paddingStart="@dimen/_15sdp"
                       android:textSize="16dp"
                       android:hint="PinCode"
                       android:inputType="number"
