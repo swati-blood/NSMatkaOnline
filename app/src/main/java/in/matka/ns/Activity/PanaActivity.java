@@ -66,7 +66,9 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         initViews();
     }
     private void initViews() {
+
         viewpagerhide=findViewById (R.id.viewpagerhide);
+
         et_points=(EditText)findViewById (R.id.et_points);
        // rel_holder=findViewById (R.id.rel_holder);
         tablayout=findViewById(R.id.tablayout);
@@ -251,6 +253,7 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         else if (v.getId()==R.id.tv_type)
         {
             viewpager.setVisibility (View.VISIBLE);
+
             viewpagerhide.setVisibility (View.GONE);
 
             //et_points.setEnabled (true);

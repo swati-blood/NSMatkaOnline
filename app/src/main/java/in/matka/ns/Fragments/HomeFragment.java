@@ -305,7 +305,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             rl_whatsapp.setVisibility(View.VISIBLE);
     //                        wMsg=model.getWhatsapp_msg();
 //                            wNo=model.getWhatsapp_no();
-                             wMsg=model.getWithdraw_no ();
+                             wMsg=model.getWhatsapp_msg ();
                              wNo=model.getWithdraw_no ();
                         }
 

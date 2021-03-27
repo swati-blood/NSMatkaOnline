@@ -2008,7 +2008,7 @@ public class Common {
         Intent i = new Intent(Intent.ACTION_VIEW);
 
         try {
-            String url = "whatsapp://send?phone="+phone+"&text="+URLEncoder.encode(message, "UTF-8");
+            String url = "whatsapp://send?phone=+91"+phone+"&text="+URLEncoder.encode(message, "UTF-8");
             i.setData(Uri.parse(url));
             if (i.resolveActivity(packageManager) != null) {
                 context.startActivity(i);
