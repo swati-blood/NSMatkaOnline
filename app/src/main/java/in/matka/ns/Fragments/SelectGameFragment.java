@@ -37,36 +37,36 @@ import in.matka.ns.Util.CustomVolleyJsonArrayRequest;
 import in.matka.ns.Util.LoadingBar;
 
 public class SelectGameFragment extends Fragment {
-    private final String TAG=SelectGameFragment.class.getSimpleName();
+    private final String TAG = SelectGameFragment.class.getSimpleName ( );
     RecyclerView rv_games;
-    SelectGameAdapter selectGameAdapter ;
-    LoadingBar loadingBar ;
+    SelectGameAdapter selectGameAdapter;
+    LoadingBar loadingBar;
     ArrayList<GameModel> game_list;
     Common common;
-   List<GameStatusModel> tempList;
+    List<GameStatusModel> tempList;
 
     Animation animation;
     int[] animationList = {R.anim.zoom_in, R.anim.slide_down, R.anim.slide_up, R.anim.bounce};
-   LayoutAnimationController controller;
+    LayoutAnimationController controller;
     int i = 0;
+
     public SelectGameFragment() {
         // Required empty public constructor
     }
-
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View view =inflater.inflate(R.layout.fragment_select_game, container, false);
-        ((MainActivity) getActivity()).setTitle("Select Game");
-        common=new Common(getActivity());
-        loadingBar=new LoadingBar(getActivity());
-       rv_games =  view.findViewById(R.id.recycler_games);
-       rv_games.setLayoutManager(new GridLayoutManager(getActivity(),2));
-       game_list = new ArrayList<>();
-        tempList=new ArrayList<>();
+        View view = inflater.inflate (R.layout.fragment_select_game, container, false);
+        ((MainActivity) getActivity ( )).setTitle ("Select Game");
+        common = new Common (getActivity ( ));
+        loadingBar = new LoadingBar (getActivity ( ));
+        rv_games = view.findViewById (R.id.recycler_games);
+        rv_games.setLayoutManager (new GridLayoutManager (getActivity ( ), 2));
+        game_list = new ArrayList<> ( );
+        tempList = new ArrayList<> ( );
 
 
 //        animation = AnimationUtils.loadAnimation(getActivity(),
@@ -102,7 +102,7 @@ public class SelectGameFragment extends Fragment {
 //               else if( model.getType().equals("1"))
 //               {
 //
-//                   final Bundle arg = new Bundle();
+//                   final Bunfdle arg = new Bundle();
 //                   arg.putString("game_id",model.getId());
 //                   arg.putString("game_name",model.getName());
 //                   arg.putString("m_id",getArguments().getString("m_id"));
@@ -176,103 +176,109 @@ public class SelectGameFragment extends Fragment {
 //       }));
 
 
-       return  view ;
+        return view;
     }
 
     @Override
     public void onStart() {
-        super.onStart();
-        getGames();
+        super.onStart ( );
+        getGames ( );
 
 
     }
 
-    public void getGames(){
-        tempList.clear();
-      loadingBar.show();
-        HashMap<String,String> params=new HashMap<>();
-        CustomVolleyJsonArrayRequest arrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.POST,  BaseUrls.URL_GET_GAMES,params, new Response.Listener<JSONArray>() {
+    public void getGames() {
+        tempList.clear ( );
+        loadingBar.show ( );
+        HashMap<String, String> params = new HashMap<> ( );
+        CustomVolleyJsonArrayRequest arrayRequest = new CustomVolleyJsonArrayRequest (Request.Method.POST, BaseUrls.URL_GET_GAMES, params, new Response.Listener<JSONArray> ( ) {
             @Override
             public void onResponse(JSONArray response) {
-                loadingBar.dismiss();
+                loadingBar.dismiss ( );
 
-             try {
-                 Gson gson=new Gson();
-                 Type listType=new TypeToken<List<GameStatusModel>>(){}.getType();
-                 tempList=gson.fromJson(response.toString(),listType);
+                try {
+                    Gson gson = new Gson ( );
+                    Type listType = new TypeToken<List<GameStatusModel>> ( ) {
+                    }.getType ( );
+                    tempList = gson.fromJson (response.toString ( ), listType);
 //                 for(GameStatusModel m:tempList){
 //                     Log.e("tempLsit", "onResponse: "+m.getIs_disabled()+"\n s:-  "+m.getIs_starline_disable());
 //                 }
-                 setAllGames(tempList);
+                    setAllGames (tempList);
 
 
+                } catch (Exception ex) {
 
-             }catch (Exception ex){
-                 ex.printStackTrace();
-             }
+                    ex.printStackTrace ( );
+                }
             }
-        }, new Response.ErrorListener() {
+        }, new Response.ErrorListener ( ) {
             @Override
             public void onErrorResponse(VolleyError error) {
-                loadingBar.dismiss();
-                common.showVolleyError(error);
+                loadingBar.dismiss ( );
+                common.showVolleyError (error);
 
             }
         });
-        AppController.getInstance().addToRequestQueue(arrayRequest);
+        AppController.getInstance ( ).addToRequestQueue (arrayRequest);
     }
 
-    public void setAllGames(List<GameStatusModel> list){
-        game_list.clear();
-        //       game_list.add(new GameModel("1","Odd Even",R.drawable.odd_even,"1",getAble(list,1)));
-        game_list.add(new GameModel("2","Single Digit",R.drawable.ic_single,"0",getAble(list,2)));
-        game_list.add(new GameModel("3","Jodi Digit",R.drawable.ic_jodi,"0",getAble(list,3)));
-//       game_list.add(new GameModel("4","Red Bracket",R.drawable.red_brackets,"1",getAble(list,4)));
-//       game_list.add(new GameModel("5","Panel Group",R.drawable.panel_group_icon,"1",getAble(list,5)));
-//       game_list.add(new GameModel("6","Group Jodi",R.drawable.group_jodi,"1",getAble(list,6)));
-        game_list.add(new GameModel("7","Single Pana",R.drawable.ic_singlepana,"2",getAble(list,7)));
-        game_list.add(new GameModel("8","Double Pana",R.drawable.ic_doublepana,"2",getAble(list,8)));
-        game_list.add(new GameModel("9","Triple Pana",R.drawable.ic_triple_pana,"0",getAble(list,9)));
-//       game_list.add(new GameModel("10","SP Motor",R.drawable.sp_motor,"1",getAble(list,10)));
-//       game_list.add(new GameModel("11","DP Motor",R.drawable.dp_motor,"1",getAble(list,11)));
-        game_list.add(new GameModel("12","Half Sangam",R.drawable.ic_halfsangam,"1",getAble(list,12)));
-        game_list.add(new GameModel("13","Full Sangam",R.drawable.ic_fullsangam,"1",getAble(list,13)));
-//       game_list.add(new GameModel("14","Cycle Pana",R.drawable.cyclepana,"1",getAble(list,14)));
+    public void setAllGames(List<GameStatusModel> list) {
+        game_list.clear ( );
+      //  game_list.add (new GameModel ("1", "Odd Even", R.drawable.odd_even, "1", getAble (list, 1)));
+        game_list.add (new GameModel ("2", "Single Digit", R.drawable.ic_single, "0", getAble (list, 2)));
+        game_list.add (new GameModel ("3", "Jodi Digit", R.drawable.ic_jodi, "0", getAble (list, 3)));
+       // game_list.add (new GameModel ("4", "Red Bracket", R.drawable.red_brackets, "1", getAble (list, 4)));
+        //game_list.add (new GameModel ("5", "Panel Group", R.drawable.panel_group_icon, "1", getAble (list, 5)));
+      //  game_list.add (new GameModel ("6", "Group Jodi", R.drawable.group_jodi, "1", getAble (list, 6)));
+        game_list.add (new GameModel ("7", "Single Pana", R.drawable.ic_singlepana, "2", getAble (list, 7)));
+        game_list.add (new GameModel ("8", "Double Pana", R.drawable.ic_doublepana, "2", getAble (list, 8)));
+        game_list.add (new GameModel ("9", "Triple Pana", R.drawable.ic_triple_pana, "0", getAble (list, 9)));
+      //  game_list.add (new GameModel ("10", "SP Motor", R.drawable.sp_motor, "1", getAble (list, 10)));
+      //  game_list.add (new GameModel ("11", "DP Motor", R.drawable.dp_motor, "1", getAble (list, 11)));
+        game_list.add (new GameModel ("12", "Half Sangam", R.drawable.ic_halfsangam, "1", getAble (list, 12)));
+        game_list.add (new GameModel ("13", "Full Sangam", R.drawable.ic_fullsangam, "1", getAble (list, 13)));
+        game_list.add (new GameModel ("14", "Cycle Pana", R.drawable.cyclepana, "1", getAble (list, 14)));
 
-        removeGames(game_list);
+        removeGames (game_list);
 
 
-        selectGameAdapter = new SelectGameAdapter(getActivity(),game_list, getArguments().getString("m_id"),
-                getArguments().getString("matka_name"),
-                getArguments().getString("start_time"),
-                getArguments().getString("end_time"), getArguments().getString("start_num"),
-                getArguments().getString("num"),
-                getArguments().getString("end_num"));
-        rv_games.setAdapter(selectGameAdapter);
+        selectGameAdapter = new SelectGameAdapter (getActivity ( ), game_list, getArguments ( ).getString ("m_id"),
+                getArguments ( ).getString ("matka_name"),
+                getArguments ( ).getString ("start_time"),
+                getArguments ( ).getString ("end_time"), getArguments ( ).getString ("start_num"),
+                getArguments ( ).getString ("num"),
+                getArguments ( ).getString ("end_num"));
+        rv_games.setAdapter (selectGameAdapter);
     }
 
-    private boolean getAble(List<GameStatusModel> list,int ind){
-        boolean flag=false;
-     String gId=String.valueOf(ind);
-     for(int i=0; i<list.size();i++){
-         if(list.get(i).getGame_id().equals(gId)){
-             if(list.get(i).getIs_disabled().equals("0")){
-                 flag=false;
-             }else{
-                 flag=true;
-             }
-             break;
-         }
+    private boolean getAble(List<GameStatusModel> list, int ind) {
+        boolean flag = false;
+        String gId = String.valueOf (ind);
+        for (int i = 0; i < list.size ( ); i++) {
+            if (list.get (i).getGame_id ( ).equals (gId)) {
+                if (list.get (i).getIs_disabled ( ).equals ("0")) {
 
-     }
-     return flag;
+                    flag = false;
+                } else {
+                  //  game_list.clear ();
+                    list.remove (i);
+                    flag = true;
+                }
+                break;
+            }
+
+        }
+        return flag;
     }
-    private void removeGames(ArrayList<GameModel> list){
-        for(int i=0; i<list.size();i++){
-              if(list.get(i).isIs_disable()){
-               list.remove(i);
-              }
+
+    private void removeGames(ArrayList<GameModel> list) {
+        for (int i = 0; i < list.size ( ); i++) {
+            if (list.get (i).isIs_disable ( )) {
+                list.remove (i);
+            }
         }
 
     }
 }
+

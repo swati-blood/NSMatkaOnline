@@ -128,11 +128,13 @@ try{
             model.setDigits (obj.getString ("digits"));
             model.setDate (obj.getString ("date"));
             model.setTime (obj.getString ("time"));
-
-            model.setBet_type ("");
-           //  model.setBet_type (obj.getString ("bet_type"));
-            model.setStatus (obj.getString ("status"));
             model.setName (obj.getString ("name"));
+            model.setStatus (obj.getString ("status"));
+            model.setBet_type ("");
+
+           //  model.setBet_type (obj.getString ("bet_type"));
+
+
             bid_list.add (model);
         }
         Log.d ("bid_list", String.valueOf (bid_list.size ( )));

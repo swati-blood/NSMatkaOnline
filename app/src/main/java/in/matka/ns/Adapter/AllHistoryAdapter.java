@@ -56,12 +56,13 @@ public class AllHistoryAdapter extends RecyclerView.Adapter<AllHistoryAdapter.Vi
 
         if(model.getBet_type ().equals ("")){
             holder.txt_matka_name.setText (model.getName ());
+
         }else {
             holder.txt_matka_name.setText(model.getName()+" ( "+model.getBet_type()+" ) ");
         }
 
-
-        //holder.txt_matka_name.setText(model.getName()+" ( "+model.getBet_type()+" ) ");
+//holder.txt_matka_name.setText (model.getName ());
+      // holder.txt_matka_name.setText(model.getName()+" ( "+model.getBet_type()+" ) ");
         holder.txt_bid_digit.setText(model.getDigits());
         holder.txt_bid_id.setText(model.getId());
         holder.txt_bid_points.setText(model.getPoints());

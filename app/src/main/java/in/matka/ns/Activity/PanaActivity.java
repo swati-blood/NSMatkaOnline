@@ -100,6 +100,9 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         game_names = getIntent().getStringExtra("game_name");
         game_ids = getIntent().getStringExtra("game_id");
 
+        tv_title.setText(matka_names+"-"+game_names);
+//        tv_title.setText (game_names);
+
         if (m_id>20)
         {   card_matka.setVisibility(View.GONE);
             card_star.setVisibility(View.VISIBLE);
