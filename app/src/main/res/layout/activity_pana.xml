@@ -48,7 +48,7 @@
             android:gravity="center"
             android:layout_toLeftOf="@+id/tv_notification"
             android:padding="5dp"
-            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_8sdp"
             android:layout_centerVertical="true"
             android:drawableTint="@color/white"
             android:drawableLeft="@drawable/ic_account_balance_wallet_black_24dp"
@@ -56,7 +56,7 @@
         <TextView
             android:visibility="invisible"
             android:id="@+id/tv_notification"
-            android:layout_width="wrap_content"
+            android:layout_width="2dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
@@ -311,6 +311,10 @@
 
 
     </LinearLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout"
@@ -322,11 +326,30 @@
         app:tabMode="scrollable"
         android:layout_margin="10dp"
         app:tabIndicatorColor="@color/colorPrimary"/>
-    <androidx.viewpager.widget.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:id="@+id/viewpager"
-        />
+
+        <RelativeLayout
+
+            android:visibility="gone"
+            android:id="@+id/rel_holder"
+            android:background="@color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"/>
+
+        <androidx.viewpager.widget.ViewPager
+            android:layout_below="@id/tablayout"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:id="@+id/viewpagerhide"
+            />
+        <androidx.viewpager.widget.ViewPager
+            android:layout_below="@id/tablayout"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:id="@+id/viewpager"
+            />
+</RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rel_total"

@@ -28,6 +28,7 @@ import in.matka.ns.R;
 import in.matka.ns.Util.LoadingBar;
 
 import static in.matka.ns.Activity.PanaActivity.game_names;
+
 import static in.matka.ns.Activity.PanaActivity.total;
 import static in.matka.ns.Config.Constants.*;
 import static in.matka.ns.Objects.sp_input_data.doublePanna;
@@ -85,6 +86,7 @@ public class FragmentOne extends Fragment {
     public void onStart() {
         super.onStart();
         bet_list.clear();
+
         bet_list.addAll(((PanaActivity)getActivity()).getBidList());
         if (game_names.equals("Single Pana"))
         {
