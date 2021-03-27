@@ -1,0 +1,60 @@
+Index: app/src/main/res/layout/row_fundshistry.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"wrap_content\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\">\r\n    <androidx.cardview.widget.CardView\r\n        android:layout_width=\"match_parent\"\r\n        app:cardCornerRadius=\"5dp\"\r\n        android:layout_margin=\"5dp\"\r\n\r\n        android:layout_height=\"wrap_content\">\r\n        <LinearLayout\r\n            android:background=\"@drawable/edittextcorner\"\r\n            android:layout_margin=\"1dp\"\r\n            android:layout_width=\"match_parent\"\r\n            android:orientation=\"horizontal\"\r\n            android:padding=\"10dp\"\r\n            android:layout_height=\"wrap_content\">\r\n<LinearLayout\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"wrap_content\"\r\n    android:weightSum=\"8\">\r\n    <LinearLayout\r\n        android:layout_width=\"0dp\"\r\n        android:layout_weight=\"5\"\r\n        android:layout_height=\"wrap_content\"\r\n\r\n        android:orientation=\"vertical\">\r\n        <TextView\r\n            android:id=\"@+id/matka_name\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_below=\"@id/txtTransId\"\r\n            android:gravity=\"center_vertical\"\r\n            android:text=\"Transaction Amount \"\r\n            android:textColor=\"@color/colorPrimary\"\r\n            android:textSize=\"18dp\"\r\n            android:visibility=\"gone\"\r\n            android:textStyle=\"bold\" />\r\n        <TextView\r\n            android:id=\"@+id/game_name\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_below=\"@id/txtTransId\"\r\n            android:gravity=\"center_vertical\"\r\n            android:text=\"Transaction Amount \"\r\n            android:visibility=\"gone\"\r\n            android:textSize=\"16dp\"\r\n            />\r\n\r\n        <TextView\r\n            android:id=\"@+id/type\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:padding=\"2dp\"\r\n            android:text=\"\"\r\n\r\n            android:textColor=\"@color/black\"\r\n            android:textSize=\"13dp\"\r\n            />\r\n\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:weightSum=\"2\"\r\n            android:orientation=\"horizontal\"\r\n            android:layout_height=\"wrap_content\">\r\n            <TextView\r\n\r\n                android:layout_width=\"wrap_content\"\r\n\r\n                android:layout_height=\"wrap_content\"\r\n                android:padding=\"2dp\"\r\n                android:text=\"Date : \"\r\n\r\n                android:textColor=\"@color/colorAccent\"\r\n                android:textSize=\"13dp\"\r\n                android:textStyle=\"bold\" />\r\n            <TextView\r\n                android:id=\"@+id/date\"\r\n                android:layout_width=\"wrap_content\"\r\n\r\n                android:layout_height=\"wrap_content\"\r\n                android:padding=\"2dp\"\r\n                android:text=\" \"\r\n                android:textColor=\"@color/colorAccent\"\r\n\r\n                android:textSize=\"15dp\"\r\n                />\r\n        </LinearLayout>\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:weightSum=\"2\"\r\n            android:orientation=\"horizontal\"\r\n            android:layout_height=\"wrap_content\">\r\n            <TextView\r\n\r\n                android:layout_width=\"wrap_content\"\r\n\r\n                android:layout_height=\"wrap_content\"\r\n                android:padding=\"2dp\"\r\n                android:text=\"Time : \"\r\n\r\n                android:textColor=\"@color/colorAccent\"\r\n                android:textSize=\"13dp\"\r\n                android:textStyle=\"bold\" />\r\n            <TextView\r\n                android:id=\"@+id/time\"\r\n                android:layout_width=\"wrap_content\"\r\n\r\n                android:layout_height=\"wrap_content\"\r\n                android:padding=\"2dp\"\r\n                android:text=\" \"\r\n                android:textColor=\"@color/colorAccent\"\r\n\r\n                android:textSize=\"15dp\"\r\n                />\r\n        </LinearLayout>\r\n\r\n\r\n\r\n    </LinearLayout>\r\n    <TextView\r\n        android:id=\"@+id/amount\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_weight=\"1.8\"\r\n        android:layout_gravity=\"center_vertical\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:textColor=\"@color/colorPrimaryDark\"\r\n        android:gravity=\"center_vertical\"\r\n        android:text=\"\"\r\n\r\n        android:textSize=\"16dp\"\r\n        android:textStyle=\"bold\" />\r\n    <TextView\r\n        android:id=\"@+id/status\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_weight=\"1.3\"\r\n        android:layout_gravity=\"center_vertical\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_below=\"@id/txtTransId\"\r\n        android:gravity=\"center_vertical\"\r\n        android:text=\"\"\r\n        android:textColor=\"@color/black\"\r\n\r\n        android:textSize=\"12dp\"\r\n        />\r\n</LinearLayout>\r\n\r\n\r\n\r\n        </LinearLayout>\r\n    </androidx.cardview.widget.CardView>\r\n\r\n\r\n</RelativeLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/row_fundshistry.xml	(revision 06239421494386b3a55664b9b01351662eb8e6b1)
++++ app/src/main/res/layout/row_fundshistry.xml	(date 1616844161148)
+@@ -13,13 +13,14 @@
+             android:background="@drawable/edittextcorner"
+             android:layout_margin="1dp"
+             android:layout_width="match_parent"
+-            android:orientation="horizontal"
++            android:orientation="vertical"
+             android:padding="10dp"
+             android:layout_height="wrap_content">
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+-    android:weightSum="8">
++    android:weightSum="8"
++    android:orientation="horizontal">
+     <LinearLayout
+         android:layout_width="0dp"
+         android:layout_weight="5"
+@@ -147,7 +148,32 @@
+         />
+ </LinearLayout>
+ 
+-
++            <LinearLayout
++                android:layout_width="match_parent"
++                android:weightSum="2"
++                android:orientation="horizontal"
++                android:layout_height="wrap_content">
++                <TextView
++
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:padding="2dp"
++                    android:text="Date : "
++                    android:textColor="@color/colorAccent"
++                    android:textSize="13dp"
++                    android:textStyle="bold" />
++                <TextView
++                    android:id="@+id/tv_type"
++                    android:layout_width="wrap_content"
++
++                    android:layout_height="wrap_content"
++                    android:padding="2dp"
++                    android:text=" "
++                    android:textColor="@color/colorAccent"
++
++                    android:textSize="15dp"
++                    />
++            </LinearLayout>
+ 
+         </LinearLayout>
+     </androidx.cardview.widget.CardView>
