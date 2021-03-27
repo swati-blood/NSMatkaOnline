@@ -46,7 +46,9 @@ import in.matka.ns.Fragments.AllHistoryFragment;
 import in.matka.ns.Fragments.GameRatesFragment;
 import in.matka.ns.Fragments.GenerateMpinFragment;
 import in.matka.ns.Fragments.HomeFragment;
+import in.matka.ns.Fragments.MyProfileFragment;
 import in.matka.ns.Fragments.NoticeFragment;
+import in.matka.ns.Fragments.ProfileFragment;
 import in.matka.ns.Fragments.UserFragment;
 import in.matka.ns.Fragments.WithdrawFundsFragment;
 import in.matka.ns.Model.MenuModel;
@@ -340,9 +342,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Fragment fm = null;
 
         if (id == R.id.nav_profile) {
-            //fm = new MyProfileFragment();
-
-            fm=new UserFragment ();
+//            fm = new ProfileFragment();
+            fm = new MyProfileFragment();
+//            fm=new UserFragment ();
         }
         else if (id == R.id.nav_home)
         {

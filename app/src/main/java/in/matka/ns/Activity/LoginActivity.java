@@ -280,7 +280,7 @@ toastMsg= new ToastMsg(LoginActivity.this);
                             String ifsc=common.checkNull(jsonObject.getString("ifsc_code").toString());
                             String holder=common.checkNull(jsonObject.getString("account_holder_name").toString());
                             String paytm=common.checkNull(jsonObject.getString("paytm_no").toString());
-                            String tez=common.checkNull(jsonObject.getString("tez_no").toString());
+                            String tez=common.checkNull(jsonObject.getString("google_pay").toString());
                             String phonepay=common.checkNull(jsonObject.getString("phonepay_no").toString());
                             String wallet=common.checkNull(jsonObject.getString("wallet").toString());
                             String dob=common.checkNull(jsonObject.getString("dob").toString());
@@ -288,7 +288,7 @@ toastMsg= new ToastMsg(LoginActivity.this);
                             String p = jsonObject.getString("password");
                             if (mPass.equals(p)) {
                                 session_management.createLoginSession(id,name,username,mobile,email,address
-                                ,city,pincode,accno,bank,ifsc,holder,paytm,tez,phonepay,dob,wallet,gender);
+                                ,city,pincode,accno,bank,ifsc,holder,paytm,tez,phonepay,dob,wallet,gender,"");
                                 Intent intent = new Intent(ctx, MainActivity.class);
                                 intent.putExtra("username", jsonObject.getString("username").toString());
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

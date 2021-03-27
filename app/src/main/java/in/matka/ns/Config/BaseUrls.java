@@ -19,6 +19,7 @@ public class BaseUrls {
     public static final String URL_Matka=BASE_URL+"getMatkas";
     public static final String URL_MENU = BASE_URL+"getMenu";
     public static final String URL_STARLINE=BASE_URL+"get_starline";
+    public static final String URL_PAYMENT_METHOD=BASE_URL+"getPaymentMethods";
 //    public static final String URL_FORGET_PASSWORD_WHATSAPP=BASE_URL+"password_details";
 //    public static final String URL_STARLINE="https://smartmatka.com/api/get_starline";
     public static final String URL_MATKA_WITH_ID=BASE_URL+"get_matka_with_id";

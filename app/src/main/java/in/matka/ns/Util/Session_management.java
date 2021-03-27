@@ -32,7 +32,7 @@ public class Session_management {
     public void createLoginSession(String id, String name, String username
             , String mobile, String email, String address, String city, String pincode, String accountno,
                                    String bank_name, String ifsc, String holder,String paytm,String tez,String phonepay,
-                                   String dob,String wallet,String gender) {
+                                   String dob,String wallet,String gender,String upi) {
 
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_ID, id);
@@ -53,6 +53,7 @@ public class Session_management {
         editor.putString(KEY_DOB, dob);
         editor.putString(KEY_WALLET, wallet);
         editor.putString(KEY_GENDER, gender);
+        editor.putString(KEY_UPI,upi);
         editor.putBoolean(KEY_DIALOG, false);
 
         editor.commit();
@@ -82,6 +83,7 @@ public class Session_management {
         user.put(KEY_WALLET, prefs.getString(KEY_WALLET, ""));
         user.put(KEY_DOB, prefs.getString(KEY_DOB, ""));
         user.put(KEY_GENDER, prefs.getString(KEY_GENDER, ""));
+        user.put(KEY_UPI, prefs.getString(KEY_UPI,""));
 
         return user;
     }
@@ -101,8 +103,9 @@ public class Session_management {
         editor.putString(KEY_PINCODE, pincode);
         editor.apply();
     }
-    public void updatePaymentSection(String tez,String paytm,String phonepay)
+    public void updatePaymentSection(String upi, String tez,String paytm,String phonepay)
     {
+        editor.putString(KEY_UPI,upi);
         editor.putString(KEY_TEZ, tez);
         editor.putString(KEY_PAYTM, paytm);
         editor.putString(KEY_PHONEPAY, phonepay);

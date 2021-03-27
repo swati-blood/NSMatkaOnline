@@ -63,6 +63,37 @@
                 android:padding="@dimen/_5sdp"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin_upi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/edittextcorner"
+            android:backgroundTint="@color/white"
+            android:elevation="@dimen/_5sdp"
+            android:layout_margin="@dimen/_5sdp">
+            <ImageView
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/door_hanger_50px"
+                android:padding="7dp"/>
+            <EditText
+                android:id="@+id/et_upi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="UPI Number"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:padding="@dimen/_5sdp"
+                android:inputType="number"
+                android:singleLine="true"
+                android:background="@color/white"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/lin_gpay"
         android:layout_width="match_parent"

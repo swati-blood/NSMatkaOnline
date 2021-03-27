@@ -48,10 +48,9 @@
                       android:layout_height="wrap_content"
                       android:textSize="16dp"
                       android:layout_margin="5dp"
-                      android:background="@drawable/edittextcorner"
+                      android:background="@drawable/shape2"
                       android:hint="Name"
-
-                      android:padding="10dp"
+                      android:padding="7dp"
 
                       />
                   <EditText
@@ -60,10 +59,10 @@
                       android:layout_height="wrap_content"
                       android:textSize="16dp"
                       android:layout_margin="5dp"
-                      android:background="@drawable/edittextcorner"
+                      android:background="@drawable/shape2"
                       android:hint="Mobile number"
                       android:inputType="number"
-                      android:padding="10dp"
+                      android:padding="7dp"
 
                       />
 
@@ -84,12 +83,12 @@
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:layout_margin="5dp"
-                      android:background="@drawable/edittextcorner"
+                      android:background="@drawable/shape2"
                       android:hint="Email "
 
                       android:textSize="16dp"
                       android:inputType="textEmailAddress"
-                      android:padding="10dp"
+                      android:padding="7dp"
                       />
 
                   <TextView
@@ -110,11 +109,11 @@
 
                       android:hint="Date of Birth"
                       android:layout_margin="5dp"
-                      android:background="@drawable/edittextcorner"
+                      android:background="@drawable/shape2"
 
                       android:text="Date of Birth"
 
-                      android:padding="10dp"
+                      android:padding="7dp"
                       android:textSize="16dp"
 
 
@@ -134,7 +133,7 @@
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:text="Male"
-                          android:layout_weight="1"
+                          android:layout_weight=".4"
                           android:id="@+id/male"/>
                       <RadioButton
                           android:layout_width="wrap_content"
@@ -164,12 +163,12 @@
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:layout_margin="5dp"
-                      android:background="@drawable/edittextcorner"
+                      android:background="@drawable/shape2"
 
                       android:textSize="16dp"
                       android:hint="City"
                       android:inputType="text"
-                      android:padding="10dp"
+                      android:padding="7dp"
 
 
                       />
@@ -181,13 +180,13 @@
                       android:layout_height="wrap_content"
                       android:layout_margin="5dp"
                       android:layout_marginTop="5dp"
-                      android:background="@drawable/edittextcorner"
+                      android:background="@drawable/shape2"
 
                       android:textSize="16dp"
                       android:hint="PinCode"
                       android:inputType="number"
                       android:maxLength="6"
-                      android:padding="10dp"
+                      android:padding="7dp"
                       />
 
                   <Button
