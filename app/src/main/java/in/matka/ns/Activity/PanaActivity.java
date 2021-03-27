@@ -239,6 +239,7 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         viewpagerhide.setAdapter (pagerAdapter);
         viewpager.setAdapter(pagerAdapter);
 
+
     }
     public void setWalletCounter(String walletAmount)
     {
@@ -253,7 +254,7 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         else if (v.getId()==R.id.tv_type)
         {
             viewpager.setVisibility (View.VISIBLE);
-
+viewpagerhide.setAdapter (null);
             viewpagerhide.setVisibility (View.GONE);
 
             //et_points.setEnabled (true);
