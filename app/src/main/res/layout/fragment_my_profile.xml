@@ -165,7 +165,7 @@
             android:paddingRight="@dimen/_10sdp"
             android:text="Submit"
             android:textAllCaps="false"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
 
 
             />
