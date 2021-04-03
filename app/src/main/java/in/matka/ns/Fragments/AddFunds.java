@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
+import in.matka.ns.Common.Common;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +29,6 @@ import java.util.HashMap;
 
 import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.AppController;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.Intefaces.GetAppSettingData;
 import in.matka.ns.Model.AppSettingModel;

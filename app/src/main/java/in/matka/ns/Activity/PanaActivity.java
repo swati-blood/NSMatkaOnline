@@ -3,7 +3,7 @@ package in.matka.ns.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.viewpager.widget.ViewPager;
-
+import in.matka.ns.Common.Common;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import in.matka.ns.Adapter.PagerAdapter;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Model.TableModel;
 import in.matka.ns.R;
 import in.matka.ns.Util.LoadingBar;
@@ -110,7 +109,7 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         game_names = getIntent().getStringExtra("game_name");
         game_ids = getIntent().getStringExtra("game_id");
         //matka_names=getIntent ().getStringExtra ("matka_name");
-        tv_title.setText (matka_names+"-"+game_names);
+        tv_title.setText (game_names);
 
         if (m_id>20)
 
@@ -258,7 +257,7 @@ viewpagerhide.setAdapter (null);
             viewpagerhide.setVisibility (View.GONE);
 
             //et_points.setEnabled (true);
-            common.setBetTypeDialog(dialog,txtOpen,txtClose,txt_type,txt_date.getText().toString(),s_time,e_time);
+            common.setBetTypeDialog(dialog,txtOpen,txtClose,txt_type,txt_date.getText().toString(),s_time,e_time,game_ids);
         }
         else if (v.getId()==R.id.tv_date)
         {

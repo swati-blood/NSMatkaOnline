@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import in.matka.ns.Common.Common;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +27,6 @@ import java.util.List;
 import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.Adapter.StralinegameAdapter;
 import in.matka.ns.AppController;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.Model.GameModel;
 import in.matka.ns.Model.GameStatusModel;

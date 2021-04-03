@@ -9,12 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import in.matka.ns.Common.Common;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import in.matka.ns.Activity.MainActivity;
-import in.matka.ns.Common.Common;
 import in.matka.ns.R;
 
 /**

@@ -3,7 +3,7 @@ package in.matka.ns.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
+import in.matka.ns.Common.Common;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +24,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import in.matka.ns.AppController;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.R;
 import in.matka.ns.Util.ConnectivityReceiver;
@@ -39,9 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
     Common common;
 
     CheckBox checkbox;
-    private EditText txtName,txtMobile,txtPass,txtConPass,txtUserName;
-//    static String URL_REGIST="http://anshuwap.com/AddaApp/register.php";
-
+    private EditText txtName,txtMobile,txtPass,txtConPass,txtUserName,et_ref;
     ProgressBar pb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
        common=new Common(RegisterActivity.this);
         txtMobile=(EditText)findViewById(R.id.etMobile);
         txtPass=(EditText)findViewById(R.id.etPass);
+        et_ref=(EditText)findViewById(R.id.et_ref);
         txtConPass=(EditText)findViewById(R.id.etConPass);
         txtUserName=(EditText)findViewById(R.id.etUserName);
         btnRegister=(Button)findViewById(R.id.btnRegister);
@@ -97,9 +95,20 @@ public class RegisterActivity extends AppCompatActivity {
                   txtPass.setError("Please enter password");
                   txtPass.requestFocus();
                   return;
-              }else  if(TextUtils.isEmpty(txtConPass.getText().toString()))
+              }else  if(txtPass.getText().toString().length()<5)
+              {
+                  common.showToast(getString(R.string.minimum_pass));
+                  txtPass.requestFocus();
+                  return;
+              }
+              else  if(TextUtils.isEmpty(txtConPass.getText().toString()))
               {
                   txtConPass.setError("Please re-enter password");
+                  txtConPass.requestFocus();
+                  return;
+              }else  if(txtConPass.getText().toString().length()<5)
+              {
+                  common.showToast(getString(R.string.minimum_pass));
                   txtConPass.requestFocus();
                   return;
               }
@@ -114,10 +123,9 @@ public class RegisterActivity extends AppCompatActivity {
                   int sf= Integer.parseInt(phone_value.substring(0,1));
                   int len=phone_value.length();
 
-                  if(sf<6 || len<10)
+                  if(sf<6)
                   {
-                      Toast.makeText(RegisterActivity.this,"Invalid Mobile number \n" +
-                              "mobile number never start with 0 and <6", Toast.LENGTH_LONG).show();
+                      Toast.makeText(RegisterActivity.this,getString(R.string.invalid_mobile), Toast.LENGTH_LONG).show();
                   }
                   else
                   {
@@ -186,13 +194,14 @@ public class RegisterActivity extends AppCompatActivity {
         final String fmobile=phone_value;
         final String fpass=txtPass.getText().toString().trim();
         final String fconpass=txtConPass.getText().toString().trim();
-
+       String ref_code=et_ref.getText().toString();
         HashMap<String,String> params=new HashMap<>();
         params.put("key","1");
         params.put("username",uname);
         params.put("name",fname);
         params.put("mobile",fmobile);
         params.put("password",fpass);
+        params.put("ref_code",ref_code);
         CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_REGISTER, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

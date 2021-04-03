@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-
+import in.matka.ns.Common.Common;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +21,6 @@ import java.util.List;
 
 import in.matka.ns.Activity.PanaActivity;
 import in.matka.ns.Adapter.SigleDoublePanaAdapter;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Intefaces.UpdateTotalBidAmount;
 import in.matka.ns.Model.TableModel;
 import in.matka.ns.R;

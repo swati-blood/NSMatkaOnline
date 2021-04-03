@@ -3,7 +3,7 @@
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
+import in.matka.ns.Common.Common;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +27,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import in.matka.ns.AppController;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.Intefaces.GetAppSettingData;
 import in.matka.ns.Model.AppSettingModel;

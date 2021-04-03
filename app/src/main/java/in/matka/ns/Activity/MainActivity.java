@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import in.matka.ns.Common.Common;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -28,19 +29,15 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import in.matka.ns.Adapter.MenuAdapter;
-import in.matka.ns.AppController;
 
-import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.Fragments.AllHistoryFragment;
 import in.matka.ns.Fragments.GameRatesFragment;
@@ -48,17 +45,16 @@ import in.matka.ns.Fragments.GenerateMpinFragment;
 import in.matka.ns.Fragments.HomeFragment;
 import in.matka.ns.Fragments.MyProfileFragment;
 import in.matka.ns.Fragments.NoticeFragment;
-import in.matka.ns.Fragments.ProfileFragment;
-import in.matka.ns.Fragments.UserFragment;
 import in.matka.ns.Fragments.WithdrawFundsFragment;
 import in.matka.ns.Model.MenuModel;
 import in.matka.ns.R;
-import in.matka.ns.Util.CustomJsonRequest;
+import in.matka.ns.Util.LoadingBar;
 import in.matka.ns.Util.Session_management;
 
+import static in.matka.ns.Config.Constants.KEY_ID;
 import static in.matka.ns.Config.Constants.KEY_NAME;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Activity activity = MainActivity.this;
     TextView txt_wallet,txtUserName ,txt_title ;
     DrawerLayout drawer;
@@ -69,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Common common;
     TextView user_mobile;
     NavigationView navigationView;
+    LoadingBar loadingBar;
 
 
     Session_management session_management;
@@ -82,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        txt_wallet = findViewById(R.id.txtWallet);
 //        txt_title = findViewById(R.id.tv_title);
         common=new Common(activity);
+        loadingBar=new LoadingBar(activity);
         session_management=new Session_management(activity);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -129,117 +127,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         txtUserName=(TextView)navigationView.getHeaderView(0).findViewById(R.id.user_mobile);
 
-
-//        list_menu.addOnItemTouchListener(new RecyclerTouchListener(this, list_menu, new RecyclerTouchListener.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, int position) {
-//                Fragment fm=null;
-//                Bundle args = new Bundle();
-//                Intent i  = null;
-//
-//                switch (menuList.get(position).getName()){
-//
-//                    case "Logout":
-//                        AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
-//
-//                        builder.setMessage("LOGOUT?")
-//                                .setCancelable(false)
-//                                .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        session_management.logoutSession();
-//
-//                                    }
-//                                })
-//                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        dialog.cancel();
-//                                    }
-//                                });
-//                        AlertDialog alertDialog=builder.create();
-//                        alertDialog.show();
-//                        break;
-//
-//                    case "Home":
-//                        //i=new Intent(MainActivity.this, HomeActivity.class);
-//                        fm = new HomeFragment();
-//                        break;
-//
-//                    case "Profile":
-//                       // i=new Intent(HomeActivity.this, ProfileActivity.class);
-//                        fm=new UserFragment ();
-//                        break;
-//
-//                    case "Game History":
-//                        Bundle bundle = new Bundle();
-//                        bundle.putString("type","bid");
-//                        fm = new AllHistoryFragment();
-//                        fm.setArguments(bundle);
-//                        break;
-//
-//                    case "Starline History":
-////                        i =new Intent(HomeActivity.this, Starline_Activity.class);
-//                        break;
-//
-//                    case "Point History":
-//                        Bundle bundle2 = new Bundle();
-//                         bundle2.putString("type","bid");
-//                         fm = new AllHistoryFragment();
-//                         fm.setArguments(bundle2);
-//            break;
-//                    case "Add Points":
-//                        i=new Intent(MainActivity.this,AddFundRequestActivity.class);
-//
-//                        break;
-//                    case "Withdraw Request":
-//
-//                        fm = new WithdrawFundsFragment();
-//
-//                        break;
-//
-//                    case "Game Rates":
-//                        fm = new GameRatesFragment();
-//                        break;
-//                    case "Notice Board/Rules":
-//                        fm = new NoticeFragment();
-//                        break;
-//
-//                }
-//                if (fm!=null) {
-//                    FragmentManager fragmentManager = getSupportFragmentManager();
-//                    fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-//                            .addToBackStack(null)
-//                            .commit();
-//
-//                }
-//                if (i!=null)
-//                {
-////                    ActivityOptions options =
-////                            ActivityOptions.makeCustomAnimation(, R.anim.in_from_right, R.anim.out_to_left);
-//                //   startActivity(i , options.toBundle());
-//                   startActivity(i);
-//
-////                            if(fm!=null){
-////            FragmentManager fragmentManager = getSupportFragmentManager();
-////            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-////                    .addToBackStack(null)
-////                    .commit();
-//
-//        }
-//        drawer.closeDrawer(GravityCompat.START);
-//                }
-//
-//
-//
-//            @Override
-//            public void onLongItemClick(View view, int position) {
-//
-//            }
-//        }));
-
-
-
         if(session_management.getUserDetails().get(KEY_NAME).toString().isEmpty() || session_management.getUserDetails().get(KEY_NAME).toString().equals(""))
         {
 
@@ -266,22 +153,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Fragment fr = getSupportFragmentManager().findFragmentById(R.id.contentPanel);
 
                     final String fm_name = fr.getClass().getSimpleName();
-                    Log.e("backstack: ", ": " + fm_name);
                     if (fm_name.contentEquals("HomeFragment")) {
                         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                         toggle.setDrawerIndicatorEnabled(true);
                         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                         toggle.syncState();
-
                     }
                     else {
-
                         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
                         toggle.setDrawerIndicatorEnabled(false);
                         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                         toggle.syncState();
-
                         toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -380,6 +262,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fm.setArguments(bundle);
 
         }
+        else if (id == R.id.nav_starline) {
+            Bundle bundle = new Bundle();
+            bundle.putString("type","starline");
+            fm = new AllHistoryFragment();
+            fm.setArguments(bundle);
+
+        }
         else if (id == R.id.nav_wallet) {
 
             Bundle bundle = new Bundle();
@@ -396,6 +285,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fm = new NoticeFragment();
 
 
+        }else if(id==R.id.nav_share){
+            shareRafCode();
         }
         else if (id == R.id.nav_logout) {
 
@@ -447,94 +338,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String s = txt_wallet.getText().toString().trim();
         return s;
     }
-    public void getMenu()
-    {
-        HashMap<String, String> params = new HashMap<>();
-        CustomJsonRequest customJsonRequest= new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_MENU, params, new Response.Listener<JSONObject>() {
+
+
+
+   private void shareRafCode(){
+        loadingBar.show();
+        String user_id=session_management.getUserDetails().get(KEY_ID);
+        HashMap<String,String> params=new HashMap<>();
+        params.put("user_id",user_id);
+        common.postRequest(BaseUrls.URL_GET_REFCODE, params, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONArray array = response.getJSONArray("data");
-                    Log.e ("icondata", "onResponse: "+response);
-                    for (int i=0;i<array.length();i++){
-                        MenuModel menuModel = new MenuModel();
-                        JSONObject obj = array.getJSONObject(i);
-                        menuModel.setName(obj.getString("name"));
-                        menuModel.setId(obj.getString("id"));
-                        menuModel.setStatus(obj.getString("status"));
-                        menuList.add(menuModel);
-                    }
-                    Log.e("ksmdjcnhfb", String.valueOf(menuList.size()));
-//                    Gson gson= new Gson();
-//                    MenuModel menuModel = new MenuModel();
-//                    Type listType=new TypeToken<List<MenuModel>>(){}.getType();
-//                    menuList=gson.fromJson(response.toString(),listType);
-                    for (int i=0; i<menuList.size();i++){
-                        Log.e("ldekfjgn", String.valueOf(menuList.size()));
-                        switch (menuList.get(i).getName())
-                        {
-                            case "Home":
-                                menuList.get(i).setImg(R.drawable.icons8_home_128px);
-                                break;
-                            case "Profile":
-                                menuList.get(i).setImg(R.drawable.icons8_male_user_240px);
-                                break;
-                            case "Game History":
-                                menuList.get(i).setImg(R.drawable.icons8_payment_history_128px);
-                                break;
-//                            case "Starline History":
-//                                menuList.get(i).setImg(R.drawable.icons8_payment_history_128px);
-//                                break;
-                            case "Point History":
-                                menuList.get(i).setImg(R.drawable.icons8_order_history_100px);
-                                break;
-//                            case "Add Points":
-//                                menuList.get(i).setImg(R.drawable.ic_account_balance_wallet_black_24dp);
-//                                break;
-//                            case "Withdraw Request":
-//                                menuList.get(i).setImg(R.drawable.icons8_receive_cash_240px);
-//                                break;
-                            case "Game Rates":
-                                menuList.get(i).setImg(R.drawable.icons8_coins_100px);
-                                break;
-                            case "Logout":
-                                menuList.get(i).setImg(R.drawable.icons8_logout_rounded_up_128px);
-                                break;
-                            case "Notice Board/Rules":
-                                menuList.get(i).setImg(R.drawable.icons8_bulleted_list_128px);
-                                break;
-                        }
-                    }
-                    list_menu.setHasFixedSize(true);
-                    list_menu.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                    menuAdapter = new MenuAdapter(MainActivity.this,menuList);
-                    list_menu.setAdapter(menuAdapter);
-                    menuAdapter.notifyDataSetChanged();
-                    //  list_menu.setAdapter(menuAdapter);
-                    Log.e("timSlot",menuList.size()+" "+response.toString());
-
-                }
-                catch (Exception ex)
-                {
-                    ex.printStackTrace();
-                }
-
+            public void onResponse(String response) {
+                loadingBar.dismiss();
+             try {
+                 JSONObject obj=new JSONObject(response);
+                 if(obj.getBoolean("response")){
+                    common.shareText(obj.getString("data").toString());
+                 }else{
+                     common.showToast(""+obj.getString("error"));
+                 }
+             }catch (Exception ex){
+                 ex.printStackTrace();
+             }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("error",error.toString());
-                Toast.makeText(MainActivity.this,""+error.getMessage(),Toast.LENGTH_LONG).show();
-
+                loadingBar.dismiss();
+                common.showVolleyError(error);
             }
         });
-        AppController.getInstance().addToRequestQueue(customJsonRequest);
-    }
 
-    @Override
-    public void onClick(View v) {
-
-    }
-
-
+   }
 }

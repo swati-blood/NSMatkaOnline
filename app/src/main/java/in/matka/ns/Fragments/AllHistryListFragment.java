@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import in.matka.ns.Common.Common;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +33,6 @@ import in.matka.ns.Adapter.Request_HistoryAdapter;
 import in.matka.ns.Adapter.TransactionHistoryAdapter;
 import in.matka.ns.Adapter.Withdraw_request_Adapter;
 import in.matka.ns.AppController;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.Model.BidHistoryObjects;
 import in.matka.ns.Model.TransactionHistoryObjects;

@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
+import in.matka.ns.Common.Common;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -20,32 +19,31 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.AppController;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
-import in.matka.ns.Intefaces.GetAppSettingData;
-import in.matka.ns.Model.AppSettingModel;
 import in.matka.ns.Model.PaymentMethodModel;
+import in.matka.ns.Model.TimeSlots;
 import in.matka.ns.R;
 import in.matka.ns.Util.CustomJsonRequest;
 import in.matka.ns.Util.LoadingBar;
 import in.matka.ns.Util.Session_management;
 import in.matka.ns.Util.ToastMsg;
 
-import static android.content.Context.COMPANION_DEVICE_SERVICE;
 import static in.matka.ns.Activity.splash_activity.withdrw_text;
 import static in.matka.ns.Config.BaseUrls.URL_PAYMENT_METHOD;
 import static in.matka.ns.Config.Constants.KEY_ACCOUNNO;
@@ -61,6 +59,7 @@ import static in.matka.ns.Config.Constants.KEY_WALLET;
  * A simple {@link Fragment} subclass.
  */
 public class WithdrawFundsFragment extends Fragment implements View.OnClickListener {
+    private final String TAG=WithdrawFundsFragment.class.getSimpleName();
     Common common;
     private TextView txtback, txtWalletAmount, txtMobile, txt_withdrw_instrctions;
     private LoadingBar progressDialog;
@@ -72,11 +71,14 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
     String min_add_amount = "0";
     Session_management session_management;
     int w_amt;
+    ArrayList<TimeSlots> timeList;
+
     int type = -1;
     RadioGroup rd_group;
     RadioButton rb_paytm, rb_google, rb_phone, rb_bank, rb_upi;
     ArrayList<PaymentMethodModel> pList;
-
+    int wMinAmt=0;
+    String wSunday="",wSaturday="";
     public WithdrawFundsFragment() {
         // Required empty public constructor
     }
@@ -88,12 +90,7 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_withdraw_funds, container, false);
         initView(view);
-        common.appSettingData(new GetAppSettingData() {
-            @Override
-            public void getAppSettingData(AppSettingModel model) {
-                min_add_amount = model.getMin_withdraw().toString();
-            }
-        });
+        getTimeSlots();
         return view;
     }
 
@@ -101,6 +98,7 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
         ((MainActivity) getActivity()).setTitle("Withdraw Points");
         common = new Common(getActivity());
         toastMsg = new ToastMsg(getActivity());
+        timeList=new ArrayList<>();
         session_management = new Session_management(getActivity());
         txtback = (TextView) v.findViewById(R.id.txtBack);
         txtWalletAmount = (TextView) v.findViewById(R.id.wallet_amount);
@@ -142,69 +140,53 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.add_Request) {
-
-            String points = etPoint.getText().toString().trim();
-
-            if (TextUtils.isEmpty(points)) {
-                etPoint.setError("Enter Some points");
-                return;
-            } else {
-
-                Calendar calendar = Calendar.getInstance();
-
-                SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
-                saveCurrentDate = currentDate.format(calendar.getTime());
-
-                SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss");
-                saveCurrentTime = currentTime.format(calendar.getTime());
-
-                day = calendar.get(Calendar.DAY_OF_WEEK);
+            Log.e(TAG, "onClick: "+wSaturday+"::"+wSaturday );
+            if(getValidWtihdrawDay(wSunday,wSaturday)){
+                if(getValidTime()){
+                    validateData();
+                }else{
+                    common.errorMessageDialog("Withdraw Timeout");
+                }
+            }else{
+                common.errorMessageDialog("Withdraw Request Closed for today");
+            }
 
 
-                String a[] = saveCurrentTime.split(":");
-                hours = Integer.parseInt(a[0]);
-                //  Toast.makeText(WithdrawalActivity.this, ""+day +hours, Toast.LENGTH_SHORT).show();
-//                if((hours>=10&&hours<17)&&(day>1 && day<7))
-                Log.e("sderftgyhu", String.valueOf(day));
-                if (day > 1 && day == 7) {
-                    String user_id = common.getUserId();
-                    String pnts = String.valueOf(points);
-                    String st = "pending";
+        }
+    }
 
-                    int t_amt = Integer.parseInt(pnts);
-                    if (w_amt > 0) {
+    private void validateData()
+    {
+        String points = etPoint.getText().toString().trim();
+        if (TextUtils.isEmpty(points)) {
+            etPoint.setError("Enter Some points");
+            return;
+        } else {
+            String user_id = common.getUserId();
+            String pnts = String.valueOf(points);
+            String st = "pending";
 
-                        if (t_amt < Integer.parseInt(min_add_amount)) {
-                            toastMsg.toastIconError(("Minimum Withdraw amount " + min_add_amount));
-                        } else {
-                            if (t_amt > w_amt) {
-                                toastMsg.toastIconError("Your requested amount exceeded");
-                                return;
-                            } else {
-                                if (type == -1) {
-                                    common.errorMessageDialog("Select Any One Withdraw Type");
-                                } else {
-                                    validateWithdrawType(type,st,"Withdrawal");
-                                }
-                            }
-//                            else {
-//                                // saveInfoIntoDatabase(user_id, String.valueOf(t_amt), st);
-//                                saveInfoIntoDatabase(user_id,String.valueOf(t_amt),st,"Withdrawal");
-//                            }
-//
-                        }
+            int t_amt = Integer.parseInt(pnts);
+            if (w_amt > 0) {
 
-                    } else {
-                        toastMsg.toastIconError("You don't have enough points in wallet ");
-                    }
-
+                if (t_amt < wMinAmt) {
+                    toastMsg.toastIconError(("Minimum Withdraw amount " + wMinAmt));
                 } else {
-                    toastMsg.toastIconError("Time Out ");
-                    return;
+                    if (t_amt > w_amt) {
+                        toastMsg.toastIconError("Your requested amount exceeded");
+                        return;
+                    } else {
+                        if (type == -1) {
+                            common.errorMessageDialog("Select Any One Withdraw Type");
+                        } else {
+                            validateWithdrawType(type,st,"Withdrawal");
+                        }
+                    }
 
                 }
 
-//                        saveInfoIntoDatabase(user_id,pnts,st);
+            } else {
+                toastMsg.toastIconError("You don't have enough points in wallet ");
             }
 
         }
@@ -420,5 +402,78 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
             fragmentManager.beginTransaction().replace(R.id.contentPanel, fm).addToBackStack(null).commit();
         }
     }
+    public void getTimeSlots(){
+        progressDialog.show();
+        timeList.clear();
+        HashMap<String,String> params=new HashMap<>();
+        common.postRequest(BaseUrls.URL_TIME_SLOTS, params, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String resp) {
 
+                progressDialog.dismiss();
+                try {
+                    JSONObject response=new JSONObject(resp);
+                    if(response.getBoolean("responce")){
+                        Gson gson=new Gson();
+                        Type typeList=new TypeToken<List<TimeSlots>>(){}.getType();
+                        timeList=gson.fromJson(response.getString("data").toString(),typeList);
+                        JSONObject configObj=response.getJSONObject("config");
+                        wMinAmt=Integer.parseInt(configObj.getString("min_withdraw"));
+                        wSaturday=configObj.getString("w_saturday").toString();
+                        wSunday=configObj.getString("w_sunday").toString();
+
+
+                    }else{
+                        common.showToast("Something Went Wrong");
+                    }
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                common.showVolleyError(error);
+            }
+        });
     }
+
+    public boolean getValidTime(){
+        boolean flag=false;
+        for(int i=0;i<timeList.size();i++){
+            long startDiff=common.getTimeDiffernce(timeList.get(i).getStart_time());
+            long endDiff=common.getTimeDiffernce(timeList.get(i).getEnd_time());
+            if(startDiff>0 && endDiff<0){
+                flag=true;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    public boolean getValidWtihdrawDay(String wsun,String wsat){
+        boolean flag=false;
+        String day=new SimpleDateFormat("EEEE").format(new Date()).toString();
+        if(day.equalsIgnoreCase("Sunday")){
+            if(wsun.equals("1")){
+                flag=true;
+            }else{
+                flag=false;
+            }
+        }else if(day.equalsIgnoreCase("Saturday")){
+            if(wsat.equals("1")){
+                flag=true;
+            }else{
+                flag=false;
+            }
+        }else{
+            flag=true;
+        }
+        return flag;
+    }
+
+
+
+}

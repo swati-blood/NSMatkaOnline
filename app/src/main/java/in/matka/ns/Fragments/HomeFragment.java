@@ -9,12 +9,13 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-
+import in.matka.ns.Common.Common;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.Html;
 import android.util.Log;
@@ -48,7 +49,6 @@ import java.util.HashMap;
 
 import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.Adapter.NewMatkaAdpater;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.Fragments.starline.StarlineFragment;
 import in.matka.ns.Intefaces.GetAppSettingData;
@@ -72,7 +72,7 @@ import static in.matka.ns.Config.BaseUrls.URL_Matka;
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
     TextView tv_admin,tv_number ,text_number;
-
+   SwipeRefreshLayout swipe;
     public final String TAG=HomeFragment.class.getSimpleName();
     NewMatkaAdpater matkaAdapter ;
     private ArrayList<MatkasObjects> matkaList;
@@ -143,40 +143,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
            }
        });
 
-
-//       rv_matka.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv_matka, new RecyclerTouchListener.OnItemClickListener() {
-//           @Override
-//           public void onItemClick(View view, int position) {
-//               MatkasObjects objects = matkaList.get(position);
-//               Bundle bundle = new Bundle();
-//
-//               bundle.putString("matka_name",objects.getName());
-//               bundle.putString("m_id",objects.getId());
-//               bundle.putString("start_number",objects.getStarting_num());
-//               bundle.putString("number",objects.getNumber());
-//               bundle.putString("end_number",objects.getEnd_num());
-//               bundle.putString("end_time",objects.getBid_end_time());
-//               bundle.putString("start_time",objects.getBid_start_time());
-//               Fragment fm  = new MainFragment();
-//               fm.setArguments(bundle);
-//               FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//               fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-//                       .addToBackStack(null).commit();
-//
-//           }
-//
-//           @Override
-//           public void onLongItemClick(View view, int position) {
-//
-//           }
-//       }));
        return  view;
     }
 
    private void initViews(View v)
    {
-      // text_number=(TextView)v.findViewById (R.id.number);
-
        tv_number=v.findViewById (R.id.tv_number);
        rl_whatsapp=v.findViewById (R.id.rl_whatsapp);
        tv_starline=v.findViewById (R.id.tv_starline);
@@ -188,6 +159,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
        ((MainActivity) getActivity()).setTitle(getActivity().getResources().getString(R.string.app_name));
     rv_matka= v.findViewById(R.id.listView);
     home_slider= v.findViewById(R.id.home_slider);
+       swipe= v.findViewById(R.id.swipe);
        card_home= v.findViewById(R.id.card_home);
     progressDialog = new LoadingBar(getActivity());
     common = new Common(getActivity());
@@ -196,6 +168,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
        tv_admin=v.findViewById (R.id.tv_admin);
     card_starline.setOnClickListener(this);
+    swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            homeData();
+        }
+    });
 
    }
 
@@ -208,8 +186,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         CustomVolleyJsonArrayRequest jsonArrayRequest = new CustomVolleyJsonArrayRequest (Request.Method.POST, URL_Matka, params, new com.android.volley.Response.Listener<JSONArray> ( ) {
             @Override
             public void onResponse(JSONArray response) {
-                Log.e(TAG, "onResponse: "+response.toString() );
                 matkaList.clear();
+                if(swipe.isRefreshing()){
+                    swipe.setRefreshing(false);
+                }
                 for(int i=0; i<response.length();i++)
                 {
                     try
@@ -252,6 +232,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }, new com.android.volley.Response.ErrorListener ( ) {
             @Override
             public void onErrorResponse(VolleyError error) {
+                if(swipe.isRefreshing()){
+                    swipe.setRefreshing(false);
+                }
                 progressDialog.dismiss();
                 String msg=common.VolleyErrorMessage(error);
                 if(!msg.isEmpty())
@@ -275,8 +258,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onStart() {
         super.onStart();
        // common.status ();
+      homeData();
+//        ((MainActivity)getActivity()).setWalletCounter(session_management.getUserDetails().get(Constants.KEY_WALLET));
+
+    }
+
+    private void homeData()
+    {
         if(ConnectivityReceiver.isConnected()) {
-           // common.status ();
+            // common.status ();
             common.appSettingData(new GetAppSettingData() {
                 @Override
                 public void getAppSettingData(AppSettingModel model) {
@@ -299,14 +289,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //                        if(common.checkNullString(model.getWhatsapp_no())){
 //                            rl_whatsapp.setVisibility(View.GONE);
 //                        }
-                         if(common.checkNullString(model.getWithdraw_no ())){
+                        if(common.checkNullString(model.getWithdraw_no ())){
                             rl_whatsapp.setVisibility(View.GONE);
                         }else{
                             rl_whatsapp.setVisibility(View.VISIBLE);
-    //                        wMsg=model.getWhatsapp_msg();
+                            //                        wMsg=model.getWhatsapp_msg();
 //                            wNo=model.getWhatsapp_no();
-                             wMsg=model.getWhatsapp_msg ();
-                             wNo=model.getWithdraw_no ();
+                            wMsg=model.getWhatsapp_msg ();
+                            wNo=model.getWithdraw_no ();
                         }
 
 
@@ -356,16 +346,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             }
             else {
-               // showUpdateDialog();
+                // showUpdateDialog();
             }
 
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-//        ((MainActivity)getActivity()).setWalletCounter(session_management.getUserDetails().get(Constants.KEY_WALLET));
-
     }
-
     void showUpdateDialog()
     {
         final Dialog dialog=new Dialog(getActivity());

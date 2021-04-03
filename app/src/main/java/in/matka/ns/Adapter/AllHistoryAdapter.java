@@ -54,10 +54,13 @@ public class AllHistoryAdapter extends RecyclerView.Adapter<AllHistoryAdapter.Vi
         }
 
 
-        if(model.getBet_type ().equals ("")){
+        if(model.getBet_type().equals("")){
             holder.txt_matka_name.setText (model.getName ());
-
-        }else {
+        }else if(model.getGame_id().equals("13")) {
+            holder.txt_matka_name.setText(model.getName()+" ( Full Sangam ) ");
+        }else if(model.getGame_id().equals("12")){
+            holder.txt_matka_name.setText(model.getName()+" ( Half Sangam ) ");
+        }else{
             holder.txt_matka_name.setText(model.getName()+" ( "+model.getBet_type()+" ) ");
         }
 

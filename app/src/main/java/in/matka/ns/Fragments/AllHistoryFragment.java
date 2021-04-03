@@ -92,7 +92,7 @@ public class AllHistoryFragment extends Fragment {
                 ((MainActivity) getActivity ( )).setTitle ("Point History");
                 getFundHistry (user_id);
             }
-            else if (type.equals ("starline")) {
+            else if (type.equals("starline")) {
                 ((MainActivity) getActivity ( )).setTitle ("StarLine History");
                 getStarLineHistory (user_id);
             }
@@ -128,9 +128,9 @@ try{
             model.setDigits (obj.getString ("digits"));
             model.setDate (obj.getString ("date"));
             model.setTime (obj.getString ("time"));
-            model.setName (obj.getString ("name"));
+            model.setName (obj.getString ("s_game_time"));
             model.setStatus (obj.getString ("status"));
-            model.setBet_type ("");
+            model.setBet_type("");
 
            //  model.setBet_type (obj.getString ("bet_type"));
 

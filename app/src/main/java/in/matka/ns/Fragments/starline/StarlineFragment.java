@@ -2,7 +2,7 @@ package in.matka.ns.Fragments.starline;
 
 import android.content.Intent;
 import android.os.Bundle;
-
+import in.matka.ns.Common.Common;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -35,7 +35,6 @@ import java.util.Map;
 import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.Adapter.PGAdapter;
 import in.matka.ns.AppController;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Config.URLs;
 import in.matka.ns.Fragments.AllHistoryFragment;
 import in.matka.ns.Model.GameRateModel;
@@ -52,6 +51,7 @@ import in.matka.ns.networkconnectivity.NoInternetConnection;
 import static in.matka.ns.Config.BaseUrls.URL_STARLINE;
 
 public class StarlineFragment extends Fragment implements View.OnClickListener {
+    private final String TAG=StarlineFragment.class.getSimpleName();
     ListView rv_matka;
     ArrayList<GameRateModel> list;
     ArrayList<GameRateModel> slist;
@@ -152,37 +152,17 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
                     String matka_name="STARLINE";
 
         Bundle bundle = new Bundle();
-//                    bundle.putString("matka_name",objects.getName());
                     bundle.putString("m_id",starline_objects.getId());
-//                    bundle.putString("start_number",objects.getStarting_num());
-//                    bundle.putString("number",objects.getNumber());
-//                    bundle.putString("end_number",objects.getEnd_num());
                     bundle.putString("end_time",e_t);
                     bundle.putString("start_time",s_t);
+                    Log.e(TAG, "onItemClick: "+starline_objects.getId());
         Fragment fm  = new StarMainFragment();
         fm.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
                 .addToBackStack (null)
                 .commit();
-//                    Intent intent=new Intent(PlayGameActivity.this, NewGameActivity.class);
-//                    intent.putExtra("tim",position);
-//                    intent.putExtra("matkaName",matka_name);
-//                    intent.putExtra("bet","ocb");
-//                    intent.putExtra("m_id",s_id);
-//                    intent.putExtra("end_time",e_t);
-//                    intent.putExtra("start_time",s_t);
-//                    startActivity(intent);
-                    //Toast.makeText(PlayGameActivity.this,""+s_id,Toast.LENGTH_LONG).show();
                 }
-//                if(flg==1)
-//                {
-//                    Toast.makeText(PlayGameActivity.this,"close",Toast.LENGTH_LONG).show();
-//                }
-//                else if(flg==2)
-//                {
-//                    Toast.makeText(PlayGameActivity.this,"open",Toast.LENGTH_LONG).show();
-//                }
 
             }
         });

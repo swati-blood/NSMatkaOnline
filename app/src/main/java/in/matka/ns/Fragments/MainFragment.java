@@ -5,8 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
-import android.util.Log;
+import in.matka.ns.Common.Common;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import in.matka.ns.Activity.MainActivity;
-import in.matka.ns.Common.Common;
 import in.matka.ns.R;
 
 /**
@@ -55,12 +53,7 @@ TextView tv_m_name ,tv_s_time ,tv_end_time,tv_num;
 
      tv_game.setText("");
      tv_m_name.setText(matka_name);
-     if(common.checkNullString(end_num)){
-         tv_num.setText(start_num+" - "+num);
-     }else{
-         tv_num.setText(start_num+" - "+num+" - "+end_num);
-     }
-
+     tv_num.setText(common.getValidNumber(start_num,1)+"-"+common.getValidNumber(num,2)+"-"+common.getValidNumber(end_num,3));
 
 
 
@@ -85,7 +78,6 @@ TextView tv_m_name ,tv_s_time ,tv_end_time,tv_num;
                    inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),0);
                    Fragment fr=getActivity().getSupportFragmentManager().findFragmentById(R.id.container_frame);
                    String frName=fr.getClass().getSimpleName();
-                   Log.e("Fragment_main", "onBackStackChanged: "+frName);
                    if(frName.contentEquals("SelectGameFragment")){
                        tv_game.setText("");
                    }

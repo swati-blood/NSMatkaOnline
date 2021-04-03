@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import in.matka.ns.Common.Common;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -37,7 +37,8 @@ import in.matka.ns.Util.ToastMsg;
 public class NewMatkaAdpater extends RecyclerView.Adapter<NewMatkaAdpater.ViewHolder> {
     private final String TAG= NewMatkaAdpater.class.getSimpleName();
     private Activity context;
-    Module common ;
+    Module module ;
+    Common common;
     private ArrayList<MatkasObjects> list;
     private int flag=0;
     Vibrator vibe;
@@ -83,11 +84,10 @@ public class NewMatkaAdpater extends RecyclerView.Adapter<NewMatkaAdpater.ViewHo
             startTime=model.getBid_start_time();
             endTime=model.getBid_end_time();
         }
-        Log.e("matka_time", "onBindViewHolder: "+startTime+"\n "+endTime );
         holder.txtmatkaBid_openTime.setText(common.get24To12Format(startTime));
         holder.txtmatkaBid_closeTime.setText(common.get24To12Format(endTime));
 
-            holder.txtMatka_startingNo.setText(getValidNumber(model.getStarting_num(),1)+"-"+getValidNumber(model.getNumber(),2)+"-"+getValidNumber(model.getEnd_num(),3));
+            holder.txtMatka_startingNo.setText(common.getValidNumber(model.getStarting_num(),1)+"-"+common.getValidNumber(model.getNumber(),2)+"-"+common.getValidNumber(model.getEnd_num(),3));
 
         Date date=new Date();
         SimpleDateFormat sim=new SimpleDateFormat("HH:mm:ss");
@@ -242,6 +242,7 @@ public class NewMatkaAdpater extends RecyclerView.Adapter<NewMatkaAdpater.ViewHo
             imageGame=(ImageView)itemView.findViewById(R.id.matka_image);
             txtMatka_id=(TextView) itemView.findViewById(R.id.matka_id);
             vibe = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            common=new Common(context);
 
 
         }
@@ -258,21 +259,7 @@ public class NewMatkaAdpater extends RecyclerView.Adapter<NewMatkaAdpater.ViewHo
         }
     }
 
-    public String getValidNumber(String str, int palace){
-        String validStr="";
-        if(str ==null || str.isEmpty() || str.equalsIgnoreCase("null")){
-            if(palace==1){
-                validStr="***";
-            }else if(palace==2){
-                validStr="**";
-            }else{
-                validStr="***";
-            }
-        }else{
-            validStr=str;
-        }
-        return validStr;
-    }
+
 public void getPlayButton(long as, long c, TextView tv_status, Button btnPlay){
     if(as<0)
     {
