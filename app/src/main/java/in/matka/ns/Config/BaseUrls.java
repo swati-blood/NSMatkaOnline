@@ -45,6 +45,7 @@ public class BaseUrls {
     public static final String URL_GET_HISTORY=BASE_URL+"get_history";
     public static final String URL_FUND_HISTORY=BASE_URL+"request_history";
     public static final String URL_GET_GAMES=BASE_URL+"getGames";
+    public static final String URL_COMMISSION_HISTORY=BASE_URL+"get_commission_history";
     public static final String URL_GET_GATEWAY=BASE_URL+"gateway_setting";
     public static final String URL_STARLINE_HISTORY=BASE_URL+"get_starline_history";
     public static final String URL_NOTICEBOARD="https://roseflavour.com/api/getNoticeboard";

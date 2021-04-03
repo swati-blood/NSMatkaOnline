@@ -40,6 +40,7 @@ import in.matka.ns.Adapter.MenuAdapter;
 
 import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.Fragments.AllHistoryFragment;
+import in.matka.ns.Fragments.CommisionFragment;
 import in.matka.ns.Fragments.GameRatesFragment;
 import in.matka.ns.Fragments.GenerateMpinFragment;
 import in.matka.ns.Fragments.HomeFragment;
@@ -287,6 +288,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }else if(id==R.id.nav_share){
             shareRafCode();
+        }else if(id==R.id.nav_earn){
+            fm = new CommisionFragment();
         }
         else if (id == R.id.nav_logout) {
 

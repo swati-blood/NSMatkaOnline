@@ -119,6 +119,15 @@
             android:title="Notice Board/Rules" />
     </group>
     <group
+        android:id="@+id/nav_group_earn_history"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_earn"
+            android:icon="@drawable/icons8_order_history_100px"
+
+            android:title="Earn History" />
+    </group>
+    <group
         android:id="@+id/nav_group_share"
         android:checkableBehavior="single">
         <item
