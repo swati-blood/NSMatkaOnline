@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import in.matka.ns.Common.Common;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -31,6 +32,7 @@ import in.matka.ns.Util.CustomJsonRequest;
 import in.matka.ns.networkconnectivity.NoInternetConnection;
 
 public class RegisterActivity extends AppCompatActivity {
+    private final String TAG=RegisterActivity.class.getSimpleName();
     ProgressDialog progressDialog;
     String mobile = "";
     private Button btnRegister;
@@ -202,11 +204,13 @@ public class RegisterActivity extends AppCompatActivity {
         params.put("mobile",fmobile);
         params.put("password",fpass);
         params.put("ref_code",ref_code);
+        Log.e(TAG, "register: "+params.toString());
         CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_REGISTER, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 progressDialog.dismiss();
                try {
+                   Log.e(TAG, "onResponse: "+response.toString() );
                   boolean resp=response.getBoolean("responce");
                   if(resp)
                   {

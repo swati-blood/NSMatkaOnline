@@ -146,7 +146,7 @@ public class AddFundRequestActivity extends AppCompatActivity implements View.On
         params.put("type",type);
         params.put("trans_id",trans_id);
         params.put("w_type","");
-
+        Log.e(TAG, "saveInfoIntoDatabase: "+params.toString() );
         CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_REQUEST, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

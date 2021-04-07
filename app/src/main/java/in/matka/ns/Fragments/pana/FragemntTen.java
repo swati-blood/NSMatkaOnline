@@ -95,7 +95,7 @@ public class FragemntTen extends Fragment {
         }
         else if (game_names.equals("Double Pana"))
         {
-//            sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(40,50),getActivity(),5,bet_list,game_names);
+            sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(81,single_list.size()),getActivity(),5,bet_list,game_names);
 
         }
 //        sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(108,single_list.size()),getActivity(),10,bet_list,game_names);

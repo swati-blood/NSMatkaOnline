@@ -209,9 +209,8 @@
                         android:layout_gravity="center"
                         android:textColor="@color/white"
                         android:textAlignment="center"
-
-                        android:text="StarLine Games"
-                        android:textAllCaps="false"
+                        android:text="@string/starline_name"
+                        android:textAllCaps="true"
                         android:textSize="18dp"
 
                         android:textStyle="bold"/>

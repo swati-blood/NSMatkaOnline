@@ -40,7 +40,7 @@ public class EarnCommisionAdapter extends RecyclerView.Adapter<EarnCommisionAdap
       EarnCommisionModel model=list.get(position);
       holder.tv_id.setText("#"+model.getId());
       holder.tv_name.setText(common.checkNull(model.getName()));
-      holder.tv_date.setText(common.checkNull(model.getCreated_at()));
+      holder.tv_date.setText(getFormattedDateTime(common.checkNull(model.getCreated_at())));
       holder.tv_amount.setText(common.checkNull(model.getRefer_amount()));
     }
 
@@ -59,5 +59,10 @@ public class EarnCommisionAdapter extends RecyclerView.Adapter<EarnCommisionAdap
             tv_amount=itemView.findViewById(R.id.tv_amount);
             common=new Common(context);
         }
+    }
+    private String getFormattedDateTime(String str){
+        String[] arr=str.split(" ");
+        String time=common.get24To12Format(arr[1].toString());
+        return (arr[0].toString()+" "+time);
     }
 }

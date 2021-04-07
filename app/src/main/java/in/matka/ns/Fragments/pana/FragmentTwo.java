@@ -90,11 +90,10 @@ public class FragmentTwo extends Fragment {
         if (game_names.equals("Single Pana"))
         {
             sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(12,24),getActivity(),2,bet_list,game_names);
-
         }
         else if (game_names.equals("Double Pana"))
         {
-            sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(10,20),getActivity(),2,bet_list,game_names);
+            sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(9,18),getActivity(),2,bet_list,game_names);
 
         }
         rv_digits.setLayoutManager(new GridLayoutManager(getActivity(),2));

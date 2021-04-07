@@ -145,7 +145,7 @@ public class AddFunds extends Fragment implements View.OnClickListener, PaymentR
        params.put("points",points);
        params.put("request_status",st);
        params.put("type",type);
-
+        Log.e(TAG, "saveInfoIntoDatabase: "+params.toString() );
         CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_REQUEST, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

@@ -94,7 +94,7 @@ public class FragmentEight extends Fragment {
         }
         else if (game_names.equals("Double Pana"))
         {
-            sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(70,80),getActivity(),8,bet_list,game_names);
+            sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(63,72),getActivity(),8,bet_list,game_names);
 
         }
         rv_digits.setLayoutManager(new GridLayoutManager(getActivity(),2));

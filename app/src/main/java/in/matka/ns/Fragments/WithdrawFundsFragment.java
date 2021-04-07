@@ -222,7 +222,7 @@ public class WithdrawFundsFragment extends Fragment implements View.OnClickListe
         params.put("wallet", rem);
         params.put("trans_id", "");
         params.put("w_type",w_type);
-
+        Log.e(TAG, "withdrwa: "+params.toString() );
         CustomJsonRequest customJsonRequest = new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_REQUEST, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

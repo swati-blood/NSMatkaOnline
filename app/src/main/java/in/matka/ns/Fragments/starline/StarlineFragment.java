@@ -295,11 +295,11 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
 
 
                         }
-
-                        txt_game_rate.setText(slist.get(0).getName()+ "-"+slist.get(0).getRate_range()+" : "+slist.get(0).getRate()+"\n"+
-                      slist.get(1).getName()+ "-"+slist.get(1).getRate_range()+" : "+slist.get(1).getRate()+"\n"+
-                       slist.get(2).getName()+ "-"+slist.get(2).getRate_range()+" : "+slist.get(2).getRate()+"\n"+
-                       slist.get(3).getName()+ "-"+slist.get(3).getRate_range()+" : "+slist.get(3).getRate());
+                        txt_game_rate.setText(setRates());
+//                        txt_game_rate.setText(slist.get(0).getName()+ "-"+slist.get(0).getRate_range()+" : "+slist.get(0).getRate()+"\n"+
+//                       slist.get(1).getName()+ "-"+slist.get(1).getRate_range()+" : "+slist.get(1).getRate()+"\n"+
+//                       slist.get(2).getName()+ "-"+slist.get(2).getRate_range()+" : "+slist.get(2).getRate()+"\n"+
+//                       slist.get(3).getName()+ "-"+slist.get(3).getRate_range()+" : "+slist.get(3).getRate());
 
 
                     }
@@ -384,5 +384,14 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
 //        break;
         }
 
+    }
+
+    private String setRates(){
+        StringBuffer stringBuffer=new StringBuffer();
+        for(GameRateModel m:slist){
+            stringBuffer.append(m.getName()+" - "+m.getRate_range()+" : "+m.getRate()+"\n");
+        }
+        Log.e(TAG, "setRates: "+stringBuffer.toString() );
+        return stringBuffer.toString();
     }
 }

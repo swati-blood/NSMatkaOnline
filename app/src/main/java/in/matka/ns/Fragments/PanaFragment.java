@@ -140,7 +140,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         if (m_id>20)
         {   ((MainActivity) getActivity()).setTitle("Starline"+"-"+game_name);
 
-
+            matka_name = getArguments().getString("matka_name");
             //star_game_name.setText(game_name);
             star_game_name.setText("Starline Game");
             txt_date.setVisibility(View.GONE);

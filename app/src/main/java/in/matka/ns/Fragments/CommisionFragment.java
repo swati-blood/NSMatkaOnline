@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.Adapter.EarnCommisionAdapter;
 import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
@@ -58,6 +59,7 @@ public class CommisionFragment extends Fragment {
      no_history=v.findViewById(R.id.no_history);
      rv_histry.setNestedScrollingEnabled(false);
      rv_histry.setLayoutManager(new LinearLayoutManager(getActivity()));
+        ((MainActivity) getActivity()).setTitle("Earn History");
         getCommissionHistory();
     }
 
@@ -72,7 +74,7 @@ public class CommisionFragment extends Fragment {
              loadingBar.dismiss();
              try {
                  JSONObject object=new JSONObject(response);
-                 if(object.getBoolean("response")){
+                 if(object.getBoolean("responce")){
                       JSONArray array=object.getJSONArray("data");
                       for(int i=0; i<array.length();i++){
                           JSONObject obj = array.getJSONObject(i);

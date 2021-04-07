@@ -1689,31 +1689,31 @@ public class Common {
                     pos =Integer.parseInt(map.get(REV_POSITION).toString());
                     break;
                 case "2":
-                    pos =10+Integer.parseInt(map.get(REV_POSITION).toString());
+                    pos =9+Integer.parseInt(map.get(REV_POSITION).toString());
                     break;
                 case "3":
-                    pos =20+Integer.parseInt(map.get(REV_POSITION).toString());
+                    pos =18+Integer.parseInt(map.get(REV_POSITION).toString());
                     break;
                 case "4":
-                    pos =30+Integer.parseInt(map.get(REV_POSITION).toString());
+                    pos =27+Integer.parseInt(map.get(REV_POSITION).toString());
                     break;
                 case "5":
-                    pos =40+Integer.parseInt(map.get(REV_POSITION).toString());
+                    pos =36+Integer.parseInt(map.get(REV_POSITION).toString());
                     break;
                 case "6":
-                    pos =50+Integer.parseInt(map.get(REV_POSITION).toString());
+                    pos =45+Integer.parseInt(map.get(REV_POSITION).toString());
                     break;
                 case "7":
-                    pos =60+Integer.parseInt(map.get(REV_POSITION).toString());
+                    pos =54+Integer.parseInt(map.get(REV_POSITION).toString());
                     break;
                 case "8":
-                    pos =70+Integer.parseInt(map.get(REV_POSITION).toString());
+                    pos =63+Integer.parseInt(map.get(REV_POSITION).toString());
                     break;
                 case "9":
-                    pos =80+Integer.parseInt(map.get(REV_POSITION).toString());
+                    pos =72+Integer.parseInt(map.get(REV_POSITION).toString());
                     break;
                 case "10":
-                    pos =90+Integer.parseInt(map.get(REV_POSITION).toString());
+                    pos =81+Integer.parseInt(map.get(REV_POSITION).toString());
                     break;
             }
 
@@ -1918,17 +1918,21 @@ public class Common {
         loadingBar.show();
         HashMap<String,String> params=new HashMap<>();
         params.put("user_id",session_management.getUserDetails().get(KEY_ID).toString());
-        CustomVolleyJsonArrayRequest jsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.POST, BaseUrls.URL_GET_WALLET_AMOUNT, params, new Response.Listener<JSONArray>() {
+        postRequest(BaseUrls.URL_GET_WALLET_AMOUNT, params, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONArray response) {
+            public void onResponse(String response) {
                 loadingBar.dismiss();
-                Log.e("wallet",response.toString());
                 try {
-                    JSONObject object=response.getJSONObject(0);
-                    String wamt=object.getString("wallet_points");
-                    session_management.updateWallet(wamt);
-                    Log.e("Common_wallet","wallet_amt_-- "+session_management.getUserDetails().get(KEY_WALLET));
-                    ((MainActivity)context).setWallet_Amount(String.valueOf(wamt));
+                    JSONObject object=new JSONObject(response);
+                    if(object.getBoolean("responce")){
+                        String wamt=object.getString("wallet_amount");
+                        session_management.updateWallet(wamt);
+                        Log.e("Common_wallet","wallet_amt_-- "+session_management.getUserDetails().get(KEY_WALLET));
+                        ((MainActivity)context).setWallet_Amount(String.valueOf(wamt));
+                    }else{
+                     showToast("Something went wrong");
+                    }
+
 
                 }
                 catch (Exception ex)
@@ -1944,7 +1948,6 @@ public class Common {
                 showVolleyError(error);
             }
         });
-        AppController.getInstance().addToRequestQueue(jsonArrayRequest);
 
     }
 
@@ -2112,6 +2115,11 @@ public class Common {
 //        txtIntent .putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
         txtIntent .putExtra(android.content.Intent.EXTRA_TEXT, body);
         context.startActivity(Intent.createChooser(txtIntent ,"Share"));
+    }
+    public void printPanaList(List<String> list){
+        for(String s:list){
+            Log.e("Common", "printPanaList: "+s );
+        }
     }
 }
 
