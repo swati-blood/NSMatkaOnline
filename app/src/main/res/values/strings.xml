@@ -58,4 +58,8 @@
     <string name="invalid_trans_id" translatable="false">Invalid Transaction Id</string>
     <string name="minimum_pass" translatable="false">Minimum 5 characters allow in password</string>
     <string name="invalid_mobile" translatable="false">Invalid Mobile Number</string>
+
+    //game names
+
+
 </resources>

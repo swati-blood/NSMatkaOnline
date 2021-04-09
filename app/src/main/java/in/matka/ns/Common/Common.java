@@ -66,10 +66,12 @@ import in.matka.ns.AppController;
 import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.Config.Constants;
 import in.matka.ns.Intefaces.GetAppSettingData;
+import in.matka.ns.Intefaces.OnGetAllGames;
 import in.matka.ns.Intefaces.UpdateBidAmount;
 import in.matka.ns.Intefaces.UpdateTotalBidAmount;
 import in.matka.ns.Intefaces.VolleyCallBack;
 import in.matka.ns.Model.AppSettingModel;
+import in.matka.ns.Model.GameStatusModel;
 import in.matka.ns.Model.MatkasObjects;
 import in.matka.ns.Model.Starline_Objects;
 import in.matka.ns.Model.TableModel;
@@ -1959,6 +1961,14 @@ public class Common {
             return false;
         }
     }
+    public String checkNullStr(String str){
+
+        if(str == null || str.isEmpty() || str.equalsIgnoreCase("null")){
+            return "";
+        }else{
+            return str;
+        }
+    }
 
 
     public void appSettingData(final GetAppSettingData settingData){
@@ -2120,6 +2130,43 @@ public class Common {
         for(String s:list){
             Log.e("Common", "printPanaList: "+s );
         }
+    }
+    public void getAllGames(String url, final OnGetAllGames onGetAllGames){
+        loadingBar.show();
+        HashMap<String,String> params=new HashMap<>();
+        postRequest(url, params, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+             loadingBar.dismiss();
+             try{
+                 JSONArray array=new JSONArray(response);
+                 ArrayList<GameStatusModel> gList=new ArrayList<>();
+                 for(int i=0;i<array.length();i++){
+                     GameStatusModel m=new GameStatusModel();
+                     JSONObject object=array.getJSONObject(i);
+                     m.setGame_id(checkNullStr(object.getString("game_id")));
+                     m.setGame_name(checkNullStr(object.getString("game_name")));
+                     m.setName(checkNullStr(object.getString("name")));
+                     m.setPoints(checkNullStr(object.getString("points")));
+                     m.setIs_close(checkNullStr(object.getString("is_close")));
+                     m.setIs_disabled(checkNullStr(object.getString("is_disabled")));
+                     m.setIs_starline_disable(checkNullStr(object.getString("is_starline_disable")));
+                     m.setIs_deleted(checkNullStr(object.getString("is_deleted")));
+                     gList.add(m);
+                 }
+                 onGetAllGames.onGetAllGames(gList);
+             }catch (Exception ex){
+                 ex.printStackTrace();
+             }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loadingBar.dismiss();
+                showVolleyError(error);
+            }
+        });
     }
 }
 

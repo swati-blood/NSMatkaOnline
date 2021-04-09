@@ -136,11 +136,12 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         txt_date.setClickable(false);
        setLayout(game_name);
         m_id= Integer.parseInt(matka_id);
+        matka_name = getArguments().getString("matka_name");
        Log.e("gme",game_name + game_id +matka_name+matka_id);
         if (m_id>20)
         {   ((MainActivity) getActivity()).setTitle("Starline"+"-"+game_name);
 
-            matka_name = getArguments().getString("matka_name");
+
             //star_game_name.setText(game_name);
             star_game_name.setText("Starline Game");
             txt_date.setVisibility(View.GONE);
@@ -163,7 +164,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         {
             txt_date.setVisibility(View.VISIBLE);
             txt_type.setVisibility(View.VISIBLE);
-            matka_name = getArguments().getString("matka_name");
+//            matka_name = getArguments().getString("matka_name");
 
 
 
@@ -345,22 +346,22 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
     {
         switch (gamename)
         {
-            case  "Single Digit" :
+            case  "SINGLE DIGIT" :
                 addAdapter(rv_points,pointsAdapter,Arrays.asList(single_digit));
                 break;
-            case  "Jodi Digit" :
+            case  "JODI DIGIT" :
                 addAdapter(rv_points,pointsAdapter,Arrays.asList(group_jodi_digits));
                 break;
 
-            case  "Single Pana" :
+            case  "SINGLE PANA" :
                 setTabLayout();
                 addRecyclerAdapter(rv_points,recyclerPagerAdapter,Arrays.asList(singlePaana));
                 break;
-            case  "Double Pana" :
+            case  "DOUBLE PANA" :
                 setTabLayout();
                addRecyclerAdapter(rv_points,recyclerPagerAdapter,Arrays.asList(doublePanna));
                 break;
-            case  "Triple Pana" :
+            case  "TRIPLE PANA" :
                 addAdapter(rv_points,pointsAdapter,Arrays.asList(triplePanna));
                 break;
 

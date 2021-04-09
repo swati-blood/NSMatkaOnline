@@ -50,6 +50,8 @@ public class BaseUrls {
     public static final String URL_STARLINE_HISTORY=BASE_URL+"get_starline_history";
     public static final String URL_NOTICEBOARD="https://roseflavour.com/api/getNoticeboard";
     public static final String URL_GETSTATUS=BASE_URL+"getLoginStatus";
+    public static final String URL_STARLINEGAMES=BASE_URL+"getStarlineGames";
+    public static final String URL_MATKAGAMES=BASE_URL+"getMatkaGames";
 
 
 

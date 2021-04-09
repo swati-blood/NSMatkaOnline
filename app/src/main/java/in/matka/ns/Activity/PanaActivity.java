@@ -164,14 +164,14 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         setTabLayout();
-        if(game_names.equalsIgnoreCase("Single Pana"))
+        if(game_names.equalsIgnoreCase("SINGLE PANA"))
         {
             for(int i=0;i<singlePaana.length;i++)
             {
                 bidList.add(new TableModel(singlePaana[i].toString(),"0","Select Type"));
             }
         }
-        else if(game_names.equalsIgnoreCase("Double Pana"))
+        else if(game_names.equalsIgnoreCase("DOUBLE PANA"))
         {
             for(int i=0;i<doublePanna.length;i++)
             {

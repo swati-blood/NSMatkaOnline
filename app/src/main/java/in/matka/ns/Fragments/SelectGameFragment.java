@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import in.matka.ns.Common.Common;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.Adapter.SelectGameAdapter;
 import in.matka.ns.AppController;
 import in.matka.ns.Config.BaseUrls;
+import in.matka.ns.Intefaces.OnGetAllGames;
 import in.matka.ns.Model.GameModel;
 import in.matka.ns.Model.GameStatusModel;
 import in.matka.ns.R;
@@ -42,7 +45,7 @@ public class SelectGameFragment extends Fragment {
     LoadingBar loadingBar;
     ArrayList<GameModel> game_list;
     Common common;
-    List<GameStatusModel> tempList;
+    ArrayList<GameStatusModel> tempList;
 
     Animation animation;
     int[] animationList = {R.anim.zoom_in, R.anim.slide_down, R.anim.slide_up, R.anim.bounce};
@@ -181,8 +184,33 @@ public class SelectGameFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart ( );
-        getGames ( );
+  common.getAllGames(BaseUrls.URL_MATKAGAMES, new OnGetAllGames() {
+      @Override
+      public void onGetAllGames(ArrayList<GameStatusModel> gList) {
+          game_list.clear();
+          String PACKAGE_NAME = getActivity().getApplicationContext().getPackageName();
+          Log.e(TAG, "onGetAllGames: "+gList.size() );
+          for(GameStatusModel m:gList){
+              int imgId = getResources().getIdentifier(PACKAGE_NAME+":drawable/"+m.getGame_name() , null, null);
+              if(m.getGame_name().equalsIgnoreCase("single_pana") || m.getGame_name().equalsIgnoreCase("double_pana")){
+                  game_list.add(new GameModel(m.getGame_id(), m.getName(), imgId, "2", true));
+              }else if(m.getGame_name().equalsIgnoreCase("half_sangam") || m.getGame_name().equalsIgnoreCase("full_sangam")|| m.getGame_name().equalsIgnoreCase("cycle_pana")){
+                  game_list.add(new GameModel(m.getGame_id(), m.getName(), imgId, "1", true));
+              }
+              else {
+                  game_list.add(new GameModel(m.getGame_id(), m.getName(), imgId, "0", true));
+              }
+          }
 
+          selectGameAdapter = new SelectGameAdapter (getActivity ( ), game_list, getArguments ( ).getString ("m_id"),
+                  getArguments ( ).getString ("matka_name"),
+                  getArguments ( ).getString ("start_time"),
+                  getArguments ( ).getString ("end_time"), getArguments ( ).getString ("start_num"),
+                  getArguments ( ).getString ("num"),
+                  getArguments ( ).getString ("end_num"));
+          rv_games.setAdapter (selectGameAdapter);
+      }
+    });
 
     }
 
@@ -224,20 +252,14 @@ public class SelectGameFragment extends Fragment {
 
     public void setAllGames(List<GameStatusModel> list) {
         game_list.clear ( );
-      //  game_list.add (new GameModel ("1", "Odd Even", R.drawable.odd_even, "1", getAble (list, 1)));
-        game_list.add (new GameModel ("2", "Single Digit", R.drawable.ic_single, "0", getAble (list, 2)));
-        game_list.add (new GameModel ("3", "Jodi Digit", R.drawable.ic_jodi, "0", getAble (list, 3)));
-       // game_list.add (new GameModel ("4", "Red Bracket", R.drawable.red_brackets, "1", getAble (list, 4)));
-        //game_list.add (new GameModel ("5", "Panel Group", R.drawable.panel_group_icon, "1", getAble (list, 5)));
-      //  game_list.add (new GameModel ("6", "Group Jodi", R.drawable.group_jodi, "1", getAble (list, 6)));
-        game_list.add (new GameModel ("7", "Single Pana", R.drawable.ic_singlepana, "2", getAble (list, 7)));
-        game_list.add (new GameModel ("8", "Double Pana", R.drawable.ic_doublepana, "2", getAble (list, 8)));
-        game_list.add (new GameModel ("9", "Triple Pana", R.drawable.ic_triple_pana, "0", getAble (list, 9)));
-      //  game_list.add (new GameModel ("10", "SP Motor", R.drawable.sp_motor, "1", getAble (list, 10)));
-      //  game_list.add (new GameModel ("11", "DP Motor", R.drawable.dp_motor, "1", getAble (list, 11)));
-        game_list.add (new GameModel ("12", "Half Sangam", R.drawable.ic_halfsangam, "1", getAble (list, 12)));
-        game_list.add (new GameModel ("13", "Full Sangam", R.drawable.ic_fullsangam, "1", getAble (list, 13)));
-        game_list.add (new GameModel ("14", "Cycle Pana", R.drawable.cyclepana, "1", getAble (list, 14)));
+        game_list.add (new GameModel ("2", "Single Digit", R.drawable.single_digit, "0", getAble (list, 2)));
+        game_list.add (new GameModel ("3", "Jodi Digit", R.drawable.jodi_digits, "0", getAble (list, 3)));
+        game_list.add (new GameModel ("7", "Single Pana", R.drawable.single_pana, "2", getAble (list, 7)));
+        game_list.add (new GameModel ("8", "Double Pana", R.drawable.double_pana, "2", getAble (list, 8)));
+        game_list.add (new GameModel ("9", "Triple Pana", R.drawable.triple_pana, "0", getAble (list, 9)));
+        game_list.add (new GameModel ("12", "Half Sangam", R.drawable.half_sangam, "1", getAble (list, 12)));
+        game_list.add (new GameModel ("13", "Full Sangam", R.drawable.full_sangam, "1", getAble (list, 13)));
+        game_list.add (new GameModel ("14", "Cycle Pana", R.drawable.cycle_pana, "1", getAble (list, 14)));
 
         removeGames (game_list);
 

@@ -35,7 +35,7 @@ import java.util.Map;
 import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.Adapter.PGAdapter;
 import in.matka.ns.AppController;
-import in.matka.ns.Config.URLs;
+import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.Fragments.AllHistoryFragment;
 import in.matka.ns.Model.GameRateModel;
 import in.matka.ns.Model.Starline_Objects;
@@ -48,6 +48,7 @@ import in.matka.ns.Util.Session_management;
 import in.matka.ns.Util.ToastMsg;
 import in.matka.ns.networkconnectivity.NoInternetConnection;
 
+import static in.matka.ns.Config.BaseUrls.BASE_URL;
 import static in.matka.ns.Config.BaseUrls.URL_STARLINE;
 
 public class StarlineFragment extends Fragment implements View.OnClickListener {
@@ -262,7 +263,7 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
         String tag_json_obj = "json_notice_req";
         Map<String, String> params = new HashMap<String, String>();
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URLs.URL_NOTICE, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_NOTICE, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 

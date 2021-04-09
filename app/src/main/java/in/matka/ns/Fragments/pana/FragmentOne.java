@@ -68,11 +68,11 @@ public class FragmentOne extends Fragment {
         single_list = new ArrayList<>();
         bet_list=new ArrayList<>();
 
-        if (game_names.equals("Single Pana"))
+        if (game_names.equalsIgnoreCase("Single Pana"))
         {
             single_list = Arrays.asList(singlePaana);
         }
-        else if (game_names.equals("Double Pana"))
+        else if (game_names.equalsIgnoreCase("Double Pana"))
         {
             single_list = Arrays.asList(doublePanna);
         }
@@ -87,12 +87,12 @@ public class FragmentOne extends Fragment {
         bet_list.clear();
 
         bet_list.addAll(((PanaActivity)getActivity()).getBidList());
-        if (game_names.equals("Single Pana"))
+        if (game_names.equalsIgnoreCase("Single Pana"))
         {
             sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(0,12),getActivity(),1,bet_list,game_names);
             common.printPanaList(single_list.subList(0,12));
         }
-        else if (game_names.equals("Double Pana"))
+        else if (game_names.equalsIgnoreCase("Double Pana"))
         {
             sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(0,9),getActivity(),1,bet_list,game_names);
             common.printPanaList(single_list.subList(0,9));
