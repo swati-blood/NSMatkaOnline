@@ -52,6 +52,7 @@
 
                         android:textStyle="bold"/>
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
@@ -60,13 +61,22 @@
                         <Button
 
                             android:id="@+id/star_histry"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                            android:gravity="center"
                             android:background="@drawable/gradients_background"
                             android:textColor="@color/white"
                             android:text="Starline Bid History"/>
+                        <Button
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:id="@+id/refresh"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:gravity="center"
+                            android:background="@drawable/gradients_background"
+                            android:textColor="@color/white"
+                            android:text="Refresh"/>
 <!--                        <Button-->
 <!--                            android:id="@+id/star_result"-->
 <!--                            android:layout_width="0dp"-->

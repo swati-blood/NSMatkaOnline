@@ -2,6 +2,7 @@
   "project_info": {
     "project_number": "127967244343",
     "project_id": "nsgames-6379d",
+    "firebase_url": "https://nsgames-6379d-default-rtdb.firebaseio.com",
     "storage_bucket": "nsgames-6379d.appspot.com"
   },
   "client": [

@@ -2,9 +2,14 @@ package in.matka.ns.Fragments.starline;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import in.matka.ns.Adapter.StarlineAdapter;
 import in.matka.ns.Common.Common;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,6 +49,7 @@ import in.matka.ns.Util.ConnectivityReceiver;
 import in.matka.ns.Util.CustomJsonRequest;
 import in.matka.ns.Util.LoadingBar;
 import in.matka.ns.Util.Module;
+import in.matka.ns.Util.RecyclerTouchListener;
 import in.matka.ns.Util.Session_management;
 import in.matka.ns.Util.ToastMsg;
 import in.matka.ns.networkconnectivity.NoInternetConnection;
@@ -53,16 +59,16 @@ import static in.matka.ns.Config.BaseUrls.URL_STARLINE;
 
 public class StarlineFragment extends Fragment implements View.OnClickListener {
     private final String TAG=StarlineFragment.class.getSimpleName();
-    ListView rv_matka;
+    RecyclerView rv_starline;
     ArrayList<GameRateModel> list;
     ArrayList<GameRateModel> slist;
     private ArrayList<Starline_Objects> matkaList;
-   PGAdapter adapter ;
+    StarlineAdapter adapter ;
     LoadingBar progressDialog;
     Common common;
     Session_management session_management;
     Module module;
-    RelativeLayout swipe;
+    SwipeRefreshLayout swipe;
     TextView txt_game_rate;
     Button btn_bid,btn_result , btn_terms;
     public StarlineFragment() {
@@ -74,7 +80,7 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View view =inflater.inflate(R.layout.fragment_starline, container, false);
+       View view =inflater.inflate(R.layout.fragment_new_starline, container, false);
        initViews(view);
        return view ;
     }
@@ -85,18 +91,14 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
        slist = new ArrayList<>();
         session_management=new Session_management(getActivity());
         ((MainActivity) getActivity()).setTitle(getActivity().getResources().getString(R.string.app_name));
-        rv_matka= v.findViewById(R.id.listView);
+        rv_starline= v.findViewById(R.id.rv_starline);
         txt_game_rate= v.findViewById(R.id.game_rate);
         btn_bid= v.findViewById(R.id.star_histry);
-       // btn_result= v.findViewById(R.id.star_result);
-      // btn_terms= v.findViewById(R.id.star_term);
-        swipe = v.findViewById(R.id.swipe_layout);
+        swipe= v.findViewById(R.id.swipe);
+
         progressDialog = new LoadingBar(getActivity());
         common = new Common(getActivity());
         module = new Module();
-       // btn_terms.setOnClickListener(this);
-
-       // btn_result.setOnClickListener(this);
         btn_bid.setOnClickListener(this);
         if(ConnectivityReceiver.isConnected()) {
 
@@ -110,22 +112,31 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
             startActivity(intent);
         }
 
-//        rv_matka.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new PGAdapter(getActivity(),matkaList);
-        rv_matka.setAdapter(adapter);
+        rv_starline.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv_starline.setNestedScrollingEnabled(false);
+        adapter = new StarlineAdapter(getActivity(),matkaList);
+        rv_starline.setAdapter(adapter);
 
-//        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//
-//                onStart();
-//                swipe.setRefreshing(false);
-//            }
-//        });
-        rv_matka.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onRefresh() {
+                if(ConnectivityReceiver.isConnected()) {
 
+                    getMatkaData();
+                    getNotice();
+//       showUpdateDialog();
+
+                } else
+                {
+                    Intent intent = new Intent(getActivity(), NoInternetConnection.class);
+                    startActivity(intent);
+                }
+
+            }
+        });
+        rv_starline.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv_starline, new RecyclerTouchListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
                 Starline_Objects starline_objects=matkaList.get(position);
                 //String stime=starline_objects.getS_game_time();
 
@@ -152,7 +163,7 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
                     String s_id=starline_objects.getId();
                     String matka_name="STARLINE";
 
-        Bundle bundle = new Bundle();
+                    Bundle bundle = new Bundle();
                     bundle.putString("m_id",starline_objects.getId());
                     bundle.putString("end_time",e_t);
                     bundle.putString("start_time",s_t);
@@ -164,22 +175,73 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
                 .addToBackStack (null)
                 .commit();
                 }
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
 
             }
-        });
+        }));
+//        rv_matka.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                Starline_Objects starline_objects=matkaList.get(position);
+//                //String stime=starline_objects.getS_game_time();
+//
+//                //boolean sTime=getTimeStatus(String.valueOf(starline_objects.getS_game_time()));
+//                int sTime=getTimeFormatStatus(starline_objects.getS_game_time());
+//                Date date=new Date();
+//                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HH");
+//                String ddt=simpleDateFormat.format(date);
+//                int c_tm=Integer.parseInt(ddt);
+//                //Toast.makeText(PlayGameActivity.this,"sTime "+sTime+"\n dt"+ddt,Toast.LENGTH_LONG).show();
+//                if(sTime<=c_tm)
+//                {
+//                    new ToastMsg(getActivity()).toastInfo("Biding is closed for today");
+//                    return;
+//
+//                }
+//                else
+//                {
+//
+//                    String e_t = get24Hours(starline_objects.getS_game_end_time());
+//                    String s_t = get24Hours(starline_objects.getS_game_time());
+//                    Log.e("time",s_t+"\n"+e_t);
+//
+//                    String s_id=starline_objects.getId();
+//                    String matka_name="STARLINE";
+//
+//        Bundle bundle = new Bundle();
+//                    bundle.putString("m_id",starline_objects.getId());
+//                    bundle.putString("end_time",e_t);
+//                    bundle.putString("start_time",s_t);
+//                    Log.e(TAG, "onItemClick: "+starline_objects.getId());
+//        Fragment fm  = new StarMainFragment();
+//        fm.setArguments(bundle);
+//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//        fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+//                .addToBackStack (null)
+//                .commit();
+//                }
+//
+//            }
+//        });
 
 
     }
     public void getMatkaData()
     {
         progressDialog.show();
-
+       matkaList.clear();
         final JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(URL_STARLINE, new
                 Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.e("starline_response",response.toString());
-
+                           if(swipe.isRefreshing()){
+                               swipe.setRefreshing(false);
+                           }
                         for(int i=0; i<response.length();i++)
                         {
                             try

@@ -346,7 +346,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             }
             else {
-                // showUpdateDialog();
+                 showUpdateDialog();
             }
 
         } catch (PackageManager.NameNotFoundException e) {
@@ -359,6 +359,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_version);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog.setCanceledOnTouchOutside(false);
         Window window = dialog.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
         wlp.gravity = Gravity.BOTTOM;
@@ -388,7 +389,7 @@ else
 {
     url = app_link;
 }
-               Log.e("äsdsd",""+url);
+
                Intent intent = new Intent(Intent.ACTION_VIEW);
                                 intent.setData(Uri.parse(url));
                                 startActivity(intent);
