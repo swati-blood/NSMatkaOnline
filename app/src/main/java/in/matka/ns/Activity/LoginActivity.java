@@ -223,7 +223,7 @@ toastMsg= new ToastMsg(LoginActivity.this);
                     else
                     {
                         mainName=mName;
-//                        Login(mName,mPass);
+//
                         if (ConnectivityReceiver.isConnected()) {
 
                             getUserLoginRequest(mName,mPass);

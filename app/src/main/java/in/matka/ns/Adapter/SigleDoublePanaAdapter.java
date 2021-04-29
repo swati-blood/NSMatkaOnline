@@ -85,7 +85,7 @@ public class SigleDoublePanaAdapter extends RecyclerView.Adapter<SigleDoublePana
 
                     if (backSpace) {
                         String pnts = s.toString();
-//                        deleteFromList(pnts, position, beforeTextChangeValue);
+
                         updateintent("sub",String.valueOf(fragmentPosition),pnts,beforeTextChangeValue,txt_type.getText().toString(),String.valueOf(position));
                     } else {
                         String points = s.toString();

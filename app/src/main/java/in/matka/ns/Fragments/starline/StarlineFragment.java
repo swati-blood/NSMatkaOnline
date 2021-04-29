@@ -193,7 +193,8 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
     {
         progressDialog.show();
 
-        final JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(URL_STARLINE, new
+        final JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(URL_STARLINE,
+                new
                 Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
