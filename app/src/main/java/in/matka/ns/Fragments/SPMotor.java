@@ -64,7 +64,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
     LoadingBar progressDialog;
     private String matka_id,e_time,s_time ,matka_name , game_id , game_name , w_amount ,type = "",game_date="";
     public SPMotor() {
-        // Required empty public constructor
+
     }
 
 
