@@ -46,6 +46,7 @@ import in.matka.ns.Fragments.GenerateMpinFragment;
 import in.matka.ns.Fragments.HomeFragment;
 import in.matka.ns.Fragments.MyProfileFragment;
 import in.matka.ns.Fragments.NoticeFragment;
+import in.matka.ns.Fragments.WinnerFragment;
 import in.matka.ns.Fragments.WithdrawFundsFragment;
 import in.matka.ns.Model.MenuModel;
 import in.matka.ns.R;
@@ -249,6 +250,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else if (id == R.id.nav_mpin) {
 
             fm = new GenerateMpinFragment ();
+
+        }
+        else if (id == R.id.nav_winner) {
+
+            fm = new WinnerFragment ();
 
         }
         //else if (id == R.id.nav_how_toPlay) {

@@ -99,6 +99,15 @@
             android:title="Game Rates" />
     </group>
     <group
+        android:id="@+id/nav_group_winner"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_winner"
+            android:icon="@drawable/prize_64px"
+
+            android:title="Winners" />
+    </group>
+    <group
         android:id="@+id/nav_group_play"
         android:checkableBehavior="single">
 
