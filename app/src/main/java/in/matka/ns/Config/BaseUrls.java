@@ -6,9 +6,9 @@ package in.matka.ns.Config;
 public class BaseUrls {
 
 //    public static final String BASE_URL="https://kalyan21.anshuwap.com/Api/";
-    public static final String BASE_URL ="https://ns.anshuwap.com/Api/";
+    public static final String BASE_URL ="https://nsmatka.com/Api/";
 
-    public static final String BASE_IMAGE_URL="https://ns.anshuwap.com/assets/images/";
+    public static final String BASE_IMAGE_URL="https://nsmatka.com/assets/images/";
     public static final String IMG_SLIDER_URL =BASE_IMAGE_URL+ "sliders/";
     public static final String IMG_DIALOG_URL =BASE_IMAGE_URL+ "dialog/";
     public static final String URL_INDEX=BASE_URL+"getIndex";
@@ -20,6 +20,7 @@ public class BaseUrls {
     public static final String URL_MENU = BASE_URL+"getMenu";
     public static final String URL_STARLINE=BASE_URL+"get_starline";
     public static final String URL_PAYMENT_METHOD=BASE_URL+"getPaymentMethods";
+    public static final String URL_TIME_SLOTS=BASE_URL+"get_time_slots";
 //    public static final String URL_FORGET_PASSWORD_WHATSAPP=BASE_URL+"password_details";
 //    public static final String URL_STARLINE="https://smartmatka.com/api/get_starline";
     public static final String URL_MATKA_WITH_ID=BASE_URL+"get_matka_with_id";
@@ -31,6 +32,7 @@ public class BaseUrls {
     public static final String URL_GENERATE_OTP=BASE_URL+"generate_otp";
     public static final String URL_BID_HISTORY=BASE_URL+"getBidHistory";
     public static final String URL_MOBILE=BASE_URL+"getMobile";
+    public static final String URL_GET_REFCODE=BASE_URL+"get_ref_code_msg";
     public static final String URL_FORGET_PASSWORD_WHATSAPP= BASE_URL+"password_details";
 
     public static final String URL_INSERT_DATA=BASE_URL+"insert_data";
@@ -43,10 +45,13 @@ public class BaseUrls {
     public static final String URL_GET_HISTORY=BASE_URL+"get_history";
     public static final String URL_FUND_HISTORY=BASE_URL+"request_history";
     public static final String URL_GET_GAMES=BASE_URL+"getGames";
+    public static final String URL_COMMISSION_HISTORY=BASE_URL+"get_commission_history";
     public static final String URL_GET_GATEWAY=BASE_URL+"gateway_setting";
-    public static final String URL_STARLINE_HISTORY=BASE_URL+"getstarline_history";
-    public static final String URL_NOTICEBOARD="https://roseflavour.com/api/getNoticeboard";
+    public static final String URL_STARLINE_HISTORY=BASE_URL+"get_starline_history";
+    public static final String URL_NOTICEBOARD=BASE_URL+"getNoticeboard";
     public static final String URL_GETSTATUS=BASE_URL+"getLoginStatus";
+    public static final String URL_STARLINEGAMES=BASE_URL+"getStarlineGames";
+    public static final String URL_MATKAGAMES=BASE_URL+"getMatkaGames";
 
 
 

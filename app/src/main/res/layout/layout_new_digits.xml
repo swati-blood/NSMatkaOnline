@@ -50,6 +50,7 @@
             android:padding="@dimen/_5sdp"
             android:textColor="@color/black"
             android:singleLine="true"
+            android:maxLength="6"
 
             android:layout_height="wrap_content"/>
         <View

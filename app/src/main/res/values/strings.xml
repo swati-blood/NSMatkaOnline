@@ -15,6 +15,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="starline_name">Time Bazar Starline Games</string>
     <string name="bid_closed">Bid is closed for today</string>
     <string name="pana">Pana</string>
     <string name="single_pana">Single Pana</string>
@@ -55,4 +56,10 @@
     <string name="required_trans" translatable="false">Enter Transaction Or Upload Screenshot</string>
     <string name="required_trans_amt" translatable="false">Enter Transaction Amount</string>
     <string name="invalid_trans_id" translatable="false">Invalid Transaction Id</string>
+    <string name="minimum_pass" translatable="false">Minimum 5 characters allow in password</string>
+    <string name="invalid_mobile" translatable="false">Invalid Mobile Number</string>
+
+    //game names
+
+
 </resources>

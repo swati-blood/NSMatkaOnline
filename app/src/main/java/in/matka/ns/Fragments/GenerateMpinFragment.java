@@ -5,7 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
+import in.matka.ns.Common.Common;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import in.matka.ns.Common.Common;
 import in.matka.ns.R;
 import in.matka.ns.Util.LoadingBar;
 

@@ -4,7 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 
 import android.graphics.Color;
-
+import in.matka.ns.Common.Common;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.TextUtils;
@@ -27,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import in.matka.ns.Common.Common;
 import in.matka.ns.Fragments.MainFragment;
 import in.matka.ns.Model.MatkasObjects;
 import in.matka.ns.R;

@@ -3,7 +3,7 @@
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
+import in.matka.ns.Common.Common;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +27,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import in.matka.ns.AppController;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.Intefaces.GetAppSettingData;
 import in.matka.ns.Model.AppSettingModel;
@@ -147,7 +146,7 @@ public class AddFundRequestActivity extends AppCompatActivity implements View.On
         params.put("type",type);
         params.put("trans_id",trans_id);
         params.put("w_type","");
-
+        Log.e(TAG, "saveInfoIntoDatabase: "+params.toString() );
         CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_REQUEST, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

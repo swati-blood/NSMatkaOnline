@@ -2,7 +2,7 @@ package in.matka.ns.Fragments;
 
 import android.app.Dialog;
 import android.os.Bundle;
-
+import in.matka.ns.Common.Common;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
@@ -27,7 +27,6 @@ import java.util.List;
 
 import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.Adapter.TableAdaper;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Model.TableModel;
 import in.matka.ns.Objects.sp_input_data;
 import in.matka.ns.R;
@@ -131,7 +130,7 @@ public class GroupJodi extends Fragment implements View.OnClickListener {
         txt_date.setOnClickListener(this);
         txt_date.setText(common.getCurrentDateDay());
         txt_date.setClickable(false);
-        ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
+        ((MainActivity) getActivity()).setTitle(game_name);
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,sp_input_data.panel_group_array);
         editText.setAdapter(adapter);
     }
@@ -308,7 +307,7 @@ public class GroupJodi extends Fragment implements View.OnClickListener {
             Date date=new Date();
             SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
             String ctt=dateFormat.format(date);
-            common.setBetTypeDialog(dialog,txtOpen,txtClose,txt_type,txt_date.getText().toString(),s_time,e_time);
+            common.setBetTypeDialog(dialog,txtOpen,txtClose,txt_type,txt_date.getText().toString(),s_time,e_time,game_id);
         }
         else if (v.getId()==R.id.tv_date)
         {

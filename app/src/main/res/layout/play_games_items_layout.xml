@@ -77,7 +77,9 @@
                         />
 
                     <ImageView
+                        android:src="@drawable/star"
                         android:id="@+id/watch"
+                        android:layout_marginLeft="@dimen/_30sdp"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_below="@+id/pg_title"
@@ -93,7 +95,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/circled_play"
-
 
                     />
             </RelativeLayout>

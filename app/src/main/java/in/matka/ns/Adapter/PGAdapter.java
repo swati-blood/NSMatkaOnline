@@ -82,7 +82,8 @@ public class PGAdapter extends BaseAdapter {
             txtId.setText("Bid is Closed ");
             txtId.setTextColor(Color.parseColor("#b31109"));
             txtNumber.setText(""+postion.getS_game_number());
-            img.setVisibility(View.INVISIBLE);
+
+            img.setImageAlpha(88);
         }
 
 

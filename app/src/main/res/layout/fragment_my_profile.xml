@@ -83,12 +83,11 @@
                 android:id="@+id/et_upi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="UPI Number"
+                android:hint="UPI "
                 android:textSize="16dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:padding="@dimen/_5sdp"
-                android:inputType="number"
                 android:singleLine="true"
                 android:background="@color/white"
                 android:layout_gravity="center_vertical"/>

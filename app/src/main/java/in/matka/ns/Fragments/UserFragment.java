@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-
+import in.matka.ns.Common.Common;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,7 +30,6 @@ import java.util.Map;
 
 import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.AppController;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.R;
 import in.matka.ns.Util.ConnectivityReceiver;

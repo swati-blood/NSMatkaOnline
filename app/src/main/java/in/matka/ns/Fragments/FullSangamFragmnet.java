@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-
+import in.matka.ns.Common.Common;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +27,6 @@ import java.util.List;
 
 import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.Adapter.TableAdaper;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Model.TableModel;
 import in.matka.ns.R;
 import in.matka.ns.Util.LoadingBar;
@@ -37,6 +36,7 @@ import in.matka.ns.Util.ToastMsg;
  * A simple {@link Fragment} subclass.
  */
 public class FullSangamFragmnet extends Fragment implements View.OnClickListener {
+    private final String TAG=FullSangamFragmnet.class.getSimpleName();
     Common common;
     private int stat=0;
     private TextView txtType,btnDelete;
@@ -126,7 +126,7 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
             ((MainActivity) getActivity()).setTitle("Starline -"+game_name);
         }
         else {
-            ((MainActivity) getActivity()).setTitle(matka_name+" "+game_name);
+            ((MainActivity) getActivity()).setTitle(game_name);
         }
 
     }
@@ -193,6 +193,8 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
                         toastMsg.toastIconError("Insufficient Amount");
                     }
                     else {
+                        type="Full Sangam";
+
                         //  setTableRowData(open_pana, close_pana, points);
                         common.addData(open_pana + "-" + close_pana, points, type, list, tableAdaper, list_table, btnSave);
                         etOpenPana.setText("");
@@ -258,11 +260,6 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
                 String id = common.getUserId().trim();
 
                 String date = game_date.substring(0,10);
-//                String dt = btnGameType.getText().toString().trim();
-//                String d[] = dt.split(" ");
-//
-//                String c = d[0].toString();
-
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("points", list_points);
@@ -288,7 +285,8 @@ public class FullSangamFragmnet extends Fragment implements View.OnClickListener
                         String asd = String.valueOf(up_amt);
                         String userid = common.getUserId();
                         btnSave.setEnabled(false);
-                        common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, type, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
+                        common.setBidsDialog(Integer.parseInt(w_amount), list, matka_id, date, game_id, w_amount, matka_name, progressDialog, btnSave, s_time, e_time);
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

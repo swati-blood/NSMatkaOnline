@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-
+import in.matka.ns.Common.Common;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,7 +36,6 @@ import java.util.Map;
 import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.Adapter.TableAdaper;
 import in.matka.ns.AppController;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.Model.TableModel;
 import in.matka.ns.R;
@@ -106,7 +105,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
         txt_type.setOnClickListener(this);
         txt_date.setText(common.getCurrentDateDay());
         txt_date.setClickable(false);
-        ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
+        ((MainActivity) getActivity()).setTitle(game_name);
     }
 
     @Override
@@ -255,7 +254,7 @@ public class SPMotor extends Fragment implements View.OnClickListener {
             Date date=new Date();
             SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
             String ctt=dateFormat.format(date);
-            common.setBetTypeDialog(dialog,txtOpen,txtClose,txt_type,txt_date.getText().toString(),s_time,e_time);
+            common.setBetTypeDialog(dialog,txtOpen,txtClose,txt_type,txt_date.getText().toString(),s_time,e_time,game_id);
         }
         else if (v.getId()==R.id.tv_date)
         {

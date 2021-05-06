@@ -8,7 +8,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-
+import in.matka.ns.Common.Common;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -38,7 +38,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import in.matka.ns.AppController;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Model.ForgetWhatsappModel;
 import in.matka.ns.R;
 import in.matka.ns.SmsReceiver;
@@ -46,7 +45,6 @@ import in.matka.ns.Util.ConnectivityReceiver;
 import in.matka.ns.Util.CustomJsonRequest;
 import in.matka.ns.Util.SmsListener;
 import in.matka.ns.networkconnectivity.NoInternetConnection;
-import retrofit2.http.FormUrlEncoded;
 
 import static in.matka.ns.Activity.splash_activity.msg_status;
 
@@ -142,47 +140,38 @@ ImageView iv_back;
     public void onClick(View view) {
 
         if(view.getId() ==R.id.btn_send)
-        { String phone_value=et_phone.getText().toString().trim();
-            int sf= Integer.parseInt(phone_value.substring(0,1));
-            int len=phone_value.length();
+        {
+            String phone_value=et_phone.getText().toString().trim();
 
            mobile=et_phone.getText().toString();
            otp=common.getRandomKey(6);
-           if(mobile.isEmpty())
-           {
+           if(mobile.isEmpty()){
                common.showToast("Enter Mobile Number");
                et_phone.requestFocus();
+           }else if(mobile.length()!=10){
+               common.showToast(getString(R.string.invalid_mobile));
+               et_phone.requestFocus();
            }
-           else if(sf<6 || len<10)
-            {
-//                Toast.makeText(VerificationActivity.this,"Invalid Mobile number \n" +
-//                        "mobile number never start with 0 and <6", Toast.LENGTH_LONG).show();
-                common.showToast ("Invalid Mobile number \n" + "mobile number never start with 0 and <6");
-            }
 
-//           else if(mobile.length()!=10)
-//           {
-//               common.showToast("Invalid Mobile Number");
-//               et_phone.requestFocus();
-//           }
            else
            {
-               if (ConnectivityReceiver.isConnected()) {
+               int sf= Integer.parseInt(phone_value.substring(0,1));
+             if(sf>=6) {
+                 if (ConnectivityReceiver.isConnected()) {
 
-                   if(type.equalsIgnoreCase("f"))
-                   {
-                       sendOtpforPass(mobile,otp, URL_GENERATE_OTP);
-                   }
-                   else
-                   {
-                       sendOtpforPass(mobile,otp,URL_VERIFICATION);
-                   }
-               }
-               else
-               {
-                   Intent intent = new Intent(VerificationActivity.this, NoInternetConnection.class);
-                   startActivity(intent);
-               }
+                     if (type.equalsIgnoreCase("f")) {
+                         sendOtpforPass(mobile, otp, URL_GENERATE_OTP);
+                     } else {
+                         sendOtpforPass(mobile, otp, URL_VERIFICATION);
+                     }
+                 } else {
+                     Intent intent = new Intent(VerificationActivity.this, NoInternetConnection.class);
+                     startActivity(intent);
+                 }
+             }else{
+                  common.showToast(getString(R.string.invalid_mobile));
+                  et_phone.requestFocus();
+             }
 
            }
         }
@@ -437,10 +426,12 @@ ImageView iv_back;
     }
     public void forgetPasswordWhatsapp()
     {
+        loadingBar.show();
         HashMap<String,String> params = new HashMap<>();
         common.postRequest(URL_FORGET_PASSWORD_WHATSAPP, params, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                loadingBar.dismiss();
              Log.e("whatsapp_dgfghuji",response.toString());
                 try {
                     JSONArray array = new JSONArray(response);
@@ -454,7 +445,7 @@ ImageView iv_back;
                     whatsappModel.setStatus(object.getString("status"));
                     wList.add(whatsappModel);
 
-                    tv_whatsappMsg.setText(wList.get(0).getInfo_text());
+                    tv_whatsappMsg.setText(Html.fromHtml(wList.get(0).getInfo_text()));
                     btn_whatsapp.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -471,7 +462,7 @@ ImageView iv_back;
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                loadingBar.dismiss();
             }
         });
     }

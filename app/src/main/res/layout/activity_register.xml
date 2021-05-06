@@ -15,15 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--        <ImageView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@drawable/gradients_background"-->
-<!--            android:alpha=".4"-->
-<!--          />-->
-
-
-
         <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -88,26 +79,27 @@
                 android:background="@drawable/shape2"
 
                 >
-
-
-                <EditText
-                    android:id="@+id/etUserName"
+        <EditText
+            android:id="@+id/etUserName"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:paddingLeft="10dp"
                     android:layout_marginTop="0dp"
 
-                    android:backgroundTint="@color/white"
+                    android:background="@drawable/shape2"
+
                     android:drawableLeft="@drawable/ic_account_circle_black_24dp"
                     android:drawableTint="@color/colorAccent"
                     android:drawablePadding="10dp"
-                    android:hint="User Name"
+                    android:hint="Username"
                     android:textSize="17dp"
-                    android:fontFamily="@font/lato"
                     android:singleLine="true"
+                    android:fontFamily="@font/lato"
                     android:textColor="@color/black"
-                    android:textColorHint="@android:color/darker_gray"
-                    />
+                    android:textColorHint="@android:color/darker_gray"/>
+
+
+
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/relativeLayout2"
@@ -359,9 +351,52 @@ android:visibility="gone"
                     android:textColorHint="@android:color/darker_gray"/>
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/rl9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+
+                android:layout_below="@id/relativeLayout7"
+                android:padding="0dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+
+
+                >
+                <ImageView
+                    android:id="@+id/imageViewUserIcon9"
+                    android:layout_width="40dp"
+
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_email_black_24dp"
+                    android:visibility="gone"
+                    android:padding="5dp"
+                    android:tint="@android:color/white"/>
+
+                <EditText
+                    android:id="@+id/et_ref"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/shape2"
+                    android:drawableLeft="@drawable/ic_email_black_24dp"
+                    android:drawableTint="@color/colorAccent"
+                    android:drawablePadding="10dp"
+                    android:layout_height="40dp"
+                    android:layout_alignBottom="@id/imageViewUserIcon9"
+                    android:paddingLeft="10dp"
+                    android:layout_marginTop="0dp"
+                    android:textSize="16dp"
+                    android:layout_toRightOf="@id/imageViewUserIcon9"
+                    android:fontFamily="@font/lato"
+                    android:hint="Referral Code (Optional)"
+                    android:textColor="@color/black"
+
+                    android:textColorHint="@android:color/darker_gray"/>
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/relativeLayout7"
+                android:layout_below="@+id/rl9"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/relativeLayout8">
 

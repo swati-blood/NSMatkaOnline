@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-
+import in.matka.ns.Common.Common;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +15,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import in.matka.ns.Adapter.SigleDoublePanaAdapter;
-import in.matka.ns.Common.Common;
 import in.matka.ns.R;
 import in.matka.ns.Util.LoadingBar;
 

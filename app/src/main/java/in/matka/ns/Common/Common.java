@@ -66,10 +66,12 @@ import in.matka.ns.AppController;
 import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.Config.Constants;
 import in.matka.ns.Intefaces.GetAppSettingData;
+import in.matka.ns.Intefaces.OnGetAllGames;
 import in.matka.ns.Intefaces.UpdateBidAmount;
 import in.matka.ns.Intefaces.UpdateTotalBidAmount;
 import in.matka.ns.Intefaces.VolleyCallBack;
 import in.matka.ns.Model.AppSettingModel;
+import in.matka.ns.Model.GameStatusModel;
 import in.matka.ns.Model.MatkasObjects;
 import in.matka.ns.Model.Starline_Objects;
 import in.matka.ns.Model.TableModel;
@@ -96,8 +98,8 @@ import static in.matka.ns.Config.Constants.REV_TYPE;
 
 public class Common {
     Context context;
-  Session_management session_management;
-  LoadingBar loadingBar;
+    Session_management session_management;
+    LoadingBar loadingBar;
 
     public Common(Context context) {
         this.context = context;
@@ -254,7 +256,7 @@ public class Common {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 
-       txtOpen=dialog.findViewById(R.id.rd_open);
+        txtOpen=dialog.findViewById(R.id.rd_open);
         txtClose=dialog.findViewById(R.id.rd_close);
 
 //        setDataTo(txtOpen,txtClose,m_id,progressDialog,c_date);
@@ -366,14 +368,20 @@ public class Common {
         Log.e("asdsadasd",""+bet);
         return bet;
     }
-    public void setBetTypeDialog(Dialog dialog, TextView txtOpen, TextView txtClose, final TextView btnType,String gameDate,String stime,String eTime)
+    public void setBetTypeDialog(Dialog dialog, TextView txtOpen, TextView txtClose, final TextView btnType,String gameDate,String stime,String eTime,String game_id)
     {
         if(gameDate.equalsIgnoreCase("Select Date"))
         {
-          showToast("Select Date");
+            showToast("Select Date");
         }
         else {
-            String betType = getBetType(gameDate, stime, eTime);
+            String betType ="";
+            if(game_id.equals("3")){
+                betType = "close";
+            }else{
+                betType = getBetType(gameDate, stime, eTime);
+            }
+
             if (betType.equalsIgnoreCase("both close")) {
                 errorMessageDialog("BID IS CLOSED FOR TODAY");
             } else {
@@ -532,7 +540,7 @@ public class Common {
                     String asd = tableModel.getDigits().toString();
                     String asd1 = tableModel.getPoints().toString();
                     String asd2 = tableModel.getType().toString();
-                    int b = 9;
+                    int b = 0;
 
                     if (asd2.equalsIgnoreCase("Close")) {
                         b = 1;
@@ -548,7 +556,7 @@ public class Common {
                     list_points.add(asd1);
                     list_type.add(b);
 
-          }
+                }
 
 
                 String id = session_management.getUserDetails().get(KEY_ID).toString().trim();
@@ -589,7 +597,7 @@ public class Common {
 
                 }
             } catch (Exception ex) {
-             new ToastMsg(context).toastIconError( "Err" + ex.getMessage());
+                new ToastMsg(context).toastIconError( "Err" + ex.getMessage());
             }
 
         }
@@ -1371,7 +1379,7 @@ public class Common {
 
 
                     }
-           }
+                }
                 catch (Exception ex)
                 {
                     ex.printStackTrace();
@@ -1449,7 +1457,7 @@ public class Common {
         Log.e("json_arr",data);
 
 
-     //  Toast.makeText(context,""+data,Toast.LENGTH_LONG).show();
+        //  Toast.makeText(context,""+data,Toast.LENGTH_LONG).show();
         if(progressDialog.isShowing())
         {
             progressDialog.dismiss();
@@ -1479,7 +1487,7 @@ public class Common {
 
                         context.startActivity(intent);
 
-                       new ToastMsg(context).toastIconSuccess("Bid Added Successfully.");
+                        new ToastMsg(context).toastIconSuccess("Bid Added Successfully.");
                     }
                     else if(status.equals("failed"))
                     {
@@ -1637,101 +1645,101 @@ public class Common {
     public void setPanaPoints(HashMap<String,String> map, int totAmt, ArrayList<TableModel> list,String game_name, final UpdateTotalBidAmount updateTotalBidAmount)
     {
 
-         int pos = 0;
-         if(game_name.equalsIgnoreCase("Single Pana"))
-         {
-             switch (map.get(REV_FRAG_POSITION).toString())
-             {
-                 case "1":
-                     pos =Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "2":
-                     pos =12+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "3":
-                     pos =24+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "4":
-                     pos =36+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "5":
-                     pos =48+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "6":
-                     pos =60+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "7":
-                     pos =72+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "8":
-                     pos =84+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "9":
-                     pos =96+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "10":
-                     pos =108+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-             }
-
-         }
-         else
-         {
-             switch (map.get(REV_FRAG_POSITION).toString())
-             {
-                 case "1":
-                     pos =Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "2":
-                     pos =10+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "3":
-                     pos =20+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "4":
-                     pos =30+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "5":
-                     pos =40+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "6":
-                     pos =50+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "7":
-                     pos =60+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "8":
-                     pos =70+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "9":
-                     pos =80+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-                 case "10":
-                     pos =90+Integer.parseInt(map.get(REV_POSITION).toString());
-                     break;
-             }
-
-         }
-
-            if(map.get(REV_TYPE).toString().equalsIgnoreCase("add"))
+        int pos = 0;
+        if(game_name.equalsIgnoreCase("Single Pana"))
+        {
+            switch (map.get(REV_FRAG_POSITION).toString())
             {
-                addBidToList(map.get(REV_POINTS).toString(), map.get(REV_BET_TYPE).toString(), pos, map.get(REV_BEFORE_VALUE).toString(), totAmt, list, new UpdateBidAmount() {
-                    @Override
-                    public void updateBidAmount(int amt) {
+                case "1":
+                    pos =Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "2":
+                    pos =12+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "3":
+                    pos =24+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "4":
+                    pos =36+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "5":
+                    pos =48+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "6":
+                    pos =60+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "7":
+                    pos =72+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "8":
+                    pos =84+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "9":
+                    pos =96+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "10":
+                    pos =108+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+            }
 
-                        updateTotalBidAmount.updateTotalBidAmount(amt);
-                    }
-                });
-            }
-            else if(map.get(REV_TYPE).toString().equalsIgnoreCase("sub"))
+        }
+        else
+        {
+            switch (map.get(REV_FRAG_POSITION).toString())
             {
-                removeBidToList(map.get(REV_POINTS).toString(), map.get(REV_BET_TYPE).toString(), pos, map.get(REV_BEFORE_VALUE).toString(), totAmt, list, new UpdateBidAmount() {
-                    @Override
-                    public void updateBidAmount(int amt) {
-                        updateTotalBidAmount.updateTotalBidAmount(amt);
-                    }
-                });
+                case "1":
+                    pos =Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "2":
+                    pos =9+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "3":
+                    pos =18+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "4":
+                    pos =27+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "5":
+                    pos =36+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "6":
+                    pos =45+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "7":
+                    pos =54+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "8":
+                    pos =63+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "9":
+                    pos =72+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
+                case "10":
+                    pos =81+Integer.parseInt(map.get(REV_POSITION).toString());
+                    break;
             }
+
+        }
+
+        if(map.get(REV_TYPE).toString().equalsIgnoreCase("add"))
+        {
+            addBidToList(map.get(REV_POINTS).toString(), map.get(REV_BET_TYPE).toString(), pos, map.get(REV_BEFORE_VALUE).toString(), totAmt, list, new UpdateBidAmount() {
+                @Override
+                public void updateBidAmount(int amt) {
+
+                    updateTotalBidAmount.updateTotalBidAmount(amt);
+                }
+            });
+        }
+        else if(map.get(REV_TYPE).toString().equalsIgnoreCase("sub"))
+        {
+            removeBidToList(map.get(REV_POINTS).toString(), map.get(REV_BET_TYPE).toString(), pos, map.get(REV_BEFORE_VALUE).toString(), totAmt, list, new UpdateBidAmount() {
+                @Override
+                public void updateBidAmount(int amt) {
+                    updateTotalBidAmount.updateTotalBidAmount(amt);
+                }
+            });
+        }
 
     }
 
@@ -1802,7 +1810,7 @@ public class Common {
                 else if(points.length()==4)
                 {
                     tot = (tot + ps)-Integer.parseInt(beforevalue);
-  }
+                }
                 else if(points.length()==5)
                 {
                     tot = (tot + ps)-Integer.parseInt(beforevalue);
@@ -1895,34 +1903,38 @@ public class Common {
         }
         return pos;
     }
-   public String getPointsOnIndex(ArrayList<TableModel> list,int pox)
-   {
-       String str="";
-       if(!(list.size()<=0)) {
-           String pnt = list.get(pox).getPoints().toString();
-           if (!pnt.equals("0")) {
-               str = pnt;
-           }
-       }
-       return str;
-   }
+    public String getPointsOnIndex(ArrayList<TableModel> list,int pox)
+    {
+        String str="";
+        if(!(list.size()<=0)) {
+            String pnt = list.get(pox).getPoints().toString();
+            if (!pnt.equals("0")) {
+                str = pnt;
+            }
+        }
+        return str;
+    }
 
     public void getWalletAmount()
     {
         loadingBar.show();
         HashMap<String,String> params=new HashMap<>();
         params.put("user_id",session_management.getUserDetails().get(KEY_ID).toString());
-        CustomVolleyJsonArrayRequest jsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.POST, BaseUrls.URL_GET_WALLET_AMOUNT, params, new Response.Listener<JSONArray>() {
+        postRequest(BaseUrls.URL_GET_WALLET_AMOUNT, params, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONArray response) {
+            public void onResponse(String response) {
                 loadingBar.dismiss();
-                Log.e("wallet",response.toString());
                 try {
-                    JSONObject object=response.getJSONObject(0);
-                    String wamt=object.getString("wallet_points");
-                    session_management.updateWallet(wamt);
-                    Log.e("Common_wallet","wallet_amt_-- "+session_management.getUserDetails().get(KEY_WALLET));
-                    ((MainActivity)context).setWallet_Amount(String.valueOf(wamt));
+                    JSONObject object=new JSONObject(response);
+                    if(object.getBoolean("responce")){
+                        String wamt=object.getString("wallet_amount");
+                        session_management.updateWallet(wamt);
+                        Log.e("Common_wallet","wallet_amt_-- "+session_management.getUserDetails().get(KEY_WALLET));
+                        ((MainActivity)context).setWallet_Amount(String.valueOf(wamt));
+                    }else{
+                     showToast("Something went wrong");
+                    }
+
 
                 }
                 catch (Exception ex)
@@ -1938,7 +1950,6 @@ public class Common {
                 showVolleyError(error);
             }
         });
-        AppController.getInstance().addToRequestQueue(jsonArrayRequest);
 
     }
 
@@ -1948,6 +1959,14 @@ public class Common {
             return true;
         }else{
             return false;
+        }
+    }
+    public String checkNullStr(String str){
+
+        if(str == null || str.isEmpty() || str.equalsIgnoreCase("null")){
+            return "";
+        }else{
+            return str;
         }
     }
 
@@ -2008,7 +2027,7 @@ public class Common {
         Intent i = new Intent(Intent.ACTION_VIEW);
 
         try {
-            String url = "whatsapp://send?phone=+91"+phone+"&text="+URLEncoder.encode(message, "UTF-8");
+            String url = "whatsapp://send?phone="+phone+"&text="+URLEncoder.encode(message, "UTF-8");
             i.setData(Uri.parse(url));
             if (i.resolveActivity(packageManager) != null) {
                 context.startActivity(i);
@@ -2039,10 +2058,10 @@ public class Common {
                 Log.e ("checkstatus", "onResponse: "+response );
                 try {
                     JSONObject jsonObject=new JSONObject (String.valueOf (response));
-                   jsonObject.getString ("login_status");
+                    jsonObject.getString ("login_status");
                     Log.e ("logintext", "onResponse: "+jsonObject.getString ("login_status"));
                     if(jsonObject.getString ("login_status").equals ("0")){
-                      session_management.logoutSession ();
+                        session_management.logoutSession ();
                     }
                     else {
                         session_management.isLoggedIn ();
@@ -2063,6 +2082,92 @@ public class Common {
         AppController.getInstance().addToRequestQueue(jsonArrayRequest);
     }
 
+    public long getTimeDiffernce(String time)
+    {
+        Date cdate=new Date();
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        String time3=format.format(cdate);
+        Date date1 = null;
+        Date date3=null;
+        try {
+            date1 = format.parse(time);
+
+            date3=format.parse(time3);
+//                Log.e("pos : "+position, "onBindViewHolder: "+date2+"  \n "+date2.getTime() );
+//                Log.e("poscurr : "+position, "onBindViewHolder: "+date3+"  \n "+date3.getTime() );
+        } catch (ParseException e1) {
+            e1.printStackTrace();
+        }
+
+        long difference = date3.getTime() - date1.getTime();
+        long as=(difference/1000)/60;
+        return as;
+    }
+    public String getValidNumber(String str, int palace){
+        String validStr="";
+        if(str ==null || str.isEmpty() || str.equalsIgnoreCase("null")){
+            if(palace==1){
+                validStr="***";
+            }else if(palace==2){
+                validStr="**";
+            }else{
+                validStr="***";
+            }
+        }else{
+            validStr=str;
+        }
+        return validStr;
+    }
+
+    public void shareText(String body) {
+        Intent txtIntent = new Intent(android.content.Intent.ACTION_SEND);
+        txtIntent .setType("text/plain");
+//        txtIntent .putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+        txtIntent .putExtra(android.content.Intent.EXTRA_TEXT, body);
+        context.startActivity(Intent.createChooser(txtIntent ,"Share"));
+    }
+    public void printPanaList(List<String> list){
+        for(String s:list){
+            Log.e("Common", "printPanaList: "+s );
+        }
+    }
+    public void getAllGames(String url, final OnGetAllGames onGetAllGames){
+        loadingBar.show();
+        HashMap<String,String> params=new HashMap<>();
+        postRequest(url, params, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+             loadingBar.dismiss();
+             try{
+                 JSONArray array=new JSONArray(response);
+                 ArrayList<GameStatusModel> gList=new ArrayList<>();
+                 for(int i=0;i<array.length();i++){
+                     GameStatusModel m=new GameStatusModel();
+                     JSONObject object=array.getJSONObject(i);
+                     m.setGame_id(checkNullStr(object.getString("game_id")));
+                     m.setGame_name(checkNullStr(object.getString("game_name")));
+                     m.setName(checkNullStr(object.getString("name")));
+                     m.setPoints(checkNullStr(object.getString("points")));
+                     m.setIs_close(checkNullStr(object.getString("is_close")));
+                     m.setIs_disabled(checkNullStr(object.getString("is_disabled")));
+                     m.setIs_starline_disable(checkNullStr(object.getString("is_starline_disable")));
+                     m.setIs_deleted(checkNullStr(object.getString("is_deleted")));
+                     gList.add(m);
+                 }
+                 onGetAllGames.onGetAllGames(gList);
+             }catch (Exception ex){
+                 ex.printStackTrace();
+             }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loadingBar.dismiss();
+                showVolleyError(error);
+            }
+        });
+    }
 }
 
 

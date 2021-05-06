@@ -3,8 +3,13 @@ package in.matka.ns.Fragments.starline;
 import android.content.Intent;
 import android.os.Bundle;
 
+import in.matka.ns.Adapter.StarlineAdapter;
+import in.matka.ns.Common.Common;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,8 +40,7 @@ import java.util.Map;
 import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.Adapter.PGAdapter;
 import in.matka.ns.AppController;
-import in.matka.ns.Common.Common;
-import in.matka.ns.Config.URLs;
+import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.Fragments.AllHistoryFragment;
 import in.matka.ns.Model.GameRateModel;
 import in.matka.ns.Model.Starline_Objects;
@@ -45,23 +49,26 @@ import in.matka.ns.Util.ConnectivityReceiver;
 import in.matka.ns.Util.CustomJsonRequest;
 import in.matka.ns.Util.LoadingBar;
 import in.matka.ns.Util.Module;
+import in.matka.ns.Util.RecyclerTouchListener;
 import in.matka.ns.Util.Session_management;
 import in.matka.ns.Util.ToastMsg;
 import in.matka.ns.networkconnectivity.NoInternetConnection;
 
+import static in.matka.ns.Config.BaseUrls.BASE_URL;
 import static in.matka.ns.Config.BaseUrls.URL_STARLINE;
 
 public class StarlineFragment extends Fragment implements View.OnClickListener {
-    ListView rv_matka;
+    private final String TAG=StarlineFragment.class.getSimpleName();
+    RecyclerView rv_starline;
     ArrayList<GameRateModel> list;
     ArrayList<GameRateModel> slist;
     private ArrayList<Starline_Objects> matkaList;
-   PGAdapter adapter ;
+    StarlineAdapter adapter ;
     LoadingBar progressDialog;
     Common common;
     Session_management session_management;
     Module module;
-    RelativeLayout swipe;
+    SwipeRefreshLayout swipe;
     TextView txt_game_rate;
     Button btn_bid,btn_result , btn_terms;
     public StarlineFragment() {
@@ -73,7 +80,7 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View view =inflater.inflate(R.layout.fragment_starline, container, false);
+       View view =inflater.inflate(R.layout.fragment_new_starline, container, false);
        initViews(view);
        return view ;
     }
@@ -84,18 +91,14 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
        slist = new ArrayList<>();
         session_management=new Session_management(getActivity());
         ((MainActivity) getActivity()).setTitle(getActivity().getResources().getString(R.string.app_name));
-        rv_matka= v.findViewById(R.id.listView);
+        rv_starline= v.findViewById(R.id.rv_starline);
         txt_game_rate= v.findViewById(R.id.game_rate);
         btn_bid= v.findViewById(R.id.star_histry);
-       // btn_result= v.findViewById(R.id.star_result);
-      // btn_terms= v.findViewById(R.id.star_term);
-        swipe = v.findViewById(R.id.swipe_layout);
+        swipe= v.findViewById(R.id.swipe);
+
         progressDialog = new LoadingBar(getActivity());
         common = new Common(getActivity());
         module = new Module();
-       // btn_terms.setOnClickListener(this);
-
-       // btn_result.setOnClickListener(this);
         btn_bid.setOnClickListener(this);
         if(ConnectivityReceiver.isConnected()) {
 
@@ -109,22 +112,31 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
             startActivity(intent);
         }
 
-//        rv_matka.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new PGAdapter(getActivity(),matkaList);
-        rv_matka.setAdapter(adapter);
+        rv_starline.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv_starline.setNestedScrollingEnabled(false);
+        adapter = new StarlineAdapter(getActivity(),matkaList);
+        rv_starline.setAdapter(adapter);
 
-//        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//
-//                onStart();
-//                swipe.setRefreshing(false);
-//            }
-//        });
-        rv_matka.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onRefresh() {
+                if(ConnectivityReceiver.isConnected()) {
 
+                    getMatkaData();
+                    getNotice();
+//       showUpdateDialog();
+
+                } else
+                {
+                    Intent intent = new Intent(getActivity(), NoInternetConnection.class);
+                    startActivity(intent);
+                }
+
+            }
+        });
+        rv_starline.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv_starline, new RecyclerTouchListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
                 Starline_Objects starline_objects=matkaList.get(position);
                 //String stime=starline_objects.getS_game_time();
 
@@ -151,55 +163,85 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
                     String s_id=starline_objects.getId();
                     String matka_name="STARLINE";
 
-        Bundle bundle = new Bundle();
-//                    bundle.putString("matka_name",objects.getName());
+                    Bundle bundle = new Bundle();
                     bundle.putString("m_id",starline_objects.getId());
-//                    bundle.putString("start_number",objects.getStarting_num());
-//                    bundle.putString("number",objects.getNumber());
-//                    bundle.putString("end_number",objects.getEnd_num());
                     bundle.putString("end_time",e_t);
                     bundle.putString("start_time",s_t);
+                    Log.e(TAG, "onItemClick: "+starline_objects.getId());
         Fragment fm  = new StarMainFragment();
         fm.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
                 .addToBackStack (null)
                 .commit();
-//                    Intent intent=new Intent(PlayGameActivity.this, NewGameActivity.class);
-//                    intent.putExtra("tim",position);
-//                    intent.putExtra("matkaName",matka_name);
-//                    intent.putExtra("bet","ocb");
-//                    intent.putExtra("m_id",s_id);
-//                    intent.putExtra("end_time",e_t);
-//                    intent.putExtra("start_time",s_t);
-//                    startActivity(intent);
-                    //Toast.makeText(PlayGameActivity.this,""+s_id,Toast.LENGTH_LONG).show();
                 }
-//                if(flg==1)
-//                {
-//                    Toast.makeText(PlayGameActivity.this,"close",Toast.LENGTH_LONG).show();
-//                }
-//                else if(flg==2)
-//                {
-//                    Toast.makeText(PlayGameActivity.this,"open",Toast.LENGTH_LONG).show();
-//                }
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
 
             }
-        });
+        }));
+//        rv_matka.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                Starline_Objects starline_objects=matkaList.get(position);
+//                //String stime=starline_objects.getS_game_time();
+//
+//                //boolean sTime=getTimeStatus(String.valueOf(starline_objects.getS_game_time()));
+//                int sTime=getTimeFormatStatus(starline_objects.getS_game_time());
+//                Date date=new Date();
+//                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HH");
+//                String ddt=simpleDateFormat.format(date);
+//                int c_tm=Integer.parseInt(ddt);
+//                //Toast.makeText(PlayGameActivity.this,"sTime "+sTime+"\n dt"+ddt,Toast.LENGTH_LONG).show();
+//                if(sTime<=c_tm)
+//                {
+//                    new ToastMsg(getActivity()).toastInfo("Biding is closed for today");
+//                    return;
+//
+//                }
+//                else
+//                {
+//
+//                    String e_t = get24Hours(starline_objects.getS_game_end_time());
+//                    String s_t = get24Hours(starline_objects.getS_game_time());
+//                    Log.e("time",s_t+"\n"+e_t);
+//
+//                    String s_id=starline_objects.getId();
+//                    String matka_name="STARLINE";
+//
+//        Bundle bundle = new Bundle();
+//                    bundle.putString("m_id",starline_objects.getId());
+//                    bundle.putString("end_time",e_t);
+//                    bundle.putString("start_time",s_t);
+//                    Log.e(TAG, "onItemClick: "+starline_objects.getId());
+//        Fragment fm  = new StarMainFragment();
+//        fm.setArguments(bundle);
+//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//        fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+//                .addToBackStack (null)
+//                .commit();
+//                }
+//
+//            }
+//        });
 
 
     }
     public void getMatkaData()
     {
         progressDialog.show();
-
-        final JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(URL_STARLINE,
-                new
+       matkaList.clear();
+        final JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(URL_STARLINE, new
                 Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.e("starline_response",response.toString());
-
+                           if(swipe.isRefreshing()){
+                               swipe.setRefreshing(false);
+                           }
                         for(int i=0; i<response.length();i++)
                         {
                             try
@@ -283,7 +325,7 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
         String tag_json_obj = "json_notice_req";
         Map<String, String> params = new HashMap<String, String>();
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URLs.URL_NOTICE, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, BaseUrls.URL_NOTICE, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
@@ -316,11 +358,11 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
 
 
                         }
-
-                        txt_game_rate.setText(slist.get(0).getName()+ "-"+slist.get(0).getRate_range()+" : "+slist.get(0).getRate()+"\n"+
-                      slist.get(1).getName()+ "-"+slist.get(1).getRate_range()+" : "+slist.get(1).getRate()+"\n"+
-                       slist.get(2).getName()+ "-"+slist.get(2).getRate_range()+" : "+slist.get(2).getRate()+"\n"+
-                       slist.get(3).getName()+ "-"+slist.get(3).getRate_range()+" : "+slist.get(3).getRate());
+                        txt_game_rate.setText(setRates());
+//                        txt_game_rate.setText(slist.get(0).getName()+ "-"+slist.get(0).getRate_range()+" : "+slist.get(0).getRate()+"\n"+
+//                       slist.get(1).getName()+ "-"+slist.get(1).getRate_range()+" : "+slist.get(1).getRate()+"\n"+
+//                       slist.get(2).getName()+ "-"+slist.get(2).getRate_range()+" : "+slist.get(2).getRate()+"\n"+
+//                       slist.get(3).getName()+ "-"+slist.get(3).getRate_range()+" : "+slist.get(3).getRate());
 
 
                     }
@@ -405,5 +447,14 @@ public class StarlineFragment extends Fragment implements View.OnClickListener {
 //        break;
         }
 
+    }
+
+    private String setRates(){
+        StringBuffer stringBuffer=new StringBuffer();
+        for(GameRateModel m:slist){
+            stringBuffer.append(m.getName()+" - "+m.getRate_range()+" : "+m.getRate()+"\n");
+        }
+        Log.e(TAG, "setRates: "+stringBuffer.toString() );
+        return stringBuffer.toString();
     }
 }

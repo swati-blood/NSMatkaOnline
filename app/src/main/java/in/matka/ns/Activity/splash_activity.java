@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -40,7 +41,6 @@ public class splash_activity extends AppCompatActivity {
     Session_management session_management;
    public static int ver_code=0;
     private AlertDialog dialog;
-
     public static final int MY_PERMISSIONS_REQUEST_WRITE_FIELS = 102;
    Common common;
    public static String home_text ="",dialog_image="", withdrw_text="",tagline= "" ,min_add_amount="",link = "" ,app_link="",share_link="",msg_status="",withdrw_no="";

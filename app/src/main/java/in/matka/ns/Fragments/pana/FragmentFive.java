@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-
+import in.matka.ns.Common.Common;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +21,6 @@ import java.util.List;
 
 import in.matka.ns.Activity.PanaActivity;
 import in.matka.ns.Adapter.SigleDoublePanaAdapter;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Intefaces.UpdateTotalBidAmount;
 import in.matka.ns.Model.TableModel;
 import in.matka.ns.R;
@@ -70,11 +69,11 @@ public class FragmentFive extends Fragment {
         single_list = new ArrayList<>();
         bet_list = new ArrayList<>();
 
-        if (game_names.equals("Single Pana"))
+        if (game_names.equalsIgnoreCase("Single Pana"))
         {
             single_list = Arrays.asList(singlePaana);
         }
-        else if (game_names.equals("Double Pana"))
+        else if (game_names.equalsIgnoreCase("Double Pana"))
         {
             single_list = Arrays.asList(doublePanna);
         }
@@ -87,14 +86,14 @@ public class FragmentFive extends Fragment {
         super.onStart();
         bet_list.clear();
         bet_list.addAll(((PanaActivity)getActivity()).getBidList());
-        if (game_names.equals("Single Pana"))
+        if (game_names.equalsIgnoreCase("Single Pana"))
         {
             sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(48,60),getActivity(),5,bet_list,game_names);
 
         }
-        else if (game_names.equals("Double Pana"))
+        else if (game_names.equalsIgnoreCase("Double Pana"))
         {
-            sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(40,50),getActivity(),5,bet_list,game_names);
+            sigleDoublePanaAdapter = new SigleDoublePanaAdapter(single_list.subList(36,45),getActivity(),5,bet_list,game_names);
 
         }
         rv_digits.setLayoutManager(new GridLayoutManager(getActivity(),2));

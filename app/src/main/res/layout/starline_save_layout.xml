@@ -24,7 +24,7 @@
         android:id="@+id/matka_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Matka Name"
+        android:text=""
         android:background="@color/colorPrimary"
         android:textColor="@color/white"
         android:layout_gravity="center_vertical"

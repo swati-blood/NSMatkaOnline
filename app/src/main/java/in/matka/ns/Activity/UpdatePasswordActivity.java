@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
+import in.matka.ns.Common.Common;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +21,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import in.matka.ns.AppController;
-import in.matka.ns.Common.Common;
 import in.matka.ns.R;
 import in.matka.ns.Util.ConnectivityReceiver;
 import in.matka.ns.Util.CustomJsonRequest;
@@ -84,9 +83,9 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
                 common.showToast("Enter Confirm Password");
                 et_pass.requestFocus();
             }
-            else if(pass.length()<6 || cpass.length()<6)
+            else if(pass.length()<5 || cpass.length()<5)
             {
-                common.showToast("Password is too short");
+                common.showToast(getString(R.string.minimum_pass));
                 et_pass.requestFocus();
             }
             else
@@ -105,7 +104,7 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
                 }
                 else
                 {
-                    common.showToast("Password must br matched");
+                    common.showToast("Password must be matched");
                 }
             }
         }
@@ -126,7 +125,7 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
                  if(res.equalsIgnoreCase("success"))
                  {
                      common.showToast(response.getString("message"));
-                     Intent intent=new Intent(ctx,MainActivity.class);
+                     Intent intent=new Intent(ctx,LoginActivity.class);
                      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

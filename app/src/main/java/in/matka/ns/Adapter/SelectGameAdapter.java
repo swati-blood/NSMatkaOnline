@@ -110,17 +110,17 @@ public class SelectGameAdapter extends RecyclerView.Adapter<SelectGameAdapter.Vi
 
                    switch (model.getName())
                    {
-                       case  "Half Sangam" :
+                       case  "HALF SANGAM" :
                            fm = new HalfSangamFragment();
                            break;
                        case  "DP Motor" :
                        case  "SP Motor" :
                            fm = new SPMotor();
                            break;
-                       case  "Cycle Pana" :
+                       case  "CYCLE PANA" :
                            fm = new CyclePana();
                            break;
-                       case "Full Sangam" :
+                       case "FULL SANGAM" :
                            fm = new FullSangamFragmnet();
                            break;
                        case "Panel Group" :
@@ -168,12 +168,6 @@ public class SelectGameAdapter extends RecyclerView.Adapter<SelectGameAdapter.Vi
 
            }
        });
-        Log.e("availability", "onBindViewHolder: ."+model.isIs_disable() );
-       if(model.isIs_disable()){
-           holder.itemView.setVisibility(View.GONE);
-       }else{
-           holder.itemView.setVisibility(View.VISIBLE);
-       }
 
 
     }

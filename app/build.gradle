@@ -22,7 +22,7 @@ android {
         applicationId "in.matka.ns"
 
 
-        manifestPlaceholders = [onesignal_app_id: 'c8ede872-0857-4366-8bf6-992b8a70fa50',
+        manifestPlaceholders = [onesignal_app_id: '4d53e3c0-717b-459b-bd3d-b8c7c675472b',
 
                                 // Project number pulled from dashboard, local value is ignored.
                                 onesignal_google_project_number: 'REMOTE']

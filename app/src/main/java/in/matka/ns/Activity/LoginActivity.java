@@ -3,6 +3,7 @@ package in.matka.ns.Activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import in.matka.ns.Common.Common;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -37,7 +38,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.matka.ns.AppController;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
 import in.matka.ns.NetworkStateChangeReciever;
 import in.matka.ns.R;
@@ -150,37 +150,6 @@ toastMsg= new ToastMsg(LoginActivity.this);
         btnForPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-        //                dialog=new Dialog(MainActivity.this);
-        //                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //                dialog.setContentView(R.layout.dialog_forget_pass_layout);
-        //                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        //                btnForgetPassword=(Button)dialog.findViewById(R.id.forget_password);
-        //                edtEmail=(EditText)dialog.findViewById(R.id.etForget_email);
-        //
-        //                dialog.setCanceledOnTouchOutside(false);
-        //                dialog.show();
-        //
-        //
-        //                btnForgetPassword.setOnClickListener(new View.OnClickListener() {
-        //                    @Override
-        //                    public void onClick(View v) {
-        //
-        //
-        //                        if(TextUtils.isEmpty(edtEmail.getText().toString()))
-        //                        {
-        //                            edtEmail.setError("Enter registered Email Id");
-        //                            edtEmail.requestFocus();
-        //                            return;
-        //                        }
-        //                        else
-        //                        {
-        //                            String mail=edtEmail.getText().toString().trim();
-        //                            getPassword(mail);
-        //                        }
-        //
-        //                    }
-        //                });
-        //
                 Intent intent = new Intent(LoginActivity.this,VerificationActivity.class);
                 intent.putExtra("type","f");
                 startActivity(intent);
@@ -191,64 +160,40 @@ toastMsg= new ToastMsg(LoginActivity.this);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                     String mName=etName.getText().toString().trim();
                     String mPass=etPassword.getText().toString().trim();
-//                    String mName="anasmansoori734@gmail.com";
-//
-//                    String mPass="Anas@123";
-
                     if(TextUtils.isEmpty(mName))
                     {
-                        etName.setError("Enter Mobile No");
+                        etName.setError("Enter Mobile Number");
                         etName.requestFocus();
-                    }
-
-                String phone_value=etName.getText().toString().trim();
-                int sf= Integer.parseInt(phone_value.substring(0,1));
-                int len=phone_value.length();
-
-                if(sf<6 || len<10)
-                {
-                    common.showToast("Invalid Mobile number \n" + "mobile number never start with 0 and <6");
-                }
-                    else if(TextUtils.isEmpty(mPass))
-                    {
-
+                    }else if(mName.length()!=10){
+                        common.showToast(getResources().getString(R.string.invalid_mobile));
+                        etName.requestFocus();
+                    }else if(TextUtils.isEmpty(mPass)){
                         etPassword.setError("Enter password");
                         etPassword.requestFocus();
-
-                    }
-                    else
-                    {
-                        mainName=mName;
-//
-                        if (ConnectivityReceiver.isConnected()) {
-
-                            getUserLoginRequest(mName,mPass);
-                        }
-                        else
+                    }else if(mPass.length()<5){
+                        etPassword.setError(getResources().getString(R.string.minimum_pass));
+                        etPassword.requestFocus();
+                    }else{
+                        String phone_value=etName.getText().toString().trim();
+                        int sf= Integer.parseInt(phone_value.substring(0,1));
+                        if(sf<6)
                         {
-                            Intent intent = new Intent(LoginActivity.this, NoInternetConnection.class);
-                            startActivity(intent);
+                            common.showToast(getResources().getString(R.string.invalid_mobile));
+                        }else{
+                            mainName=mName;
+                            if (ConnectivityReceiver.isConnected()) {
+                                getUserLoginRequest(mName,mPass);
+                            }else{
+                                Intent intent = new Intent(LoginActivity.this, NoInternetConnection.class);
+                                startActivity(intent);
+                            }
                         }
-
-
                     }
 
-//                    if(!mName.isEmpty()||!mPass.isEmpty())
-//                    {
-//
-//                        mainName=mName;
-//                        Login(mName,mPass);
-//                    }
-//                    else
-//                    {
-//                        etName.setError("Please enter user name/email");
-//                        etPassword.setError("Please enter Password");
-//                        return;
-//                    }
+
+
                 }
 
 

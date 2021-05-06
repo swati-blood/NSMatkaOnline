@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-
+import in.matka.ns.Common.Common;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +27,6 @@ import java.util.List;
 
 import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.Adapter.TableAdaper;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Model.TableModel;
 import in.matka.ns.R;
 import in.matka.ns.Util.LoadingBar;
@@ -138,7 +137,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
             ((MainActivity) getActivity()).setTitle("Starline -"+game_name);
         }
         else {
-            ((MainActivity) getActivity()).setTitle(matka_name+"-"+game_name);
+            ((MainActivity) getActivity()).setTitle(game_name);
         }
 
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,singlePaana);
@@ -178,7 +177,7 @@ public class HalfSangamFragment extends Fragment implements View.OnClickListener
                         String asd1 = tableModel.getPoints().toString();
                         String asd2 = tableModel.getType().toString();
                         int b = 1;
-                        if (asd2.equals("Half sangam")) {
+                        if (asd2.equals("Half Sangam")) {
                             b = 0;
                         } else {
                             b = 0;

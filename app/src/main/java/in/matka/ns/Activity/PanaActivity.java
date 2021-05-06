@@ -3,7 +3,7 @@ package in.matka.ns.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.viewpager.widget.ViewPager;
-
+import in.matka.ns.Common.Common;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import in.matka.ns.Adapter.PagerAdapter;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Model.TableModel;
 import in.matka.ns.R;
 import in.matka.ns.Util.LoadingBar;
@@ -35,6 +34,7 @@ import static in.matka.ns.Objects.sp_input_data.doublePanna;
 import static in.matka.ns.Objects.sp_input_data.singlePaana;
 
 public class PanaActivity extends AppCompatActivity implements View.OnClickListener {
+    private final String TAG=PanaActivity.class.getSimpleName();
    ImageView iv_back;
    TextView tv_title,tv_wallet;
    RelativeLayout rel_holder;
@@ -110,15 +110,18 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         game_names = getIntent().getStringExtra("game_name");
         game_ids = getIntent().getStringExtra("game_id");
         //matka_names=getIntent ().getStringExtra ("matka_name");
-        tv_title.setText (matka_names+"-"+game_names);
+        tv_title.setText (game_names);
 
         if (m_id>20)
 
-        {   tv_title.setText ("Starline  -"+game_names);
+        {
+            matka_names = getIntent().getStringExtra("matka_name");
+            tv_title.setText ("Starline  -"+game_names);
             card_matka.setVisibility(View.GONE);
             card_star.setVisibility(View.VISIBLE);
             txt_date.setVisibility(View.GONE);
             txt_type.setVisibility(View.GONE);
+            txt_type.setText("Open");
             try {
                 Date date = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy EEEE");
@@ -145,9 +148,13 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
             {
                 ex.printStackTrace();
             }
+            viewpager.setVisibility (View.VISIBLE);
+            viewpagerhide.setAdapter (null);
+            viewpagerhide.setVisibility (View.GONE);
              }
         else
         {
+            txt_type.setText("Select Type");
             card_matka.setVisibility(View.VISIBLE);
             card_star.setVisibility(View.GONE);
             matka_names = getIntent().getStringExtra("matka_name");
@@ -157,14 +164,14 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         setTabLayout();
-        if(game_names.equalsIgnoreCase("Single Pana"))
+        if(game_names.equalsIgnoreCase("SINGLE PANA"))
         {
             for(int i=0;i<singlePaana.length;i++)
             {
                 bidList.add(new TableModel(singlePaana[i].toString(),"0","Select Type"));
             }
         }
-        else if(game_names.equalsIgnoreCase("Double Pana"))
+        else if(game_names.equalsIgnoreCase("DOUBLE PANA"))
         {
             for(int i=0;i<doublePanna.length;i++)
             {
@@ -174,14 +181,21 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
 
         tv_matkaname.setText(matka_names);
         tv_gamename.setText(game_names);
-        tv_matkanumber.setText(start_num+" - "+num+" - "+end_num);
+        tv_matkanumber.setText(common.getValidNumber(start_num,1)+"-"+common.getValidNumber(num,2)+"-"+common.getValidNumber(end_num,3));
         tv_bid_open.setText(common.get24To12Format(s_time));
         tv_bid_close.setText(common.get24To12Format(e_time));
-         viewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tablayout));
+
         tablayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewpager.setCurrentItem(tab.getPosition());
+                if (txt_type.getText().toString().equalsIgnoreCase("Select Type")) {
+//                Toast.makeText(ctx, "Select game type", Toast.LENGTH_LONG).show();
+                    toastMsg.toastIconError("Select game type");
+
+                }else{
+                    viewpager.setCurrentItem(tab.getPosition());
+                }
+
             }
 
             @Override
@@ -194,6 +208,7 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+        viewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tablayout));
 
     }
 
@@ -209,8 +224,12 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         tablayout.setVisibility(View.VISIBLE);
         if(game_names.equalsIgnoreCase("Single Pana"))
         {
+            int j=0;
             for (int i = 0; i < 10; i++) {
                 int ind = i + 1;
+                 if(ind==10){
+                     ind=0;
+                 }
                 tablayout.addTab(tablayout.newTab().setText(String.valueOf(ind)), i);
 
             }
@@ -218,8 +237,11 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if(game_names.equalsIgnoreCase("Double Pana"))
         {
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < 10; i++) {
                 int ind = i + 1;
+                if(ind==10){
+                    ind=0;
+                }
                 tablayout.addTab(tablayout.newTab().setText(String.valueOf(ind)), i);
 
             }
@@ -233,7 +255,7 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if(game_names.equalsIgnoreCase("Double Pana"))
         {
-            pagerAdapter=new PagerAdapter(getSupportFragmentManager(),9);
+            pagerAdapter=new PagerAdapter(getSupportFragmentManager(),10);
 
         }
         viewpagerhide.setAdapter (pagerAdapter);
@@ -254,11 +276,11 @@ public class PanaActivity extends AppCompatActivity implements View.OnClickListe
         else if (v.getId()==R.id.tv_type)
         {
             viewpager.setVisibility (View.VISIBLE);
-viewpagerhide.setAdapter (null);
+            viewpagerhide.setAdapter (null);
             viewpagerhide.setVisibility (View.GONE);
 
             //et_points.setEnabled (true);
-            common.setBetTypeDialog(dialog,txtOpen,txtClose,txt_type,txt_date.getText().toString(),s_time,e_time);
+            common.setBetTypeDialog(dialog,txtOpen,txtClose,txt_type,txt_date.getText().toString(),s_time,e_time,game_ids);
         }
         else if (v.getId()==R.id.tv_date)
         {
@@ -274,10 +296,7 @@ bet_list.clear ();
             for(int k=0; k<bidList.size();k++)
             {
                 if(bidList.get(k).getPoints().toString().equals("0") || bidList.get(k).getPoints().toString().equals("") )
-                { }
-                else
-                {
-
+                { }else{
                     tempList.add(bidList.get(k));
                 }
             }
@@ -339,7 +358,7 @@ bet_list.clear ();
                                 long diff_close = c_date.getTime() - e_date.getTime();
                                 long curr = (diff_close / 1000) / 60;
                                 long current_time = c_date.getTime();
-
+                                Log.e(TAG, "onClick: "+matka_names );
                                 if (as < 0) {
 
                                     common.setBidsDialog(Integer.parseInt(w_amount), tempList, matka_id, g_d, game_ids, w_amount, matka_names, loadingBar, btn_submit, s_time, e_time);

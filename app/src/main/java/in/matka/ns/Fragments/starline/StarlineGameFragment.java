@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import in.matka.ns.Adapter.SelectGameAdapter;
+import in.matka.ns.Common.Common;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,22 +29,20 @@ import java.util.List;
 import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.Adapter.StralinegameAdapter;
 import in.matka.ns.AppController;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Config.BaseUrls;
+import in.matka.ns.Intefaces.OnGetAllGames;
 import in.matka.ns.Model.GameModel;
 import in.matka.ns.Model.GameStatusModel;
 import in.matka.ns.R;
 import in.matka.ns.Util.CustomVolleyJsonArrayRequest;
 import in.matka.ns.Util.LoadingBar;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class StarlineGameFragment extends Fragment {
+    private final String TAG=StarlineFragment.class.getSimpleName();
     RecyclerView rv_games;
     StralinegameAdapter selectGameAdapter ;
     LoadingBar loadingBar ;
-    List<GameStatusModel> tempList;
+    ArrayList<GameStatusModel> tempList;
     ArrayList<GameModel> game_list;
     Common common;
     public StarlineGameFragment() {
@@ -173,32 +173,58 @@ public class StarlineGameFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        getGames();
+        common.getAllGames(BaseUrls.URL_STARLINEGAMES, new OnGetAllGames() {
+            @Override
+            public void onGetAllGames(ArrayList<GameStatusModel> gList) {
+                game_list.clear();
+                String PACKAGE_NAME = getActivity().getApplicationContext().getPackageName();
 
+                for(GameStatusModel m:gList){
+                    int imgId = getResources().getIdentifier(PACKAGE_NAME+":drawable/"+m.getGame_name() , null, null);
+                    if(m.getGame_name().equalsIgnoreCase("single_pana") || m.getGame_name().equalsIgnoreCase("double_pana")){
+                        game_list.add(new GameModel(m.getGame_id(), m.getName(), imgId, "2", false));
+                    }else if(m.getGame_name().equalsIgnoreCase("half_sangam") || m.getGame_name().equalsIgnoreCase("full_sangam")|| m.getGame_name().equalsIgnoreCase("cycle_pana")){
+                        game_list.add(new GameModel(m.getGame_id(), m.getName(), imgId, "1", false));
+                    }
+                    else {
+                        game_list.add(new GameModel(m.getGame_id(), m.getName(), imgId, "0", false));
+                    }
+                }
+                Log.e(TAG, "onGetAllGames: "+ getArguments().getString("m_id")+" -- "+getArguments().getString("start_time")+" ::: "+getArguments().getString("end_time") );
+                selectGameAdapter = new StralinegameAdapter(getActivity(),game_list, getArguments().getString("m_id"),
+                        getArguments().getString("start_time"),
+                        getArguments().getString("end_time"));
+                rv_games.setAdapter(selectGameAdapter);
+            }
+        });
     }
 
-    private void setStarlineGames(List<GameStatusModel> list)
-    {
+    private void setStarlineGames(ArrayList<GameStatusModel> list){
         game_list.clear();
-        game_list.add(new GameModel("2","Single Digit",R.drawable.ic_single,"0",getStAble(list,2)));
-        game_list.add(new GameModel("3","Jodi Digit",R.drawable.ic_jodi,"0",getStAble(list,3)));
-      // game_list.add(new GameModel("4","Red Bracket",R.drawable.red_brackets,"1",getStAble(list,4)));
-       //game_list.add(new GameModel("5","Panel Group",R.drawable.panel_group_icon,"1",getStAble(list,5)));
-      // game_list.add(new GameModel("6","Group Jodi",R.drawable.group_jodi,"1",getStAble(list,6)));
-        game_list.add(new GameModel("7","Single Pana",R.drawable.ic_singlepana,"2",getStAble(list,7)));
-        game_list.add(new GameModel("8","Double Pana",R.drawable.ic_doublepana,"2",getStAble(list,8)));
-        game_list.add(new GameModel("9","Triple Pana",R.drawable.ic_triple_pana,"0",getStAble(list,9)));
-      // game_list.add(new GameModel("10","SP Motor",R.drawable.sp_motor,"1",getStAble(list,10)));
-     //  game_list.add(new GameModel("11","DP Motor",R.drawable.dp_motor,"1",getStAble(list,11)));
-        game_list.add(new GameModel("12","Half Sangam",R.drawable.ic_halfsangam,"1",getStAble(list,12)));
-        game_list.add(new GameModel("13","Full Sangam",R.drawable.ic_fullsangam,"1",getStAble(list,13)));
-     //  game_list.add(new GameModel("14","Cycle Pana",R.drawable.cyclepana,"1",getStAble(list,14)));
-        removeGames(game_list);
+        game_list.add(new GameModel("2","Single Digit",R.drawable.single_digit,"0",getStAble(list,2)));
+        game_list.add(new GameModel("3","Jodi Digit",R.drawable.jodi_digits,"0",getStAble(list,3)));
+        game_list.add(new GameModel("7","Single Pana",R.drawable.single_pana,"2",getStAble(list,7)));
+        game_list.add(new GameModel("8","Double Pana",R.drawable.double_pana,"2",getStAble(list,8)));
+        game_list.add(new GameModel("9","Triple Pana",R.drawable.triple_pana,"0",getStAble(list,9)));
+        game_list.add(new GameModel("12","Half Sangam",R.drawable.half_sangam,"1",getStAble(list,12)));
+        game_list.add(new GameModel("13","Full Sangam",R.drawable.full_sangam,"1",getStAble(list,13)));
+        game_list.add(new GameModel("14","Cycle Pana",R.drawable.cycle_pana,"1",getStAble(list,14)));
+        for(GameModel m1:game_list){
+            Log.e(TAG, "setStarlineGames: "+m1.getId()+" :: "+m1.isIs_disable());
+        }
+        for (int l=0;l<game_list.size();l++){
+            GameModel m=game_list.get(l);
+            Log.e(TAG, "setStarlineGames: "+m.getId()+" :: "+m.isIs_disable());
+            if(m.isIs_disable()){
+                game_list.remove(l);
+            }
+        }
+        Log.e(TAG, "setStarlineGames: "+getArguments().getString("start_time")+" -- "+getArguments().getString("end_time") );
+
         selectGameAdapter = new StralinegameAdapter(getActivity(),game_list, getArguments().getString("m_id"),
                 getArguments().getString("start_time"),
                 getArguments().getString("end_time"));
         rv_games.setAdapter(selectGameAdapter);
-        Log.e("m_id",getArguments().getString("m_id"));
     }
 
     public void getGames(){
@@ -210,6 +236,7 @@ public class StarlineGameFragment extends Fragment {
             public void onResponse(JSONArray response) {
                 loadingBar.dismiss();
                 try {
+                    Log.e("ganesdasdasd", "onResponse: "+response.toString() );
                     Gson gson=new Gson();
                     Type listType=new TypeToken<List<GameStatusModel>>(){}.getType();
                     tempList=gson.fromJson(response.toString(),listType);
@@ -230,28 +257,32 @@ public class StarlineGameFragment extends Fragment {
         });
         AppController.getInstance().addToRequestQueue(arrayRequest);
     }
-    private boolean getStAble(List<GameStatusModel> list,int id){
-        boolean flag=false;
-        String gId=String.valueOf(id);
-        for(int i=0; i<list.size();i++){
-            if(list.get(i).getGame_id().equals(gId)){
-                if(list.get(i).getIs_starline_disable().equals("0")){
-                    flag=false;
-
-                }else{
-                    list.remove (i);
-                    flag=true;
+    private boolean getStAble(ArrayList<GameStatusModel> list, int ind) {
+        boolean flag = false;
+        String gId = String.valueOf (ind);
+        for (int i = 0; i < list.size ( ); i++) {
+            if (list.get (i).getGame_id ( ).equals (gId)) {
+                Log.e(TAG, "getStAble: "+gId );
+                if (list.get(i).getIs_starline_disable().equals ("1")) {
+                    flag = true;
+                    break;
+                } else {
+                    flag = false;
+                    break;
                 }
-                break;
+
             }
 
         }
+        Log.e(TAG, "getStAble: "+gId+" -- "+flag );
         return flag;
     }
-    private void removeGames(ArrayList<GameModel> list){
-        for(int i=0; i<list.size();i++){
-            if(list.get(i).isIs_disable()){
-                list.remove(i);
+
+    private void removeGames() {
+        for (int i = 0; i<game_list.size (); i++) {
+            Log.e(TAG, "removeGames: "+game_list.get(i).getId()+" -- "+game_list.get(i).isIs_disable());
+            if (game_list.get(i).isIs_disable()) {
+                game_list.remove (i);
             }
         }
 

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-
+import in.matka.ns.Common.Common;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +30,6 @@ import java.util.List;
 import in.matka.ns.Activity.MainActivity;
 import in.matka.ns.Adapter.PointsAdapter;
 import in.matka.ns.Adapter.RecyclerPagerAdapter;
-import in.matka.ns.Common.Common;
 import in.matka.ns.Model.TableModel;
 import in.matka.ns.R;
 import in.matka.ns.Util.LoadingBar;
@@ -51,6 +50,7 @@ import static in.matka.ns.Objects.sp_input_data.triplePanna;
  * A simple {@link Fragment} subclass.
  */
 public class PanaFragment extends Fragment implements View.OnClickListener {
+    private final String TAG=PanaFragment.class.getSimpleName();
     EditText et_points;
     TextView txt_date,txtOpen,txtClose,txtCurrentDate,txtNextDate,txtAfterNextDate,txtDate_id;
    public static TextView txt_type,total  ;
@@ -113,8 +113,10 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         game_id = getArguments().getString("game_id");
         s_time = getArguments().getString("start_time");
         e_time = getArguments().getString("end_time");
+        ((MainActivity) getActivity()).setTitle(game_name);
         w_amount =((MainActivity) getActivity()).getWallet();
-        if (matka_id.equalsIgnoreCase("3"))
+        Log.e(TAG, "initViews: "+game_id );
+        if (game_id.equalsIgnoreCase("3"))
         {
             txt_type.setVisibility(View.GONE);
             bet_type="Close";
@@ -134,6 +136,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         txt_date.setClickable(false);
        setLayout(game_name);
         m_id= Integer.parseInt(matka_id);
+        matka_name = getArguments().getString("matka_name");
        Log.e("gme",game_name + game_id +matka_name+matka_id);
         if (m_id>20)
         {   ((MainActivity) getActivity()).setTitle("Starline"+"-"+game_name);
@@ -161,7 +164,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         {
             txt_date.setVisibility(View.VISIBLE);
             txt_type.setVisibility(View.VISIBLE);
-            matka_name = getArguments().getString("matka_name");
+//            matka_name = getArguments().getString("matka_name");
 
 
 
@@ -300,6 +303,7 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
                                 long curr = (diff_close / 1000) / 60;
                                 long current_time = c_date.getTime();
 
+                                Log.e(TAG, "onClick: "+matka_id+"::"+g_d+"::"+game_id+"::"+matka_name );
                                 if (as < 0) {
 
                                     common.setBidsDialog(Integer.parseInt(w_amount), tempList, matka_id, g_d, game_id, w_amount, matka_name, loadingBar, btn_submit, s_time, e_time);
@@ -323,7 +327,8 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
         }
         else if (v.getId()==R.id.tv_type)
         {
-            common.setBetTypeDialog(dialog,txtOpen,txtClose,txt_type,txt_date.getText().toString(),s_time,e_time);
+            Log.e(TAG, "onClick: "+bet_type );
+            common.setBetTypeDialog(dialog,txtOpen,txtClose,txt_type,txt_date.getText().toString(),s_time,e_time,game_id);
             setLayout(game_name);
 
 
@@ -341,22 +346,22 @@ public class PanaFragment extends Fragment implements View.OnClickListener {
     {
         switch (gamename)
         {
-            case  "Single Digit" :
+            case  "SINGLE DIGIT" :
                 addAdapter(rv_points,pointsAdapter,Arrays.asList(single_digit));
                 break;
-            case  "Jodi Digit" :
+            case  "JODI DIGIT" :
                 addAdapter(rv_points,pointsAdapter,Arrays.asList(group_jodi_digits));
                 break;
 
-            case  "Single Pana" :
+            case  "SINGLE PANA" :
                 setTabLayout();
                 addRecyclerAdapter(rv_points,recyclerPagerAdapter,Arrays.asList(singlePaana));
                 break;
-            case  "Double Pana" :
+            case  "DOUBLE PANA" :
                 setTabLayout();
                addRecyclerAdapter(rv_points,recyclerPagerAdapter,Arrays.asList(doublePanna));
                 break;
-            case  "Triple Pana" :
+            case  "TRIPLE PANA" :
                 addAdapter(rv_points,pointsAdapter,Arrays.asList(triplePanna));
                 break;
 

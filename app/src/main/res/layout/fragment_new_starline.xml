@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+
+        android:background="@color/homebg"
+        android:elevation="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAlignment="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="10dp"
+
+                android:text="@string/starline_name"
+                android:textAllCaps="true"
+                android:textSize="18dp"
+
+                android:textStyle="bold"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                >
+
+                <Button
+
+                    android:id="@+id/star_histry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="@drawable/gradients_background"
+                    android:textColor="@color/white"
+                    android:text="Starline Bid History"/>
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/game_rate"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textAlignment="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="10dp"
+                android:text=""
+                android:textSize="12dp"
+                />
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+
+        android:id="@+id/swipe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        >
+       <androidx.recyclerview.widget.RecyclerView
+           android:id="@+id/rv_starline"
+           android:layout_width="match_parent"
+           android:nestedScrollingEnabled="false"
+           android:layout_height="wrap_content"/>
+    </RelativeLayout>
+        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>

@@ -1,6 +1,7 @@
 package in.matka.ns.Activity;
 
 import android.app.Dialog;
+import in.matka.ns.Common.Common;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -34,7 +35,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import in.matka.ns.Common.Common;
 import in.matka.ns.Model.UsersObjects;
 import in.matka.ns.NetworkStateChangeReciever;
 import in.matka.ns.R;
